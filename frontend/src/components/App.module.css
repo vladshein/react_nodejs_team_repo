@@ -1,0 +1,14 @@
+#root {
+  margin: 0 auto;
+  padding: 12px;
+  text-align: center;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.app {
+  padding: 32px;
+}
