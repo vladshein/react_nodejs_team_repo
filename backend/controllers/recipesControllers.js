@@ -1,18 +1,7 @@
 import recipesServices from "../services/recipesServices.js";
 import HttpError from "../helpers/HttpError.js";
 
-// getRecipes; +
-// getPopularRecipes; +
-// getRecipeById; +
-
-// getOwnRecipes; +
-// createRecipe; +
-// deleteRecipe; +
-
-// getFavoriteRecipes; +
-// updateFavoriteRecipe;
-// removeFavoriteRecipe;
-
+// +, no owner = public
 export const getRecipes = async (req, res) => {
     // TODO: add service to get recipes according to provided params
     const recipes = await recipesServices.getRecipes({
@@ -23,32 +12,28 @@ export const getRecipes = async (req, res) => {
     res.json(recipes);
 };
 
-export const getPopularRecipes = async (req, res) => {
-    // TODO: add service to get popular recipes
-    const recipes = await recipesServices.listContacts();
-    res.json(recipes);
-};
-
+// +, no owner = public
 export const getRecipeById = async (req, res) => {
     // TODO: add service to get recipe details by id
-    const recipe = await recipesServices.getContactById({ id: req.params.id, owner });
+    const recipe = await recipesServices.getRecipeById({ id: req.params.id });
     if (!recipe) {
         throw HttpError(404, "Not found");
     }
     res.json(recipe);
 };
 
+// +
 export const getOwnRecipes = async (req, res) => {
     const { id: owner } = req.user;
-    // TODO: add service to get own recipes
-    const recipes = await recipesServices.listContacts({ owner });
+    const recipes = await recipesServices.getRecipes({ owner });
     res.json(recipes);
 };
 
+// +
 export const deleteRecipe = async (req, res) => {
     const { id: owner } = req.user;
     // TODO: add service to delete recipe
-    const recipe = await recipesServices.removeContact({ id: req.params.id, owner });
+    const recipe = await recipesServices.deleteRecipe({ id: req.params.id, owner });
     if (!recipe) {
         throw HttpError(404, "Not found");
     }
@@ -58,9 +43,18 @@ export const deleteRecipe = async (req, res) => {
 export const createRecipe = async (req, res) => {
     const { id: owner } = req.user;
     // update body parameters and add service to create recipe
-    const { name, email, phone, favorite } = req.body;
+    const { title, description, instructions, thumb, time, category, area } = req.body;
 
-    const recipe = await recipesServices.addContact(owner, name, email, phone, favorite);
+    const recipe = await recipesServices.addRecipe(
+        owner,
+        title,
+        description,
+        instructions,
+        thumb,
+        time,
+        category,
+        area
+    );
     res.status(201).json(recipe);
 };
 
@@ -84,4 +78,22 @@ export const updateFavoriteRecipe = async (req, res) => {
         throw HttpError(404, `Not found`);
     }
     res.status(200).json(recipe);
+};
+
+export const removeFavoriteRecipe = async (req, res) => {
+    // TODO: discuss the way set and delete favorite will work
+    // and should we use one patch function for this purpose
+    const { id: owner } = req.user;
+    const { id } = req.params;
+    const recipe = await recipesServices.updateContactFavorite({ id, owner }, req.body);
+    if (!recipe) {
+        throw HttpError(404, `Not found`);
+    }
+    res.status(200).json(recipe);
+};
+
+export const getPopularRecipes = async (req, res) => {
+    // TODO: add service to get popular recipes
+    const recipes = await recipesServices.listContacts();
+    res.json(recipes);
 };

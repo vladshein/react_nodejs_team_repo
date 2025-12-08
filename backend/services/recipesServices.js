@@ -16,8 +16,13 @@ async function getRecipes(where) {
     return await Recipe.findAll({ where });
 }
 
-async function getOwnRecipes(where) {
+//TODO: add correct processing
+async function getPopularRecipes(where) {
     return await Recipe.findAll({ where });
+}
+
+async function getOwnRecipes(where) {
+    return await Recipe.findAll({ where: owner });
 }
 async function getRecipeById(where) {
     return await Recipe.findOne({ where });
@@ -31,8 +36,17 @@ async function deleteRecipe(where) {
     return recipe;
 }
 
-async function addRecipe(owner,  favorite = false) {
-    const newRecipe = Recipe.create({ owner, name, email, phone, favorite });
+async function addRecipe(owner, favorite = false) {
+    const newRecipe = Recipe.create({
+        owner,
+        title,
+        description,
+        instructions,
+        thumb,
+        time,
+        category,
+        area,
+    });
     return newRecipe;
 }
 
@@ -57,7 +71,7 @@ export default {
     getRecipeById,
     addRecipe,
     deleteRecipe,
-
+    getOwnRecipes,
     updateFavoriteRecipe,
     removeFavoriteRecipe,
     updateContact,

@@ -17,7 +17,7 @@ async function removeContact(where) {
 }
 
 async function addContact(owner, name, email, phone, favorite = false) {
-    const newContact = Contact.create({ owner, name, email, phone, favorite });
+    const newContact = Contact.create({ owner, name, email, phone, favo rite });
     return newContact;
 }
 
