@@ -1,9 +1,9 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../sequelize.js";
 
-// join table for ingredients
 const RecipeIngredient = sequelize.define("recipeIngredient", {
     recipeId: {
+        type: DataTypes.INTEGER,
         primaryKey: true,
         references: {
             model: "recipes",
@@ -13,6 +13,7 @@ const RecipeIngredient = sequelize.define("recipeIngredient", {
         onDelete: "CASCADE",
     },
     ingredientId: {
+        type: DataTypes.INTEGER,
         primaryKey: true,
         references: {
             model: "ingredients",
@@ -21,7 +22,10 @@ const RecipeIngredient = sequelize.define("recipeIngredient", {
         onUpdate: "CASCADE",
         onDelete: "CASCADE",
     },
-    measure: { type: DataTypes.STRING },
+    measure: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
 });
 
 export default RecipeIngredient;

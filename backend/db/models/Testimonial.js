@@ -2,12 +2,16 @@ import { DataTypes } from "sequelize";
 import sequelize from "../sequelize.js";
 
 const Testimonial = sequelize.define("testimonial", {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    },
     testimonial: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
     },
-
-    owner: {
+    ownerId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -18,7 +22,5 @@ const Testimonial = sequelize.define("testimonial", {
         onDelete: "CASCADE",
     },
 });
-
-Testimonial.sync({ alter: true });
 
 export default Testimonial;

@@ -2,12 +2,17 @@ import { DataTypes } from "sequelize";
 import sequelize from "../sequelize.js";
 
 const Ingredient = sequelize.define("ingredient", {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    },
     name: {
         type: DataTypes.STRING,
         allowNull: false,
     },
     desc: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
     },
     img: {
@@ -16,7 +21,5 @@ const Ingredient = sequelize.define("ingredient", {
         defaultValue: null,
     },
 });
-
-Ingredient.sync({ force: true });
 
 export default Ingredient;

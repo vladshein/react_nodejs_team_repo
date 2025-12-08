@@ -2,12 +2,14 @@ import { DataTypes } from "sequelize";
 import sequelize from "../sequelize.js";
 
 const Area = sequelize.define("area", {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    },
     name: {
         type: DataTypes.STRING,
         allowNull: false,
+        unique: true,
     },
 });
-
-Area.sync({ alter: true });
-
-export default Area;

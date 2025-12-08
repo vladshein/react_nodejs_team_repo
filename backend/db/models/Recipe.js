@@ -2,59 +2,52 @@ import { DataTypes } from "sequelize";
 import sequelize from "../sequelize.js";
 
 const Recipe = sequelize.define("recipe", {
+    id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    },
     title: {
         type: DataTypes.STRING,
         allowNull: false,
     },
-
     description: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
     },
-
     instructions: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
     },
-
     thumb: {
         type: DataTypes.STRING,
         allowNull: true,
     },
-
-    favorite: {
-        type: DataTypes.BOOLEAN,
-        defaultValue: false,
-    },
-
     time: {
-        type: DataTypes.STRING,
+        type: DataTypes.INTEGER,
         allowNull: true,
     },
-
-    category: {
-        type: DataTypes.STRING,
+    categoryId: {
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: "categories", // table name
+            model: "categories",
             key: "id",
         },
         onUpdate: "CASCADE",
-        onDelete: "SET NULL",
+        onDelete: "RESTRICT",
     },
-
-    area: {
-        type: DataTypes.STRING,
+    areaId: {
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
-            model: "areas", // table name
+            model: "areas",
             key: "id",
         },
         onUpdate: "CASCADE",
-        onDelete: "SET NULL",
+        onDelete: "RESTRICT",
     },
-
-    owner: {
+    ownerId: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
@@ -65,7 +58,5 @@ const Recipe = sequelize.define("recipe", {
         onDelete: "CASCADE",
     },
 });
-
-Recipe.sync({ alter: true });
 
 export default Recipe;
