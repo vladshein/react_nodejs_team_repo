@@ -13,3 +13,5 @@ const Area = sequelize.define("area", {
         unique: true,
     },
 });
+
+export default Area;
