@@ -7,22 +7,9 @@ const Recipe = sequelize.define("recipe", {
         allowNull: false,
     },
 
-    category: {
+    description: {
         type: DataTypes.STRING,
         allowNull: false,
-        references: {
-            model: "Categories", // table name
-            key: "id",
-        },
-    },
-
-    area: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        references: {
-            model: "Areas", // table name
-            key: "id",
-        },
     },
 
     instructions: {
@@ -39,6 +26,34 @@ const Recipe = sequelize.define("recipe", {
         type: DataTypes.BOOLEAN,
         defaultValue: false,
     },
+
+    time: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+
+    category: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        references: {
+            model: "categories", // table name
+            key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
+    },
+
+    area: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        references: {
+            model: "areas", // table name
+            key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "SET NULL",
+    },
+
     owner: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -51,6 +66,6 @@ const Recipe = sequelize.define("recipe", {
     },
 });
 
-// Recipe.sync({ alter: true });
+Recipe.sync({ alter: true });
 
 export default Recipe;

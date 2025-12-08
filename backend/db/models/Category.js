@@ -8,6 +8,6 @@ const Category = sequelize.define("category", {
     },
 });
 
-// Category.sync({ alter: true });
+Category.sync({ alter: true });
 
 export default Category;

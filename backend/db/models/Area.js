@@ -8,6 +8,6 @@ const Area = sequelize.define("area", {
     },
 });
 
-// Area.sync({ alter: true });
+Area.sync({ alter: true });
 
 export default Area;

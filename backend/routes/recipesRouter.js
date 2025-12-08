@@ -1,13 +1,15 @@
 import express from "express";
-// TODO: update contacts to recipes
-// import {
-//     getAllContacts,
-//     getOneContact,
-//     deleteContact,
-//     createContact,
-//     updateContact,
-//     updateStatusContact,
-// } from "../controllers/contactsControllers.js";
+import {
+    getRecipes,
+    getPopularRecipes,
+    getRecipeById,
+    getOwnRecipes,
+    createRecipe,
+    deleteRecipe,
+    getFavoriteRecipes,
+    updateFavoriteRecipe,
+    removeFavoriteRecipe,
+} from "../controllers/recipesControllers.js";
 import validateBody from "../helpers/validateBody.js";
 
 import { createRecipeSchema } from "../schemas/recipesSchemas.js";

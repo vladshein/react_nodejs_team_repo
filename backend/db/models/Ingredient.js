@@ -13,9 +13,10 @@ const Ingredient = sequelize.define("ingredient", {
     img: {
         type: DataTypes.STRING,
         allowNull: true,
+        defaultValue: null,
     },
 });
 
-// Contact.sync({ force: true });
+Ingredient.sync({ force: true });
 
 export default Ingredient;
