@@ -4,8 +4,7 @@ import { emailRegExp } from "../../constants/authConstants.js";
 
 const User = sequelize.define("user", {
     id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.TEXT,
         primaryKey: true,
     },
     name: {
@@ -25,7 +24,8 @@ const User = sequelize.define("user", {
     },
     password: {
         type: DataTypes.STRING,
-        allowNull: false,
+        defaultValue: null,
+        allowNull: true,
     },
     avatar: {
         type: DataTypes.STRING,

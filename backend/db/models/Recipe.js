@@ -3,21 +3,20 @@ import sequelize from "../sequelize.js";
 
 const Recipe = sequelize.define("recipe", {
     id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.TEXT,
         primaryKey: true,
     },
     title: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
     },
     description: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
     },
     instructions: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
     },
     thumb: {
         type: DataTypes.STRING,
@@ -28,8 +27,8 @@ const Recipe = sequelize.define("recipe", {
         allowNull: true,
     },
     categoryId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+        type: DataTypes.TEXT,
+        allowNull: true,
         references: {
             model: "categories",
             key: "id",
@@ -38,8 +37,8 @@ const Recipe = sequelize.define("recipe", {
         onDelete: "RESTRICT",
     },
     areaId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+        type: DataTypes.TEXT,
+        allowNull: true,
         references: {
             model: "areas",
             key: "id",
@@ -48,8 +47,8 @@ const Recipe = sequelize.define("recipe", {
         onDelete: "RESTRICT",
     },
     ownerId: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
+        type: DataTypes.TEXT,
+        allowNull: true,
         references: {
             model: "users",
             key: "id",

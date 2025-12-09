@@ -9,10 +9,13 @@ import commonRouter from "./routes/commonRouter.js";
 import recipesRouter from "./routes/recipesRouter.js";
 import notFoundHandler from "./middlewares/notFoundHandler.js";
 import errorHandler from "./middlewares/errorHandler.js";
-
 import connectDatabase from "./db/connectDatabase.js";
 
+import { syncDatabase } from "./db/models/index.js";
+
 const app = express();
+
+syncDatabase();
 
 app.use(morgan("tiny"));
 app.use(cors());
