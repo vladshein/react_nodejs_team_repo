@@ -36,16 +36,16 @@ async function deleteRecipe(where) {
     return recipe;
 }
 
-async function addRecipe(owner, favorite = false) {
-    const newRecipe = Recipe.create({
-        owner,
-        title,
-        description,
-        instructions,
-        thumb,
-        time,
-        category,
-        area,
+async function addRecipe(payload) {
+    const newRecipe = await Recipe.create({
+        title: payload.title,
+        description: payload.description,
+        instructions: payload.instructions,
+        thumb: payload.thumb,
+        time: payload.time,
+        ownerId: payload.ownerId,
+        categoryId: payload.categoryId,
+        areaId: payload.areaId,
     });
     return newRecipe;
 }
@@ -66,6 +66,15 @@ async function removeFavoriteRecipe(where) {
     return recipe;
 }
 
+async function getFavoriteRecipes(where) {
+    //TODO
+    // get own recipes, where favorite is true
+    const recipe = await getOwnRecipes(where);
+    if (!recipe) return null;
+
+    return recipe;
+}
+
 export default {
     getRecipes,
     getRecipeById,
@@ -74,6 +83,5 @@ export default {
     getOwnRecipes,
     updateFavoriteRecipe,
     removeFavoriteRecipe,
-    updateContact,
-    updateContactFavorite,
+    getPopularRecipes,
 };
