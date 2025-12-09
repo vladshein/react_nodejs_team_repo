@@ -1,18 +1,20 @@
-// TODO: add RECIPE model
-// import Contact from "../db/models/Contact.js";
+import Category from "../db/models/Category.js";
+import Area from "../db/models/Area.js";
+import Testimonial from "../db/models/Testimonial.js";
+import Ingredient from "../db/models/Ingredient.js";
 
-async function getCategories(where) {
-    return await Contact.findAll({ where });
+export async function getCategories() {
+    return await Category.findAll();
 }
 
-async function getAreas(where) {
-    return await Contact.findAll({ where });
+export async function getAreas() {
+    return await Area.findAll();
 }
 
-async function getIngredients(where) {
-    return await Contact.findAll({ where });
+export async function getIngredients() {
+    return await Ingredient.findAll();
 }
 
-async function getTestimonials(where) {
-    return await Contact.findAll({ where });
+export async function getTestimonials(where) {
+    return await Testimonial.findAll();
 }

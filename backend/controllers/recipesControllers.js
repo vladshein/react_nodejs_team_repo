@@ -2,87 +2,90 @@ import recipesServices from "../services/recipesServices.js";
 import HttpError from "../helpers/HttpError.js";
 
 // +, no owner = public
-export const getRecipes = async (req, res) => {
+export const getRecipesController = async (req, res) => {
     // TODO: add service to get recipes according to provided params
     const recipes = await recipesServices.getRecipes({
-        area: req.params.area,
-        category: req.params.category,
-        ingredients: req.params.ingredients,
+        area: req.query.area,
+        category: req.query.category,
+        ingredients: req.query.ingredients,
     });
     res.json(recipes);
 };
 
 // +, no owner = public
-export const getRecipeById = async (req, res) => {
+export const getRecipeByIdController = async (req, res) => {
     // TODO: add service to get recipe details by id
-    const recipe = await recipesServices.getRecipeById({ id: req.params.id });
+    const recipe = await recipesServices.getRecipeById(req.params.id);
     if (!recipe) {
         throw HttpError(404, "Not found");
     }
     res.json(recipe);
 };
 
-// +
-export const getOwnRecipes = async (req, res) => {
-    const { id: owner } = req.user;
-    const recipes = await recipesServices.getRecipes({ owner });
+// +, no owner public
+export const getPopularRecipesController = async (req, res) => {
+    // TODO: add service to get popular recipes
+    const recipes = await recipesServices.getPopularRecipes();
     res.json(recipes);
 };
 
 // +
-export const deleteRecipe = async (req, res) => {
-    const { id: owner } = req.user;
+export const getOwnRecipesController = async (req, res) => {
+    const { id: ownerId } = req.user;
+    const recipes = await recipesServices.getRecipes({ ownerId });
+    res.json(recipes);
+};
+
+// +
+export const deleteRecipeController = async (req, res) => {
+    const { id: ownerId } = req.user;
     // TODO: add service to delete recipe
-    const recipe = await recipesServices.deleteRecipe({ id: req.params.id, owner });
+    const recipe = await recipesServices.deleteRecipe(req.params.id, ownerId);
     if (!recipe) {
-        throw HttpError(404, "Not found");
+        throw HttpError(404, "Recipe not found");
     }
     res.json(recipe);
 };
 
-export const createRecipe = async (req, res) => {
-    const { id: owner } = req.user;
+// +
+export const createRecipeController = async (req, res) => {
+    const { id: ownerId } = req.user;
 
-    const recipe = await recipesServices.addRecipe({ ...req.body, owner });
+    const recipe = await recipesServices.addRecipe({ ...req.body, ownerId });
     res.status(201).json(recipe);
 };
 
-export const getFavoriteRecipes = async (req, res) => {
-    const { id: owner } = req.user;
+// +
+export const getFavoriteRecipesController = async (req, res) => {
+    const { id: ownerId } = req.user;
     // TODO: add service to get users favorite recipes
-    const recipes = await recipesServices.getPopularRecipes({ owner });
+    const recipes = await recipesServices.getFavoriteRecipes(ownerId);
     if (!recipes) {
         throw HttpError(404, `Not found`);
     }
     res.status(200).json(recipes);
 };
 
-export const updateFavoriteRecipe = async (req, res) => {
+export const updateFavoriteRecipeController = async (req, res) => {
     // TODO: discuss the way set and delete favorite will work
     // and should we use one patch function for this purpose
-    const { id: owner } = req.user;
+    const { id: ownerId } = req.user;
     const { id } = req.params;
-    const recipe = await recipesServices.updateFavoriteRecipe({ id, owner }, req.body);
-    if (!recipe) {
+    const fav = await recipesServices.addFavoriteRecipe(ownerId, id);
+    if (!fav) {
         throw HttpError(404, `Not found`);
     }
-    res.status(200).json(recipe);
+    res.status(200).json(fav);
 };
 
-export const removeFavoriteRecipe = async (req, res) => {
+export const removeFavoriteRecipeController = async (req, res) => {
     // TODO: discuss the way set and delete favorite will work
     // and should we use one patch function for this purpose
-    const { id: owner } = req.user;
+    const { id: ownerId } = req.user;
     const { id } = req.params;
-    const recipe = await recipesServices.removeFavoriteRecipe({ id, owner }, req.body);
-    if (!recipe) {
+    const fav = await recipesServices.removeFavoriteRecipe(ownerId, id);
+    if (!fav) {
         throw HttpError(404, `Not found`);
     }
-    res.status(200).json(recipe);
-};
-
-export const getPopularRecipes = async (req, res) => {
-    // TODO: add service to get popular recipes
-    const recipes = await recipesServices.getPopularRecipes();
-    res.json(recipes);
+    res.status(200).json(fav);
 };

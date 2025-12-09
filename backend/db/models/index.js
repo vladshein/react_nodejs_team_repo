@@ -5,28 +5,28 @@ import Ingredient from "./Ingredient.js";
 import Category from "./Category.js";
 import Area from "./Area.js";
 import RecipeIngredient from "./RecipeIngredient.js";
-import FavoriteRecipes from "./FavoriteRecipes.js";
+import FavoriteRecipe from "./FavoriteRecipe.js";
 import UserFollowers from "./UserFollowers.js";
 import Testimonial from "./Testimonial.js";
 
 User.hasMany(Recipe, { foreignKey: "ownerId", as: "recipes" });
 User.hasMany(Testimonial, { foreignKey: "ownerId", as: "testimonials" });
-User.belongsToMany(Recipe, { 
-    through: FavoriteRecipes, 
+User.belongsToMany(Recipe, {
+    through: FavoriteRecipe,
     foreignKey: "userId",
-    as: "favoriteRecipes" 
+    as: "favoriteRecipes",
 });
 User.belongsToMany(User, {
     through: UserFollowers,
     as: "followers",
     foreignKey: "followingId",
-    otherKey: "followerId"
+    otherKey: "followerId",
 });
 User.belongsToMany(User, {
     through: UserFollowers,
     as: "following",
     foreignKey: "followerId",
-    otherKey: "followingId"
+    otherKey: "followingId",
 });
 
 Recipe.belongsTo(User, { foreignKey: "ownerId", as: "owner" });
@@ -35,18 +35,18 @@ Recipe.belongsTo(Area, { foreignKey: "areaId", as: "area" });
 Recipe.belongsToMany(Ingredient, {
     through: RecipeIngredient,
     foreignKey: "recipeId",
-    as: "ingredients"
+    as: "ingredients",
 });
 Recipe.belongsToMany(User, {
-    through: FavoriteRecipes,
+    through: FavoriteRecipe,
     foreignKey: "recipeId",
-    as: "favoritedBy"
+    as: "favoritedBy",
 });
 
 Ingredient.belongsToMany(Recipe, {
     through: RecipeIngredient,
     foreignKey: "ingredientId",
-    as: "recipes"
+    as: "recipes",
 });
 
 Category.hasMany(Recipe, { foreignKey: "categoryId", as: "recipes" });
@@ -73,8 +73,8 @@ export {
     Category,
     Area,
     RecipeIngredient,
-    FavoriteRecipes,
+    FavoriteRecipe,
     UserFollowers,
     Testimonial,
-    syncDatabase
+    syncDatabase,
 };

@@ -7,24 +7,21 @@ import {
 
 export const categoriesController = async (req, res) => {
     // const { id: owner } = req.user;
-    const contacts = await commonServices.getCategories({ owner });
+    const contacts = await getCategories();
     res.json(contacts);
 };
 
 export const areasController = async (req, res) => {
-    // const { id: owner } = req.user;
-    const contacts = await commonServices.getAreas({ owner });
+    const contacts = await getAreas();
     res.json(contacts);
 };
 
 export const ingredientsController = async (req, res) => {
-    const { id: owner } = req.user;
-    const contacts = await commonServices.getIngredients({ owner });
+    const contacts = await getIngredients();
     res.json(contacts);
 };
 
 export const testimonialsController = async (req, res) => {
-    const { id: owner } = req.user;
-    const contacts = await commonServices.getTestimonials({ owner });
+    const contacts = await getTestimonials();
     res.json(contacts);
 };
