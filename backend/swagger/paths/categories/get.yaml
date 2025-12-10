@@ -1,0 +1,15 @@
+tags:
+  - Categories
+summary: Categories
+operationId: getCategories
+description: ""
+security: []
+responses:
+  "200":
+    description: Successfully get list categories of recepts
+    content:
+      application/json:
+        schema:
+          type: object
+  "401":
+    $ref: ./../../components/responses/401-common.yaml

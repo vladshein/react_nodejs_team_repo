@@ -1,0 +1,42 @@
+tags:
+  - Auth
+summary: Register new user
+operationId: authRegister
+security: []
+description: "Register new user"
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            type: string
+            example: example@example.com
+          password:
+            type: string
+            example: examplepass
+responses:
+  "201":
+    description: Created
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            user:
+              type: object
+              properties:
+                email:
+                  type: string
+                  example: example@example.com
+  "400":
+    $ref: "./../../../components/responses/400.yaml"
+  "401":
+    $ref: "./../../../components/responses/401.yaml"
+  "409":
+    $ref: "./../../../components/responses/409.yaml"

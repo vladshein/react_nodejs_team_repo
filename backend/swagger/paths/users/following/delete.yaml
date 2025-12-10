@@ -1,0 +1,16 @@
+tags:
+  - Users
+summary: Delete following
+operationId: deleteUsersFollowing
+description: ""
+security:
+  - bearerAuth: []
+responses:
+  "200":
+    description: Successfully delete
+    content:
+      application/json:
+        schema:
+          type: object
+  "401":
+    $ref: ./../../../components/responses/401-common.yaml

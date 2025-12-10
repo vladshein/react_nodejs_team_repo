@@ -10,7 +10,7 @@ import recipesRouter from './routes/recipesRouter.js';
 import notFoundHandler from './middlewares/notFoundHandler.js';
 import errorHandler from './middlewares/errorHandler.js';
 import connectDatabase from './db/connectDatabase.js';
-
+import { swaggerDocs } from './middlewares/swaggerDocs.js'; // swagger
 // import { syncDatabase } from './db/models/index.js';
 
 const app = express();
@@ -26,6 +26,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api', commonRouter);
 app.use('/api/recipes', recipesRouter);
+app.use('/api-docs', swaggerDocs()); // swagger
 
 app.use(notFoundHandler);
 

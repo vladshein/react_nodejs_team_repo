@@ -1,0 +1,15 @@
+tags:
+  - Testimonials
+summary: Testimonials
+operationId: getTestimonials
+description: ""
+security: []
+responses:
+  "200":
+    description: Successfully get list of testimonials
+    content:
+      application/json:
+        schema:
+          type: object
+  "401":
+    $ref: ./../../components/responses/401-common.yaml
