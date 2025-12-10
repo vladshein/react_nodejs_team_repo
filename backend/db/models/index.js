@@ -8,6 +8,7 @@ import RecipeIngredient from "./RecipeIngredient.js";
 import FavoriteRecipe from "./FavoriteRecipe.js";
 import UserFollowers from "./UserFollowers.js";
 import Testimonial from "./Testimonial.js";
+import seedAll from "./seedRecipes.js";
 
 User.hasMany(Recipe, { foreignKey: "ownerId", as: "recipes" });
 User.hasMany(Testimonial, { foreignKey: "ownerId", as: "testimonials" });
@@ -59,7 +60,9 @@ Testimonial.belongsTo(User, { foreignKey: "ownerId", as: "owner" });
 // У продакшені використовуйте міграції
 const syncDatabase = async () => {
     try {
-        await sequelize.sync({ alter: true });
+        await sequelize.sync({ force: true });
+        await seedAll();
+        // await seedRecipes();
         console.log("Database synchronized successfully");
     } catch (error) {
         console.error("Error synchronizing database:", error);

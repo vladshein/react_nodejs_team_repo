@@ -3,8 +3,7 @@ import sequelize from "../sequelize.js";
 
 const Testimonial = sequelize.define("testimonial", {
     id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.TEXT,
         primaryKey: true,
     },
     testimonial: {
@@ -12,7 +11,7 @@ const Testimonial = sequelize.define("testimonial", {
         allowNull: false,
     },
     ownerId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.TEXT,
         allowNull: false,
         references: {
             model: "users",

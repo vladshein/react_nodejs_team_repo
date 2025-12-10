@@ -3,7 +3,7 @@ import sequelize from "../sequelize.js";
 
 const RecipeIngredient = sequelize.define("recipeIngredient", {
     recipeId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.TEXT,
         primaryKey: true,
         references: {
             model: "recipes",
@@ -13,7 +13,7 @@ const RecipeIngredient = sequelize.define("recipeIngredient", {
         onDelete: "CASCADE",
     },
     ingredientId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.TEXT,
         primaryKey: true,
         references: {
             model: "ingredients",
