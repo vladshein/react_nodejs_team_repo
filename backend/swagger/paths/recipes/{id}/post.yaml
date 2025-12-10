@@ -1,0 +1,22 @@
+tags:
+  - Recipes
+summary: Add recipes
+operationId: addRecipes
+description: Add new recipes
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    schema:
+      type: integer
+      example: 7
+responses:
+  "200":
+    description: Successfully add new recipes
+    content:
+      application/json:
+        schema:
+          type: object
+  "401":
+    $ref: ./../../../components/responses/401-common.yaml

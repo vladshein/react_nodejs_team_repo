@@ -1,0 +1,16 @@
+tags:
+  - Recipes
+summary: Get list of user recipes
+operationId: getRecipes
+description: Get list of user recipes
+security:
+  - bearerAuth: []
+responses:
+  "200":
+    description: Successfully add
+    content:
+      application/json:
+        schema:
+          type: object
+  "401":
+    $ref: ./../../components/responses/401-common.yaml

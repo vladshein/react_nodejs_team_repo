@@ -1,0 +1,1004 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "API",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "description": "This is a documentation of REST API\n"
+  },
+  "servers": [
+    {
+      "url": "http://0.0.0.0:3000/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Auth",
+      "description": "Auth operations."
+    },
+    {
+      "name": "Users",
+      "description": "Users operations."
+    },
+    {
+      "name": "Categories",
+      "description": "Categories operations."
+    },
+    {
+      "name": "Areas",
+      "description": "Areas operations"
+    },
+    {
+      "name": "Ingredients",
+      "description": "Ingridients operations"
+    },
+    {
+      "name": "Testimonials",
+      "description": "Testimonials operations"
+    }
+  ],
+  "paths": {
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Register new user",
+        "operationId": "authRegister",
+        "security": [],
+        "description": "Register new user",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "example": "example@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "examplepass"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "email": {
+                          "type": "string",
+                          "example": "example@example.com"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Login",
+        "operationId": "authLogin",
+        "security": [],
+        "description": "Allow users to sign in and receive authentication tokens for accessing restricted content.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "format": "email",
+                    "example": "example@example.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "example": "examplepass"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": {
+                      "type": "string",
+                      "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                    },
+                    "user": {
+                      "type": "object",
+                      "properties": {
+                        "username": {
+                          "type": "string",
+                          "example": "example"
+                        },
+                        "email": {
+                          "type": "string",
+                          "format": "email",
+                          "example": "example@example.com"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Logout",
+        "operationId": "authLogout",
+        "description": "Logout",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      }
+    },
+    "/users/current": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get current authenticated user profile",
+        "operationId": "usersCurrent",
+        "description": "Returns information about the currently authenticated user.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved user info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "avatar": {
+                      "type": "string",
+                      "example": "avatars/user123.png"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "example"
+                    },
+                    "email": {
+                      "type": "string",
+                      "format": "email",
+                      "example": "example@example.com"
+                    },
+                    "recipesCount": {
+                      "type": "integer",
+                      "example": 12
+                    },
+                    "favoritesCount": {
+                      "type": "integer",
+                      "example": 34
+                    },
+                    "followersCount": {
+                      "type": "integer",
+                      "example": 102
+                    },
+                    "followingCount": {
+                      "type": "integer",
+                      "example": 58
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      }
+    },
+    "/users/{id}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get users by id",
+        "operationId": "getUserById",
+        "description": "Get user by id",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get user by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "avatar": {
+                      "type": "string",
+                      "example": "avatars/user123.png"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "example"
+                    },
+                    "email": {
+                      "type": "string",
+                      "format": "email",
+                      "example": "example@example.com"
+                    },
+                    "recipesCount": {
+                      "type": "integer",
+                      "example": 12
+                    },
+                    "followersCount": {
+                      "type": "integer",
+                      "example": 102
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      }
+    },
+    "/users/avatars": {
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Update user avatar",
+        "operationId": "userAvatars",
+        "description": "Sets user avatars.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "avatar": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "The user's avatar files."
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Avatar upload and updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "avatarURL": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "avatarURL": "avatar URL"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      }
+    },
+    "/users/followers": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get user followers",
+        "operationId": "usersFollowers",
+        "description": "Returns information about user followers.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved followers info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "followersCount": {
+                      "type": "integer",
+                      "example": 102
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      }
+    },
+    "/users/following": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get user following",
+        "operationId": "usersFollowing",
+        "description": "Returns information about user following.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved following info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "followingCount": {
+                      "type": "integer",
+                      "example": 58
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Add following",
+        "operationId": "addUsersFollowing",
+        "description": "",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully add",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Delete following",
+        "operationId": "deleteUsersFollowing",
+        "description": "",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully delete",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Categories",
+        "operationId": "getCategories",
+        "description": "",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successfully get list categories of recepts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      }
+    },
+    "/areas": {
+      "get": {
+        "tags": [
+          "Areas"
+        ],
+        "summary": "Areas",
+        "operationId": "getAreas",
+        "description": "",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successfully get a list of areas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      }
+    },
+    "/ingredients": {
+      "get": {
+        "tags": [
+          "Ingredients"
+        ],
+        "summary": "Ingredients",
+        "operationId": "getIngredients",
+        "description": "List of ingredients",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successfully get list of ingredients",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      }
+    },
+    "/testimonials": {
+      "get": {
+        "tags": [
+          "Testimonials"
+        ],
+        "summary": "Testimonials",
+        "operationId": "getTestimonials",
+        "description": "",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successfully get list of testimonials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      }
+    },
+    "/recipes/search": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "search",
+        "operationId": "searchRecipes",
+        "description": "Search recipes by category, indigriens, areas",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successfully list of recipes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      }
+    },
+    "/recipes": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get list of user recipes",
+        "operationId": "getRecipes",
+        "description": "Get list of user recipes",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully add",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      }
+    },
+    "/recipes/{id}": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get recipe by ID",
+        "operationId": "getRecipeById",
+        "description": "Get recipe info bi recipe ID",
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer",
+              "example": 7
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully list of recipes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Add recipes",
+        "operationId": "addRecipes",
+        "description": "Add new recipes",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer",
+              "example": 7
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully add new recipes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Delete recipe by ID",
+        "operationId": "deleteRecipeById",
+        "description": "",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer",
+              "example": 7
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      }
+    },
+    "/recipes/top": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "List of top recipes",
+        "operationId": "topResipes",
+        "description": "",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successfully list of top recipes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      }
+    },
+    "/recipes/favorites/{id}": {
+      "patch": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Add recipe from favorite",
+        "operationId": "addFavoriteRecipe",
+        "description": "Add recipe from favorite",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer",
+              "example": 7
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully add",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Delete recipe from favorite",
+        "operationId": "deleteFavoriteRecipe",
+        "description": "ADelete recipe from favorite",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "integer",
+              "example": 7
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully delete",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      }
+    },
+    "/recipes/favorites": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "favorites",
+        "operationId": "favoritesRecipes",
+        "description": "get list of favorites recipes",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successfully list of favorites recipes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer"
+      }
+    },
+    "responses": {
+      "400": {
+        "description": "Validation error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "message"
+              ],
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Error from JOI or another validation library"
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "message"
+              ],
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Email or password is wrong"
+                }
+              }
+            }
+          }
+        }
+      },
+      "409": {
+        "description": "Conflict",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "message"
+              ],
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Email in use"
+                }
+              }
+            }
+          }
+        }
+      },
+      "401-common": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "message"
+              ],
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Not authorized"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

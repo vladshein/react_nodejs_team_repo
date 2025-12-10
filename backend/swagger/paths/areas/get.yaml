@@ -1,0 +1,15 @@
+tags:
+  - Areas
+summary: Areas
+operationId: getAreas
+description: ""
+security: []
+responses:
+  "200":
+    description: Successfully get a list of areas
+    content:
+      application/json:
+        schema:
+          type: object
+  "401":
+    $ref: ./../../components/responses/401-common.yaml

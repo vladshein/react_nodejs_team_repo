@@ -1,0 +1,48 @@
+tags:
+  - Auth
+summary: Login
+operationId: authLogin
+security: []
+description: "Allow users to sign in and receive authentication tokens for accessing restricted content."
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            type: string
+            format: email
+            example: example@example.com
+          password:
+            type: string
+            example: examplepass
+responses:
+  "200":
+    description: OK
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            token:
+              type: string
+              example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+            user:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: example
+                email:
+                  type: string
+                  format: email
+                  example: example@example.com
+  "400":
+    $ref: "./../../../components/responses/400.yaml"
+  "401":
+    $ref: "./../../../components/responses/401.yaml"

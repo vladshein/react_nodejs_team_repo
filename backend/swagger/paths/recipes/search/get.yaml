@@ -1,0 +1,15 @@
+tags:
+  - Recipes
+summary: search
+operationId: searchRecipes
+description: Search recipes by category, indigriens, areas
+security: []
+responses:
+  "200":
+    description: Successfully list of recipes
+    content:
+      application/json:
+        schema:
+          type: object
+  "401":
+    $ref: ./../../../components/responses/401-common.yaml

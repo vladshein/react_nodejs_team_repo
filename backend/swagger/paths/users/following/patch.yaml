@@ -1,0 +1,16 @@
+tags:
+  - Users
+summary: Add following
+operationId: addUsersFollowing
+description: ""
+security:
+  - bearerAuth: []
+responses:
+  "200":
+    description: Successfully add
+    content:
+      application/json:
+        schema:
+          type: object
+  "401":
+    $ref: ./../../../components/responses/401-common.yaml
