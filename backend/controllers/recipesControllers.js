@@ -4,13 +4,18 @@ import { getPagination, formatResponse } from './../helpers/pagination.js';
 
 // +, no owner = public
 export const getRecipesController = async (req, res) => {
-  // TODO: add service to get recipes according to provided params
-  const recipes = await recipesServices.getRecipes({
-    area: req.query.area,
-    category: req.query.category,
-    ingredients: req.query.ingredients,
-  });
-  res.json(recipes);
+    const page = parseInt(req.query.page) || 1;
+    const limit = parseInt(req.query.limit) || 12;
+
+    const { recipes, pagination } = await recipesServices.getRecipes({
+        category: req.query.category,
+        area: req.query.area,
+        ingredients: req.query.ingredients,
+        page,
+        limit,
+    });
+    
+    res.json({ recipes, pagination });
 };
 
 // +, no owner = public

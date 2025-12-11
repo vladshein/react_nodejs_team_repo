@@ -8,31 +8,77 @@ import HttpError from '../helpers/HttpError.js';
 // }
 async function getRecipes(filters = {}) {
   const where = {};
-  const include = [];
-  include.push({
-    model: Category,
-    as: 'category',
-    attributes: ['id', 'name'],
-    ...(filters.category && { where: { name: filters.category } }),
+
+  // filter by ownerId
+  if (filters.ownerId) {
+    where.ownerId = filters.ownerId;
+  }
+
+  const include = [
+    { model: Category, as: 'category', attributes: ['id', 'name'] },
+    { model: Area, as: 'area', attributes: ['id', 'name'] },
+    { model: User, as: 'owner', attributes: ['id', 'name', 'avatar'] },
+  ];
+
+  // filter by category (selected from CATEGORIES page)
+  if (filters.category) {
+    include[0].where = { name: filters.category };
+    include[0].required = true;
+  }
+
+  // filter by area
+  if (filters.area) {
+    include[1].where = { name: filters.area };
+    include[1].required = true;
+  }
+
+  // filter by ingredients (join table)
+  if (filters.ingredients) {
+    include.push({
+      model: Ingredient,
+      as: 'ingredients',
+      through: { attributes: ['measure'] },
+      where: { id: filters.ingredients }, // can be array of IDs
+    });
+  } else {
+    include.push({
+      model: Ingredient,
+      as: 'ingredients',
+      through: { attributes: ['measure'] },
+    });
+  }
+
+  // Pagination
+  const page = filters.page || 1;
+  const limit = filters.limit || 12;
+  const offset = (page - 1) * limit;
+
+  // Get total count with distinct
+  const count = await Recipe.count({
+    where,
+    include: include.filter(inc => inc.required), // Only include required (filtered) associations for count
+    distinct: true,
+    col: 'id',
   });
-  include.push({
-    model: Area,
-    as: 'area',
-    attributes: ['id', 'name'],
-    ...(filters.area && { where: { name: filters.area } }),
+
+  // Get recipes with pagination
+  const rows = await Recipe.findAll({
+    where,
+    include,
+    limit,
+    offset,
+    distinct: true,
   });
-  include.push({
-    model: User,
-    as: 'owner',
-    attributes: ['id', 'name', 'avatar'],
-  });
-  include.push({
-    model: Ingredient,
-    as: 'ingredients',
-    through: { attributes: ['measure'] },
-    ...(filters.ingredients && { where: { id: filters.ingredients } }),
-  });
-  return await Recipe.findAll({ where, include });
+
+  return {
+    recipes: rows,
+    pagination: {
+      total: count,
+      page,
+      limit,
+      totalPages: Math.ceil(count / limit),
+    },
+  };
 }
 //TODO: add correct processing
 // async function getPopularRecipes(where) {
