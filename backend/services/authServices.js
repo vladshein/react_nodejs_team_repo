@@ -19,10 +19,10 @@ export const findUser = async (where) => {
 };
 
 export const registerUser = async (payload) => {
-  const avatarURL = gravatar.url(payload.email);
+  const avatar = gravatar.url(payload.email);
   const id = new ObjectId().toString();
   const hashPassword = await bcrypt.hash(payload.password, 10);
-  return User.create({ ...payload, password: hashPassword, avatarURL, id });
+  return User.create({ ...payload, password: hashPassword, avatar, id });
 };
 
 export const loginUser = async ({ password, email }) => {
@@ -84,4 +84,23 @@ export const updateAvatar = async (user, file) => {
   await user.update({ avatarURL: avatar });
 
   return { avatarURL: avatar };
+};
+
+export const getUserFollowers = async (userId) => {
+  const user = await User.findByPk(userId, {
+    include: [
+      {
+        model: User,
+        as: 'followers',
+        attributes: ['id', 'name', 'email', 'avatar'],
+        through: { attributes: [] },
+      },
+    ],
+  });
+
+  if (!user) {
+    return [];
+  }
+
+  return user.followers;
 };

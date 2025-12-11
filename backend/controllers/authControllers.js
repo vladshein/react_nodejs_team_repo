@@ -4,7 +4,8 @@ import {
   refreshUser,
   logoutUser,
   updateAvatar,
-} from "../services/authServices.js";
+  getUserFollowers,
+} from '../services/authServices.js';
 export const registerController = async (req, res) => {
   const newUser = await registerUser(req.body);
 
@@ -33,4 +34,15 @@ export const updateAvatarController = async (req, res) => {
   console.log(req.file);
   const result = await updateAvatar(req.user, req.file);
   res.status(200).json(result);
+};
+
+export const getFollowersController = async (req, res) => {
+  const { id } = req.user;
+
+  const followers = await getUserFollowers(id);
+
+  res.status(200).json({
+    amount: followers.length,
+    followers,
+  });
 };
