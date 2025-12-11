@@ -1,37 +1,37 @@
-import express from "express";
+import express from 'express';
 import {
-    getRecipesController,
-    getPopularRecipesController,
-    getRecipeByIdController,
-    getOwnRecipesController,
-    createRecipeController,
-    deleteRecipeController,
-    getFavoriteRecipesController,
-    updateFavoriteRecipeController,
-    removeFavoriteRecipeController,
-} from "../controllers/recipesControllers.js";
-import validateBody from "../helpers/validateBody.js";
+  getRecipesController,
+  getPopularRecipesController,
+  getRecipeByIdController,
+  getOwnRecipesController,
+  createRecipeController,
+  deleteRecipeController,
+  getFavoriteRecipesController,
+  updateFavoriteRecipeController,
+  removeFavoriteRecipeController,
+} from '../controllers/recipesControllers.js';
+import validateBody from '../helpers/validateBody.js';
 
-import { createRecipeSchema } from "../schemas/recipesSchemas.js";
+import { createRecipeSchema } from '../schemas/recipesSchemas.js';
 
-import authenticate from "../middlewares/authenticate.js";
+import authenticate from '../middlewares/authenticate.js';
 
 const recipesRouter = express.Router();
 
 // public recipe routes
-recipesRouter.get("/", getRecipesController);
-recipesRouter.get("/:id", getRecipeByIdController);
-recipesRouter.get("/popular", getPopularRecipesController);
+recipesRouter.get('/', getRecipesController);
+recipesRouter.get('/favorites', getFavoriteRecipesController); // список улюблених
+recipesRouter.get('/popular', getPopularRecipesController);
+recipesRouter.get('/:id', getRecipeByIdController);
 
 recipesRouter.use(authenticate);
 
-recipesRouter.get("/my", getOwnRecipesController);
-recipesRouter.post("/", validateBody(createRecipeSchema), createRecipeController);
-recipesRouter.delete("/:id", deleteRecipeController);
+recipesRouter.get('/my', getOwnRecipesController);
+recipesRouter.post('/', validateBody(createRecipeSchema), createRecipeController);
+recipesRouter.delete('/:id', deleteRecipeController);
 
 // Favorites
-recipesRouter.get("/favorites", getFavoriteRecipesController); // список улюблених
-recipesRouter.post("/favorites/:id", updateFavoriteRecipeController); // додати улюблений
-recipesRouter.delete("/favorites/:id", removeFavoriteRecipeController); // видалити з улюблених
+recipesRouter.post('/favorites/:id', updateFavoriteRecipeController); // додати улюблений
+recipesRouter.delete('/favorites/:id', removeFavoriteRecipeController); // видалити з улюблених
 
 export default recipesRouter;
