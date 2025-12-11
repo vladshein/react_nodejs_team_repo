@@ -1,6 +1,7 @@
-import { Recipe, Category, Area, Ingredient, User, FavoriteRecipe } from "../db/models/index.js";
-import { Sequelize } from "sequelize";
-import HttpError from "../helpers/HttpError.js";
+import { Recipe, Category, Area, Ingredient, User, FavoriteRecipe } from '../db/models/index.js';
+import { Sequelize } from 'sequelize';
+import { ObjectId } from 'bson';
+import HttpError from '../helpers/HttpError.js';
 
 // async function getRecipes(where) {
 //     return await Recipe.findAll({ where });
@@ -38,27 +39,23 @@ async function getRecipes(filters = {}) {
 //     return await Recipe.findAll({ where });
 // }
 // Get popular recipes (sorted by favorites count)
-export async function getPopularRecipes(limit = 4) {
-  const recipes = await Recipe.findAll({
-    order: [['favoritesCount', 'DESC']],
-    limit,
+async function getPopularRecipes() {
+  return await Recipe.findAll({
+    attributes: {
+      include: [[Sequelize.fn('COUNT', Sequelize.col('favoritedBy.id')), 'favoritesCount']],
+    },
     include: [
       {
         model: User,
-        as: 'owner',
-        attributes: ['id', 'name', 'avatar'],
-      },
-      { model: Category, as: 'category' },
-      { model: Area, as: 'area' },
-      {
-        model: Ingredient,
-        as: 'ingredients',
-        through: { attributes: ['measure'] },
+        as: 'favoritedBy',
+        attributes: [],
+        through: { attributes: [] },
       },
     ],
+    group: ['Recipe.id'],
+    order: [[Sequelize.literal('favoritesCount'), 'DESC']],
+    limit: 10,
   });
-
-  return recipes;
 }
 
 // Get recipes owned by a user
