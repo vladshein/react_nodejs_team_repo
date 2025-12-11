@@ -21,8 +21,8 @@ const recipesRouter = express.Router();
 // public recipe routes
 recipesRouter.get('/', getRecipesController);
 recipesRouter.get('/favorites', authenticate, getFavoriteRecipesController);
-recipesRouter.get('/:id', getRecipeByIdController);
 recipesRouter.get('/popular', getPopularRecipesController);
+recipesRouter.get('/:id', getRecipeByIdController);
 
 recipesRouter.use(authenticate);
 
@@ -31,8 +31,7 @@ recipesRouter.post('/', validateBody(createRecipeSchema), createRecipeController
 recipesRouter.delete('/:id', deleteRecipeController);
 
 // Favorites
-// recipesRouter.get("/favorites", getFavoriteRecipesController);
-recipesRouter.patch('/favorites/:id', updateFavoriteRecipeController);
-recipesRouter.delete('/favorites/:id', removeFavoriteRecipeController);
+recipesRouter.post('/favorites/:id', updateFavoriteRecipeController); // додати улюблений
+recipesRouter.delete('/favorites/:id', removeFavoriteRecipeController); // видалити з улюблених
 
 export default recipesRouter;

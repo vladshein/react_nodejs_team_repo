@@ -1,54 +1,37 @@
 import { Recipe, Category, Area, Ingredient, User, FavoriteRecipe } from '../db/models/index.js';
 import { Sequelize } from 'sequelize';
+import { ObjectId } from 'bson';
 import HttpError from '../helpers/HttpError.js';
 
 // async function getRecipes(where) {
 //     return await Recipe.findAll({ where });
 // }
-
 async function getRecipes(filters = {}) {
   const where = {};
-
-  // filter by category (ID or name depending on your schema)
-  if (filters.category) {
-    include.push({
-      model: Category,
-      attributes: ['id', 'name'],
-      where: { name: filters.category },
-    });
-  }
-
-  // filter by area
-  if (filters.area) {
-    include.push({
-      model: Area,
-      attributes: ['id', 'name'],
-      where: { name: filters.area },
-    });
-  }
-
-  const include = [
-    { model: Category, attributes: ['id', 'name'] },
-    { model: Area, attributes: ['id', 'name'] },
-    { model: User, as: 'Owner', attributes: ['id', 'name', 'avatarURL'] },
-  ];
-
-  // filter by ingredients (join table)
-  if (filters.ingredients) {
-    include.push({
-      model: Ingredient,
-      as: 'Ingredients',
-      through: { attributes: ['measure'] },
-      where: { id: filters.ingredients }, // can be array of IDs
-    });
-  } else {
-    include.push({
-      model: Ingredient,
-      as: 'Ingredients',
-      through: { attributes: ['measure'] },
-    });
-  }
-
+  const include = [];
+  include.push({
+    model: Category,
+    as: 'category',
+    attributes: ['id', 'name'],
+    ...(filters.category && { where: { name: filters.category } }),
+  });
+  include.push({
+    model: Area,
+    as: 'area',
+    attributes: ['id', 'name'],
+    ...(filters.area && { where: { name: filters.area } }),
+  });
+  include.push({
+    model: User,
+    as: 'owner',
+    attributes: ['id', 'name', 'avatar'],
+  });
+  include.push({
+    model: Ingredient,
+    as: 'ingredients',
+    through: { attributes: ['measure'] },
+    ...(filters.ingredients && { where: { id: filters.ingredients } }),
+  });
   return await Recipe.findAll({ where, include });
 }
 //TODO: add correct processing
@@ -59,12 +42,12 @@ async function getRecipes(filters = {}) {
 async function getPopularRecipes() {
   return await Recipe.findAll({
     attributes: {
-      include: [[Sequelize.fn('COUNT', Sequelize.col('FavoritedBy.id')), 'favoritesCount']],
+      include: [[Sequelize.fn('COUNT', Sequelize.col('favoritedBy.id')), 'favoritesCount']],
     },
     include: [
       {
         model: User,
-        as: 'FavoritedBy',
+        as: 'favoritedBy',
         attributes: [],
         through: { attributes: [] },
       },
@@ -79,7 +62,6 @@ async function getPopularRecipes() {
 async function getOwnRecipes(ownerId) {
   return await Recipe.findAll({ where: { ownerId } });
 }
-
 // async function getRecipeById(where) {
 //     return await Recipe.findOne({ where });
 // }
@@ -87,26 +69,23 @@ async function getOwnRecipes(ownerId) {
 async function getRecipeById(id) {
   return await Recipe.findByPk(id, {
     include: [
-      { model: User, as: 'Owner', attributes: ['id', 'name', 'avatarURL'] },
-      { model: Category, attributes: ['id', 'name'] },
-      { model: Area, attributes: ['id', 'name'] },
+      { model: User, as: 'owner', attributes: ['id', 'name', 'avatar'] },
+      { model: Category, as: 'category', attributes: ['id', 'name'] },
+      { model: Area, as: 'area', attributes: ['id', 'name'] },
       {
         model: Ingredient,
-        as: 'Ingredients',
+        as: 'ingredients',
         through: { attributes: ['measure'] },
       },
     ],
   });
 }
-
 async function deleteRecipe(id, ownerId) {
   const recipe = await Recipe.findOne({ where: { id, ownerId } });
   if (!recipe) return null;
-
   await recipe.destroy();
   return recipe;
 }
-
 async function addRecipe(payload) {
   const newRecipe = await Recipe.create({
     title: payload.title,
@@ -120,15 +99,12 @@ async function addRecipe(payload) {
   });
   return newRecipe;
 }
-
 // async function addFavoriteRecipe(where) {
 //     const recipe = await getRecipeById(where);
 //     if (!recipe) return null;
-
 //     await recipe.update({ favorite: true });
 //     return recipe;
 // }
-
 // Add recipe to favorites
 async function addFavoriteRecipe(userId, recipeId) {
   const recipe = await Recipe.findByPk(recipeId);
@@ -145,29 +121,32 @@ async function addFavoriteRecipe(userId, recipeId) {
   }
 
   return await FavoriteRecipe.create({ userId, recipeId });
+  await Recipe.increment('favoritesCount', { by: 1, where: { id: recipeId } });
+  return await FavoriteRecipe.create({ userId, recipeId });
 }
 
 // async function removeFavoriteRecipe(where) {
 //     const recipe = await getRecipeById(where);
 //     if (!recipe) return null;
-
 //     await recipe.update({ favorite: false });
 //     return recipe;
 // }
-
 // Remove recipe from favorites
 async function removeFavoriteRecipe(userId, recipeId) {
-  const fav = await FavoriteRecipe.findOne({
-    where: { userId, recipeId },
-  });
-
-  if (!fav) {
-    return null;
-  }
-
+  await Recipe.decrement('favoritesCount', { by: 1, where: { id: recipeId } });
+  const fav = await FavoriteRecipe.findOne({ where: { userId, recipeId } });
+  if (!fav) return null;
   await fav.destroy();
   return fav;
 }
+// async function getFavoriteRecipes(where) {
+//     //TODO
+//     // get own recipes, where favorite is true
+//     const recipe = await getOwnRecipes(where);
+//     if (!recipe) return null;
+//     return recipe;
+// }
+// Get favorite recipes for a user
 
 const getFavoriteRecipes = async (userId) => {
   const recipes = await Recipe.findAll({
@@ -199,6 +178,7 @@ const getFavoriteRecipes = async (userId) => {
 
   return recipes;
 };
+
 export default {
   getRecipes,
   getRecipeById,
