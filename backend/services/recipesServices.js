@@ -6,6 +6,7 @@ import HttpError from '../helpers/HttpError.js';
 // async function getRecipes(where) {
 //     return await Recipe.findAll({ where });
 // }
+
 async function getRecipes(filters = {}) {
   const where = {};
   const include = [];
@@ -34,6 +35,7 @@ async function getRecipes(filters = {}) {
   });
   return await Recipe.findAll({ where, include });
 }
+
 //TODO: add correct processing
 // async function getPopularRecipes(where) {
 //     return await Recipe.findAll({ where });
@@ -70,6 +72,7 @@ async function getOwnRecipes(ownerId) {
 //     return await Recipe.findOne({ where });
 // }
 // Get recipe by ID
+
 async function getRecipeById(id) {
   return await Recipe.findByPk(id, {
     include: [
@@ -84,12 +87,14 @@ async function getRecipeById(id) {
     ],
   });
 }
+
 async function deleteRecipe(id, ownerId) {
   const recipe = await Recipe.findOne({ where: { id, ownerId } });
   if (!recipe) return null;
   await recipe.destroy();
   return recipe;
 }
+
 async function addRecipe(payload) {
   const newRecipe = await Recipe.create({
     title: payload.title,
@@ -103,6 +108,7 @@ async function addRecipe(payload) {
   });
   return newRecipe;
 }
+
 // async function addFavoriteRecipe(where) {
 //     const recipe = await getRecipeById(where);
 //     if (!recipe) return null;
@@ -110,6 +116,7 @@ async function addRecipe(payload) {
 //     return recipe;
 // }
 // Add recipe to favorites
+
 async function addFavoriteRecipe(userId, recipeId) {
   const recipe = await Recipe.findByPk(recipeId);
   if (!recipe) {
@@ -136,6 +143,7 @@ async function addFavoriteRecipe(userId, recipeId) {
 //     return recipe;
 // }
 // Remove recipe from favorites
+
 async function removeFavoriteRecipe(userId, recipeId) {
   await Recipe.decrement('favoritesCount', { by: 1, where: { id: recipeId } });
   const fav = await FavoriteRecipe.findOne({ where: { userId, recipeId } });
