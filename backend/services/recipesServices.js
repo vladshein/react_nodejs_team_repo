@@ -126,8 +126,6 @@ async function addFavoriteRecipe(userId, recipeId) {
 
   await Recipe.increment('favoritesCount', { by: 1, where: { id: recipeId } });
 
-  console.log(recipeId);
-
   return await FavoriteRecipe.create({ userId, recipeId });
 }
 
