@@ -1,6 +1,20 @@
-import { addToFollowing } from '../services/followersServices.js';
+import {
+  addToFollowing,
+  getFollowingsList,
+  removeFromFollowing,
+} from '../services/followersServices.js';
 
-export const addToFollowingController = async (req, res, next) => {
+export const getFollowingsListController = async (req, res) => {
+  const userId = req.user.id;
+  const followingsList = await getFollowingsList(userId);
+
+  return res.status(200).json({
+    message: 'Successfully retrieved user followings list',
+    data: followingsList,
+  });
+};
+
+export const addToFollowingController = async (req, res) => {
   const userId = req.user.id;
   const followUserId = req.params.id;
 
@@ -13,5 +27,16 @@ export const addToFollowingController = async (req, res, next) => {
   return res.status(201).json({
     message: 'Successfully followed the user',
     data: newFollow,
+  });
+};
+
+export const removeFromFollowingController = async (req, res) => {
+  const userId = req.user.id;
+  const unfollowUserId = req.params.id;
+
+  const removedFollow = await removeFromFollowing(userId, unfollowUserId);
+  return res.status(200).json({
+    message: 'Successfully unfollowed the user',
+    data: removedFollow,
   });
 };
