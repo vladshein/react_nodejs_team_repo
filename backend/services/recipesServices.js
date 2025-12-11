@@ -125,13 +125,6 @@ async function addFavoriteRecipe(userId, recipeId) {
   return await FavoriteRecipe.create({ userId, recipeId });
 }
 
-// async function removeFavoriteRecipe(where) {
-//     const recipe = await getRecipeById(where);
-//     if (!recipe) return null;
-//     await recipe.update({ favorite: false });
-//     return recipe;
-// }
-// Remove recipe from favorites
 async function removeFavoriteRecipe(userId, recipeId) {
   await Recipe.decrement('favoritesCount', { by: 1, where: { id: recipeId } });
   const fav = await FavoriteRecipe.findOne({ where: { userId, recipeId } });
@@ -139,14 +132,6 @@ async function removeFavoriteRecipe(userId, recipeId) {
   await fav.destroy();
   return fav;
 }
-// async function getFavoriteRecipes(where) {
-//     //TODO
-//     // get own recipes, where favorite is true
-//     const recipe = await getOwnRecipes(where);
-//     if (!recipe) return null;
-//     return recipe;
-// }
-// Get favorite recipes for a user
 
 const getFavoriteRecipes = async (userId) => {
   const recipes = await Recipe.findAll({

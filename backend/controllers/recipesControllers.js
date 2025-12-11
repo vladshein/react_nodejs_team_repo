@@ -29,7 +29,6 @@ export const getPopularRecipesController = async (req, res) => {
   res.json(recipes);
 };
 
-// +
 export const getOwnRecipesController = async (req, res) => {
   const { id: ownerId } = req.user;
   const recipes = await recipesServices.getRecipes({ ownerId });
