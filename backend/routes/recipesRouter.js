@@ -30,8 +30,8 @@ recipesRouter.post("/", validateBody(createRecipeSchema), createRecipeController
 recipesRouter.delete("/:id", deleteRecipeController);
 
 // Favorites
-recipesRouter.get("/favorites", getFavoriteRecipesController); // список улюблених
-recipesRouter.post("/favorites/:id", updateFavoriteRecipeController); // додати улюблений
-recipesRouter.delete("/favorites/:id", removeFavoriteRecipeController); // видалити з улюблених
+recipesRouter.get("/favorites", getFavoriteRecipesController);
+recipesRouter.patch("/favorites/:id", updateFavoriteRecipeController); 
+recipesRouter.delete("/favorites/:id", removeFavoriteRecipeController);
 
 export default recipesRouter;
