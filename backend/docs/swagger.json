@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "http://0.0.0.0:3000/api"
+      "url": "http://localhost:3000/api"
     }
   ],
   "tags": [
@@ -46,21 +46,20 @@
         "tags": [
           "Auth"
         ],
-        "summary": "Register new user",
+        "summary": "Register new user 1",
         "operationId": "authRegister",
         "security": [],
         "description": "Register new user",
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "email",
-                  "password"
-                ],
                 "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "examplename"
+                  },
                   "email": {
                     "type": "string",
                     "example": "example@example.com"
@@ -118,15 +117,10 @@
         "security": [],
         "description": "Allow users to sign in and receive authentication tokens for accessing restricted content.",
         "requestBody": {
-          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
-                "required": [
-                  "email",
-                  "password"
-                ],
                 "properties": {
                   "email": {
                     "type": "string",
@@ -210,7 +204,7 @@
         "tags": [
           "Users"
         ],
-        "summary": "Get current authenticated user profile",
+        "summary": "Get current user info (avatar, name, email, recipes ....)",
         "operationId": "usersCurrent",
         "description": "Returns information about the currently authenticated user.",
         "security": [
@@ -240,20 +234,20 @@
                       "example": "example@example.com"
                     },
                     "recipesCount": {
-                      "type": "integer",
-                      "example": 12
+                      "type": "string",
+                      "example": "12"
                     },
                     "favoritesCount": {
-                      "type": "integer",
-                      "example": 34
+                      "type": "string",
+                      "example": "34"
                     },
                     "followersCount": {
-                      "type": "integer",
-                      "example": 102
+                      "type": "string",
+                      "example": "102"
                     },
                     "followingCount": {
-                      "type": "integer",
-                      "example": 58
+                      "type": "string",
+                      "example": "58"
                     }
                   }
                 }
