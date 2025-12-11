@@ -1,5 +1,6 @@
 import { Recipe, Category, Area, Ingredient, User, FavoriteRecipe } from "../db/models/index.js";
 import { Sequelize } from "sequelize";
+import HttpError from "../helpers/HttpError.js";
 
 // async function getRecipes(where) {
 //     return await Recipe.findAll({ where });
@@ -130,8 +131,22 @@ async function addRecipe(payload) {
 
 // Add recipe to favorites
 async function addFavoriteRecipe(userId, recipeId) {
-    return await FavoriteRecipes.create({ userId, recipeId });
+    const recipe = await Recipe.findByPk(recipeId);
+    if (!recipe) {
+        throw HttpError(404, "Recipe not found");
+    }
+    
+    const existingFavorite = await FavoriteRecipe.findOne({
+        where: { userId, recipeId }
+    });
+    
+    if (existingFavorite) {
+        throw HttpError(409, "Recipe already in favorites");
+    }
+    
+    return await FavoriteRecipe.create({ userId, recipeId });
 }
+
 
 // async function removeFavoriteRecipe(where) {
 //     const recipe = await getRecipeById(where);
@@ -143,8 +158,14 @@ async function addFavoriteRecipe(userId, recipeId) {
 
 // Remove recipe from favorites
 async function removeFavoriteRecipe(userId, recipeId) {
-    const fav = await FavoriteRecipes.findOne({ where: { userId, recipeId } });
-    if (!fav) return null;
+    const fav = await FavoriteRecipe.findOne({ 
+        where: { userId, recipeId } 
+    });
+    
+    if (!fav) {
+        return null;
+    }
+    
     await fav.destroy();
     return fav;
 }

@@ -67,25 +67,34 @@ export const getFavoriteRecipesController = async (req, res) => {
 };
 
 export const updateFavoriteRecipeController = async (req, res) => {
-    // TODO: discuss the way set and delete favorite will work
-    // and should we use one patch function for this purpose
     const { id: ownerId } = req.user;
     const { id } = req.params;
+    
     const fav = await recipesServices.addFavoriteRecipe(ownerId, id);
+    
     if (!fav) {
-        throw HttpError(404, `Not found`);
+        throw HttpError(404, `Recipe not found`);
     }
-    res.status(200).json(fav);
+    
+    res.status(200).json({
+        message: "Recipe added to favorites",
+        data: fav
+    });
 };
 
+
 export const removeFavoriteRecipeController = async (req, res) => {
-    // TODO: discuss the way set and delete favorite will work
-    // and should we use one patch function for this purpose
     const { id: ownerId } = req.user;
     const { id } = req.params;
+    
     const fav = await recipesServices.removeFavoriteRecipe(ownerId, id);
+    
     if (!fav) {
-        throw HttpError(404, `Not found`);
+        throw HttpError(404, `Recipe not found in favorites`);
     }
-    res.status(200).json(fav);
+    
+    res.status(200).json({
+        message: "Recipe removed from favorites",
+        data: fav
+    });
 };
