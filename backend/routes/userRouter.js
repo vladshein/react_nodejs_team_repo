@@ -1,12 +1,8 @@
 import express from 'express';
 import upload from '../middlewares/upload.js';
 import authenticate from '../middlewares/authenticate.js';
-import upload from '../middlewares/upload.js';
 import { getCurrentUser } from './../controllers/userControllers.js';
-import {
-  updateAvatarController,
-  getFollowersController,
-} from '../controllers/authControllers.js';
+import { updateAvatarController, getFollowersController } from '../controllers/authControllers.js';
 
 const userRouter = express.Router();
 userRouter.get('/current', authenticate, getCurrentUser);
