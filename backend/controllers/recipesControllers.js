@@ -55,46 +55,50 @@ export const createRecipeController = async (req, res) => {
   res.status(201).json(recipe);
 };
 
-// +
 export const getFavoriteRecipesController = async (req, res) => {
-  const { id: ownerId } = req.user;
-  // TODO: add service to get users favorite recipes
-  const recipes = await recipesServices.getFavoriteRecipes(ownerId);
-  if (!recipes) {
-    throw HttpError(404, `Not found`);
+  const { id: userId } = req.user;
+
+  try {
+    const recipes = await recipesServices.getFavoriteRecipes(userId);
+
+    if (!recipes) {
+      throw HttpError(404, `Not found`);
+    }
+
+    res.status(200).json(recipes);
+  } catch (error) {
+    throw error;
   }
-  res.status(200).json(recipes);
 };
 
 export const updateFavoriteRecipeController = async (req, res) => {
-    const { id: ownerId } = req.user;
-    const { id } = req.params;
-    
-    const fav = await recipesServices.addFavoriteRecipe(ownerId, id);
-    
-    if (!fav) {
-        throw HttpError(404, `Recipe not found`);
-    }
-    
-    res.status(200).json({
-        message: "Recipe added to favorites",
-        data: fav
-    });
+  const { id: ownerId } = req.user;
+  const { id } = req.params;
+
+  const fav = await recipesServices.addFavoriteRecipe(ownerId, id);
+
+  if (!fav) {
+    throw HttpError(404, `Recipe not found`);
+  }
+
+  res.status(200).json({
+    message: 'Recipe added to favorites',
+    data: fav,
+  });
 };
 
-
 export const removeFavoriteRecipeController = async (req, res) => {
-    const { id: ownerId } = req.user;
-    const { id } = req.params;
-    
-    const fav = await recipesServices.removeFavoriteRecipe(ownerId, id);
-    
-    if (!fav) {
-        throw HttpError(404, `Recipe not found in favorites`);
-    }
-    
-    res.status(200).json({
-        message: "Recipe removed from favorites",
-        data: fav
-    });
+  const { id: ownerId } = req.user;
+  const { id } = req.params;
+
+  const fav = await recipesServices.removeFavoriteRecipe(ownerId, id);
+
+  if (!fav) {
+    throw HttpError(404, `Recipe not found in favorites`);
+  }
+
+  res.status(200).json({
+    message: 'Recipe removed from favorites',
+    data: fav,
+  });
 };

@@ -143,16 +143,9 @@ async function removeFavoriteRecipe(userId, recipeId) {
   await fav.destroy();
   return fav;
 }
-// async function getFavoriteRecipes(where) {
-//     //TODO
-//     // get own recipes, where favorite is true
-//     const recipe = await getOwnRecipes(where);
-//     if (!recipe) return null;
-//     return recipe;
-// }
-// Get favorite recipes for a user
-async function getFavoriteRecipes(userId) {
-  return await Recipe.findAll({
+
+const getFavoriteRecipes = async (userId) => {
+  const recipes = await Recipe.findAll({
     include: [
       {
         model: User,
@@ -161,9 +154,27 @@ async function getFavoriteRecipes(userId) {
         attributes: [],
         through: { attributes: [] },
       },
+      {
+        model: User,
+        as: 'owner',
+        attributes: ['id', 'name', 'avatar'],
+      },
+      {
+        model: Category,
+        as: 'category',
+        attributes: ['id', 'name'],
+      },
+      {
+        model: Area,
+        as: 'area',
+        attributes: ['id', 'name'],
+      },
     ],
   });
-}
+
+  return recipes;
+};
+
 export default {
   getRecipes,
   getRecipeById,
