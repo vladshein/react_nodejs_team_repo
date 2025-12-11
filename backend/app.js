@@ -7,6 +7,7 @@ import authRouter from './routes/authRouter.js';
 import userRouter from './routes/userRouter.js';
 import commonRouter from './routes/commonRouter.js';
 import recipesRouter from './routes/recipesRouter.js';
+import followRouter from './routes/followRouter.js';
 import notFoundHandler from './middlewares/notFoundHandler.js';
 import errorHandler from './middlewares/errorHandler.js';
 import connectDatabase from './db/connectDatabase.js';
@@ -26,6 +27,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 app.use('/api', commonRouter);
 app.use('/api/recipes', recipesRouter);
+app.use('/api/following', followRouter);
 app.use('/api-docs', swaggerDocs()); // swagger
 
 app.use(notFoundHandler);
@@ -37,5 +39,5 @@ await connectDatabase();
 const port = Number(process.env.PORT) | 3000;
 
 app.listen(port, () => {
-  console.log('Server is running. Use our API on port: 3000');
+  console.log(`Server is running. Use our API on port: ${port}`);
 });

@@ -426,7 +426,7 @@
           "Users"
         ],
         "summary": "Get user following",
-        "operationId": "usersFollowing",
+        "operationId": "getFollowing",
         "description": "Returns information about user following.",
         "security": [
           {
@@ -454,13 +454,15 @@
             "$ref": "#/components/responses/401-common"
           }
         }
-      },
-      "patch": {
+      }
+    },
+    "/users/following/{id}": {
+      "post": {
         "tags": [
           "Users"
         ],
         "summary": "Add following",
-        "operationId": "addUsersFollowing",
+        "operationId": "followUser",
         "description": "",
         "security": [
           {
@@ -487,8 +489,8 @@
         "tags": [
           "Users"
         ],
-        "summary": "Delete following",
-        "operationId": "deleteUsersFollowing",
+        "summary": "Unfollow user",
+        "operationId": "unfollowUser",
         "description": "",
         "security": [
           {

@@ -49,8 +49,9 @@ paths:
   /users/following:
     get:
       $ref: ./../swagger/paths/users/following/get.yaml
-    patch:
-      $ref: ./../swagger/paths/users/following/patch.yaml
+  /users/following/{id}:
+    post:
+      $ref: ./../swagger/paths/users/following/post.yaml
     delete:
       $ref: ./../swagger/paths/users/following/delete.yaml
   # CATEGORIES
