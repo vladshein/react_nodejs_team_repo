@@ -30,10 +30,17 @@ export const logoutController = async (req, res) => {
   res.status(204).send();
 };
 
-export const updateAvatarController = async (req, res) => {
-  console.log(req.file);
-  const result = await updateAvatar(req.user, req.file);
-  res.status(200).json(result);
+export const updateAvatarController = async (req, res, next) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'Please upload a file' });
+    }
+
+    const result = await updateAvatar(req.user, req.file);
+    res.status(200).json(result);
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const getFollowersController = async (req, res) => {

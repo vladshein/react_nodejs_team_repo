@@ -143,27 +143,26 @@ async function removeFavoriteRecipe(userId, recipeId) {
   await fav.destroy();
   return fav;
 }
-// async function getFavoriteRecipes(where) {
-//     //TODO
-//     // get own recipes, where favorite is true
-//     const recipe = await getOwnRecipes(where);
-//     if (!recipe) return null;
-//     return recipe;
-// }
-// Get favorite recipes for a user
-async function getFavoriteRecipes(userId) {
-  return await Recipe.findAll({
-    include: [
-      {
-        model: User,
-        as: 'favoritedBy',
-        where: { id: userId },
-        attributes: [],
-        through: { attributes: [] },
-      },
-    ],
+
+async function addFavoriteRecipe(userId, recipeId) {
+  const recipe = await Recipe.findByPk(recipeId);
+  if (!recipe) {
+    throw HttpError(404, 'Recipe not found');
+  }
+
+  const existingFavorite = await FavoriteRecipe.findOne({
+    where: { userId, recipeId },
   });
+
+  if (existingFavorite) {
+    throw HttpError(409, 'Recipe already in favorites');
+  }
+
+  return await FavoriteRecipe.create({ userId, recipeId });
+  await Recipe.increment('favoritesCount', { by: 1, where: { id: recipeId } });
+  return await FavoriteRecipe.create({ userId, recipeId });
 }
+
 export default {
   getRecipes,
   getRecipeById,
