@@ -1,12 +1,12 @@
 tags:
   - Users
-summary: Get current authenticated user profile
+summary: Get current user info (avatar, name, email, recipes ....)
 operationId: usersCurrent
 description: Returns information about the currently authenticated user.
 security:
   - bearerAuth: []
 responses:
-  "200":
+  '200':
     description: Successfully retrieved user info
     content:
       application/json:
@@ -15,25 +15,25 @@ responses:
           properties:
             avatar:
               type: string
-              example: "avatars/user123.png"
+              example: 'avatars/user123.png'
             name:
               type: string
-              example: "example"
+              example: 'example'
             email:
               type: string
               format: email
-              example: "example@example.com"
+              example: 'example@example.com'
             recipesCount:
-              type: integer
-              example: 12
+              type: string
+              example: '12'
             favoritesCount:
-              type: integer
-              example: 34
+              type: string
+              example: '34'
             followersCount:
-              type: integer
-              example: 102
+              type: string
+              example: '102'
             followingCount:
-              type: integer
-              example: 58
-  "401":
+              type: string
+              example: '58'
+  '401':
     $ref: ./../../../components/responses/401-common.yaml

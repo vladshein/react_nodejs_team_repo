@@ -1,5 +1,7 @@
-import { Recipe, Category, Area, Ingredient, User, FavoriteRecipe } from '../db/models/index.js';
-import { Sequelize } from 'sequelize';
+import { Recipe, Category, Area, Ingredient, User, FavoriteRecipe } from "../db/models/index.js";
+import { Sequelize } from "sequelize";
+import HttpError from "../helpers/HttpError.js";
+
 // async function getRecipes(where) {
 //     return await Recipe.findAll({ where });
 // }
@@ -108,9 +110,24 @@ async function addRecipe(payload) {
 // }
 // Add recipe to favorites
 async function addFavoriteRecipe(userId, recipeId) {
+    const recipe = await Recipe.findByPk(recipeId);
+    if (!recipe) {
+        throw HttpError(404, "Recipe not found");
+    }
+    
+    const existingFavorite = await FavoriteRecipe.findOne({
+        where: { userId, recipeId }
+    });
+    
+    if (existingFavorite) {
+        throw HttpError(409, "Recipe already in favorites");
+    }
+    
+    return await FavoriteRecipe.create({ userId, recipeId });
   await Recipe.increment('favoritesCount', { by: 1, where: { id: recipeId } });
   return await FavoriteRecipe.create({ userId, recipeId });
 }
+
 // async function removeFavoriteRecipe(where) {
 //     const recipe = await getRecipeById(where);
 //     if (!recipe) return null;

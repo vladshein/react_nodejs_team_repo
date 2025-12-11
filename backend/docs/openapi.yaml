@@ -21,7 +21,7 @@ tags:
   - name: Testimonials
     description: Testimonials operations
 servers:
-  - url: http://0.0.0.0:3000/api
+  - url: http://localhost:3000/api
 paths:
   # AUTH
   /auth/register:
@@ -49,8 +49,9 @@ paths:
   /users/following:
     get:
       $ref: ./../swagger/paths/users/following/get.yaml
-    patch:
-      $ref: ./../swagger/paths/users/following/patch.yaml
+  /users/following/{id}:
+    post:
+      $ref: ./../swagger/paths/users/following/post.yaml
     delete:
       $ref: ./../swagger/paths/users/following/delete.yaml
   # CATEGORIES

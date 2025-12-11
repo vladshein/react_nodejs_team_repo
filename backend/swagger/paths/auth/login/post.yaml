@@ -3,16 +3,12 @@ tags:
 summary: Login
 operationId: authLogin
 security: []
-description: "Allow users to sign in and receive authentication tokens for accessing restricted content."
+description: 'Allow users to sign in and receive authentication tokens for accessing restricted content.'
 requestBody:
-  required: true
   content:
     application/json:
       schema:
         type: object
-        required:
-          - email
-          - password
         properties:
           email:
             type: string
@@ -22,7 +18,7 @@ requestBody:
             type: string
             example: examplepass
 responses:
-  "200":
+  '200':
     description: OK
     content:
       application/json:
@@ -42,7 +38,7 @@ responses:
                   type: string
                   format: email
                   example: example@example.com
-  "400":
-    $ref: "./../../../components/responses/400.yaml"
-  "401":
-    $ref: "./../../../components/responses/401.yaml"
+  '400':
+    $ref: './../../../components/responses/400.yaml'
+  '401':
+    $ref: './../../../components/responses/401.yaml'

@@ -26,7 +26,7 @@ const FavoriteRecipes = sequelize.define(
         },
     },
     {
-        timestamps: true, // для відстеження коли додано в улюблене
+        timestamps: true,
     }
 );
 
