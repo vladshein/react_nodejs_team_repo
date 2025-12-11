@@ -21,7 +21,7 @@ async function getRecipes(filters = {}) {
     { model: User, as: 'owner', attributes: ['id', 'name', 'avatar'] },
   ];
 
-  // filter by category (ID or name depending on your schema)
+  // filter by category (selected from CATEGORIES page)
   if (filters.category) {
     include[0].where = { name: filters.category };
     include[0].required = true;
@@ -49,7 +49,37 @@ async function getRecipes(filters = {}) {
     });
   }
 
-  return await Recipe.findAll({ where, include });
+  // Pagination
+  const page = filters.page || 1;
+  const limit = filters.limit || 12;
+  const offset = (page - 1) * limit;
+
+  // Get total count with distinct
+  const count = await Recipe.count({
+    where,
+    include: include.filter(inc => inc.required), // Only include required (filtered) associations for count
+    distinct: true,
+    col: 'id',
+  });
+
+  // Get recipes with pagination
+  const rows = await Recipe.findAll({
+    where,
+    include,
+    limit,
+    offset,
+    distinct: true,
+  });
+
+  return {
+    recipes: rows,
+    pagination: {
+      total: count,
+      page,
+      limit,
+      totalPages: Math.ceil(count / limit),
+    },
+  };
 }
 //TODO: add correct processing
 // async function getPopularRecipes(where) {
