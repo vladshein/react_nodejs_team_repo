@@ -39,27 +39,23 @@ async function getRecipes(filters = {}) {
 //     return await Recipe.findAll({ where });
 // }
 // Get popular recipes (sorted by favorites count)
-export async function getPopularRecipes(limit = 10) {
-  const recipes = await Recipe.findAll({
-    order: [['favoritesCount', 'DESC']],
-    limit,
+async function getPopularRecipes() {
+  return await Recipe.findAll({
+    attributes: {
+      include: [[Sequelize.fn('COUNT', Sequelize.col('favoritedBy.id')), 'favoritesCount']],
+    },
     include: [
       {
         model: User,
-        as: 'owner',
-        attributes: ['id', 'name', 'avatar'],
-      },
-      { model: Category, as: 'category' },
-      { model: Area, as: 'area' },
-      {
-        model: Ingredient,
-        as: 'ingredients',
-        through: { attributes: ['measure'] },
+        as: 'favoritedBy',
+        attributes: [],
+        through: { attributes: [] },
       },
     ],
+    group: ['Recipe.id'],
+    order: [[Sequelize.literal('favoritesCount'), 'DESC']],
+    limit: 10,
   });
-
-  return recipes;
 }
 
 // Get recipes owned by a user
@@ -124,18 +120,11 @@ async function addFavoriteRecipe(userId, recipeId) {
     throw HttpError(409, 'Recipe already in favorites');
   }
 
+  return await FavoriteRecipe.create({ userId, recipeId });
   await Recipe.increment('favoritesCount', { by: 1, where: { id: recipeId } });
-
   return await FavoriteRecipe.create({ userId, recipeId });
 }
 
-// async function removeFavoriteRecipe(where) {
-//     const recipe = await getRecipeById(where);
-//     if (!recipe) return null;
-//     await recipe.update({ favorite: false });
-//     return recipe;
-// }
-// Remove recipe from favorites
 async function removeFavoriteRecipe(userId, recipeId) {
   await Recipe.decrement('favoritesCount', { by: 1, where: { id: recipeId } });
   const fav = await FavoriteRecipe.findOne({ where: { userId, recipeId } });
