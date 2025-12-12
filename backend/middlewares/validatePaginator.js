@@ -10,6 +10,6 @@ export const validatePaginator = (schema) => (req, res, next) => {
       message: error.details.map((d) => d.message),
     });
   }
-  req.query = value;
+  req.validatedQuery = value;
   next();
 };

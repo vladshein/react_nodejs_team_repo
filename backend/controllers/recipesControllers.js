@@ -43,15 +43,25 @@ export const getPopularRecipesController = async (req, res) => {
  */
 export const getOwnRecipesController = async (req, res) => {
   const { id: ownerId } = req.user;
-  const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 10;
+  const query = req.validatedQuery || req.query;
+  const page = parseInt(query.page) || 1;
+  const limit = parseInt(query.limit) || 10;
   const { offset } = getPagination(page, limit);
   // GO!
   const recipes = await recipesServices.getOwnRecipes(ownerId, limit, offset, [
     ['updatedAt', 'ASC'],
   ]);
-  const response = formatResponse(recipes, page, limit);
-  res.json(response);
+  const { totalItems, items, totalPages, currentPage, limit: responseLimit } = formatResponse(recipes, page, limit);
+  // Rename items to recipes for consistency with other endpoints
+  res.json({
+    recipes: items,
+    pagination: {
+      total: totalItems,
+      page: currentPage,
+      limit: responseLimit,
+      totalPages
+    }
+  });
 };
 
 // +
