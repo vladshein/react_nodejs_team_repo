@@ -9,14 +9,13 @@ parameters:
   - in: path
     name: id
     schema:
-      type: integer
-      example: 7
+      example: 64c8d958249fae54bae90bb
 responses:
-  "200":
+  '200':
     description: Successfully add new recipes
     content:
       application/json:
         schema:
           type: object
-  "401":
+  '401':
     $ref: ./../../../components/responses/401-common.yaml

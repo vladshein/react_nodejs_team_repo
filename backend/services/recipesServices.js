@@ -98,12 +98,21 @@ async function getRecipeById(id) {
     ],
   });
 }
+
+/**
+ * Delete user own recipe by recipe ID
+ *
+ * @param {*} id
+ * @param {*} ownerId
+ * @returns
+ */
 async function deleteRecipe(id, ownerId) {
   const recipe = await Recipe.findOne({ where: { id, ownerId } });
   if (!recipe) return null;
   await recipe.destroy();
   return recipe;
 }
+
 async function addRecipe(payload) {
   const newRecipe = await Recipe.create({
     title: payload.title,

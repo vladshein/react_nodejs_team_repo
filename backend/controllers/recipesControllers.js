@@ -49,15 +49,19 @@ export const getOwnRecipesController = async (req, res) => {
   res.json(response);
 };
 
-// +
+/**
+ * Delete user own recipe by recipeID
+ *
+ * @param {*} req
+ * @param {*} res
+ */
 export const deleteRecipeController = async (req, res) => {
   const { id: ownerId } = req.user;
-  // TODO: add service to delete recipe
   const recipe = await recipesServices.deleteRecipe(req.params.id, ownerId);
   if (!recipe) {
     throw HttpError(404, 'Recipe not found');
   }
-  res.json(recipe);
+  res.json({ message: `The recipe (${req.params.id}) was deleted successfully` });
 };
 
 // +

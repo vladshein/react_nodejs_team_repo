@@ -735,8 +735,7 @@
             "in": "path",
             "name": "id",
             "schema": {
-              "type": "integer",
-              "example": 7
+              "example": "64c8d958249fae54bae90bb"
             }
           }
         ],
@@ -773,8 +772,7 @@
             "in": "path",
             "name": "id",
             "schema": {
-              "type": "integer",
-              "example": 7
+              "example": "64c8d958249fae54bae90bb"
             }
           }
         ],
@@ -811,8 +809,7 @@
             "in": "path",
             "name": "id",
             "schema": {
-              "type": "integer",
-              "example": 7
+              "example": "64c8d958249fae54bae90bb1"
             }
           }
         ],
@@ -822,10 +819,19 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "The recipe 64c8d958249fae54bae90bb1 was deleted successfully"
+                    }
+                  }
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
           },
           "401": {
             "$ref": "#/components/responses/401-common"
