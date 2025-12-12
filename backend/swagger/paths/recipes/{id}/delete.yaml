@@ -2,21 +2,27 @@ tags:
   - Recipes
 summary: Delete recipe by ID
 operationId: deleteRecipeById
-description: ""
+description: ''
 security:
   - bearerAuth: []
 parameters:
   - in: path
     name: id
     schema:
-      type: integer
-      example: 7
+      example: 64c8d958249fae54bae90bb1
 responses:
-  "200":
+  '200':
     description: Successfully deleted
     content:
       application/json:
         schema:
           type: object
-  "401":
+          properties:
+            message:
+              type: string
+              example: The recipe 64c8d958249fae54bae90bb1 was deleted successfully
+
+  '400':
+    $ref: ./../../../components/responses/400.yaml
+  '401':
     $ref: ./../../../components/responses/401-common.yaml

@@ -147,12 +147,21 @@ async function getRecipeById(id) {
 
   return recipe ? recipe.get({ plain: true }) : null;
 }
+
+/**
+ * Delete user own recipe by recipe ID
+ *
+ * @param {*} id
+ * @param {*} ownerId
+ * @returns
+ */
 async function deleteRecipe(id, ownerId) {
   const recipe = await Recipe.findOne({ where: { id, ownerId } });
   if (!recipe) return null;
   await recipe.destroy();
   return recipe;
 }
+
 async function addRecipe(payload) {
   let categoryId = payload.categoryId;
   let areaId = payload.areaId;
