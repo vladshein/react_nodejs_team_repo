@@ -11,8 +11,8 @@ import {
   removeFavoriteRecipeController,
 } from '../controllers/recipesControllers.js';
 import validateBody from '../helpers/validateBody.js';
-
-import { createRecipeSchema } from '../schemas/recipesSchemas.js';
+import { validatePaginator } from './../middlewares/validatePaginator.js';
+import { createRecipeSchema, paginationSchema } from '../schemas/recipesSchemas.js';
 
 import authenticate from '../middlewares/authenticate.js';
 
@@ -22,13 +22,14 @@ const recipesRouter = express.Router();
 recipesRouter.get('/', getRecipesController);
 recipesRouter.get('/favorites', authenticate, getFavoriteRecipesController);
 recipesRouter.get('/popular', getPopularRecipesController);
+recipesRouter.get(
+  '/my',
+  [authenticate, validatePaginator(paginationSchema)],
+  getOwnRecipesController
+);
 recipesRouter.get('/:id', getRecipeByIdController);
-
-recipesRouter.use(authenticate);
-
-recipesRouter.get('/my', getOwnRecipesController);
-recipesRouter.post('/', validateBody(createRecipeSchema), createRecipeController);
-recipesRouter.delete('/:id', deleteRecipeController);
+recipesRouter.post('/', [authenticate, validateBody(createRecipeSchema)], createRecipeController);
+recipesRouter.delete('/:id', authenticate, deleteRecipeController);
 
 // Favorites
 recipesRouter.post('/favorites/:id', updateFavoriteRecipeController); // додати улюблений

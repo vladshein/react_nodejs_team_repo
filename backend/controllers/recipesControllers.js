@@ -1,5 +1,6 @@
 import recipesServices from '../services/recipesServices.js';
 import HttpError from '../helpers/HttpError.js';
+import { getPagination, formatResponse } from './../helpers/pagination.js';
 
 // +, no owner = public
 export const getRecipesController = async (req, res) => {
@@ -29,11 +30,23 @@ export const getPopularRecipesController = async (req, res) => {
   res.json(recipes);
 };
 
-// +
+/**
+ * Gets own recipes with pagination
+ *
+ * @param {*} req
+ * @param {*} res
+ */
 export const getOwnRecipesController = async (req, res) => {
   const { id: ownerId } = req.user;
-  const recipes = await recipesServices.getRecipes({ ownerId });
-  res.json(recipes);
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
+  const { offset } = getPagination(page, limit);
+  // GO!
+  const recipes = await recipesServices.getOwnRecipes(ownerId, limit, offset, [
+    ['updatedAt', 'ASC'],
+  ]);
+  const response = formatResponse(recipes, page, limit);
+  res.json(response);
 };
 
 // +

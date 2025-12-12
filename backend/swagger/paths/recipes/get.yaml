@@ -1,16 +1,15 @@
 tags:
   - Recipes
-summary: Get list of user recipes
-operationId: getRecipes
-description: Get list of user recipes
-security:
-  - bearerAuth: []
+summary: search
+operationId: searchRecipes
+description: Search recipes by category, indigriens, areas
+security: []
 responses:
-  "200":
-    description: Successfully add
+  '200':
+    description: Successfully list of recipes
     content:
       application/json:
         schema:
           type: object
-  "401":
+  '401':
     $ref: ./../../components/responses/401-common.yaml
