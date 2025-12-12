@@ -67,7 +67,7 @@ export async function getPopularRecipes(limit = 10) {
  *
  * @param {*} ownerId  User ID
  * @param {*} limit  Items per page
- * @param {*} offset  Page numer (start, ... LIMIT 10, 54)
+ * @param {*} offset  position for start
  * @param {*} order  Sort
  * @returns
  */
@@ -157,16 +157,9 @@ async function removeFavoriteRecipe(userId, recipeId) {
   await fav.destroy();
   return fav;
 }
-// async function getFavoriteRecipes(where) {
-//     //TODO
-//     // get own recipes, where favorite is true
-//     const recipe = await getOwnRecipes(where);
-//     if (!recipe) return null;
-//     return recipe;
-// }
-// Get favorite recipes for a user
-async function getFavoriteRecipes(userId) {
-  return await Recipe.findAll({
+
+const getFavoriteRecipes = async (userId) => {
+  const recipes = await Recipe.findAll({
     include: [
       {
         model: User,
@@ -175,20 +168,23 @@ async function getFavoriteRecipes(userId) {
         attributes: [],
         through: { attributes: [] },
       },
+      {
+        model: User,
+        as: 'owner',
+        attributes: ['id', 'name', 'avatar'],
+      },
+      {
+        model: Category,
+        as: 'category',
+        attributes: ['id', 'name'],
+      },
+      {
+        model: Area,
+        as: 'area',
+        attributes: ['id', 'name'],
+      },
     ],
   });
-}
-
-/**
- * Pagination function
- *
- * @param {*} page
- * @param {*} limit
- * @returns
- */
-const getPagination = (page, limit) => {
-  const offset = (page - 1) * limit; // page number is 1-based
-  return { limit, offset };
 };
 
 export default {

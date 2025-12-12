@@ -68,15 +68,20 @@ export const createRecipeController = async (req, res) => {
   res.status(201).json(recipe);
 };
 
-// +
 export const getFavoriteRecipesController = async (req, res) => {
-  const { id: ownerId } = req.user;
-  // TODO: add service to get users favorite recipes
-  const recipes = await recipesServices.getFavoriteRecipes(ownerId);
-  if (!recipes) {
-    throw HttpError(404, `Not found`);
+  const { id: userId } = req.user;
+
+  try {
+    const recipes = await recipesServices.getFavoriteRecipes(userId);
+
+    if (!recipes) {
+      throw HttpError(404, `Not found`);
+    }
+
+    res.status(200).json(recipes);
+  } catch (error) {
+    throw error;
   }
-  res.status(200).json(recipes);
 };
 
 export const updateFavoriteRecipeController = async (req, res) => {

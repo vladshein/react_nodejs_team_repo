@@ -1,7 +1,8 @@
 import sequelize from './../db/sequelize.js';
-
-import bcrypt from 'bcrypt';
 import HttpError from '../helpers/HttpError.js';
+import User from '../db/models/User.js';
+import Recipe from '../db/models/Recipe.js';
+import UserFollowers from '../db/models/UserFollowers.js';
 
 export const findUser = async (where) => {
   return User.findOne({ where });
@@ -45,4 +46,31 @@ export const getCurrentUser = async (id) => {
 
   if (results && results[0]) return results[0];
   return true; // need to fix
+};
+
+export const getUserById = async (userId) => {
+  const user = await User.findByPk(userId, {
+    include: [
+      {
+        model: Recipe,
+        as: 'recipes',
+        attributes: ['id'],
+        where: { ownerId: userId },
+        required: false,
+      },
+    ],
+  });
+
+  const followerCount = await UserFollowers.count({ where: { followingId: userId } });
+
+  if (!user) {
+    throw HttpError(404, 'User not found');
+  }
+  return {
+    name: user.name,
+    email: user.email,
+    avatar: user.avatar,
+    recipesCount: user.recipes.length,
+    followersCount: followerCount,
+  };
 };

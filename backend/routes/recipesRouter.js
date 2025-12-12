@@ -20,7 +20,7 @@ const recipesRouter = express.Router();
 
 // public recipe routes
 recipesRouter.get('/', getRecipesController);
-recipesRouter.get('/favorites', getFavoriteRecipesController); // список улюблених
+recipesRouter.get('/favorites', authenticate, getFavoriteRecipesController);
 recipesRouter.get('/popular', getPopularRecipesController);
 recipesRouter.get(
   '/my',

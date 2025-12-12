@@ -320,6 +320,9 @@
           },
           "401": {
             "$ref": "#/components/responses/401-common"
+          },
+          "404": {
+            "$ref": "#/components/responses/404-user"
           }
         }
       }
@@ -1038,7 +1041,26 @@
               "properties": {
                 "message": {
                   "type": "string",
-                  "example": "Not authorized"
+                  "example": "Authorization header missed"
+                }
+              }
+            }
+          }
+        }
+      },
+      "404-user": {
+        "description": "Not Found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "message"
+              ],
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User not found"
                 }
               }
             }

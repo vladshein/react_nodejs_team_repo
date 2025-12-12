@@ -1,4 +1,4 @@
-description: Unauthorized
+description: Not Found
 content:
   application/json:
     schema:
@@ -8,4 +8,4 @@ content:
       properties:
         message:
           type: string
-          example: Authorization header missed
+          example: User not found

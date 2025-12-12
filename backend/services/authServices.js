@@ -76,14 +76,16 @@ export const logoutUser = async (user) => {
 };
 
 export const updateAvatar = async (user, file) => {
-  let avatar = null;
-  const newFile = path.join(avatarsPath, file.filename);
-  await fs.rename(file.path, newFile);
-  avatar = path.join('avatars', file.filename);
+  const { path: tempUpload, filename } = file;
+  const resultUpload = path.join(avatarsPath, filename);
 
-  await user.update({ avatarURL: avatar });
+  await fs.rename(tempUpload, resultUpload);
 
-  return { avatarURL: avatar };
+  const avatar = path.join('avatars', filename).replace(/\\/g, '/');
+
+  await user.update({ avatar });
+
+  return { avatar };
 };
 
 export const getUserFollowers = async (userId) => {
