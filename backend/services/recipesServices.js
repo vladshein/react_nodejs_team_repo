@@ -8,31 +8,82 @@ import HttpError from '../helpers/HttpError.js';
 // }
 async function getRecipes(filters = {}) {
   const where = {};
-  const include = [];
-  include.push({
-    model: Category,
-    as: 'category',
-    attributes: ['id', 'name'],
-    ...(filters.category && { where: { name: filters.category } }),
+
+  // filter by ownerId
+  if (filters.ownerId) {
+    where.ownerId = filters.ownerId;
+  }
+
+  const include = [
+    { model: Category, as: 'category', attributes: ['id', 'name'] },
+    { model: Area, as: 'area', attributes: ['id', 'name'] },
+    { model: User, as: 'owner', attributes: ['id', 'name', 'avatar'] },
+  ];
+
+  // filter by category (selected from CATEGORIES page)
+  if (filters.category) {
+    include[0].where = { name: filters.category };
+    include[0].required = true;
+  }
+
+  // filter by area
+  if (filters.area) {
+    include[1].where = { name: filters.area };
+    include[1].required = true;
+  }
+
+  // filter by ingredients (join table)
+  if (filters.ingredients) {
+    include.push({
+      model: Ingredient,
+      as: 'ingredients',
+      through: { attributes: ['measure'] },
+      where: { id: filters.ingredients }, // can be array of IDs
+    });
+  } else {
+    include.push({
+      model: Ingredient,
+      as: 'ingredients',
+      through: { attributes: ['measure'] },
+    });
+  }
+
+  // Pagination with validation
+  let page = filters.page || 1;
+  let limit = filters.limit || 12;
+
+  // Ensure positive values
+  page = page > 0 ? page : 1;
+  limit = limit > 0 ? limit : 12;
+
+  const offset = (page - 1) * limit;
+
+  // Get total count with distinct
+  const count = await Recipe.count({
+    where,
+    include: include.filter((inc) => inc.required), // Only include required (filtered) associations for count
+    distinct: true,
+    col: 'id',
   });
-  include.push({
-    model: Area,
-    as: 'area',
-    attributes: ['id', 'name'],
-    ...(filters.area && { where: { name: filters.area } }),
+
+  // Get recipes with pagination
+  const rows = await Recipe.findAll({
+    where,
+    include,
+    limit,
+    offset,
+    distinct: true,
   });
-  include.push({
-    model: User,
-    as: 'owner',
-    attributes: ['id', 'name', 'avatar'],
-  });
-  include.push({
-    model: Ingredient,
-    as: 'ingredients',
-    through: { attributes: ['measure'] },
-    ...(filters.ingredients && { where: { id: filters.ingredients } }),
-  });
-  return await Recipe.findAll({ where, include });
+
+  return {
+    recipes: rows,
+    pagination: {
+      total: count,
+      page,
+      limit,
+      totalPages: Math.ceil(count / limit),
+    },
+  };
 }
 //TODO: add correct processing
 // async function getPopularRecipes(where) {
@@ -80,12 +131,8 @@ async function getOwnRecipes(ownerId, limit, offset, order) {
   });
 }
 
-// async function getRecipeById(where) {
-//     return await Recipe.findOne({ where });
-// }
-// Get recipe by ID
 async function getRecipeById(id) {
-  return await Recipe.findByPk(id, {
+  const recipe = await Recipe.findByPk(id, {
     include: [
       { model: User, as: 'owner', attributes: ['id', 'name', 'avatar'] },
       { model: Category, as: 'category', attributes: ['id', 'name'] },
@@ -97,6 +144,8 @@ async function getRecipeById(id) {
       },
     ],
   });
+
+  return recipe ? recipe.get({ plain: true }) : null;
 }
 async function deleteRecipe(id, ownerId) {
   const recipe = await Recipe.findOne({ where: { id, ownerId } });
@@ -105,17 +154,58 @@ async function deleteRecipe(id, ownerId) {
   return recipe;
 }
 async function addRecipe(payload) {
+  let categoryId = payload.categoryId;
+  let areaId = payload.areaId;
+
+  if (payload.category && !categoryId) {
+    const category = await Category.findOne({ where: { name: payload.category } });
+    if (category) {
+      categoryId = category.id;
+    }
+  }
+
+  if (payload.area && !areaId) {
+    const area = await Area.findOne({ where: { name: payload.area } });
+    if (area) {
+      areaId = area.id;
+    }
+  }
+
   const newRecipe = await Recipe.create({
+    id: new ObjectId().toString(),
     title: payload.title,
     description: payload.description,
     instructions: payload.instructions,
     thumb: payload.thumb,
     time: payload.time,
     ownerId: payload.ownerId,
-    categoryId: payload.categoryId,
-    areaId: payload.areaId,
+    categoryId,
+    areaId,
   });
-  return newRecipe;
+
+  // Add ingredients if provided
+  if (payload.ingredients && payload.ingredients.length > 0) {
+    const ingredientPromises = payload.ingredients.map((ing) =>
+      newRecipe.addIngredient(ing.id, { through: { measure: ing.measure } })
+    );
+    await Promise.all(ingredientPromises);
+  }
+
+  // Fetch the recipe with all relationships
+  const recipeWithRelations = await Recipe.findByPk(newRecipe.id, {
+    include: [
+      { model: Category, as: 'category', attributes: ['id', 'name'] },
+      { model: Area, as: 'area', attributes: ['id', 'name'] },
+      { model: User, as: 'owner', attributes: ['id', 'name', 'avatar'] },
+      {
+        model: Ingredient,
+        as: 'ingredients',
+        through: { attributes: ['measure'] },
+      },
+    ],
+  });
+
+  return recipeWithRelations;
 }
 // async function addFavoriteRecipe(where) {
 //     const recipe = await getRecipeById(where);
@@ -159,7 +249,7 @@ async function removeFavoriteRecipe(userId, recipeId) {
 }
 
 const getFavoriteRecipes = async (userId) => {
-  const recipes = await Recipe.findAll({
+  return await Recipe.findAll({
     include: [
       {
         model: User,
