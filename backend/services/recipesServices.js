@@ -62,10 +62,24 @@ export async function getPopularRecipes(limit = 10) {
   return recipes;
 }
 
-// Get recipes owned by a user
-async function getOwnRecipes(ownerId) {
-  return await Recipe.findAll({ where: { ownerId } });
+/**
+ * Get recipes owned by a user
+ *
+ * @param {*} ownerId  User ID
+ * @param {*} limit  Items per page
+ * @param {*} offset  Page numer (start, ... LIMIT 10, 54)
+ * @param {*} order  Sort
+ * @returns
+ */
+async function getOwnRecipes(ownerId, limit, offset, order) {
+  return await Recipe.findAndCountAll({
+    where: { ownerId },
+    limit,
+    offset,
+    order,
+  });
 }
+
 // async function getRecipeById(where) {
 //     return await Recipe.findOne({ where });
 // }
@@ -164,6 +178,19 @@ async function getFavoriteRecipes(userId) {
     ],
   });
 }
+
+/**
+ * Pagination function
+ *
+ * @param {*} page
+ * @param {*} limit
+ * @returns
+ */
+const getPagination = (page, limit) => {
+  const offset = (page - 1) * limit; // page number is 1-based
+  return { limit, offset };
+};
+
 export default {
   getRecipes,
   getRecipeById,

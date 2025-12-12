@@ -1,6 +1,6 @@
 tags:
   - Auth
-summary: Register new user 1
+summary: Register new user
 operationId: authRegister
 security: []
 description: 'Register new user'
