@@ -44,7 +44,7 @@ export const validateQuery = (schema) => (req, res, next) => {
       error.details.map((d) => d.message)
     );
   }
-  req.query = value;
+  req.validatedQuery = value;
   next();
 };
 
@@ -66,7 +66,7 @@ export const validateParams = (schema) => {
       );
     }
     // overwrite with validated & sanitized params
-    req.params = value;
+    req.validatedParams = value;
 
     next();
   };

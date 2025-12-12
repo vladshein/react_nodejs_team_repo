@@ -10,10 +10,12 @@ export const createRecipeSchema = Joi.object({
     'any.required': 'category is required',
     'string.base': 'category must be a valid string',
   }),
+  categoryId: Joi.string().optional(),
   area: Joi.string().required().messages({
     'any.required': 'area is required',
     'string.base': 'area must be a valid string',
   }),
+  areaId: Joi.string().optional(),
   instructions: Joi.string().required().messages({
     'any.required': 'instructions is required',
     'string.base': 'instructions must be a valid string',

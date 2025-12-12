@@ -20,21 +20,27 @@ import authenticate from '../middlewares/authenticate.js';
 
 const recipesRouter = express.Router();
 
-// public recipe routes
+// public recipe routes (specific routes must be before /:id pattern)
 recipesRouter.get('/', getRecipesController);
-recipesRouter.get('/favorites', authenticate, getFavoriteRecipesController);
 recipesRouter.get('/popular', getPopularRecipesController);
+
+// protected routes - must be defined BEFORE /:id to avoid route collision
 recipesRouter.get('/my', [authenticate, validateQuery(paginationSchema)], getOwnRecipesController);
+
+// Favorites routes - GET must be before POST/DELETE with :id parameter
+recipesRouter.get('/favorites', authenticate, getFavoriteRecipesController); // список улюблених
+recipesRouter.post('/favorites/:id', authenticate, updateFavoriteRecipeController); // додати улюблений
+recipesRouter.delete('/favorites/:id', authenticate, removeFavoriteRecipeController); // видалити з улюблених
+
+// public route with dynamic parameter - must be AFTER specific routes
 recipesRouter.get('/:id', getRecipeByIdController);
+
+// protected recipe CRUD
 recipesRouter.post('/', [authenticate, validateBody(createRecipeSchema)], createRecipeController);
 recipesRouter.delete(
   '/:id',
   [authenticate, validateParams(deleteRecipeSchema)],
   deleteRecipeController
 );
-
-// Favorites
-recipesRouter.post('/favorites/:id', updateFavoriteRecipeController); // додати улюблений
-recipesRouter.delete('/favorites/:id', removeFavoriteRecipeController); // видалити з улюблених
 
 export default recipesRouter;
