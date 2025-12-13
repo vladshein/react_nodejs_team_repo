@@ -23,6 +23,7 @@ ol {
 img {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
 button,
@@ -62,4 +63,11 @@ textarea {
   font-optical-sizing: auto;
   font-weight: 800;
   font-style: normal;
+}
+
+:root {
+  --main: #050505;
+  --gray: #bfbebe;
+  --white: #fff;
+  --dark-gray: #1a1a1a;
 }
