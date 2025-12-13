@@ -4,6 +4,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=production node app.js",
     "dev": "cross-env NODE_ENV=development nodemon app.js",
+    "devmon": "cross-env NODE_ENV=production nodemon app.js",
     "build-docs": "redocly bundle ./docs/openapi.yaml --ext json --output ./docs/swagger.json"
   },
   "dependencies": {

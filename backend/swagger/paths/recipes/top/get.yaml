@@ -1,15 +1,15 @@
 tags:
   - Recipes
-summary: List of top recipes
+summary: Public endpoint to retrieve popular recipes (popularity should be calculated based on the number of users who have added this recipe to their favorites)
 operationId: topResipes
-description: ""
+description: ''
 security: []
 responses:
-  "200":
+  '200':
     description: Successfully list of top recipes
     content:
       application/json:
         schema:
           type: object
-  "401":
+  '401':
     $ref: ./../../../components/responses/401-common.yaml

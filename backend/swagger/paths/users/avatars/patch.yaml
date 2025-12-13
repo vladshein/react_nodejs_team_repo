@@ -1,6 +1,6 @@
 tags:
   - Users
-summary: Update user avatar
+summary: Private endpoint for updating the avatar of an authorized user
 operationId: userAvatars
 description: Sets user avatars.
 security:
@@ -16,7 +16,7 @@ requestBody:
             format: binary
             description: The user's avatar files.
 responses:
-  "200":
+  '200':
     description: Avatar upload and updated successfully
     content:
       application/json:
@@ -27,5 +27,5 @@ responses:
               type: string
         example:
           avatarURL: avatar URL
-  "401":
+  '401':
     $ref: ./../../../components/responses/401-common.yaml

@@ -1,6 +1,6 @@
 tags:
   - Users
-summary: Get users by id
+summary: Private endpoint for obtaining detailed information about another user
 operationId: getUserById
 description: 'Get user by id'
 security:

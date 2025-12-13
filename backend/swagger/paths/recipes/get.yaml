@@ -1,6 +1,6 @@
 tags:
   - Recipes
-summary: search
+summary: Public endpoint for searching recipes by category, ingredient, and region of origin of the dish (taking into account pagination logic)
 operationId: searchRecipes
 description: Search recipes by category, indigriens, areas
 security: []

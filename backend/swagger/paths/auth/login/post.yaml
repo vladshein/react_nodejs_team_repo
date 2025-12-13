@@ -1,9 +1,9 @@
 tags:
   - Auth
-summary: Login
+summary: Public user login endpoint
 operationId: authLogin
-security: []
 description: 'Allow users to sign in and receive authentication tokens for accessing restricted content.'
+security: []
 requestBody:
   content:
     application/json:

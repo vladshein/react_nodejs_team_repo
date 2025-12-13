@@ -1,15 +1,17 @@
 tags:
   - Ingredients
-summary: Ingredients
+summary: Public endpoint to get the list of ingredients
 operationId: getIngredients
 description: List of ingredients
 security: []
 responses:
-  "200":
+  '200':
     description: Successfully get list of ingredients
     content:
       application/json:
         schema:
-          type: object
-  "401":
+          type: array
+          items:
+            $ref: ./../../components/schemas/ingredients.yaml
+  '401':
     $ref: ./../../components/responses/401-common.yaml
