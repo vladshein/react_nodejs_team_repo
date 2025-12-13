@@ -1,0 +1,18 @@
+.section {
+  background-color: var(--cl-black);
+  height: 100vh;
+  color: var(--cl-white);
+}
+
+.btn {
+  padding: 16px 162px;
+}
+
+.btn1 {
+  fill: red;
+}
+
+.circle {
+  border-radius: var(--radius-circle);
+  padding: 20px;
+}
