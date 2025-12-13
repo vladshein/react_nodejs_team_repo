@@ -41,7 +41,7 @@ const connectioParams = isProduction
 
 const sequelize = new Sequelize({
   ...connectioParams,
-  logging: false,
+  logging: true,
 });
 
 export default sequelize;

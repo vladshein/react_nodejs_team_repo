@@ -9,17 +9,19 @@ info:
     This is a documentation of REST API
 tags:
   - name: Auth
-    description: Auth operations.
+    description: Auth operations
   - name: Users
-    description: Users operations.
+    description: Users operations
   - name: Categories
-    description: Categories operations.
+    description: Categories operations
   - name: Areas
     description: Areas operations
   - name: Ingredients
     description: Ingridients operations
   - name: Testimonials
     description: Testimonials operations
+  - name: Recipes
+    description: Recipes operations
 servers:
   - url: http://localhost:3000/api
 paths:
@@ -51,9 +53,9 @@ paths:
       $ref: ./../swagger/paths/users/following/get.yaml
   /users/following/{id}:
     post:
-      $ref: ./../swagger/paths/users/following/post.yaml
+      $ref: ./../swagger/paths/users/following/{id}/post.yaml
     delete:
-      $ref: ./../swagger/paths/users/following/delete.yaml
+      $ref: ./../swagger/paths/users/following/{id}/delete.yaml
   # CATEGORIES
   /categories:
     get:
@@ -74,19 +76,19 @@ paths:
   /recipes:
     get:
       $ref: ./../swagger/paths/recipes/get.yaml
-  /recipes/my:
-    get:
-      $ref: ./../swagger/paths/recipes/my/get.yaml
+    post:
+      $ref: ./../swagger/paths/recipes/post.yaml
   /recipes/{id}:
     get:
       $ref: ./../swagger/paths/recipes/{id}/get.yaml
-    post:
-      $ref: ./../swagger/paths/recipes/{id}/post.yaml
     delete:
       $ref: ./../swagger/paths/recipes/{id}/delete.yaml
   /recipes/top:
     get:
       $ref: ./../swagger/paths/recipes/top/get.yaml
+  /recipes/my:
+    get:
+      $ref: ./../swagger/paths/recipes/my/get.yaml
   /recipes/favorites/{id}:
     patch:
       $ref: ./../swagger/paths/recipes/favorites/{id}/patch.yaml

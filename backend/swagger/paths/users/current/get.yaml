@@ -1,6 +1,6 @@
 tags:
   - Users
-summary: Get current user info (avatar, name, email, recipes ....)
+summary: Private endpoint for obtaining information about the current user
 operationId: usersCurrent
 description: Returns information about the currently authenticated user.
 security:

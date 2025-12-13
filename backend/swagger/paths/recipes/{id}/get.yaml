@@ -1,6 +1,6 @@
 tags:
   - Recipes
-summary: Get recipe by ID
+summary: Public endpoint to get detailed information about a recipe by its id
 operationId: getRecipeById
 description: Get recipe info bi recipe ID
 security: []

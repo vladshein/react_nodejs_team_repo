@@ -1,12 +1,12 @@
 tags:
   - Users
-summary: Get user followers
+summary: Private endpoint for obtaining information about users following a user's profile (followers)
 operationId: usersFollowers
 description: Returns information about user followers.
 security:
   - bearerAuth: []
 responses:
-  "200":
+  '200':
     description: Successfully retrieved followers info
     content:
       application/json:
@@ -16,5 +16,5 @@ responses:
             followersCount:
               type: integer
               example: 102
-  "401":
+  '401':
     $ref: ./../../../components/responses/401-common.yaml

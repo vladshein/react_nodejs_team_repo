@@ -1,16 +1,16 @@
 tags:
-  - Recipes
-summary: Private endpoint to add a recipe to your favorites list
-operationId: addFavoriteRecipe
-description: Add recipe from favorite
+  - Users
+summary: Private endpoint for adding a user to the list of profiles followed by an authorized user (subscribe)
+operationId: followUser
+description: ''
 security:
   - bearerAuth: []
 parameters:
   - in: path
     name: id
     schema:
-      type: integer
-      example: 7
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
 responses:
   '200':
     description: Successfully add

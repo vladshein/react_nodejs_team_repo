@@ -1,6 +1,6 @@
 tags:
   - Users
-summary: Get user following
+summary: Private endpoint to obtain information about users followed by an authorized user (subscription)
 operationId: getFollowing
 description: Returns information about user following.
 security:

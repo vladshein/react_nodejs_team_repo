@@ -19,7 +19,11 @@ const app = express();
 // syncDatabase();
 
 app.use(morgan('tiny'));
-app.use(cors());
+app.use(
+  cors({
+    origin: '*',
+  })
+);
 app.use(express.json());
 app.use(express.static('public'));
 

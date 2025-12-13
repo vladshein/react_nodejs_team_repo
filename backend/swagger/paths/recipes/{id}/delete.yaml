@@ -1,6 +1,6 @@
 tags:
   - Recipes
-summary: Delete recipe by ID
+summary: Private endpoint to delete your own recipe
 operationId: deleteRecipeById
 description: ''
 security:

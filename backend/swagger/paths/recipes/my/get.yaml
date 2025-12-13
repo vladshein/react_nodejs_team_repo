@@ -1,6 +1,6 @@
 tags:
   - Recipes
-summary: Get list of user recipes
+summary: Private endpoint to receive your own recipes
 operationId: getRecipes
 description: Get list of user recipes
 security:

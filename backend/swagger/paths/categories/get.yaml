@@ -1,15 +1,17 @@
 tags:
   - Categories
-summary: Categories
+summary: Public endpoint to get a list of recipe categories
 operationId: getCategories
-description: ""
+description: ''
 security: []
 responses:
-  "200":
+  '200':
     description: Successfully get list categories of recepts
     content:
       application/json:
         schema:
-          type: object
-  "401":
+          type: array
+          items:
+            $ref: ./../../components/schemas/categories.yaml
+  '401':
     $ref: ./../../components/responses/401-common.yaml

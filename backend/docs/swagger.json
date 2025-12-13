@@ -17,15 +17,15 @@
   "tags": [
     {
       "name": "Auth",
-      "description": "Auth operations."
+      "description": "Auth operations"
     },
     {
       "name": "Users",
-      "description": "Users operations."
+      "description": "Users operations"
     },
     {
       "name": "Categories",
-      "description": "Categories operations."
+      "description": "Categories operations"
     },
     {
       "name": "Areas",
@@ -38,6 +38,10 @@
     {
       "name": "Testimonials",
       "description": "Testimonials operations"
+    },
+    {
+      "name": "Recipes",
+      "description": "Recipes operations"
     }
   ],
   "paths": {
@@ -46,7 +50,7 @@
         "tags": [
           "Auth"
         ],
-        "summary": "Register new user",
+        "summary": "Public user registration endpoint",
         "operationId": "authRegister",
         "security": [],
         "description": "Register new user",
@@ -112,10 +116,10 @@
         "tags": [
           "Auth"
         ],
-        "summary": "Login",
+        "summary": "Public user login endpoint",
         "operationId": "authLogin",
-        "security": [],
         "description": "Allow users to sign in and receive authentication tokens for accessing restricted content.",
+        "security": [],
         "requestBody": {
           "content": {
             "application/json": {
@@ -181,7 +185,7 @@
         "tags": [
           "Auth"
         ],
-        "summary": "Logout",
+        "summary": "Private endpoint for user logout",
         "operationId": "authLogout",
         "description": "Logout",
         "security": [
@@ -204,7 +208,7 @@
         "tags": [
           "Users"
         ],
-        "summary": "Get current user info (avatar, name, email, recipes ....)",
+        "summary": "Private endpoint for obtaining information about the current user",
         "operationId": "usersCurrent",
         "description": "Returns information about the currently authenticated user.",
         "security": [
@@ -265,7 +269,7 @@
         "tags": [
           "Users"
         ],
-        "summary": "Get users by id",
+        "summary": "Private endpoint for obtaining detailed information about another user",
         "operationId": "getUserById",
         "description": "Get user by id",
         "security": [
@@ -332,7 +336,7 @@
         "tags": [
           "Users"
         ],
-        "summary": "Update user avatar",
+        "summary": "Private endpoint for updating the avatar of an authorized user",
         "operationId": "userAvatars",
         "description": "Sets user avatars.",
         "security": [
@@ -386,7 +390,7 @@
         "tags": [
           "Users"
         ],
-        "summary": "Get user followers",
+        "summary": "Private endpoint for obtaining information about users following a user's profile (followers)",
         "operationId": "usersFollowers",
         "description": "Returns information about user followers.",
         "security": [
@@ -422,7 +426,7 @@
         "tags": [
           "Users"
         ],
-        "summary": "Get user following",
+        "summary": "Private endpoint to obtain information about users followed by an authorized user (subscription)",
         "operationId": "getFollowing",
         "description": "Returns information about user following.",
         "security": [
@@ -458,12 +462,22 @@
         "tags": [
           "Users"
         ],
-        "summary": "Add following",
+        "summary": "Private endpoint for adding a user to the list of profiles followed by an authorized user (subscribe)",
         "operationId": "followUser",
         "description": "",
         "security": [
           {
             "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
           }
         ],
         "responses": {
@@ -486,12 +500,22 @@
         "tags": [
           "Users"
         ],
-        "summary": "Unfollow user",
+        "summary": "Private endpoint to remove a user from the list of profiles followed by an authorized user (unsubscribe)",
         "operationId": "unfollowUser",
         "description": "",
         "security": [
           {
             "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
           }
         ],
         "responses": {
@@ -516,7 +540,7 @@
         "tags": [
           "Categories"
         ],
-        "summary": "Categories",
+        "summary": "Public endpoint to get a list of recipe categories",
         "operationId": "getCategories",
         "description": "",
         "security": [],
@@ -526,7 +550,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/categories"
+                  }
                 }
               }
             }
@@ -542,7 +569,7 @@
         "tags": [
           "Areas"
         ],
-        "summary": "Areas",
+        "summary": "Public endpoint to get a list of regions of origin of dishes",
         "operationId": "getAreas",
         "description": "",
         "security": [],
@@ -552,7 +579,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/areas"
+                  }
                 }
               }
             }
@@ -568,7 +598,7 @@
         "tags": [
           "Ingredients"
         ],
-        "summary": "Ingredients",
+        "summary": "Public endpoint to get the list of ingredients",
         "operationId": "getIngredients",
         "description": "List of ingredients",
         "security": [],
@@ -578,7 +608,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ingredients"
+                  }
                 }
               }
             }
@@ -594,9 +627,9 @@
         "tags": [
           "Testimonials"
         ],
-        "summary": "Testimonials",
+        "summary": "Public endpoint to get a list of reviews",
         "operationId": "getTestimonials",
-        "description": "",
+        "description": "Get comment list",
         "security": [],
         "responses": {
           "200": {
@@ -604,7 +637,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/testimonials"
+                  }
                 }
               }
             }
@@ -620,13 +656,207 @@
         "tags": [
           "Recipes"
         ],
-        "summary": "search",
+        "summary": "Public endpoint for searching recipes by category, ingredient, and region of origin of the dish (taking into account pagination logic)",
         "operationId": "searchRecipes",
         "description": "Search recipes by category, indigriens, areas",
         "security": [],
         "responses": {
           "200": {
             "description": "Successfully list of recipes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Private endpoint to create your own recipe",
+        "operationId": "addRecipes",
+        "description": "Add new recipes",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "example": "Test Chocolate Cake"
+                  },
+                  "category": {
+                    "type": "string",
+                    "example": "Dessert"
+                  },
+                  "area": {
+                    "type": "string",
+                    "example": "British"
+                  },
+                  "instructions": {
+                    "type": "string",
+                    "example": "Mix ingredients and bake at 180°C for 30 minutes."
+                  },
+                  "description": {
+                    "type": "string",
+                    "example": "Delicious chocolate cake perfect for any occasion."
+                  },
+                  "thumb": {
+                    "type": "string",
+                    "example": "http://example.com/chocolate-cake.jpg"
+                  },
+                  "time": {
+                    "type": "string",
+                    "example": "45"
+                  },
+                  "ingredients": {
+                    "type": "array",
+                    "example": [
+                      {
+                        "id": "640c2dd963a319ea671e37aa",
+                        "measure": "200g"
+                      },
+                      {
+                        "id": "640c2dd963a319ea671e37f5",
+                        "measure": "3 pcs"
+                      },
+                      {
+                        "id": "640c2dd963a319ea671e3665",
+                        "measure": "150ml"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successfully add new recipes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      }
+    },
+    "/recipes/{id}": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Public endpoint to get detailed information about a recipe by its id",
+        "operationId": "getRecipeById",
+        "description": "Get recipe info bi recipe ID",
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "example": "64c8d958249fae54bae90bb"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully list of recipes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Private endpoint to delete your own recipe",
+        "operationId": "deleteRecipeById",
+        "description": "",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "schema": {
+              "example": "64c8d958249fae54bae90bb1"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "The recipe 64c8d958249fae54bae90bb1 was deleted successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401-common"
+          }
+        }
+      }
+    },
+    "/recipes/top": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Public endpoint to retrieve popular recipes (popularity should be calculated based on the number of users who have added this recipe to their favorites)",
+        "operationId": "topResipes",
+        "description": "",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successfully list of top recipes",
             "content": {
               "application/json": {
                 "schema": {
@@ -646,7 +876,7 @@
         "tags": [
           "Recipes"
         ],
-        "summary": "Get list of user recipes",
+        "summary": "Private endpoint to receive your own recipes",
         "operationId": "getRecipes",
         "description": "Get list of user recipes",
         "security": [
@@ -721,156 +951,12 @@
         }
       }
     },
-    "/recipes/{id}": {
-      "get": {
-        "tags": [
-          "Recipes"
-        ],
-        "summary": "Get recipe by ID",
-        "operationId": "getRecipeById",
-        "description": "Get recipe info bi recipe ID",
-        "security": [],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "schema": {
-              "example": "64c8d958249fae54bae90bb"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successfully list of recipes",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/401-common"
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "Recipes"
-        ],
-        "summary": "Add recipes",
-        "operationId": "addRecipes",
-        "description": "Add new recipes",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "schema": {
-              "example": "64c8d958249fae54bae90bb"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successfully add new recipes",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/401-common"
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "Recipes"
-        ],
-        "summary": "Delete recipe by ID",
-        "operationId": "deleteRecipeById",
-        "description": "",
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "schema": {
-              "example": "64c8d958249fae54bae90bb1"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successfully deleted",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "message": {
-                      "type": "string",
-                      "example": "The recipe 64c8d958249fae54bae90bb1 was deleted successfully"
-                    }
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/400"
-          },
-          "401": {
-            "$ref": "#/components/responses/401-common"
-          }
-        }
-      }
-    },
-    "/recipes/top": {
-      "get": {
-        "tags": [
-          "Recipes"
-        ],
-        "summary": "List of top recipes",
-        "operationId": "topResipes",
-        "description": "",
-        "security": [],
-        "responses": {
-          "200": {
-            "description": "Successfully list of top recipes",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object"
-                }
-              }
-            }
-          },
-          "401": {
-            "$ref": "#/components/responses/401-common"
-          }
-        }
-      }
-    },
     "/recipes/favorites/{id}": {
       "patch": {
         "tags": [
           "Recipes"
         ],
-        "summary": "Add recipe from favorite",
+        "summary": "Private endpoint to add a recipe to your favorites list",
         "operationId": "addFavoriteRecipe",
         "description": "Add recipe from favorite",
         "security": [
@@ -908,7 +994,7 @@
         "tags": [
           "Recipes"
         ],
-        "summary": "Delete recipe from favorite",
+        "summary": "Private endpoint to remove a recipe from the favorites list",
         "operationId": "deleteFavoriteRecipe",
         "description": "ADelete recipe from favorite",
         "security": [
@@ -948,10 +1034,14 @@
         "tags": [
           "Recipes"
         ],
-        "summary": "favorites",
+        "summary": "Private endpoint to retrieve your favorite recipes",
         "operationId": "favoritesRecipes",
         "description": "get list of favorites recipes",
-        "security": [],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successfully list of favorites recipes",
@@ -1070,6 +1160,95 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "categories": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The category ID",
+            "example": "6462a6cd4c3d0ddd28897f8a"
+          },
+          "name": {
+            "type": "string",
+            "description": "The category name",
+            "example": "Seafood"
+          }
+        }
+      },
+      "areas": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The areas ID",
+            "example": "6462a6f04c3d0ddd28897f9b"
+          },
+          "name": {
+            "type": "string",
+            "description": "The areas name",
+            "example": "Ukrainian"
+          }
+        }
+      },
+      "ingredients": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The areas ID",
+            "example": "6462a6f04c3d0ddd28897f9b"
+          },
+          "name": {
+            "type": "string",
+            "description": "The areas name",
+            "example": "Ukrainian"
+          },
+          "desc": {
+            "type": "string",
+            "description": "The description of ingredients",
+            "example": "A type of cephalopod with a soft, cylindrical body and long tentacles, often used in seafood dishes such as calamari or grilled squid."
+          },
+          "img": {
+            "type": "string",
+            "description": "Image path",
+            "example": "https://ftp.goit.study/img/so-yummy/ingredients/640c2dd963a319ea671e37aa.png"
+          }
+        }
+      },
+      "testimonials": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The testimonial ID",
+            "example": "647495d0c825f1570b04182d"
+          },
+          "testimonial": {
+            "type": "string",
+            "description": "Comment text",
+            "example": "Foodies has transformed my cooking experience! With its diverse recipe collection and user-friendly interface, I can easily find, save, and cook delicious meals for any occasion. From quick dinners to elaborate feasts, this app has become my go-to kitchen companion. Highly recommended!"
+          },
+          "ownerId": {
+            "type": "string",
+            "description": "The owner (creator) ID",
+            "example": "64c8d958249fae54bae90bb9"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Created datetime",
+            "example": "2025-12-11T16:27:08.933Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Updated datetime",
+            "example": "2025-12-11T16:27:08.933Z"
           }
         }
       }

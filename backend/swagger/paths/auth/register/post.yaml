@@ -1,6 +1,6 @@
 tags:
   - Auth
-summary: Register new user
+summary: Public user registration endpoint
 operationId: authRegister
 security: []
 description: 'Register new user'
