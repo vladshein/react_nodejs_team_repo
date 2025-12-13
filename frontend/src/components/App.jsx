@@ -1,6 +1,5 @@
 import { lazy, Suspense } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
-// import Navigation from './Navigation/Navigation';
 
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const RecipePage = lazy(() => import('../pages/RecipePage/RecipePage'));
@@ -9,12 +8,13 @@ const UserPage = lazy(() => import('../pages/UserPage/UserPage'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage/NotFoundPage'));
 
 import style from './App.module.css';
+import Hero from './HomePageComponents/Hero/Hero';
 
 const App = () => {
   return (
     <Suspense fallback={<div>Loading...</div>}>
       <div className={style.container}>
-        {/* <Navigation /> */}
+        <Hero />
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/recipe/:id" element={<RecipePage />}></Route>

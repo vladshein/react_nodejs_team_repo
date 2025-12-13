@@ -1,104 +1,11 @@
-.formContainer {
-  display: flex;
-  width: 641px;
-  padding: 44px;
-  flex-direction: column;
-  gap: 24px;
-  border-radius: 10px;
-  border: 1px solid var(--Gray-light, #dadde1);
-}
-
-.formHead {
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  gap: 8px;
-  color: var(--Main, #101828);
-  /* H3 */
-  font-family: Inter;
-  font-size: 20px;
+.headerlogo {
+  fill: white;
+  width: 83px;
+  font-family: Mulish;
+  font-size: 1.5rem;
   font-style: normal;
-  font-weight: 600;
-  line-height: 24px; /* 120% */
-  padding: 0 13px;
-}
-
-.formHeadText {
-  color: var(--Gray, #6c717b);
-  /* Body */
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px; /* 150% */
-
-  align-self: stretch;
-}
-
-.feedbackFormItem {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 14px;
-  padding: 0 13px;
-}
-
-.formField {
-  display: flex;
-  width: 527px;
-  height: 60px;
-  padding: 18px 337px 18px 18px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  border-radius: 12px;
-  background: var(--Inputs, #f7f7f7);
-  border: none;
-}
-
-.formField:hover,
-.formField:focus {
-  outline: none; /* Removes default browser outline */
-}
-
-.formFieldComment {
-  display: flex;
-  width: 527px;
-  padding: 18px 308px 76px 18px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  border-radius: 10px;
-  background: var(--Inputs, #f7f7f7);
-  border: none;
-}
-.formFieldComment:focus,
-.formFieldComment:hover {
-  outline: none;
-}
-
-.formBtn {
-  display: flex;
-  width: 166px;
-  padding: 16px 60px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  border-radius: 200px;
-  background: var(--Button, #e44848);
-  margin-top: 10px;
-  border: none;
-  color: var(--White, #fff);
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 24px; /* 150% */
-  letter-spacing: -0.08px;
-}
-
-.formBtn:hover,
-.formBtn:focus {
-  background: #d84343;
+  font-weight: 800;
+  line-height: 1.75rem; /* 116.667% */
+  letter-spacing: -0.03rem;
+  text-transform: lowercase;
 }

@@ -1,104 +1,79 @@
-.formContainer {
-  display: flex;
-  width: 641px;
-  padding: 44px;
-  flex-direction: column;
-  gap: 24px;
-  border-radius: 10px;
-  border: 1px solid var(--Gray-light, #dadde1);
+.heroContainer {
+  width: 1400px;
+  height: 970px;
+  padding: 0 60px;
+  border-radius: 30px;
+  background: var(--Main, #050505);
+  padding-top: 20px;
+  text-align: center;
 }
 
-.formHead {
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
-  gap: 8px;
-  color: var(--Main, #101828);
-  /* H3 */
-  font-family: Inter;
-  font-size: 20px;
+/*  adds equal spacing between all children */
+
+.heroText {
+  color: #fff;
+  max-width: 875px;
+  margin-left: 197px;
+
+  text-align: center;
+  /* Desktop _tablet/H1 */
+  font-size: 90px;
   font-style: normal;
-  font-weight: 600;
-  line-height: 24px; /* 120% */
-  padding: 0 13px;
+  font-weight: 800;
+  line-height: 90px; /* 100% */
+  letter-spacing: -1.8px;
+  text-transform: uppercase;
+  margin-bottom: 40px;
 }
 
-.formHeadText {
-  color: var(--Gray, #6c717b);
-  /* Body */
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px; /* 150% */
+.heroTextSmall {
+  color: #fff;
+  max-width: 577px;
 
-  align-self: stretch;
-}
-
-.feedbackFormItem {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 14px;
-  padding: 0 13px;
-}
-
-.formField {
-  display: flex;
-  width: 527px;
-  height: 60px;
-  padding: 18px 337px 18px 18px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  border-radius: 12px;
-  background: var(--Inputs, #f7f7f7);
-  border: none;
-}
-
-.formField:hover,
-.formField:focus {
-  outline: none; /* Removes default browser outline */
-}
-
-.formFieldComment {
-  display: flex;
-  width: 527px;
-  padding: 18px 308px 76px 18px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  border-radius: 10px;
-  background: var(--Inputs, #f7f7f7);
-  border: none;
-}
-.formFieldComment:focus,
-.formFieldComment:hover {
-  outline: none;
-}
-
-.formBtn {
-  display: flex;
-  width: 166px;
-  padding: 16px 60px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  border-radius: 200px;
-  background: var(--Button, #e44848);
-  margin-top: 10px;
-  border: none;
-  color: var(--White, #fff);
-  font-family: Inter;
+  text-align: center;
+  /* Desktop _tablet/Main */
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: 24px; /* 150% */
-  letter-spacing: -0.08px;
+  letter-spacing: -0.32px;
+  margin: 0 auto;
+  margin-bottom: 40px;
 }
 
-.formBtn:hover,
-.formBtn:focus {
-  background: #d84343;
+.btn {
+  background: var(--Main, #050505);
+  color: white;
+  text-decoration: none;
+  padding: 16px 32px;
+  align-items: flex-start;
+  gap: 10px;
+  border-radius: 30px;
+  border: 1px solid #fff;
+  margin: 0 auto;
+  margin-bottom: 40px;
+}
+
+.rotated1 {
+  width: 128px;
+  height: 116px;
+  transform: rotate(11deg);
+  border-radius: 30px;
+}
+
+.rotated2 {
+  width: 302px;
+  height: 273px;
+  transform: rotate(-12deg);
+  border-radius: 30px;
+}
+
+.heropicture {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 60px;
+  gap: 50px;
+  border-radius: 30px;
 }

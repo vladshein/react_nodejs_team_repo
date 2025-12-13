@@ -1,26 +1,28 @@
-.headerdiv {
+.headernav {
   display: flex;
-  width: 1280;
-  height: 46px;
+  flex-direction: row;
+  gap: 40px;
   justify-content: space-between;
   align-items: center;
-  background-color: #050505;
-  margin-bottom: 88px;
 }
 
-.headernav {
+.headerButtons {
   color: var(--White, #fff);
-  font-family: Mulish;
   font-size: 12px;
   font-style: normal;
   font-weight: 700;
   line-height: 18px; /* 150% */
   letter-spacing: -0.24px;
   text-transform: uppercase;
+  border: 1px solid transparent;
   display: flex;
+  padding: 14px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  gap: 10px;
 }
 
-a {
-  text-decoration: none;
-  color: currentColor;
+.active {
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
