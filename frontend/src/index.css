@@ -2,9 +2,9 @@
   /* Colors */
   --cl-black: #050505;
   --cl-white: #ffffff;
-  --cl-gray-900: #1a1a1a;
-  --cl-gray-200: #bfbebe;
-  --cl-gray-100: #e8e8e8;
+  --cl-dark-gray: #1a1a1a;
+  --cl-light-gray: #bfbebe;
+  --cl-lighter-gray: #e8e8e8;
   --cl-error: #ae0000;
 
   /* Font sizes */
