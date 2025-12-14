@@ -1,22 +1,22 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { trucksReducer } from "./trucksSlice";
-import { filtersReducer } from "./filtersSlice";
-import { persistedFavoriteReducer } from "./favoritesSlice";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, persistStore } from 'redux-persist';
 
-import {
-  FLUSH,
-  REHYDRATE,
-  PAUSE,
-  PERSIST,
-  PURGE,
-  REGISTER,
-  persistStore,
-} from "redux-persist";
+import { authReducer } from './auth/slice';
+import { usersReducer } from './users/slice';
+import { categoriesReducer } from './categories/slice';
+import { areasReducer } from './areas/slice';
+import { ingredientsReducer } from './ingredients/slice';
+import { testimonialsReducer } from './testimonials/slice';
+import { recipesReducer } from './recipes/slice';
 
 const rootReducer = combineReducers({
-  trucks: trucksReducer,
-  filters: filtersReducer,
-  favorite: persistedFavoriteReducer,
+  auth: authReducer,
+  users: usersReducer,
+  categories: categoriesReducer,
+  areas: areasReducer,
+  ingredients: ingredientsReducer,
+  testimonials: testimonialsReducer,
+  recipes: recipesReducer,
 });
 
 export const store = configureStore({
