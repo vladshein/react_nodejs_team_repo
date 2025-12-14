@@ -10,6 +10,8 @@ const NotFoundPage = lazy(() => import('../pages/NotFoundPage/NotFoundPage'));
 import style from './App.module.css';
 import Hero from './HomePageComponents/Hero/Hero';
 import Categories from './HomePageComponents/Categories/Categories';
+import RestrictedRoute from '../guards/RestrictedRoute/RestrictedRoute';
+import PrivateRoute from '../guards/PrivateRoute/PrivateRoute';
 
 const App = () => {
   return (
@@ -21,7 +23,9 @@ const App = () => {
             <Route path="categories" element={<Categories />}></Route>
             {/* <Route path="categories/:id" element={<Categories />}></Route> */}
           </Route>
-          <Route path="/recipe/add" element={<AddRecipePage />}></Route>
+          <Route
+            path="/recipe/add"
+            element={<PrivateRoute component={<AddRecipePage />} />}></Route>
           <Route path="/recipe/:id" element={<RecipePage />}></Route>
           <Route path="/user/:id" element={<UserPage />}></Route>
           <Route path="*" element={<NotFoundPage />}></Route>
