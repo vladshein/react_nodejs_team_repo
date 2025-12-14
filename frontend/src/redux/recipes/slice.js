@@ -1,0 +1,72 @@
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import {
+  fetchRecipes,
+  fetchRecipeDetails,
+  fetchTopRecipes,
+  fetchMyRecipes,
+  publishRecipe,
+  deleteRecipe,
+  fetchFavoriteRecipes,
+  addToFavorites,
+  removeFromFavorites,
+} from './actions';
+
+const handlePending = (state) => {
+  state.isLoading = true;
+  state.error = null;
+};
+
+const initialState = {
+  allRecipes: [],
+  myRecipes: [],
+  favorites: [],
+  topRecipes: [],
+  selectedRecipe: null,
+  isLoading: false,
+  error: null,
+};
+
+const recipesSlice = createSlice({
+  name: 'recipes',
+  initialState,
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchRecipes.pending, handlePending)
+      .addCase(fetchRecipeDetails.pending, handlePending)
+      .addCase(fetchTopRecipes.pending, handlePending)
+      .addCase(fetchMyRecipes.pending, handlePending)
+      .addCase(publishRecipe.pending, handlePending)
+      .addCase(deleteRecipe.pending, handlePending)
+      .addCase(fetchFavoriteRecipes.pending, handlePending)
+      .addCase(addToFavorites.pending, handlePending)
+      .addCase(removeFromFavorites.pending, handlePending)
+      .addCase(fetchRecipes.fulfilled, (state, action) => {})
+      .addCase(fetchRecipeDetails.fulfilled, (state, action) => {})
+      .addCase(fetchTopRecipes.fulfilled, (state, action) => {})
+      .addCase(fetchMyRecipes.fulfilled, (state, action) => {})
+      .addCase(publishRecipe.fulfilled, (state, action) => {})
+      .addCase(deleteRecipe.fulfilled, (state, action) => {})
+      .addCase(fetchFavoriteRecipes.fulfilled, (state, action) => {})
+      .addCase(addToFavorites.fulfilled, (state, action) => {})
+      .addCase(removeFromFavorites.fulfilled, (state, action) => {})
+      .addMatcher(
+        isAnyOf(
+          fetchRecipes.rejected,
+          fetchRecipeDetails.rejected,
+          fetchTopRecipes.rejected,
+          fetchMyRecipes.rejected,
+          publishRecipe.rejected,
+          deleteRecipe.rejected,
+          fetchFavoriteRecipes.rejected,
+          addToFavorites.rejected,
+          removeFromFavorites.rejected
+        ),
+        (state, { payload }) => {
+          state.isLoading = false;
+          state.error = payload;
+        }
+      );
+  },
+});
+
+export const recipesReducer = recipesSlice.reducer;
