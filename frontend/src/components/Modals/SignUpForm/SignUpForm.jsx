@@ -1,12 +1,9 @@
 import style from './SignUpForm.module.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useId } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 const SignUpForm = ({ submitSignUp }) => {
-  // const notify = (name, date) =>
-  //   toast.success(`Dear ${name}, thank you for your booking on ${date}!`);
-
   const handleSubmit = (values, actions) => {
     actions.reset;
     console.log(values);

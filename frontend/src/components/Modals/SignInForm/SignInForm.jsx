@@ -4,14 +4,10 @@ import { useId } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
 const SignInForm = ({ submitSignIn }) => {
-  // const notify = (name, date) =>
-  //   toast.success(`Dear ${name}, thank you for your booking on ${date}!`);
-
   const handleSubmit = (data, actions) => {
-    // console.log('Form Data:', data);
-    // notify(data.name, data.bookingDate);
     actions.reset;
     submitSignIn(data);
+    toast.success(`Successfully signed in!`);
   };
 
   const emailFieldId = useId();
