@@ -1,8 +1,8 @@
 const authActions = {
-  SIGN_IN: 'auth/signIn',
-  SIGN_UP: 'auth/signUp',
-  CURRENT_USER: 'auth/currentUser',
-  LOG_OUT: 'auth/logOut',
+  SIGN_IN: 'auth/login',
+  SIGN_UP: 'auth/register',
+  CURRENT_USER: 'auth/current',
+  LOG_OUT: 'auth/logout',
 };
 
 export { authActions };
