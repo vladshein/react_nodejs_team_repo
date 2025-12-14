@@ -4,7 +4,7 @@ import HeaderNav from '../HeaderNav/HeaderNav';
 import AuthBar from '../AuthBar/AuthBar';
 import { useLocation } from 'react-router-dom';
 
-const Header = () => {
+const Header = ({ onLoginClick, onRegisterClick }) => {
   const location = useLocation();
   const variant = location.pathname === '/' ? 'dark' : 'light';
 
@@ -12,7 +12,7 @@ const Header = () => {
     <header className={`${style.headerdiv} ${variant === 'dark' ? style.dark : style.light}`}>
       <Logo variant={variant === 'dark' ? 'light' : 'dark'} />
       <HeaderNav variant={variant === 'dark' ? 'light' : 'dark'} />
-      <AuthBar />
+      <AuthBar onLoginClick={onLoginClick} onRegisterClick={onRegisterClick} />
     </header>
   );
 };
