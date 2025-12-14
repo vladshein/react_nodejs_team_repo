@@ -1,39 +1,65 @@
-import { createSlice, isAnyOf } from '@reduxjs/toolkit';
-import { signUp, signIn, getCurrentUser, logOut } from './actions';
+import { createSlice } from '@reduxjs/toolkit';
+import { login, logout, refreshUser, register } from './actions';
 
 const handlePending = (state) => {
   state.isLoading = true;
-  state.error = null;
 };
 
-const initialState = {
-  user: null,
-  token: null, // тут не певен, токен же наче в юзері буде? змінювати можна і потрібно це лише шаблон)
-  isLoading: false,
-  error: null,
+const handleRejected = (state) => {
+  state.isLoading = false;
+  state.error = true;
 };
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState,
-  extraReducers: (builder) => {
-    builder
-      .addCase(signUp.pending, handlePending)
-      .addCase(signIn.pending, handlePending)
-      .addCase(getCurrentUser.pending, handlePending)
-      .addCase(logOut.pending, handlePending)
-      .addCase(signUp.fulfilled, (state, action) => {})
-      .addCase(signIn.fulfilled, (state, action) => {})
-      .addCase(getCurrentUser.fulfilled, (state, action) => {})
-      .addCase(logOut.fulfilled, (state, action) => {})
-      .addMatcher(
-        isAnyOf(signUp.rejected, signIn.rejected, getCurrentUser.rejected, logOut.rejected),
-        (state, { payload }) => {
-          state.isLoading = false;
-          state.error = payload;
-        }
-      );
+  initialState: {
+    user: {
+      name: '',
+      email: '',
+    },
+    token: null,
+    isLoggedIn: false,
+    isRefreshing: false,
+    isLoading: false,
+    error: false,
   },
+  extraReducers: (builder) =>
+    builder
+      .addCase(register.fulfilled, (state, { payload }) => {
+        console.log(payload);
+
+        state.isLoading = false;
+        state.user = payload.user;
+        state.token = payload.token;
+        state.isLoggedIn = true;
+      })
+      .addCase(register.pending, handlePending)
+      .addCase(register.rejected, handleRejected)
+      .addCase(login.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.token = payload.token;
+        state.user = payload.user;
+        state.isLoggedIn = true;
+      })
+      .addCase(login.pending, handlePending)
+      .addCase(login.rejected, handleRejected)
+      .addCase(logout.fulfilled, (state) => {
+        state.isLoggedIn = false;
+        state.isLoading = false;
+        state.user = { name: '', email: '' };
+        state.token = null;
+      })
+      .addCase(logout.pending, handlePending)
+      .addCase(logout.rejected, handleRejected)
+      .addCase(refreshUser.fulfilled, (state, { payload }) => {
+        state.user = payload;
+        state.isLoggedIn = true;
+        state.isLoading = false;
+        state.isRefreshing = false;
+      })
+      .addCase(refreshUser.pending, (state) => {
+        state.isRefreshing = true;
+      }),
 });
 
 export const authReducer = authSlice.reducer;
