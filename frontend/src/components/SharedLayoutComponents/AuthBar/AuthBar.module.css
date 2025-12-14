@@ -1,55 +1,39 @@
-.toggle-group {
-  display: flex;
+.toggleGroup {
+  display: inline-flex;
   border-radius: 30px;
-  overflow: hidden;
-  border: 2px solid #000;
+  background: #fff; /* keep group background white */
+  border: 1px solid #000;
+  margin-left: auto;
 }
 
-.toggle-button {
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
+.togglebutton {
   cursor: pointer;
   border: none;
   outline: none;
-}
-
-.toggle-button.inactive {
-  background: #fff;
-  color: #000;
-}
-
-.toggle-button.active {
-  background: #000;
+  background: transparent; /* default transparent so group bg shows */
   color: #fff;
+  font-family: Mulish;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 18px; /* 150% */
+  letter-spacing: -0.24px;
+  text-transform: uppercase;
+
+  display: inline-flex;
+  padding: 14px 28px;
+  justify-content: center;
+  align-items: center;
 }
 
-/* ToggleButtons.css */
-.toggle-group {
-  display: flex;
-  border-radius: 30px;
-  overflow: hidden;
-  border: 2px solid #000;
-  width: fit-content;
-  margin: 40px auto;
-}
-
-.toggle-button {
-  padding: 12px 24px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  border: none;
-  outline: none;
-  transition: background 0.2s ease, color 0.2s ease;
-}
-
-.toggle-button.inactive {
-  background: #fff;
-  color: #000;
-}
-
-.toggle-button.active {
-  background: #000;
+.active {
+  background: #1a1a1a; /* only this button turns black */
   color: #fff;
+  border-radius: 30px; /* optional: keep pill shape */
+  border: 1px solid #e8e8e8;
+}
+
+.inactive {
+  background: transparent; /* stays white because group bg is white */
+  color: #000;
 }

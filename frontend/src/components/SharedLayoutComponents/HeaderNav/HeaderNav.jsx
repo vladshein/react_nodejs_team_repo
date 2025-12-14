@@ -9,7 +9,9 @@ const HeaderNav = () => {
       <NavLink to="/" className={navClasses}>
         Home
       </NavLink>
-      <NavLink to="/catalog" className={navClasses}>
+      {/* check if user authorized. if authorized go to the 
+      recipe/add else show message that user is not authorized*/}
+      <NavLink to="/recipe/add" className={navClasses}>
         Add Recipe
       </NavLink>
     </nav>
