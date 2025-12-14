@@ -10,9 +10,25 @@ const NotFoundPage = lazy(() => import('../pages/NotFoundPage/NotFoundPage'));
 import style from './App.module.css';
 import Hero from './HomePageComponents/Hero/Hero';
 import Categories from './HomePageComponents/Categories/Categories';
+import RestrictedRoute from '../guards/RestrictedRoute/RestrictedRoute';
+import PrivateRoute from '../guards/PrivateRoute/PrivateRoute';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsRefreshing } from '../redux/auth/selectors';
+import { useEffect } from 'react';
+import { refreshUser } from '../redux/auth/actions';
 
 const App = () => {
-  return (
+  const isRefreshing = useSelector(selectIsRefreshing);
+  console.log(isRefreshing);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
+  return isRefreshing ? (
+    <div>Refreshing user...</div>
+  ) : (
     <Suspense fallback={<div>Loading...</div>}>
       <div className={style.container}>
         <Routes>
@@ -21,7 +37,10 @@ const App = () => {
             <Route path="categories" element={<Categories />}></Route>
             {/* <Route path="categories/:id" element={<Categories />}></Route> */}
           </Route>
-          <Route path="/recipe/add" element={<AddRecipePage />}></Route>
+          <Route index element={<HomePage />} />
+          <Route
+            path="/recipe/add"
+            element={<PrivateRoute component={<AddRecipePage />} />}></Route>
           <Route path="/recipe/:id" element={<RecipePage />}></Route>
           <Route path="/user/:id" element={<UserPage />}></Route>
           <Route path="*" element={<NotFoundPage />}></Route>

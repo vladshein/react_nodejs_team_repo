@@ -1,36 +1,65 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { authActions } from './constants';
+import axios from 'axios';
 
-const signUp = createAsyncThunk(authActions.SIGN_UP, async (data, { rejectWithValue }) => {
+axios.defaults.baseURL = 'https://react-nodejs-team-repo.onrender.com/api/';
+
+const setToken = (token) => {
+  axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+};
+
+const removeToken = () => {
+  delete axios.defaults.headers.common['Authorization'];
+};
+
+export const register = createAsyncThunk('auth/register', async (userData, { rejectWithValue }) => {
   try {
-    // api call to sign up
+    const { data } = await axios.post('/auth/register', userData);
+    setToken(data.token);
+    console.log(data);
+
+    return data;
   } catch (error) {
     return rejectWithValue(error.message);
   }
 });
-const signIn = createAsyncThunk(authActions.SIGN_IN, async (data, { rejectWithValue }) => {
+
+export const login = createAsyncThunk('auth/login', async (userData, thunkAPI) => {
   try {
-    // api call to sign in
+    const { data } = await axios.post('/auth/login', userData);
+    setToken(data.token);
+    return data;
   } catch (error) {
-    return rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(error.message);
   }
 });
-const getCurrentUser = createAsyncThunk(
-  authActions.CURRENT_USER,
-  async (_, { rejectWithValue }) => {
+
+export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
+  try {
+    await axios.post('auth/logout');
+    removeToken();
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
+export const refreshUser = createAsyncThunk(
+  'auth/refresh',
+  async (_, thunkAPI) => {
     try {
-      // api call to get current user
+      const state = thunkAPI.getState();
+      const token = state.auth.token;
+      setToken(token);
+      const { data } = await axios.get('/auth/current');
+      return data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.message);
     }
+  },
+  {
+    condition: (_, { getState }) => {
+      const state = getState();
+      const localToken = state.auth.token;
+      return localToken !== null;
+    },
   }
 );
-const logOut = createAsyncThunk(authActions.LOG_OUT, async (_, { rejectWithValue }) => {
-  try {
-    // api call to log out
-  } catch (error) {
-    return rejectWithValue(error.message);
-  }
-});
-
-export { signUp, signIn, getCurrentUser, logOut };
