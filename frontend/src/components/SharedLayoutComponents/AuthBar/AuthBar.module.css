@@ -1,21 +1,55 @@
-.signin {
-  color: #fff;
-  font-family: Mulish;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 18px; /* 150% */
-  letter-spacing: -0.24px;
-  text-transform: uppercase;
+.toggle-group {
+  display: flex;
+  border-radius: 30px;
+  overflow: hidden;
+  border: 2px solid #000;
 }
 
-.signup {
+.toggle-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+
+.toggle-button.inactive {
+  background: #fff;
+  color: #000;
+}
+
+.toggle-button.active {
+  background: #000;
   color: #fff;
-  font-family: Mulish;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 18px; /* 150% */
-  letter-spacing: -0.24px;
-  text-transform: uppercase;
+}
+
+/* ToggleButtons.css */
+.toggle-group {
+  display: flex;
+  border-radius: 30px;
+  overflow: hidden;
+  border: 2px solid #000;
+  width: fit-content;
+  margin: 40px auto;
+}
+
+.toggle-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.toggle-button.inactive {
+  background: #fff;
+  color: #000;
+}
+
+.toggle-button.active {
+  background: #000;
+  color: #fff;
 }
