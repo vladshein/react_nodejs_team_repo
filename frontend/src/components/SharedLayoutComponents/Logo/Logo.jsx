@@ -1,10 +1,12 @@
 import style from './Logo.module.css';
-
-const Logo = () => {
+import { NavLink, Link } from 'react-router-dom';
+const Logo = ({ variant }) => {
   return (
-    <svg className={style.headerlogo}>
-      <use href={'/icons.svg#icon-logo'}></use>
-    </svg>
+    <Link to="/">
+      <svg className={`${style.headerlogo} ${variant === 'dark' ? style.dark : style.light}`}>
+        <use href={'/icons.svg#icon-logo'}></use>
+      </svg>
+    </Link>
   );
 };
 

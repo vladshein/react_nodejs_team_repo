@@ -1,15 +1,26 @@
 import style from './HeaderNav.module.css';
 import { NavLink } from 'react-router-dom';
 
-const navClasses = ({ isActive }) => `${style.headerButtons} ${isActive ? style.active : ''}`;
-
-const HeaderNav = () => {
+const HeaderNav = ({ variant }) => {
   return (
     <nav className={style.headernav}>
-      <NavLink to="/" className={navClasses}>
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          `${style.headerButtons} ${isActive ? style.active : ''} ${
+            variant === 'dark' ? style.dark : style.light
+          }`
+        }>
         Home
       </NavLink>
-      <NavLink to="/catalog" className={navClasses}>
+
+      <NavLink
+        to="/recipe/add"
+        className={({ isActive }) =>
+          `${style.headerButtons} ${isActive ? style.active : ''} ${
+            variant === 'dark' ? style.dark : style.light
+          }`
+        }>
         Add Recipe
       </NavLink>
     </nav>

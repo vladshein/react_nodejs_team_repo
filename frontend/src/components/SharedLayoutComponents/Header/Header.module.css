@@ -2,10 +2,17 @@
   display: flex;
   width: 1280;
   height: 46px;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
   background-color: #050505;
   margin-bottom: 88px;
+}
+.dark {
+  background-color: #050505;
+}
+
+.light {
+  background-color: white;
 }
 
 .headernav {

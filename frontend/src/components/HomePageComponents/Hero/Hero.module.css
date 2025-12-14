@@ -6,6 +6,7 @@
   background: var(--Main, #050505);
   padding-top: 20px;
   text-align: center;
+  margin-bottom: 120px;
 }
 
 /*  adds equal spacing between all children */
@@ -41,17 +42,29 @@
   margin-bottom: 40px;
 }
 
-.btn {
-  background: var(--Main, #050505);
+.heroButton {
+  border-radius: 30px;
+  border: 1px solid #e8e8e8;
+  background: #050505;
   color: white;
   text-decoration: none;
   padding: 16px 32px;
   align-items: flex-start;
   gap: 10px;
   border-radius: 30px;
-  border: 1px solid #fff;
   margin: 0 auto;
   margin-bottom: 40px;
+}
+
+.heroButton:hover {
+  border: 1px solid #e8e8e8;
+  background: #1a1a1a;
+}
+
+.heroButton:active {
+  border: 1px solid #e8e8e8;
+
+  background: #1a1a1a;
 }
 
 .rotated1 {
@@ -76,4 +89,10 @@
   margin-top: 60px;
   gap: 50px;
   border-radius: 30px;
+}
+
+@media only screen and (min-width: 768px) {
+  .btn {
+    font-size: var(--fs-16);
+  }
 }

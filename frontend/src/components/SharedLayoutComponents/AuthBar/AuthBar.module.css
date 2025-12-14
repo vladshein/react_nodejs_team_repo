@@ -1,15 +1,16 @@
-.signin {
-  color: #fff;
-  font-family: Mulish;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 18px; /* 150% */
-  letter-spacing: -0.24px;
-  text-transform: uppercase;
+.toggleGroup {
+  display: inline-flex;
+  border-radius: 30px;
+  background: #fff; /* keep group background white */
+  border: 1px solid #000;
+  margin-left: auto;
 }
 
-.signup {
+.togglebutton {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: transparent; /* default transparent so group bg shows */
   color: #fff;
   font-family: Mulish;
   font-size: 12px;
@@ -18,4 +19,21 @@
   line-height: 18px; /* 150% */
   letter-spacing: -0.24px;
   text-transform: uppercase;
+
+  display: inline-flex;
+  padding: 14px 28px;
+  justify-content: center;
+  align-items: center;
+}
+
+.active {
+  background: #1a1a1a; /* only this button turns black */
+  color: #fff;
+  border-radius: 30px; /* optional: keep pill shape */
+  border: 1px solid #e8e8e8;
+}
+
+.inactive {
+  background: transparent; /* stays white because group bg is white */
+  color: #000;
 }

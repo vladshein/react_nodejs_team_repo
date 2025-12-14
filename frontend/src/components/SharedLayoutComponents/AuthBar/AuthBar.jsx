@@ -1,10 +1,33 @@
 import style from './AuthBar.module.css';
 
+// const AuthBar = () => {
+//   return (
+//     <div className={style.toggleGroup}>
+//       <button className={"toggle-button"}>SIGN IN</button>
+//       <button>SIGN UP</button>
+//     </div>
+//   );
+// };
+
+import React, { useState } from 'react';
+import './AuthBar.module.css'; // Optional: move styles to a separate file
+
 const AuthBar = () => {
+  console.log('AuthBar');
+  const [active, setActive] = useState('signup'); // default active
+
   return (
-    <div>
-      <button className={style.signin}>SIGN IN</button>
-      <button className={style.signup}>SIGN UP</button>
+    <div className={style.toggleGroup}>
+      <button
+        className={`${style.togglebutton} ${active === 'signin' ? style.active : style.inactive}`}
+        onClick={() => setActive('signin')}>
+        SIGN IN
+      </button>
+      <button
+        className={`${style.togglebutton} ${active === 'signup' ? style.active : style.inactive}`}
+        onClick={() => setActive('signup')}>
+        SIGN UP
+      </button>
     </div>
   );
 };
