@@ -1,17 +1,26 @@
 import style from './HeaderNav.module.css';
 import { NavLink } from 'react-router-dom';
 
-const navClasses = ({ isActive }) => `${style.headerButtons} ${isActive ? style.active : ''}`;
-
-const HeaderNav = () => {
+const HeaderNav = ({ variant }) => {
   return (
     <nav className={style.headernav}>
-      <NavLink to="/" className={navClasses}>
+      <NavLink
+        to="/"
+        className={({ isActive }) =>
+          `${style.headerButtons} ${isActive ? style.active : ''} ${
+            variant === 'dark' ? style.dark : style.light
+          }`
+        }>
         Home
       </NavLink>
-      {/* check if user authorized. if authorized go to the 
-      recipe/add else show message that user is not authorized*/}
-      <NavLink to="/recipe/add" className={navClasses}>
+
+      <NavLink
+        to="/recipe/add"
+        className={({ isActive }) =>
+          `${style.headerButtons} ${isActive ? style.active : ''} ${
+            variant === 'dark' ? style.dark : style.light
+          }`
+        }>
         Add Recipe
       </NavLink>
     </nav>

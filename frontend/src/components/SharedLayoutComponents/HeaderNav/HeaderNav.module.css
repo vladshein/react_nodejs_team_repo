@@ -20,9 +20,16 @@
   justify-content: center;
   align-items: center;
   border-radius: 30px;
-  /* gap: 10px; */
 }
 
 .active {
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border: 1px solid #bfbebe;
+}
+
+.dark {
+  color: black;
+}
+
+.light {
+  color: #fff;
 }

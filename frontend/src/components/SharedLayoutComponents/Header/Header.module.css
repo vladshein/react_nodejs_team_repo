@@ -7,6 +7,13 @@
   background-color: #050505;
   margin-bottom: 88px;
 }
+.dark {
+  background-color: #050505;
+}
+
+.light {
+  background-color: white;
+}
 
 .headernav {
   color: var(--White, #fff);

@@ -1,10 +1,9 @@
 import Header from '../../components/SharedLayoutComponents/Header/Header';
 
-
 const AddRecipePage = () => {
   return (
     <div>
-      <Header />
+      <Header variant="light" />
     </div>
   );
 };
