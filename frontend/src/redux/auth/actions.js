@@ -13,7 +13,7 @@ const removeToken = () => {
 
 export const register = createAsyncThunk('auth/register', async (userData, { rejectWithValue }) => {
   try {
-    const { data } = await axios.post('/users/signup', userData);
+    const { data } = await axios.post('/auth/register', userData);
     setToken(data.token);
     console.log(data);
 
@@ -25,7 +25,7 @@ export const register = createAsyncThunk('auth/register', async (userData, { rej
 
 export const login = createAsyncThunk('auth/login', async (userData, thunkAPI) => {
   try {
-    const { data } = await axios.post('users/login', userData);
+    const { data } = await axios.post('/auth/login', userData);
     setToken(data.token);
     return data;
   } catch (error) {
@@ -35,7 +35,7 @@ export const login = createAsyncThunk('auth/login', async (userData, thunkAPI) =
 
 export const logout = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
-    await axios.post('users/logout');
+    await axios.post('auth/logout');
     removeToken();
   } catch (error) {
     return thunkAPI.rejectWithValue(error.message);
@@ -49,7 +49,7 @@ export const refreshUser = createAsyncThunk(
       const state = thunkAPI.getState();
       const token = state.auth.token;
       setToken(token);
-      const { data } = await axios.get('users/current');
+      const { data } = await axios.get('/auth/current');
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
