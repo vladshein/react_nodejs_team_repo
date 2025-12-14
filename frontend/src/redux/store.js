@@ -1,7 +1,4 @@
-import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { trucksReducer } from "./trucksSlice";
-import { filtersReducer } from "./filtersSlice";
-import { persistedFavoriteReducer } from "./favoritesSlice";
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
 import {
   FLUSH,
@@ -11,12 +8,22 @@ import {
   PURGE,
   REGISTER,
   persistStore,
-} from "redux-persist";
+  persistReducer,
+} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+
+import { authReducer } from './auth/Slice';
+
+const authPersistConfig = {
+  key: 'auth',
+  storage,
+  whitelist: ['token'],
+};
+
+const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 
 const rootReducer = combineReducers({
-  trucks: trucksReducer,
-  filters: filtersReducer,
-  favorite: persistedFavoriteReducer,
+  auth: persistedAuthReducer,
 });
 
 export const store = configureStore({
