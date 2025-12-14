@@ -55,7 +55,12 @@ const App = () => {
           <Route index element={<HomePage />} />
           <Route
             path="/recipe/add"
-            element={<PrivateRoute component={<AddRecipePage />} />}></Route>
+            element={
+              <PrivateRoute
+                component={<AddRecipePage />}
+                setIsSignInModalOpen={setIsSignInModalOpen}
+              />
+            }></Route>
           <Route path="/recipe/:id" element={<RecipePage />}></Route>
           <Route path="/user/:id" element={<UserPage />}></Route>
           <Route path="*" element={<NotFoundPage />}></Route>

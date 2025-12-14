@@ -1,37 +1,31 @@
-import style from "./BookForm.module.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useId } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import style from './SignUpForm.module.css';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useId } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
-const BookForm = () => {
-  const notify = (name, date) =>
-    toast.success(`Dear ${name}, thank you for your booking on ${date}!`);
+const SignUpForm = ({ submitSignUp }) => {
+  // const notify = (name, date) =>
+  //   toast.success(`Dear ${name}, thank you for your booking on ${date}!`);
 
-  const handleSubmit = data => {
-    console.log("Form Data:", data);
-    notify(data.name, data.bookingDate);
+  const handleSubmit = (values, actions) => {
+    actions.reset;
+    console.log(values);
+    submitSignUp(values);
   };
 
   const nameFieldId = useId();
   const emailFieldId = useId();
-  const dateFieldId = useId();
-  const commentFieldId = useId();
+  const passwordFieldId = useId();
 
   const initialValues = {
-    name: "",
-    email: "",
-    date: "",
-    comment: "",
+    name: '',
+    email: '',
+    password: '',
   };
 
   return (
     <div className={style.formContainer}>
-      <div className={style.formHead}>
-        <h3>Book your campervan now</h3>
-        <p className={style.formHeadText}>
-          Stay connected! We are always ready to help you.
-        </p>
-      </div>
+      <h3 className={style.formHead}>Sign Up</h3>
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
@@ -61,21 +55,14 @@ const BookForm = () => {
           </div>
           <div>
             <Field
-              type="date"
-              name="bookingDate"
-              id={dateFieldId}
-              placeholder="Booking date*"
+              type="password"
+              name="password"
+              id={passwordFieldId}
+              placeholder="Password*"
               className={style.formField}
             />
-            <ErrorMessage name="number" />
+            <ErrorMessage name="password" />
           </div>
-          <Field
-            as="textarea"
-            name="comment"
-            id={commentFieldId}
-            className={style.formFieldComment}
-            placeholder="Comment"
-          />
           <button className={style.formBtn} type="submit">
             Send
           </button>
@@ -86,4 +73,4 @@ const BookForm = () => {
   );
 };
 
-export default BookForm;
+export default SignUpForm;

@@ -3,34 +3,23 @@ import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
 import { register } from '../../../redux/auth/actions.js';
 import css from './SignUpModal.module.css';
+import SignUpForm from '../SignUpForm/SignUpForm.jsx';
 
 const SignUpModal = ({ isOpen, onRequestClose }) => {
   const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const name = form.elements.name.value;
-    const email = form.elements.email.value;
-    const password = form.elements.password.value;
-    dispatch(register({ name, email, password }));
-    form.reset();
+  const submitSignUp = (data) => {
+    dispatch(register(data));
   };
 
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      contentLabel="SignUpModal Modal"
+      contentLabel="SignUp Modal"
       className={css.modal}
       overlayClassName={css.overlay}>
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="name" placeholder="Name" />
-        <input type="email" name="email" placeholder="Email" />
-        <input type="password" name="password" placeholder="Password" />
-        <button type="submit">Register</button>
-      </form>
+      <SignUpForm submitSignUp={submitSignUp} />
       <button onClick={onRequestClose}>Close</button>
     </Modal>
   );
