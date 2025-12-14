@@ -12,9 +12,22 @@ import Hero from './HomePageComponents/Hero/Hero';
 import Categories from './HomePageComponents/Categories/Categories';
 import RestrictedRoute from '../guards/RestrictedRoute/RestrictedRoute';
 import PrivateRoute from '../guards/PrivateRoute/PrivateRoute';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsRefreshing } from '../redux/auth/selectors';
+import { useEffect } from 'react';
+import { refreshUser } from '../redux/auth/operations';
 
 const App = () => {
-  return (
+  const isRefreshing = useSelector(selectIsRefreshing);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
+  return isRefreshing ? (
+    <div>Refreshing user...</div>
+  ) : (
     <Suspense fallback={<div>Loading...</div>}>
       <div className={style.container}>
         <Routes>
@@ -23,6 +36,12 @@ const App = () => {
             <Route path="categories" element={<Categories />}></Route>
             {/* <Route path="categories/:id" element={<Categories />}></Route> */}
           </Route>
+          <Route index element={<HomePage />} />
+          {/* <Route path="/register" element={<RestrictedRoute component={<RegistrationPage />} />} />
+          <Route
+            path="/login"
+            element={<RestrictedRoute component={<LoginPage />} redirectTo="/contacts" />}
+          /> */}
           <Route
             path="/recipe/add"
             element={<PrivateRoute component={<AddRecipePage />} />}></Route>
