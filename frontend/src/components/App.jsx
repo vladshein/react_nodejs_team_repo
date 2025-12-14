@@ -3,6 +3,7 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 
 import LoginModal from '../components/Modals/SignInModal/SignInModal.jsx';
 import RegistrationModal from '../components/Modals/SignUpModal/SignUpModal.jsx';
+import LogOutModal from '../components/Modals/LogOutModal/LogOutModal.jsx';
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const RecipePage = lazy(() => import('../pages/RecipePage/RecipePage'));
 const AddRecipePage = lazy(() => import('../pages/AddRecipePage/AddRecipePage'));
@@ -23,6 +24,7 @@ const App = () => {
   const isRefreshing = useSelector(selectIsRefreshing);
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -39,6 +41,10 @@ const App = () => {
           isOpen={isSignUpModalOpen}
           onRequestClose={() => setIsSignUpModalOpen(false)}
         />
+        <LogOutModal
+          isOpen={isLogoutModalOpen}
+          onRequestClose={() => setIsLogoutModalOpen(false)}
+        />
         <Routes>
           <Route
             path="/"
@@ -46,6 +52,7 @@ const App = () => {
               <HomePage
                 onLoginClick={() => setIsSignInModalOpen(true)}
                 onRegisterClick={() => setIsSignUpModalOpen(true)}
+                onLogoutClick={() => setIsLogoutModalOpen(true)}
               />
             }>
             <Route index element={<Navigate to="categories" />} />

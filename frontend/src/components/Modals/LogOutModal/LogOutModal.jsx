@@ -1,89 +1,49 @@
-import style from "./BookForm.module.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useId } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { Formik, Form } from 'formik';
 
-const BookForm = () => {
-  const notify = (name, date) =>
-    toast.success(`Dear ${name}, thank you for your booking on ${date}!`);
+import toast, { Toaster } from 'react-hot-toast';
+import { logout } from '../../../redux/auth/actions';
+import { useDispatch } from 'react-redux';
 
-  const handleSubmit = data => {
-    console.log("Form Data:", data);
-    notify(data.name, data.bookingDate);
-  };
+import style from './LogOutModal.module.css';
+import Modal from 'react-modal';
 
-  const nameFieldId = useId();
-  const emailFieldId = useId();
-  const dateFieldId = useId();
-  const commentFieldId = useId();
+const LogOutModal = ({ isOpen, onRequestClose }) => {
+  const dispatch = useDispatch();
 
-  const initialValues = {
-    name: "",
-    email: "",
-    date: "",
-    comment: "",
+  const handleSubmit = () => {
+    dispatch(logout());
+    toast.success(`Successfully signed out!`);
   };
 
   return (
-    <div className={style.formContainer}>
-      <div className={style.formHead}>
-        <h3>Book your campervan now</h3>
-        <p className={style.formHeadText}>
-          Stay connected! We are always ready to help you.
-        </p>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      contentLabel="Sign In Modal"
+      className={style.modal}
+      overlayClassName={style.overlay}>
+      <button onClick={onRequestClose}>Close</button>
+
+      <div className={style.formContainer}>
+        <h3 className={style.formHead}>Sign In</h3>
+        <Formik
+          onSubmit={handleSubmit}
+          className={style.form}
+          // validationSchema={FeedbackSchema}
+        >
+          <Form className={style.feedbackFormItem}>
+            <button className={style.formBtn} type="submit">
+              LOG OUT
+            </button>
+            <button className={style.formBtn} type="button" onClick={onRequestClose}>
+              CANCEL
+            </button>
+            <Toaster />
+          </Form>
+        </Formik>
       </div>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        className={style.form}
-        // validationSchema={FeedbackSchema}
-      >
-        <Form className={style.feedbackFormItem}>
-          <div>
-            <Field
-              type="text"
-              name="name"
-              id={nameFieldId}
-              placeholder="Name*"
-              className={style.formField}
-            />
-            <ErrorMessage name="name" />
-          </div>
-          <div>
-            <Field
-              type="email"
-              name="email"
-              id={emailFieldId}
-              placeholder="Email*"
-              className={style.formField}
-            />
-            <ErrorMessage name="email" />
-          </div>
-          <div>
-            <Field
-              type="date"
-              name="bookingDate"
-              id={dateFieldId}
-              placeholder="Booking date*"
-              className={style.formField}
-            />
-            <ErrorMessage name="number" />
-          </div>
-          <Field
-            as="textarea"
-            name="comment"
-            id={commentFieldId}
-            className={style.formFieldComment}
-            placeholder="Comment"
-          />
-          <button className={style.formBtn} type="submit">
-            Send
-          </button>
-          <Toaster />
-        </Form>
-      </Formik>
-    </div>
+    </Modal>
   );
 };
 
-export default BookForm;
+export default LogOutModal;
