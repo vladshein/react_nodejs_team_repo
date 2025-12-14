@@ -38,11 +38,6 @@ const App = () => {
             {/* <Route path="categories/:id" element={<Categories />}></Route> */}
           </Route>
           <Route index element={<HomePage />} />
-          {/* <Route path="/register" element={<RestrictedRoute component={<RegistrationPage />} />} />
-          <Route
-            path="/login"
-            element={<RestrictedRoute component={<LoginPage />} redirectTo="/contacts" />}
-          /> */}
           <Route
             path="/recipe/add"
             element={<PrivateRoute component={<AddRecipePage />} />}></Route>
