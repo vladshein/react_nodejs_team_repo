@@ -15,10 +15,11 @@ import PrivateRoute from '../guards/PrivateRoute/PrivateRoute';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsRefreshing } from '../redux/auth/selectors';
 import { useEffect } from 'react';
-import { refreshUser } from '../redux/auth/operations';
+import { refreshUser } from '../redux/auth/actions';
 
 const App = () => {
   const isRefreshing = useSelector(selectIsRefreshing);
+  console.log(isRefreshing);
 
   const dispatch = useDispatch();
   useEffect(() => {
