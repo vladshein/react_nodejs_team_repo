@@ -6,41 +6,39 @@ import { useDispatch } from 'react-redux';
 
 import style from './LogOutModal.module.css';
 import Modal from 'react-modal';
+import { redirect } from 'react-router-dom';
 
 const LogOutModal = ({ isOpen, onRequestClose }) => {
   const dispatch = useDispatch();
 
-  const handleSubmit = () => {
+  const handleLogOut = () => {
     dispatch(logout());
     toast.success(`Successfully signed out!`);
+    onRequestClose();
   };
 
   return (
     <Modal
       isOpen={isOpen}
       onRequestClose={onRequestClose}
-      contentLabel="Sign In Modal"
+      contentLabel="Log Out Modal"
       className={style.modal}
       overlayClassName={style.overlay}>
       <button onClick={onRequestClose}>Close</button>
 
       <div className={style.formContainer}>
-        <h3 className={style.formHead}>Sign In</h3>
-        <Formik
-          onSubmit={handleSubmit}
-          className={style.form}
-          // validationSchema={FeedbackSchema}
-        >
-          <Form className={style.feedbackFormItem}>
-            <button className={style.formBtn} type="submit">
-              LOG OUT
-            </button>
-            <button className={style.formBtn} type="button" onClick={onRequestClose}>
-              CANCEL
-            </button>
-            <Toaster />
-          </Form>
-        </Formik>
+        <h3 className={style.formHead}>Log Out</h3>
+        <div className={style.formText}>Are you sure you want to log out?</div>
+
+        <div>
+          <button className={style.formBtn} onClick={() => handleLogOut()}>
+            LOG OUT
+          </button>
+          <button className={style.formBtn} type="button" onClick={onRequestClose}>
+            CANCEL
+          </button>
+          <Toaster />
+        </div>
       </div>
     </Modal>
   );

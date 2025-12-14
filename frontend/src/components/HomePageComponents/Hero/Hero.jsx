@@ -2,13 +2,13 @@ import { Link } from 'react-router-dom';
 import style from './Hero.module.css';
 import Header from '../../SharedLayoutComponents/Header/Header';
 
-const Hero = ({ onLoginClick, onRegisterClick, onLogoutClick }) => {
+const Hero = ({ onLoginClick, onRegisterClick, onLogOutClick }) => {
   return (
     <section className={style.heroContainer}>
       <Header
         onLoginClick={onLoginClick}
         onRegisterClick={onRegisterClick}
-        onLogoutClick={onLogoutClick}
+        onLogOutClick={onLogOutClick}
       />
       <h1 className={style.heroText}>Improve Your Culinary Talents</h1>
       <p className={style.heroTextSmall}>

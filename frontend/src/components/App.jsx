@@ -24,7 +24,7 @@ const App = () => {
   const isRefreshing = useSelector(selectIsRefreshing);
   const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
   const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
-  const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+  const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -42,8 +42,8 @@ const App = () => {
           onRequestClose={() => setIsSignUpModalOpen(false)}
         />
         <LogOutModal
-          isOpen={isLogoutModalOpen}
-          onRequestClose={() => setIsLogoutModalOpen(false)}
+          isOpen={isLogOutModalOpen}
+          onRequestClose={() => setIsLogOutModalOpen(false)}
         />
         <Routes>
           <Route
@@ -52,7 +52,7 @@ const App = () => {
               <HomePage
                 onLoginClick={() => setIsSignInModalOpen(true)}
                 onRegisterClick={() => setIsSignUpModalOpen(true)}
-                onLogoutClick={() => setIsLogoutModalOpen(true)}
+                onLogOutClick={() => setIsLogOutModalOpen(true)}
               />
             }>
             <Route index element={<Navigate to="categories" />} />

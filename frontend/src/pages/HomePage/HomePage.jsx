@@ -2,11 +2,15 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import styles from './HomePage.module.css';
 import Hero from '../../components/HomePageComponents/Hero/Hero';
 
-const HomePage = ({ onLoginClick, onRegisterClick }) => {
+const HomePage = ({ onLoginClick, onRegisterClick, onLogOutClick }) => {
   const navigate = useNavigate();
   return (
     <div>
-      <Hero onLoginClick={onLoginClick} onRegisterClick={onRegisterClick} />
+      <Hero
+        onLoginClick={onLoginClick}
+        onRegisterClick={onRegisterClick}
+        onLogOutClick={onLogOutClick}
+      />
       {/* categories */}
       {/* testimonials */}
       {/* footer */}

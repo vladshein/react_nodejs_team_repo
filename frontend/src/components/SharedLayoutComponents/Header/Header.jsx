@@ -7,7 +7,7 @@ import { useSelector } from 'react-redux';
 import { selectIsLoggedIn } from '../../../redux/auth/selectors';
 import UserBar from '../UserBar/UserBar';
 
-const Header = ({ onLoginClick, onRegisterClick, onLogoutClick }) => {
+const Header = ({ onLoginClick, onRegisterClick, onLogOutClick }) => {
   const location = useLocation();
   const variant = location.pathname === '/' ? 'dark' : 'light';
 
@@ -18,7 +18,7 @@ const Header = ({ onLoginClick, onRegisterClick, onLogoutClick }) => {
       <Logo variant={variant === 'dark' ? 'light' : 'dark'} />
       <HeaderNav variant={variant === 'dark' ? 'light' : 'dark'} />
       {isLoggedIn ? (
-        <UserBar onLogoutClick={onLogoutClick} />
+        <UserBar onLogOutClick={onLogOutClick} />
       ) : (
         <AuthBar onLoginClick={onLoginClick} onRegisterClick={onRegisterClick} />
       )}

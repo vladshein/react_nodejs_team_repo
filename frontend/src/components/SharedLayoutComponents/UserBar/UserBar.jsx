@@ -1,10 +1,10 @@
 import style from './UserBar.module.css';
 
-const UserBar = ({ onLogoutClick }) => {
+const UserBar = ({ onLogOutClick }) => {
   return (
     <div className={style.formContainer}>
       <h3 className={style.togglebutton}>User Bar</h3>
-      <button className={style.togglebutton} onClick={onLogoutClick}>
+      <button className={style.togglebutton} onClick={onLogOutClick}>
         Log out
       </button>
     </div>
