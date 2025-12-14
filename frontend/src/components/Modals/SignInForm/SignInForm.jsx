@@ -1,14 +1,14 @@
-import style from "./BookForm.module.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useId } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import style from './BookForm.module.css';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useId } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
-const BookForm = () => {
+const SignInForm = () => {
   const notify = (name, date) =>
     toast.success(`Dear ${name}, thank you for your booking on ${date}!`);
 
-  const handleSubmit = data => {
-    console.log("Form Data:", data);
+  const handleSubmit = (data) => {
+    console.log('Form Data:', data);
     notify(data.name, data.bookingDate);
   };
 
@@ -18,19 +18,17 @@ const BookForm = () => {
   const commentFieldId = useId();
 
   const initialValues = {
-    name: "",
-    email: "",
-    date: "",
-    comment: "",
+    name: '',
+    email: '',
+    date: '',
+    comment: '',
   };
 
   return (
     <div className={style.formContainer}>
       <div className={style.formHead}>
         <h3>Book your campervan now</h3>
-        <p className={style.formHeadText}>
-          Stay connected! We are always ready to help you.
-        </p>
+        <p className={style.formHeadText}>Stay connected! We are always ready to help you.</p>
       </div>
       <Formik
         initialValues={initialValues}
@@ -86,4 +84,4 @@ const BookForm = () => {
   );
 };
 
-export default BookForm;
+export default SignInForm;

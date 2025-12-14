@@ -1,8 +1,8 @@
 import { lazy, Suspense, useState } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 
-const RegistrationPage = lazy(() => import('../pages/RegistrationPage/RegistrationPage'));
-const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));
+import LoginModal from '../components/Modals/SignInModal/SignInModal.jsx';
+import RegistrationModal from '../components/Modals/SignUpModal/SignUpModal.jsx';
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const RecipePage = lazy(() => import('../pages/RecipePage/RecipePage'));
 const AddRecipePage = lazy(() => import('../pages/AddRecipePage/AddRecipePage'));
@@ -17,14 +17,12 @@ import PrivateRoute from '../guards/PrivateRoute/PrivateRoute';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsRefreshing } from '../redux/auth/selectors';
 import { useEffect } from 'react';
-import { refreshUser } from '../redux/auth/operations';
-import LoginModal from './Modals/LoginModal/LoginModal';
-import RegistrationModal from './Modals/RegistrationModal/RegistrationModal';
+import { refreshUser } from '../redux/auth/actions.js';
 
 const App = () => {
   const isRefreshing = useSelector(selectIsRefreshing);
-  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
-  const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
+  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
+  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -36,29 +34,24 @@ const App = () => {
   ) : (
     <Suspense fallback={<div>Loading...</div>}>
       <div className={style.container}>
-        <LoginModal isOpen={isLoginModalOpen} onRequestClose={() => setIsLoginModalOpen(false)} />
+        <LoginModal isOpen={isSignInModalOpen} onRequestClose={() => setIsSignInModalOpen(false)} />
         <RegistrationModal
-          isOpen={isRegistrationModalOpen}
-          onRequestClose={() => setIsRegistrationModalOpen(false)}
+          isOpen={isSignUpModalOpen}
+          onRequestClose={() => setIsSignUpModalOpen(false)}
         />
         <Routes>
           <Route
             path="/"
             element={
               <HomePage
-                onLoginClick={() => setIsLoginModalOpen(true)}
-                onRegisterClick={() => setIsRegistrationModalOpen(true)}
+                onLoginClick={() => setIsSignInModalOpen(true)}
+                onRegisterClick={() => setIsSignUpModalOpen(true)}
               />
             }>
             <Route index element={<Navigate to="categories" />} />
             <Route path="categories" element={<Categories />}></Route>
             {/* <Route path="categories/:id" element={<Categories />}></Route> */}
           </Route>
-          <Route path="/register" element={<RestrictedRoute component={<RegistrationPage />} />} />
-          <Route
-            path="/login"
-            element={<RestrictedRoute component={<LoginPage />} redirectTo="/user" />}
-          />
           <Route index element={<HomePage />} />
           <Route
             path="/recipe/add"

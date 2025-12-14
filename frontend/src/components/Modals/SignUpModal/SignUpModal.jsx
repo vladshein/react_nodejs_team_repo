@@ -1,89 +1,39 @@
-import style from "./BookForm.module.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useId } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import React from 'react';
+import Modal from 'react-modal';
+import { useDispatch } from 'react-redux';
+import { register } from '../../../redux/auth/actions.js';
+import css from './SignUpModal.module.css';
 
-const BookForm = () => {
-  const notify = (name, date) =>
-    toast.success(`Dear ${name}, thank you for your booking on ${date}!`);
+const SignUpModal = ({ isOpen, onRequestClose }) => {
+  const dispatch = useDispatch();
 
-  const handleSubmit = data => {
-    console.log("Form Data:", data);
-    notify(data.name, data.bookingDate);
-  };
-
-  const nameFieldId = useId();
-  const emailFieldId = useId();
-  const dateFieldId = useId();
-  const commentFieldId = useId();
-
-  const initialValues = {
-    name: "",
-    email: "",
-    date: "",
-    comment: "",
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const name = form.elements.name.value;
+    const email = form.elements.email.value;
+    const password = form.elements.password.value;
+    dispatch(register({ name, email, password }));
+    form.reset();
   };
 
   return (
-    <div className={style.formContainer}>
-      <div className={style.formHead}>
-        <h3>Book your campervan now</h3>
-        <p className={style.formHeadText}>
-          Stay connected! We are always ready to help you.
-        </p>
-      </div>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        className={style.form}
-        // validationSchema={FeedbackSchema}
-      >
-        <Form className={style.feedbackFormItem}>
-          <div>
-            <Field
-              type="text"
-              name="name"
-              id={nameFieldId}
-              placeholder="Name*"
-              className={style.formField}
-            />
-            <ErrorMessage name="name" />
-          </div>
-          <div>
-            <Field
-              type="email"
-              name="email"
-              id={emailFieldId}
-              placeholder="Email*"
-              className={style.formField}
-            />
-            <ErrorMessage name="email" />
-          </div>
-          <div>
-            <Field
-              type="date"
-              name="bookingDate"
-              id={dateFieldId}
-              placeholder="Booking date*"
-              className={style.formField}
-            />
-            <ErrorMessage name="number" />
-          </div>
-          <Field
-            as="textarea"
-            name="comment"
-            id={commentFieldId}
-            className={style.formFieldComment}
-            placeholder="Comment"
-          />
-          <button className={style.formBtn} type="submit">
-            Send
-          </button>
-          <Toaster />
-        </Form>
-      </Formik>
-    </div>
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      contentLabel="SignUpModal Modal"
+      className={css.modal}
+      overlayClassName={css.overlay}>
+      <h2>Register</h2>
+      <form onSubmit={handleSubmit}>
+        <input type="text" name="name" placeholder="Name" />
+        <input type="email" name="email" placeholder="Email" />
+        <input type="password" name="password" placeholder="Password" />
+        <button type="submit">Register</button>
+      </form>
+      <button onClick={onRequestClose}>Close</button>
+    </Modal>
   );
 };
 
-export default BookForm;
+export default SignUpModal;
