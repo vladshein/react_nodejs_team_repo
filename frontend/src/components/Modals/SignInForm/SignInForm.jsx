@@ -1,6 +1,7 @@
 import style from './SignInForm.module.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useId, useState } from 'react';
+import * as Yup from 'yup';
 import IconEye from '../../common/icons/IconEye';
 import IconEyeOff from '../../common/icons/IconEyeOff';
 
@@ -19,48 +20,53 @@ const SignInForm = ({ submitSignIn, setView }) => {
     password: '',
   };
 
+  const SignInSchema = Yup.object().shape({
+    email: Yup.string().email('Invalid email').required('Required'),
+    password: Yup.string().required('Required'),
+  });
+
   return (
     <div className={style.formContainer}>
       <h3 className={style.formHead}>SIGN IN</h3>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        className={style.form}
-        // validationSchema={FeedbackSchema}
-      >
-        <Form className={style.form}>
-          <div>
-            <Field
-              type="email"
-              name="email"
-              id={emailFieldId}
-              placeholder="Email*"
-              className={style.formField}
-            />
-            <div className={style.passwordFieldContainer}>
+      <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={SignInSchema}>
+        {({ isValid, dirty }) => (
+          <Form className={style.form}>
+            <div className={style.formFieldsContainer}>
               <Field
-                type={showPassword ? 'text' : 'password'}
-                name="password"
-                id={passwordFieldId}
-                placeholder="Password*"
+                type="email"
+                name="email"
+                id={emailFieldId}
+                placeholder="Email*"
                 className={style.formField}
               />
-              <button
-                type="button"
-                onClick={() => setShowPassword(!showPassword)}
-                className={style.eyeBtn}>
-                {showPassword ? <IconEye /> : <IconEyeOff />}
-              </button>
-              <ErrorMessage name="password" />
+              <div className={style.passwordFieldContainer}>
+                <Field
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  id={passwordFieldId}
+                  placeholder="Password*"
+                  className={style.formField}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className={style.eyeBtn}>
+                  {showPassword ? <IconEye /> : <IconEyeOff />}
+                </button>
+                {/* <ErrorMessage name="password" /> */}
+              </div>
             </div>
-          </div>
-          <button className={style.formBtn} type="submit">
-            SIGN IN
-          </button>
-          <p>
-            Don't have an account? <button onClick={() => setView('signUp')}>Sign Up</button>
-          </p>
-        </Form>
+            <button disabled={!isValid || !dirty} className={style.formBtn} type="submit">
+              SIGN IN
+            </button>
+            <p className={style.createAccount}>
+              Don't have an account?
+              <button className={style.createAccountLink} onClick={() => setView('signUp')}>
+                Create an account
+              </button>
+            </p>
+          </Form>
+        )}
       </Formik>
     </div>
   );

@@ -1,5 +1,3 @@
-import { Formik, Form } from 'formik';
-
 import toast, { Toaster } from 'react-hot-toast';
 import { logout } from '../../../redux/auth/actions';
 import { useDispatch } from 'react-redux';
@@ -7,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import style from './LogOutModal.module.css';
 import Modal from 'react-modal';
 import { redirect } from 'react-router-dom';
+import IconClose from '../../common/icons/IconClose';
 
 const LogOutModal = ({ isOpen, onRequestClose }) => {
   const dispatch = useDispatch();
@@ -31,17 +30,22 @@ const LogOutModal = ({ isOpen, onRequestClose }) => {
       contentLabel="Log Out Modal"
       className={style.modal}
       overlayClassName={style.overlay}>
-      <button onClick={onRequestClose}>Close</button>
+      <button className={style.closeBtn} onClick={onRequestClose}>
+        <IconClose />
+      </button>
 
-      <div>
-        <h3>Log Out</h3>
-        <div>Are you sure you want to log out?</div>
+      <div className={style.container}>
+        <h3 className={style.head}>ARE YOU LOGGING OUT?</h3>
+        <p className={style.text}>You can always log back in at my time.</p>
 
         <div>
-          <button className={style.formBtn} onClick={() => handleLogOut()}>
+          <button className={style.btn} onClick={() => handleLogOut()}>
             LOG OUT
           </button>
-          <button className={style.formBtn} type="button" onClick={onRequestClose}>
+          <button
+            className={`${style.btn} ${style.btnCancel}`}
+            type="button"
+            onClick={onRequestClose}>
             CANCEL
           </button>
         </div>

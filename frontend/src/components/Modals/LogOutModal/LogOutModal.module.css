@@ -1,21 +1,119 @@
-.modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  right: auto;
-  bottom: auto;
-  margin-right: -50%;
-  transform: translate(-50%, -50%);
-  background: white;
-  padding: 80px;
-  border-radius: 30px;
-}
-
 .overlay {
+  background-color: rgba(var(--var-gray), 0.8);
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.85);
+  z-index: 1000;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 80px;
+  border-radius: 30px;
+  outline: none;
+  max-width: 120vw;
+  max-height: 120vh;
+  overflow: auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+}
+
+.image {
+  max-width: 100%;
+  max-height: 60vh;
+  display: block;
+  margin: 0 auto 10px;
+  object-fit: contain;
+}
+
+.info {
+  font-size: 16px;
+  color: #333;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.info a {
+  color: #0073e6;
+  text-decoration: none;
+}
+
+.info a:hover {
+  text-decoration: underline;
+}
+
+.container {
+  display: flex;
+  width: 400px;
+  padding: 0px;
+  flex-direction: column;
+  border: none;
+}
+
+.head {
+  color: var(--cl-black, #050505);
+  font-size: 32px;
+  font-style: bold;
+  font-weight: var(--fw-800);
+  line-height: var(--lh-120); /* 120% */
+  margin-bottom: 20px;
+}
+
+.text {
+  color: var(--cl-dark-gray);
+  font-size: 16px;
+  line-height: 1.5;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.btn {
+  display: flex;
+  width: 100%;
+  padding: 16px 0;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  background: var(--cl-black);
+  border: none;
+  color: var(--cl-white);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--cl-white);
+  color: var(--cl-black);
+}
+
+.btnCancel {
+  background-color: var(--cl-white);
+  border: 1px solid var(--cl-black);
+  color: var(--cl-black);
+  margin-bottom: 0;
+}
+
+.btnCancel:hover {
+  background: var(--cl-black);
+  color: var(--cl-white);
 }
