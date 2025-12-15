@@ -1,12 +1,9 @@
 import style from './SignUpForm.module.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useId } from 'react';
-import { Toaster } from 'react-hot-toast';
 
 const SignUpForm = ({ submitSignUp }) => {
-  const handleSubmit = (values, actions) => {
-    actions.reset;
-    console.log(values);
+  const handleSubmit = (values) => {
     submitSignUp(values);
   };
 
@@ -63,7 +60,6 @@ const SignUpForm = ({ submitSignUp }) => {
           <button className={style.formBtn} type="submit">
             Send
           </button>
-          <Toaster />
         </Form>
       </Formik>
     </div>

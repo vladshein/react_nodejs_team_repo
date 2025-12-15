@@ -9,14 +9,16 @@ const SignUpModal = ({ isOpen, onRequestClose }) => {
   const dispatch = useDispatch();
 
   const submitSignUp = (payload) => {
-    const { data, err } = dispatch(register(payload));
-    if (err) {
-      console.log('Registration failed:', err);
-    } else {
-      console.log('Registration successful:', data);
-      dispatch(login({ email: payload.email, password: payload.password }));
-      onRequestClose();
-    }
+    dispatch(register(payload))
+      .unwrap()
+      .then((data) => {
+        console.log('Registration successful:', data);
+        dispatch(login({ email: payload.email, password: payload.password }));
+        onRequestClose();
+      })
+      .catch((err) => {
+        console.log('Registration failed:', err);
+      });
   };
 
   return (

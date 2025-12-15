@@ -1,13 +1,10 @@
 import style from './SignInForm.module.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useId } from 'react';
-import toast, { Toaster } from 'react-hot-toast';
 
 const SignInForm = ({ submitSignIn }) => {
-  const handleSubmit = (data, actions) => {
-    actions.reset;
+  const handleSubmit = (data) => {
     submitSignIn(data);
-    toast.success(`Successfully signed in!`);
   };
 
   const emailFieldId = useId();
@@ -51,7 +48,6 @@ const SignInForm = ({ submitSignIn }) => {
           <button className={style.formBtn} type="submit">
             SIGN IN
           </button>
-          <Toaster />
         </Form>
       </Formik>
     </div>

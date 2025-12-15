@@ -9,14 +9,15 @@ const SignInModal = ({ isOpen, onRequestClose }) => {
   const dispatch = useDispatch();
 
   const submitSignIn = (payload) => {
-    console.log(payload);
-    const { data, error } = dispatch(login(payload));
-    if (error) {
-      console.log('Login failed:', error);
-    } else {
-      console.log('Login successful:', data);
-      onRequestClose();
-    }
+    dispatch(login(payload))
+      .unwrap()
+      .then(() => {
+        console.log('Login successful');
+        onRequestClose();
+      })
+      .catch((error) => {
+        console.log('Login failed:', error);
+      });
   };
 
   return (

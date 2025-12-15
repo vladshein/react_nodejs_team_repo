@@ -12,9 +12,16 @@ const LogOutModal = ({ isOpen, onRequestClose }) => {
   const dispatch = useDispatch();
 
   const handleLogOut = () => {
-    dispatch(logout());
-    toast.success(`Successfully signed out!`);
-    onRequestClose();
+    dispatch(logout())
+      .unwrap()
+      .then(() => {
+        toast.success(`Successfully signed out!`);
+        redirect('/');
+        onRequestClose();
+      })
+      .catch((error) => {
+        console.log('Logout failed:', error);
+      });
   };
 
   return (
