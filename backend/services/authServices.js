@@ -51,14 +51,6 @@ export const loginUser = async ({ password, email }) => {
 
 export const refreshUser = async (user) => {
   const token = createToken({ id: user.id });
-  const recipes = await Recipe.findAll({
-    where: { ownerId: user.id },
-    include: [
-      { model: User, as: 'owner', attributes: ['id', 'name', 'email'] },
-      { model: Category, as: 'category', attributes: ['id', 'name'] },
-      { model: Area, as: 'area', attributes: ['id', 'name'] },
-    ],
-  });
 
   await user.update({ token });
   return {
@@ -66,7 +58,6 @@ export const refreshUser = async (user) => {
     avatar: user.avatar,
     name: user.name,
     token,
-    recipes,
   };
 };
 
