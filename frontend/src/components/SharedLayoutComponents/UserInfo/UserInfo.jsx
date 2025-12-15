@@ -1,38 +1,53 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { selectUserProfile } from '../redux/usersSlice';
 import styles from './UserInfo.module.css';
 
 const UserInfo = () => {
-  const profile = useSelector(selectUserProfile);
-
-  if (!profile) return <div>Loading...</div>;
+  // ТИМЧАСОВІ ДАНІ (Mock Data)
+  // Коли підключимо Redux, тут буде: const user = useSelector(selectSelectedUser);
+  const user = {
+    id: 1,
+    name: "Harry Potter",
+    avatar: "https://i.pravatar.cc/300?img=68", // Випадкова картинка
+    bio: "Cooking is my passion! Creating magic in the kitchen every day.",
+    stats: {
+      recipes: 24,
+      followers: 1200,
+      following: 15
+    }
+  };
 
   return (
-    <div className={styles.profileContainer}>
+    <div className={styles.container}>
       <div className={styles.avatarWrapper}>
-        <img src={profile.avatar} alt={profile.name} className={styles.bigAvatar} />
+        <img 
+          src={user.avatar} 
+          alt={user.name} 
+          className={styles.avatar} 
+        />
       </div>
 
-      <h2 className={styles.name}>{profile.name}</h2>
-      <p className={styles.bio}>{profile.bio}</p>
+      <h3 className={styles.name}>{user.name}</h3>
+      <p className={styles.role}>Master Chef</p> 
+
+      <p className={styles.bio}>{user.bio}</p>
 
       <div className={styles.statsRow}>
         <div className={styles.statItem}>
-          <strong>{profile.stats.recipes}</strong>
-          <span>Recipes</span>
+          <span className={styles.statValue}>{user.stats.recipes}</span>
+          <span className={styles.statLabel}>Recipes</span>
         </div>
         <div className={styles.statItem}>
-          <strong>{profile.stats.followers}</strong>
-          <span>Followers</span>
+          <span className={styles.statValue}>{user.stats.followers}</span>
+          <span className={styles.statLabel}>Followers</span>
         </div>
         <div className={styles.statItem}>
-          <strong>{profile.stats.favorites}</strong>
-          <span>Favorites</span>
+          <span className={styles.statValue}>{user.stats.following}</span>
+          <span className={styles.statLabel}>Following</span>
         </div>
       </div>
 
-      <button className={styles.editBtn}>Edit Profile</button>
+      <button className={styles.editBtn}>
+        Edit Profile
+      </button>
     </div>
   );
 };

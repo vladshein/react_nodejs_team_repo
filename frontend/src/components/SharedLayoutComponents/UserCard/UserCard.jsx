@@ -1,30 +1,28 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { followUser, unfollowUser } from '../../redux/users/actions';
-// import styles from "./UserCard.module.css"
+import styles from "./UserCard.module.css";
 
 const UserCard = ({ user }) => {
-  const dispatch = useDispatch();
-
+  // Тимчасова функція-заглушка
   const handleToggleFollow = () => {
-    if (user.isFollowed) {
-      dispatch(unfollowUser(user.id));
-    } else {
-      dispatch(followUser(user.id));
-    }
+    console.log(`Click follow/unfollow on user: ${user.name}`);
   };
 
   return (
-    <div className="user-card">
-      <img src={user.avatar || '/default-avatar.png'} alt={user.name} />
+    <div className={styles.card}>
+      <img 
+        src={user.avatar || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'} 
+        alt={user.name} 
+        className={styles.avatar} 
+      />
       
-      <div className="info">
-        <h4>{user.name}</h4>
-        {/* Додаткова інфа, якщо є в дизайні */}
-        <span>User stats...</span> 
+      <div className={styles.info}>
+        <h4 className={styles.name}>{user.name}</h4>
+        <span className={styles.subtext}>Foodie member</span> 
       </div>
 
-      <button onClick={handleToggleFollow} className={user.isFollowed ? 'active' : ''}>
+      <button 
+        onClick={handleToggleFollow} 
+        className={`${styles.btn} ${user.isFollowed ? styles.following : ''}`}
+      >
         {user.isFollowed ? 'Unfollow' : 'Follow'}
       </button>
     </div>
