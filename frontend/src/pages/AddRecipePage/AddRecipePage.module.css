@@ -1,132 +1,19 @@
-.detailsContainer {
-  padding: 48px 64px 80px 64px;
+.pageWrapper {
   display: flex;
   flex-direction: column;
-  gap: 60px;
-}
-.truckDescription {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-.descriptionAndGallery {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.secondLine {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  gap: 16px;
-}
-
-.ratingReview {
-  display: flex;
   justify-content: center;
-  align-items: center;
-  gap: 4px;
+  padding: 32px 16px 64px 16px;
 }
-
-.reviewText {
-  color: var(--Main, #101828);
-
-  /* Body underline */
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px; /* 150% */
-  text-decoration-line: underline;
-  text-decoration-style: solid;
-  text-decoration-skip-ink: none;
-  text-decoration-thickness: auto;
-  text-underline-offset: auto;
-  text-underline-position: from-font;
+.title {
+  text-transform: uppercase;
+  text-align: start;
+  font-size: var(--fs-28);
+  font-weight: var(--fw-800);
+  line-height: var(--lh-115);
 }
-
-.location {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  color: var(--Main, #101828);
-
-  /* Body underline */
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px; /* 150% */
-}
-
-.truckImage {
-  width: 292px;
-  height: 312px;
-  flex-shrink: 0;
-  border-radius: 10px;
-  object-fit: cover; /* Ensures the image fills the container */
-}
-
-.imageList {
-  display: flex;
-  gap: 48px;
-  flex-direction: row;
-  width: 1312px;
-  align-items: flex-start;
-}
-
-.featuresAndLine {
-  width: 1312px;
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-}
-.featuresAndReviews {
-  display: flex;
-  width: 1312px;
-  gap: 40px;
-}
-
-.truckDescriptionText {
-  width: 1312px;
-  color: var(--Text, #475467);
-  /* Body */
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px; /* 150% */
-}
-
-.activeText {
-  position: relative;
-  display: inline-block;
-}
-
-.activeText::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 6px; /* Thickness of the underline */
-  background-color: var(--Button, #e44848); /* color of the underline */
-  bottom: -20px; /* Adjust distance below text */
-  left: 0;
-}
-
-.reviewBook {
-  display: flex;
-  gap: 40px;
-}
-
-.firstLineText {
-  color: var(--Main, #101828);
-
-  /* H2 */
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 32px; /* 133.333% */
-  margin-top: 8px;
+.description {
+  margin-top: 16px;
+  font-size: var(--fs-14);
+  line-height: var(--lh-140);
+  text-align: start;
 }
