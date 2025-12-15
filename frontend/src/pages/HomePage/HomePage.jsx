@@ -1,6 +1,8 @@
 import { Navigate, useNavigate } from 'react-router-dom';
 import styles from './HomePage.module.css';
 import Hero from '../../components/HomePageComponents/Hero/Hero';
+import Testimonials from '../../components/HomePageComponents/Testimonials/Testimonials';
+
 
 const HomePage = ({ onLoginClick, onRegisterClick, onLogOutClick }) => {
   const navigate = useNavigate();
@@ -12,7 +14,7 @@ const HomePage = ({ onLoginClick, onRegisterClick, onLogOutClick }) => {
         onLogOutClick={onLogOutClick}
       />
       {/* categories */}
-      {/* testimonials */}
+      <Testimonials />
       {/* footer */}
     </div>
   );

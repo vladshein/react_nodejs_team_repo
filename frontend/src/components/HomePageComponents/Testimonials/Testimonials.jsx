@@ -1,89 +1,116 @@
-import style from "./BookForm.module.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useId } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { useEffect, useState } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Pagination, Autoplay } from 'swiper/modules';
 
-const BookForm = () => {
-  const notify = (name, date) =>
-    toast.success(`Dear ${name}, thank you for your booking on ${date}!`);
+import 'swiper/css';
+import 'swiper/css/pagination';
 
-  const handleSubmit = data => {
-    console.log("Form Data:", data);
-    notify(data.name, data.bookingDate);
-  };
+import styles from './Testimonials.module.css';
+import IconQuote from '../../common/icons/IconQuote';
 
-  const nameFieldId = useId();
-  const emailFieldId = useId();
-  const dateFieldId = useId();
-  const commentFieldId = useId();
 
-  const initialValues = {
-    name: "",
-    email: "",
-    date: "",
-    comment: "",
-  };
+function MainTitle({ tag = 'h2', children, className = '' }) {
+  const Tag = tag;
+  return <Tag className={className || undefined}>{children}</Tag>;
+}
+
+function Subtitle({ tag = 'p', children, className = '' }) {
+  const Tag = tag;
+  return <Tag className={className || undefined}>{children}</Tag>;
+}
+
+const API_BASE = 'http://localhost:3000';
+
+const Testimonials = () => {
+  const [items, setItems] = useState([]);
+  const [status, setStatus] = useState('loading');
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        setStatus('loading');
+
+        const res = await fetch(`${API_BASE}/api/testimonials`);
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+
+        const data = await res.json();
+
+        setItems(Array.isArray(data) ? data : []);
+        setStatus('ready');
+      } catch (err) {
+        console.error('Failed to load testimonials', err);
+        setError(err.message || 'Unknown error');
+        setStatus('error');
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
+
+  if (status === 'loading') {
+    return (
+      <section className={styles.section}>
+        <div className="f-container">
+          <p>Loading testimonials…</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (status === 'error') {
+    return (
+      <section className={styles.section}>
+        <div className="f-container">
+          <p>Error: {error}</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
-    <div className={style.formContainer}>
-      <div className={style.formHead}>
-        <h3>Book your campervan now</h3>
-        <p className={style.formHeadText}>
-          Stay connected! We are always ready to help you.
-        </p>
+    <section className={styles.section} aria-labelledby="testimonials-title">
+      <div className="f-container">
+        <Subtitle className={styles.subtitle}>
+          What our customers say
+        </Subtitle>
+
+        <MainTitle tag="h2" id="testimonials-title" className={styles.title}>
+          TESTIMONIALS
+        </MainTitle>
+
+        {items.length === 0 ? (
+          <p className={styles.empty}>No testimonials yet</p>
+        ) : (
+          <Swiper
+            modules={[Pagination, Autoplay]}
+            autoplay={{ delay: 8000, disableOnInteraction: false }}
+            pagination={{ clickable: true }}
+            loop={items.length > 1}
+            speed={600}
+          >
+            {items.map((t) => (
+              <SwiperSlide key={t.id}>
+                <div className={styles.slide}>
+                  <div className={styles.iconWrap}>
+                    <IconQuote className={styles.icon} />
+                  </div>
+
+                  <p className={styles.text}>{t.testimonial}</p>
+
+                  <p className={styles.author}>
+                    {t.authorName || 'Anonymous'}
+                  </p>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
       </div>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        className={style.form}
-        // validationSchema={FeedbackSchema}
-      >
-        <Form className={style.feedbackFormItem}>
-          <div>
-            <Field
-              type="text"
-              name="name"
-              id={nameFieldId}
-              placeholder="Name*"
-              className={style.formField}
-            />
-            <ErrorMessage name="name" />
-          </div>
-          <div>
-            <Field
-              type="email"
-              name="email"
-              id={emailFieldId}
-              placeholder="Email*"
-              className={style.formField}
-            />
-            <ErrorMessage name="email" />
-          </div>
-          <div>
-            <Field
-              type="date"
-              name="bookingDate"
-              id={dateFieldId}
-              placeholder="Booking date*"
-              className={style.formField}
-            />
-            <ErrorMessage name="number" />
-          </div>
-          <Field
-            as="textarea"
-            name="comment"
-            id={commentFieldId}
-            className={style.formFieldComment}
-            placeholder="Comment"
-          />
-          <button className={style.formBtn} type="submit">
-            Send
-          </button>
-          <Toaster />
-        </Form>
-      </Formik>
-    </div>
+    </section>
   );
 };
 
-export default BookForm;
+export default Testimonials;
