@@ -2,8 +2,7 @@ import { lazy, Suspense, useState } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
-import LoginModal from '../components/Modals/SignInModal/SignInModal.jsx';
-import RegistrationModal from '../components/Modals/SignUpModal/SignUpModal.jsx';
+import AuthModal from '../components/Modals/AuthModal/AuthModal.jsx';
 import LogOutModal from '../components/Modals/LogOutModal/LogOutModal.jsx';
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const RecipePage = lazy(() => import('../pages/RecipePage/RecipePage'));
@@ -23,8 +22,8 @@ import { refreshUser } from '../redux/auth/actions.js';
 
 const App = () => {
   const isRefreshing = useSelector(selectIsRefreshing);
-  const [isSignInModalOpen, setIsSignInModalOpen] = useState(false);
-  const [isSignUpModalOpen, setIsSignUpModalOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [authModalView, setAuthModalView] = useState('signIn');
   const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
 
   const dispatch = useDispatch();
@@ -37,10 +36,11 @@ const App = () => {
   ) : (
     <Suspense fallback={<div>Loading...</div>}>
       <div className={style.container}>
-        <LoginModal isOpen={isSignInModalOpen} onRequestClose={() => setIsSignInModalOpen(false)} />
-        <RegistrationModal
-          isOpen={isSignUpModalOpen}
-          onRequestClose={() => setIsSignUpModalOpen(false)}
+        <AuthModal
+          isOpen={isAuthModalOpen}
+          onRequestClose={() => setIsAuthModalOpen(false)}
+          view={authModalView}
+          setView={setAuthModalView}
         />
         <LogOutModal
           isOpen={isLogOutModalOpen}
@@ -51,8 +51,14 @@ const App = () => {
             path="/"
             element={
               <HomePage
-                onLoginClick={() => setIsSignInModalOpen(true)}
-                onRegisterClick={() => setIsSignUpModalOpen(true)}
+                onLoginClick={() => {
+                  setAuthModalView('signIn');
+                  setIsAuthModalOpen(true);
+                }}
+                onRegisterClick={() => {
+                  setAuthModalView('signUp');
+                  setIsAuthModalOpen(true);
+                }}
                 onLogOutClick={() => setIsLogOutModalOpen(true)}
               />
             }>
@@ -66,7 +72,10 @@ const App = () => {
             element={
               <PrivateRoute
                 component={<AddRecipePage />}
-                setIsSignInModalOpen={setIsSignInModalOpen}
+                setIsSignInModalOpen={() => {
+                  setAuthModalView('signIn');
+                  setIsAuthModalOpen(true);
+                }}
               />
             }></Route>
           <Route path="/recipe/:id" element={<RecipePage />}></Route>
