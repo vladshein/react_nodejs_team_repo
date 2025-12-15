@@ -1,15 +1,22 @@
 import React from 'react';
 import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
-import { register } from '../../../redux/auth/actions.js';
+import { login, register } from '../../../redux/auth/actions.js';
 import css from './SignUpModal.module.css';
 import SignUpForm from '../SignUpForm/SignUpForm.jsx';
 
 const SignUpModal = ({ isOpen, onRequestClose }) => {
   const dispatch = useDispatch();
 
-  const submitSignUp = (data) => {
-    dispatch(register(data));
+  const submitSignUp = (payload) => {
+    const { data, err } = dispatch(register(payload));
+    if (err) {
+      console.log('Registration failed:', err);
+    } else {
+      console.log('Registration successful:', data);
+      dispatch(login({ email: payload.email, password: payload.password }));
+      onRequestClose();
+    }
   };
 
   return (

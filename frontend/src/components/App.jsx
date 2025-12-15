@@ -1,5 +1,6 @@
 import { lazy, Suspense, useState } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
+import { Toaster } from 'react-hot-toast';
 
 import LoginModal from '../components/Modals/SignInModal/SignInModal.jsx';
 import RegistrationModal from '../components/Modals/SignUpModal/SignUpModal.jsx';
@@ -72,6 +73,7 @@ const App = () => {
           <Route path="/user/:id" element={<UserPage />}></Route>
           <Route path="*" element={<NotFoundPage />}></Route>
         </Routes>
+        <Toaster position="top-right" reverseOrder={false} />
       </div>
     </Suspense>
   );

@@ -26,9 +26,9 @@ const LogOutModal = ({ isOpen, onRequestClose }) => {
       overlayClassName={style.overlay}>
       <button onClick={onRequestClose}>Close</button>
 
-      <div className={style.formContainer}>
-        <h3 className={style.formHead}>Log Out</h3>
-        <div className={style.formText}>Are you sure you want to log out?</div>
+      <div>
+        <h3>Log Out</h3>
+        <div>Are you sure you want to log out?</div>
 
         <div>
           <button className={style.formBtn} onClick={() => handleLogOut()}>
@@ -37,7 +37,6 @@ const LogOutModal = ({ isOpen, onRequestClose }) => {
           <button className={style.formBtn} type="button" onClick={onRequestClose}>
             CANCEL
           </button>
-          <Toaster />
         </div>
       </div>
     </Modal>
