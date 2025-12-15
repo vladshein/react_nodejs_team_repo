@@ -1,3 +1,4 @@
+import Avatar from '../Avatar/Avatar';
 import style from './UserBar.module.css';
 
 // get the signin variable and location
@@ -6,9 +7,11 @@ import style from './UserBar.module.css';
 // const isLoggedIn = useSelector(selectIsLoggedIn);
 
 const UserBar = () => {
-  return <div >
-
-  </div>;
+  return (
+    <div className={style.userbar}>
+      <Avatar src="/cat_avatar.png" alt="avatar" />
+    </div>
+  );
 };
 
 export default UserBar;
