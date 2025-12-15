@@ -1,23 +1,17 @@
 import { Link } from 'react-router-dom';
 import style from './Hero.module.css';
 import Header from '../../SharedLayoutComponents/Header/Header';
-<<<<<<< HEAD
+import mainstyles from '../../../components/App.module.css';
 
 const Hero = ({ onLoginClick, onRegisterClick, onLogOutClick }) => {
   return (
-    <section className={style.heroContainer}>
+    <section className={`${mainstyles.container} ${style.heroContainer}`}>
       <Header
         onLoginClick={onLoginClick}
         onRegisterClick={onRegisterClick}
         onLogOutClick={onLogOutClick}
       />
-=======
-import mainstyles from '../../../components/App.module.css';
-const Hero = () => {
-  return (
-    <section className={`${mainstyles.container} ${style.heroContainer}`}>
-      <Header />
->>>>>>> main
+
       <h1 className={style.heroText}>Improve Your Culinary Talents</h1>
       <p className={style.heroTextSmall}>
         Amazing recipes for beginners in the world of cooking, enveloping you in the aromas and
