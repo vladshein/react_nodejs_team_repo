@@ -1,14 +1,4 @@
 import style from './AuthBar.module.css';
-
-// const AuthBar = () => {
-//   return (
-//     <div className={style.toggleGroup}>
-//       <button className={"toggle-button"}>SIGN IN</button>
-//       <button>SIGN UP</button>
-//     </div>
-//   );
-// };
-
 import React, { useState } from 'react';
 import './AuthBar.module.css'; // Optional: move styles to a separate file
 
