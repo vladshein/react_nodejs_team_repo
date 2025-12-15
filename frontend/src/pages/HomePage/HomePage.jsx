@@ -1,14 +1,10 @@
 import Hero from '../../components/HomePageComponents/Hero/Hero';
 import Testimonials from '../../components/HomePageComponents/Testimonials/Testimonials';
 
-const HomePage = ({ onLoginClick, onRegisterClick, onLogOutClick }) => {
+const HomePage = () => {
   return (
     <div>
-      <Hero
-        onLoginClick={onLoginClick}
-        onRegisterClick={onRegisterClick}
-        onLogOutClick={onLogOutClick}
-      />
+      <Hero />
       {/* categories */}
       <Testimonials />
       {/* footer */}

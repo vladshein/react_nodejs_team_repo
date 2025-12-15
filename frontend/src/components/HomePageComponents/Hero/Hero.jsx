@@ -3,14 +3,10 @@ import style from './Hero.module.css';
 import Header from '../../SharedLayoutComponents/Header/Header';
 import mainstyles from '../../../components/App.module.css';
 
-const Hero = ({ onLoginClick, onRegisterClick, onLogOutClick }) => {
+const Hero = () => {
   return (
     <section className={`${mainstyles.container} ${style.heroContainer}`}>
-      <Header
-        onLoginClick={onLoginClick}
-        onRegisterClick={onRegisterClick}
-        onLogOutClick={onLogOutClick}
-      />
+      <Header />
 
       <h1 className={style.heroText}>Improve Your Culinary Talents</h1>
       <p className={style.heroTextSmall}>

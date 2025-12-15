@@ -2,7 +2,6 @@ import { lazy, Suspense } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 
-import SharedLayout from './SharedLayoutComponents/SharedLayout/SharedLayout';
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const RecipePage = lazy(() => import('../pages/RecipePage/RecipePage'));
 const AddRecipePage = lazy(() => import('../pages/AddRecipePage/AddRecipePage'));
