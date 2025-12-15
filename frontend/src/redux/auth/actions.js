@@ -2,10 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { authService } from '../../services/authService';
 import { authActions } from './constants';
 
-<<<<<<< HEAD
-// axios.defaults.baseURL = 'https://react-nodejs-team-repo.onrender.com/api/';
-axios.defaults.baseURL = 'http://localhost:3000/api';
-=======
 export const register = createAsyncThunk(
   authActions.SIGN_UP,
   async (userData, { rejectWithValue }) => {
@@ -17,16 +13,10 @@ export const register = createAsyncThunk(
     }
   }
 );
->>>>>>> main
 
 export const login = createAsyncThunk(authActions.SIGN_IN, async (userData, thunkAPI) => {
   try {
-<<<<<<< HEAD
-    const { data } = await axios.post('/auth/register', userData);
-    setToken(data.token);
-=======
     const { data } = await authService.login(userData);
->>>>>>> main
     return data;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response?.data?.message || error.message);
