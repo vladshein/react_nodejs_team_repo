@@ -6,7 +6,7 @@ import { registerSchema, loginSchema } from '../schemas/authSchemas.js';
 import {
   registerController,
   loginController,
-  // getCurrentController,
+  getCurrentController,
   logoutController,
   // updateAvatarController,
 } from '../controllers/authControllers.js';
@@ -16,9 +16,8 @@ const authRouter = express.Router();
 
 authRouter.post('/register', validateBody(registerSchema), registerController);
 authRouter.post('/login', validateBody(loginSchema), loginController);
+authRouter.get('/current', authenticate, getCurrentController);
 authRouter.post('/logout', authenticate, logoutController);
-
-// authRouter.get("/current", authenticate, getCurrentController);
 // authRouter.patch("/avatars", authenticate, upload.single("avatar"), updateAvatarController);
 
 export default authRouter;
