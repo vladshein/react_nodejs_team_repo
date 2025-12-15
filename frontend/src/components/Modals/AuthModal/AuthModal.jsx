@@ -5,6 +5,7 @@ import { login, register } from '../../../redux/auth/actions.js';
 import style from './AuthModal.module.css';
 import SignInForm from '../SignInForm/SignInForm.jsx';
 import SignUpForm from '../SignUpForm/SignUpForm.jsx';
+import IconClose from '../../common/icons/IconClose.jsx';
 
 const AuthModal = ({ isOpen, onRequestClose, view, setView }) => {
   const dispatch = useDispatch();
@@ -41,22 +42,18 @@ const AuthModal = ({ isOpen, onRequestClose, view, setView }) => {
       contentLabel="Auth Modal"
       className={style.modal}
       overlayClassName={style.overlay}>
+      <button className={style.closeBtn} onClick={onRequestClose}>
+        <IconClose />
+      </button>
       {view === 'signIn' ? (
         <div>
-          <SignInForm submitSignIn={submitSignIn} />
-          <p>
-            Don't have an account? <button onClick={() => setView('signUp')}>Sign Up</button>
-          </p>
+          <SignInForm submitSignIn={submitSignIn} setView={setView} />
         </div>
       ) : (
         <div>
-          <SignUpForm submitSignUp={submitSignUp} />
-          <p>
-            Already have an account? <button onClick={() => setView('signIn')}>Sign In</button>
-          </p>
+          <SignUpForm submitSignUp={submitSignUp} setView={setView} />
         </div>
       )}
-      <button onClick={onRequestClose}>Close</button>
     </Modal>
   );
 };

@@ -1,26 +1,22 @@
 .formContainer {
   display: flex;
-  width: 641px;
-  padding: 44px;
+  width: 400px;
+  padding: 0px;
   flex-direction: column;
-  gap: 24px;
-  border-radius: 10px;
-  border: 1px solid var(--Gray-light, #dadde1);
+  border: none;
 }
 
 .formHead {
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
   gap: 8px;
   color: var(--Main, #101828);
   /* H3 */
   font-family: Inter;
-  font-size: 20px;
-  font-style: normal;
+  font-size: 32px;
+  font-style: bold;
   font-weight: 600;
-  line-height: 24px; /* 120% */
+  line-height: 40px; /* 120% */
   padding: 0 13px;
+  margin-bottom: 40px;
 }
 
 .formHeadText {
@@ -35,26 +31,24 @@
   align-self: stretch;
 }
 
-.feedbackFormItem {
+.form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 14px;
-  padding: 0 13px;
+  padding: 0px;
 }
 
 .formField {
+  padding: 16px 18px;
   display: flex;
-  width: 527px;
-  height: 60px;
-  padding: 18px 337px 18px 18px;
+  width: 400px;
   flex-direction: column;
   align-items: flex-start;
   gap: 10px;
-  border-radius: 12px;
-  background: var(--Inputs, #f7f7f7);
-  border: none;
+  border-radius: 30px;
+  border: 1px solid var(--LightGray, #bfbebe);
 }
 
 .formField:hover,
@@ -70,7 +64,6 @@
   align-items: flex-start;
   gap: 10px;
   border-radius: 10px;
-  background: var(--Inputs, #f7f7f7);
   border: none;
 }
 .formFieldComment:focus,
@@ -101,4 +94,23 @@
 .formBtn:hover,
 .formBtn:focus {
   background: #d84343;
+}
+
+.passwordFieldContainer {
+  position: relative;
+  width: 100%;
+}
+
+.eyeBtn {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

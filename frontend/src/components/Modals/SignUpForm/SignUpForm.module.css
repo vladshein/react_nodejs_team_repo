@@ -102,3 +102,27 @@
 .formBtn:focus {
   background: #d84343;
 }
+
+.formBtn:hover,
+.formBtn:focus {
+  background: #d84343;
+}
+
+.passwordFieldContainer {
+  position: relative;
+  width: 100%;
+}
+
+.eyeBtn {
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

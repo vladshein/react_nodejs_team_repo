@@ -72,7 +72,7 @@ const App = () => {
             element={
               <PrivateRoute
                 component={<AddRecipePage />}
-                setIsSignInModalOpen={() => {
+                onAuthRequest={() => {
                   setAuthModalView('signIn');
                   setIsAuthModalOpen(true);
                 }}
