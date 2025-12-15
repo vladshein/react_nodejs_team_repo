@@ -16,9 +16,13 @@ const authRouter = express.Router();
 
 authRouter.post('/register', validateBody(registerSchema), registerController);
 authRouter.post('/login', validateBody(loginSchema), loginController);
+authRouter.get('/current', authenticate, getCurrentController);
 authRouter.post('/logout', authenticate, logoutController);
+<<<<<<< HEAD
 
 authRouter.get('/current', authenticate, getCurrentController);
+=======
+>>>>>>> main
 // authRouter.patch("/avatars", authenticate, upload.single("avatar"), updateAvatarController);
 
 export default authRouter;
