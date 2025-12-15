@@ -8,7 +8,6 @@ const UserPage = lazy(() => import('../pages/UserPage/UserPage'));
 const NotFoundPage = lazy(() => import('../pages/NotFoundPage/NotFoundPage'));
 
 import style from './App.module.css';
-import Hero from './HomePageComponents/Hero/Hero';
 import Categories from './HomePageComponents/Categories/Categories';
 import RestrictedRoute from '../guards/RestrictedRoute/RestrictedRoute';
 import PrivateRoute from '../guards/PrivateRoute/PrivateRoute';
@@ -30,22 +29,15 @@ const App = () => {
     <div>Refreshing user...</div>
   ) : (
     <Suspense fallback={<div>Loading...</div>}>
-      <div className={style.container}>
-        <Routes>
-          <Route path="/" element={<HomePage />}>
-            <Route index element={<Navigate to="categories" />} />
-            <Route path="categories" element={<Categories />}></Route>
-            {/* <Route path="categories/:id" element={<Categories />}></Route> */}
-          </Route>
-          <Route index element={<HomePage />} />
-          <Route
-            path="/recipe/add"
-            element={<PrivateRoute component={<AddRecipePage />} />}></Route>
-          <Route path="/recipe/:id" element={<RecipePage />}></Route>
-          <Route path="/user/:id" element={<UserPage />}></Route>
-          <Route path="*" element={<NotFoundPage />}></Route>
-        </Routes>
-      </div>
+      {/* <div className={style.container}> */}
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/recipe/add" element={<PrivateRoute component={<AddRecipePage />} />}></Route>
+        <Route path="/recipe/:id" element={<RecipePage />}></Route>
+        <Route path="/user/:id" element={<UserPage />}></Route>
+        <Route path="*" element={<NotFoundPage />}></Route>
+      </Routes>
+      {/* </div> */}
     </Suspense>
   );
 };
