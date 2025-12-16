@@ -6,8 +6,10 @@ import IconEye from '../../common/icons/IconEye';
 import IconEyeOff from '../../common/icons/IconEyeOff';
 
 const SignInForm = ({ submitSignIn, setView }) => {
-  const handleSubmit = (data) => {
-    submitSignIn(data);
+  const handleSubmit = (data, actions) => {
+    console.log(data);
+
+    submitSignIn(data, actions);
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -29,7 +31,7 @@ const SignInForm = ({ submitSignIn, setView }) => {
     <div className={style.formContainer}>
       <h3 className={style.formHead}>SIGN IN</h3>
       <Formik initialValues={initialValues} onSubmit={handleSubmit} validationSchema={SignInSchema}>
-        {({ isValid, dirty }) => (
+        {({ isValid, dirty, isSubmitting }) => (
           <Form className={style.form}>
             <div className={style.formFieldsContainer}>
               <Field
@@ -56,12 +58,21 @@ const SignInForm = ({ submitSignIn, setView }) => {
                 {/* <ErrorMessage name="password" /> */}
               </div>
             </div>
-            <button disabled={!isValid || !dirty} className={style.formBtn} type="submit">
-              SIGN IN
+            <button
+              disabled={!isValid || !dirty || isSubmitting}
+              className={style.formBtn}
+              type="submit">
+              {isSubmitting ? 'Signing In...' : 'SIGN IN'}
             </button>
             <p className={style.createAccount}>
               Don't have an account?
-              <button className={style.createAccountLink} onClick={() => setView('signUp')}>
+              <button
+                type="button"
+                className={style.createAccountLink}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setView('signUp');
+                }}>
                 Create an account
               </button>
             </p>
