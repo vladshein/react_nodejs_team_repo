@@ -1,9 +1,30 @@
-.userbar {
-  width: 148px;
+.userBar {
+  min-width: 100px;
+  max-width: 250px;
   height: 50px;
-  display: inline-flex;
-  align-items: flex-start;
+  display: flex;
+  align-items: center;
   border-radius: 30px;
   background: #1a1a1a;
   margin-left: auto;
+}
+
+.nameSvgDiv {
+  display: flex;
+  padding: 16px 14px 16px 6px;
+  gap: 4px;
+}
+.userName {
+  color: #fff;
+  font-family: Mulish;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 18px; /* 150% */
+  letter-spacing: -0.24px;
+  text-transform: uppercase;
+}
+
+.arrowDown {
+  stroke: white; /* controls stroke color */
 }

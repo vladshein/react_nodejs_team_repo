@@ -5,11 +5,16 @@ import AuthBar from '../AuthBar/AuthBar';
 import { useLocation } from 'react-router-dom';
 import UserBar from '../UserBar/UserBar';
 
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn } from '../../../redux/auth/selectors.js';
+
 const Header = () => {
   const location = useLocation();
   const variant = location.pathname === '/' ? 'dark' : 'light';
+  // add authorized variable for testing purpose variable
   const authorized = true;
-  // const isLoggedIn = useSelector(selectIsLoggedIn);
+  // change to the isLoggedIn, once signin modal is ready and isLoggedIn filled
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   return (
     <header className={`${style.headerdiv} ${variant === 'dark' ? style.dark : style.light}`}>
