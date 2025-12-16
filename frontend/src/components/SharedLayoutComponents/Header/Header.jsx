@@ -19,6 +19,7 @@ const Header = () => {
   const location = useLocation();
   const variant = location.pathname === '/' ? 'dark' : 'light';
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const auth = true;
 
   const handleLoginClick = () => {
     setAuthModalView('signIn');

@@ -5,7 +5,7 @@ import mainstyles from '../../../components/App.module.css';
 
 const Hero = () => {
   return (
-    <section className={`${mainstyles.container} ${style.heroContainer}`}>
+    <section className={style.heroContainer}>
       <Header />
 
       <h1 className={style.heroText}>Improve Your Culinary Talents</h1>
