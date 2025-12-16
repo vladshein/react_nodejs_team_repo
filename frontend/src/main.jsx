@@ -8,6 +8,9 @@ import { BrowserRouter } from 'react-router-dom';
 import { injectStore } from './services/api.js';
 import 'modern-normalize';
 import './index.css';
+import Modal from 'react-modal';
+
+Modal.setAppElement('#root');
 
 injectStore(store);
 

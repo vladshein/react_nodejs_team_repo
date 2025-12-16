@@ -7,7 +7,7 @@ const IconEye = ({ className, width = 20, height = 20 }) => {
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}>
-      <g clip-path="url(#clip0_127_2594)">
+      <g clipPath="url(#clip0_127_2594)">
         <path
           d="M0.833008 10.0002C0.833008 10.0002 4.16634 3.3335 9.99968 3.3335C15.833 3.3335 19.1663 10.0002 19.1663 10.0002C19.1663 10.0002 15.833 16.6668 9.99968 16.6668C4.16634 16.6668 0.833008 10.0002 0.833008 10.0002Z"
           stroke="#050505"

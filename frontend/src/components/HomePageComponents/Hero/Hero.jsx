@@ -2,10 +2,12 @@ import { Link } from 'react-router-dom';
 import style from './Hero.module.css';
 import Header from '../../SharedLayoutComponents/Header/Header';
 import mainstyles from '../../../components/App.module.css';
+
 const Hero = () => {
   return (
     <section className={`${mainstyles.container} ${style.heroContainer}`}>
       <Header />
+
       <h1 className={style.heroText}>Improve Your Culinary Talents</h1>
       <p className={style.heroTextSmall}>
         Amazing recipes for beginners in the world of cooking, enveloping you in the aromas and
