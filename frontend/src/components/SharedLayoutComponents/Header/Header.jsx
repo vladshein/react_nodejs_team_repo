@@ -11,9 +11,6 @@ import UserBar from '../UserBar/UserBar';
 import AuthModal from '../../Modals/AuthModal/AuthModal';
 import LogOutModal from '../../Modals/LogOutModal/LogOutModal';
 
-import { useSelector } from 'react-redux';
-import { selectIsLoggedIn } from '../../../redux/auth/selectors.js';
-
 const Header = () => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [authModalView, setAuthModalView] = useState('signIn');
