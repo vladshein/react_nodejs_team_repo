@@ -41,7 +41,7 @@ const Header = () => {
         <Logo variant={variant === 'dark' ? 'light' : 'dark'} />
         <HeaderNav variant={variant === 'dark' ? 'light' : 'dark'} />
 
-        {auth ? (
+        {isLoggedIn ? (
           <UserBar onLogOutClick={handleLogOutClick} />
         ) : (
           <AuthBar onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />
