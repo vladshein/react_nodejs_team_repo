@@ -1,12 +1,13 @@
-.heroContainer {
-  width: 1400px;
-  height: 970px;
-  padding: 0 60px;
-  border-radius: 30px;
-  background: var(--Main, #050505);
-  padding-top: 20px;
-  text-align: center;
-  margin-bottom: 120px;
+@media only screen and (min-width: 1440px) {
+  .heroContainer {
+    max-width: 1400px; /* better than fixed width */
+    min-height: 970px; /* better than fixed height */
+    padding: 20px 60px 0 60px;
+    border-radius: 30px;
+    background: var(--Main, #050505);
+    text-align: center;
+    margin-bottom: 120px;
+  }
 }
 
 /*  adds equal spacing between all children */

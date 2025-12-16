@@ -1,89 +1,57 @@
-import style from "./BookForm.module.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useId } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import toast, { Toaster } from 'react-hot-toast';
+import { logout } from '../../../redux/auth/actions';
+import { useDispatch } from 'react-redux';
 
-const BookForm = () => {
-  const notify = (name, date) =>
-    toast.success(`Dear ${name}, thank you for your booking on ${date}!`);
+import style from './LogOutModal.module.css';
+import Modal from 'react-modal';
+import { redirect } from 'react-router-dom';
+import IconClose from '../../common/icons/IconClose';
 
-  const handleSubmit = data => {
-    console.log("Form Data:", data);
-    notify(data.name, data.bookingDate);
-  };
+const LogOutModal = ({ isOpen, onRequestClose }) => {
+  const dispatch = useDispatch();
 
-  const nameFieldId = useId();
-  const emailFieldId = useId();
-  const dateFieldId = useId();
-  const commentFieldId = useId();
-
-  const initialValues = {
-    name: "",
-    email: "",
-    date: "",
-    comment: "",
+  const handleLogOut = () => {
+    dispatch(logout())
+      .unwrap()
+      .then(() => {
+        toast.success(`Successfully signed out!`);
+        redirect('/');
+        onRequestClose();
+      })
+      .catch((error) => {
+        console.log('Logout failed:', error);
+      });
   };
 
   return (
-    <div className={style.formContainer}>
-      <div className={style.formHead}>
-        <h3>Book your campervan now</h3>
-        <p className={style.formHeadText}>
-          Stay connected! We are always ready to help you.
-        </p>
-      </div>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        className={style.form}
-        // validationSchema={FeedbackSchema}
-      >
-        <Form className={style.feedbackFormItem}>
-          <div>
-            <Field
-              type="text"
-              name="name"
-              id={nameFieldId}
-              placeholder="Name*"
-              className={style.formField}
-            />
-            <ErrorMessage name="name" />
-          </div>
-          <div>
-            <Field
-              type="email"
-              name="email"
-              id={emailFieldId}
-              placeholder="Email*"
-              className={style.formField}
-            />
-            <ErrorMessage name="email" />
-          </div>
-          <div>
-            <Field
-              type="date"
-              name="bookingDate"
-              id={dateFieldId}
-              placeholder="Booking date*"
-              className={style.formField}
-            />
-            <ErrorMessage name="number" />
-          </div>
-          <Field
-            as="textarea"
-            name="comment"
-            id={commentFieldId}
-            className={style.formFieldComment}
-            placeholder="Comment"
-          />
-          <button className={style.formBtn} type="submit">
-            Send
+    <Modal
+      isOpen={isOpen}
+      onRequestClose={onRequestClose}
+      contentLabel="Log Out Modal"
+      className={style.modal}
+      overlayClassName={style.overlay}>
+      <button className={style.closeBtn} onClick={onRequestClose}>
+        <IconClose />
+      </button>
+
+      <div className={style.container}>
+        <h3 className={style.head}>ARE YOU LOGGING OUT?</h3>
+        <p className={style.text}>You can always log back in at my time.</p>
+
+        <div>
+          <button className={style.btn} onClick={() => handleLogOut()}>
+            LOG OUT
           </button>
-          <Toaster />
-        </Form>
-      </Formik>
-    </div>
+          <button
+            className={`${style.btn} ${style.btnCancel}`}
+            type="button"
+            onClick={onRequestClose}>
+            CANCEL
+          </button>
+        </div>
+      </div>
+    </Modal>
   );
 };
 
-export default BookForm;
+export default LogOutModal;
