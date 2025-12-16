@@ -83,6 +83,7 @@
   line-height: 18px; /* 150% */
   letter-spacing: -0.24px;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 .profile:hover {
