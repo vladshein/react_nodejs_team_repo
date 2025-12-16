@@ -24,6 +24,15 @@ tags:
     description: Recipes operations
 servers:
   - url: http://localhost:3000/api
+    description: http://localhost:3000/api
+  - url: https://localhost:3000/api
+    description: https://localhost:3000/api
+  - url: https://localhost:12216/api
+    description: https://localhost:12216/api
+  - url: https://react-nodejs-team-repo.onrender.com/api
+    description: https://react-nodejs-team-repo.onrender.com/api
+  - url: https://react-nodejs-team-repo.onrender.com:12216/api
+    description: https://react-nodejs-team-repo.onrender.com:12216/api
 paths:
   # AUTH
   /auth/register:
