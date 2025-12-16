@@ -6,13 +6,13 @@
 .card {
   display: flex;
   align-items: flex-start;
-  /* ГУМОВІСТЬ: Картка займає всю ширину, яку дає їй контейнер */
-  width: 100%;
+  /* width: calc(100% - 32px); */
   box-sizing: border-box;
 
   /* Зменшені відступи для екранів < 375px */
-  gap: 10px;
-  padding: 10px;
+  gap: 16px;
+  padding: 20px 0;
+  margin: 0, 16px;
 
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -25,38 +25,34 @@
   border-color: rgba(0, 0, 0, 0.3);
 }
 
-/* --- AVATAR (Rubber Logic) --- */
 .avatarWrapper {
   flex-shrink: 0;
-  /* Не даємо сплющити аватар */
 }
 
 .avatar {
   display: block;
-  /* На дуже малих екранах аватар трохи менший, щоб вліз текст */
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   object-fit: cover;
   background-color: #f2f2f2;
 }
 
-/* --- CONTENT --- */
 .content {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   flex-grow: 1;
-  justify-content: center;
-  min-width: 0;
-  /* Critical for text-overflow */
+  justify-content: flex-end;
+  align-content: space-between;
 }
 
 .header {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   margin-bottom: 4px;
-  width: 100%;
+  min-width: 85px;
 }
 
 .name {
@@ -98,32 +94,57 @@
   margin: 0 0 10px 0;
   font-family: 'Inter', sans-serif;
   font-size: 11px;
-  /* Компактний текст */
   line-height: 1.3;
   color: rgba(0, 0, 0, 0.5);
 }
 
-/* --- BUTTONS (Compact) --- */
 .followBtn,
+.unfollowBtn {
+  padding: 8px 16px;
+  min-width: 112px;
+  min-height: 36px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.43;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  background-color: #FFFFFF;
+
+  color: #1A1A1A;
+
+  opacity: 1;
+  border-radius: 30px;
+  border-width: 1px;
+}
+
+/* --- BUTTONS (Compact) --- */
+/* .followBtn,
 .unfollowBtn {
   display: inline-flex;
   justify-content: center;
   align-items: center;
   padding: 6px 16px;
-  /* Компактні кнопки */
+
   min-width: 70px;
   border-radius: 30px;
   font-family: 'Inter', sans-serif;
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
   text-transform: uppercase;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.2s ease;
-}
+  min-width: 112px;
+  min-height: 36px;
 
-.followBtn {
-  background-color: #000;
+  opacity: 1;
+  border-radius: 30px;
+  border-width: 1px;
+} */
+
+
+/* .followBtn {
+  background-color: #FFFFFF;
   color: #fff;
   border: 1px solid #000;
 }
@@ -142,7 +163,7 @@
 .unfollowBtn:hover {
   border-color: #000;
   color: #000;
-}
+} */
 
 
 /* =========================================
@@ -150,11 +171,8 @@
    ========================================= */
 @media screen and (min-width: 375px) {
   .card {
-    gap: 14px;
-    /* Стандартний відступ */
-    padding: 12px;
-    /* Стандартний падінг */
-    /* Тут картка стає "комфортною" */
+    gap: 16px;
+    padding: 0;
   }
 
   .avatar {
@@ -163,12 +181,22 @@
   }
 
   .name {
-    font-size: 14px;
+    font-weight: 800;
+    color: #050505;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
   }
 
   .recipesInfo {
     font-size: 12px;
     margin-bottom: 12px;
+    color: #BFBEBE;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.5;
+    letter-spacing: -0.02em;
   }
 
   .iconArrow {
@@ -181,7 +209,17 @@
     padding: 8px 16px;
     min-width: 112px;
     min-height: 36px;
-    font-size: 12px;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 1.43;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+
+    color: #1A1A1A;
+
+    opacity: 1;
+    border-radius: 30px;
+    border-width: 1px;
   }
 }
 
