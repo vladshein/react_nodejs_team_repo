@@ -1,7 +1,5 @@
 import Modal from 'react-modal';
-import style from './ImageModal.module.css';
-
-Modal.setAppElement('#root');
+import style from './Modal.module.css';
 
 const ModalComponent = ({ modalIsOpen, closeModal, component: Component }) => {
   return (
