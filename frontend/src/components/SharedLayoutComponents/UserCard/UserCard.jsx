@@ -1,31 +1,45 @@
-import styles from "./UserCard.module.css";
+import styles from './UserCard.module.css';
+import sprite from '../../../../public/icons.svg'
+import defaultAvatar from '../../../../public/cat_avatar.png';
 
 const UserCard = ({ user }) => {
-  // Тимчасова функція-заглушка
-  const handleToggleFollow = () => {
-    console.log(`Click follow/unfollow on user: ${user.name}`);
-  };
+  const { avatar, name, recipesCount, isFollowing, id } = user;
 
   return (
-    <div className={styles.card}>
-      <img 
-        src={user.avatar || 'https://www.gravatar.com/avatar/00000000000000000000000000000000?d=mp&f=y'} 
-        alt={user.name} 
-        className={styles.avatar} 
-      />
-      
-      <div className={styles.info}>
-        <h4 className={styles.name}>{user.name}</h4>
-        <span className={styles.subtext}>Foodie member</span> 
+    <li className={styles.card}>
+      <div className={styles.avatarWrapper}>
+        <img 
+          src={avatar || defaultAvatar} 
+        alt={name} 
+        className={styles.avatar}
+          width="60"
+          height="60"
+          loading="lazy"
+        />
       </div>
 
-      <button 
-        onClick={handleToggleFollow} 
-        className={`${styles.btn} ${user.isFollowed ? styles.following : ''}`}
-      >
-        {user.isFollowed ? 'Unfollow' : 'Follow'}
-      </button>
-    </div>
+      <div className={styles.content}>
+        <div className={styles.header}>
+          <h3 className={styles.name}>{name}</h3>
+          
+          <a href={`/user/${id}`} className={styles.arrowLink} aria-label={`Go to ${name}'s profile`}>
+             <svg className={styles.iconArrow} width="18" height="18">
+                <use href={`${sprite}#icon-arrow-up-right`} />
+             </svg>
+          </a>
+        </div>
+
+        <p className={styles.recipesInfo}>Own recipes: {recipesCount}</p>
+
+        <button 
+          className={isFollowing ? styles.unfollowBtn : styles.followBtn}
+          type="button"
+          aria-label={isFollowing ? `Unfollow ${name}` : `Follow ${name}`}
+        >
+          {isFollowing ? 'UNFOLLOW' : 'FOLLOW'}
+        </button>
+      </div>
+    </li>
   );
 };
 
