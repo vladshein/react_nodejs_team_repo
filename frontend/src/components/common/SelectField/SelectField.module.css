@@ -1,0 +1,54 @@
+:global(.selectField__control) {
+  margin-top: 8px;
+  padding: 14px;
+  border: 1px solid var(--cl-light-gray);
+  border-radius: var(--radius-md);
+  font-size: var(--fs-14);
+  cursor: pointer;
+}
+
+:global(.selectField__control:hover) {
+  border-color: var(--cl-black);
+}
+
+:global(.selectField__placeholder) {
+  color: var(--cl-light-gray);
+  font-size: var(--fs-14);
+}
+
+:global(.selectField__menu) {
+  margin-top: 2px;
+  padding: 10px 0;
+  border: 1px solid var(--cl-light-gray);
+  border-radius: var(--radius-15);
+  font-size: var(--fs-14);
+  overflow: hidden;
+}
+
+:global(.selectField__option) {
+  padding: 3px 18px;
+  cursor: pointer;
+}
+
+:global(.selectField__option:hover) {
+  background-color: var(--cl-lighter-gray);
+}
+
+@media (min-width: 768px) {
+  :global(.selectField__control) {
+    padding: 16px 18px;
+    font-size: var(--fs-16);
+  }
+
+  :global(.selectField__option) {
+    font-size: var(--fs-16);
+  }
+
+  :global(.selectField__placeholder) {
+    font-size: var(--fs-16);
+  }
+
+  :global(.selectField__menu) {
+    font-size: var(--fs-16);
+  }
+}
