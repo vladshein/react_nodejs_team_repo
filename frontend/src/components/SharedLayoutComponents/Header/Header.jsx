@@ -19,6 +19,7 @@ const Header = () => {
   const location = useLocation();
   const variant = location.pathname === '/' ? 'dark' : 'light';
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const auth = true;
 
   const handleLoginClick = () => {
     setAuthModalView('signIn');
@@ -40,7 +41,7 @@ const Header = () => {
         <Logo variant={variant === 'dark' ? 'light' : 'dark'} />
         <HeaderNav variant={variant === 'dark' ? 'light' : 'dark'} />
 
-        {isLoggedIn ? (
+        {auth ? (
           <UserBar onLogOutClick={handleLogOutClick} />
         ) : (
           <AuthBar onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />
