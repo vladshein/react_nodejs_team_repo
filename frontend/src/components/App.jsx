@@ -32,14 +32,29 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectIsRefreshing } from '../redux/auth/selectors';
 import { useEffect } from 'react';
 import { refreshUser } from '../redux/auth/actions.js';
+import AuthModal from './Modals/AuthModal/AuthModal.jsx';
+import LogOutModal from './Modals/LogOutModal/LogOutModal.jsx';
+import { selectIsModalOpen, selectModalType, selectModalProps } from '../redux/modal/selectors.js';
+import { closeModal, updateModalProps } from '../redux/modal/modalSlice.js';
 
 const App = () => {
   const isRefreshing = useSelector(selectIsRefreshing);
+  const isModalOpen = useSelector(selectIsModalOpen);
+  const modalType = useSelector(selectModalType);
+  const modalProps = useSelector(selectModalProps);
 
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
+
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+  };
+
+  const handleSetView = (view) => {
+    dispatch(updateModalProps({ view }));
+  };
 
   return isRefreshing ? (
     <div>Refreshing user...</div>
@@ -49,9 +64,8 @@ const App = () => {
         <Route path="/" element={<HomePage />} />
 
         <Route path="/recipe/add" element={<PrivateRoute component={<AddRecipePage />} />} />
-
+        {/* <Route path="/recipe/add" element={<AddRecipePage />} /> */}
         <Route path="/recipe/:id" element={<RecipePage />} />
-
         <Route path="/user/:id" element={<UserPage />}>
           <Route index element={<Navigate to="recipes" replace />} />
           <Route path="recipes" element={<UserRecipes />} />
@@ -63,6 +77,17 @@ const App = () => {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Toaster position="top-right" reverseOrder={false} />
+      {isModalOpen && modalType === 'auth' && (
+        <AuthModal
+          isOpen={isModalOpen}
+          onRequestClose={handleCloseModal}
+          view={modalProps.view || 'signIn'}
+          setView={handleSetView}
+        />
+      )}
+      {isModalOpen && modalType === 'logout' && (
+        <LogOutModal isOpen={isModalOpen} onRequestClose={handleCloseModal} />
+      )}
     </Suspense>
   );
 };
