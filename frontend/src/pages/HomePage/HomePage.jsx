@@ -1,5 +1,6 @@
 import Hero from '../../components/HomePageComponents/Hero/Hero';
 import Testimonials from '../../components/HomePageComponents/Testimonials/Testimonials';
+import Footer from '../../components/SharedLayoutComponents/Footer/Footer';
 
 const HomePage = () => {
   return (
@@ -7,7 +8,7 @@ const HomePage = () => {
       <Hero />
       {/* categories */}
       <Testimonials />
-      {/* footer */}
+      <Footer />
     </div>
   );
 };

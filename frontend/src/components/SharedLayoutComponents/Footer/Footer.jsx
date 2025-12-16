@@ -1,9 +1,20 @@
-import style from './Footer.module.css';
+import { Link } from 'react-router-dom';
+import styles from './Footer.module.css';
+
+import Logo from '../Logo/Logo.jsx';
+import NetworkLinks from '../NetworkLinks/NetworkLinks.jsx';
+import Copyright from '../Copyright/Copyright.jsx';
 
 const Footer = () => {
   return (
-    <footer style={{ textAlign: 'center', padding: '20px', backgroundColor: '#f2f2f2' }}>
-      <p>&copy; 2025 Your Company. All Rights Reserved.</p>
+    <footer className={styles.footer}>
+      <div className={styles.topRow}>
+        <Logo variant="dark" />
+        <NetworkLinks />
+      </div>
+      <div className={styles.bottomRow}>
+        <Copyright />
+      </div>
     </footer>
   );
 };
