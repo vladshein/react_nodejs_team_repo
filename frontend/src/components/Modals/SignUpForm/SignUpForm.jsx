@@ -6,8 +6,9 @@ import IconEye from '../../common/icons/IconEye';
 import IconEyeOff from '../../common/icons/IconEyeOff';
 
 const SignUpForm = ({ submitSignUp, setView }) => {
-  const handleSubmit = (values) => {
-    submitSignUp(values);
+  const handleSubmit = (data, actions) => {
+    actions.setSubmitting(false);
+    submitSignUp(data, actions);
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -36,7 +37,7 @@ const SignUpForm = ({ submitSignUp, setView }) => {
         onSubmit={handleSubmit}
         className={style.form}
         validationSchema={SignInSchema}>
-        {({ isValid, dirty }) => (
+        {({ isValid, dirty, isSubmitting }) => (
           <Form className={style.form}>
             <div className={style.formFieldsContainer}>
               <Field
@@ -46,13 +47,20 @@ const SignUpForm = ({ submitSignUp, setView }) => {
                 placeholder="Name*"
                 className={style.formField}
               />
-              <Field
-                type="email"
-                name="email"
-                id={emailFieldId}
-                placeholder="Email*"
-                className={style.formField}
-              />
+              <div className={style.fieldWrapper}>
+                <Field
+                  type="email"
+                  name="email"
+                  id={emailFieldId}
+                  placeholder="Email*"
+                  className={style.formField}
+                />
+                <ErrorMessage
+                  name="email"
+                  component="span" // Рендерить помилку в тегу <span>
+                  className={style.errorText}
+                />
+              </div>
 
               <div className={style.passwordFieldContainer}>
                 <Field
@@ -71,11 +79,17 @@ const SignUpForm = ({ submitSignUp, setView }) => {
               </div>
             </div>
             <button disabled={!isValid || !dirty} className={style.formBtn} type="submit">
-              CREATE
+              {isSubmitting ? 'Creating...' : 'CREATE'}
             </button>
             <p className={style.createAccount}>
               I already have an account?{' '}
-              <button className={style.createAccountLink} onClick={() => setView('signIn')}>
+              <button
+                type="button"
+                className={style.createAccountLink}
+                onClick={(e) => {
+                  e.preventDefault();
+                  setView('signIn');
+                }}>
                 Sign In
               </button>
             </p>

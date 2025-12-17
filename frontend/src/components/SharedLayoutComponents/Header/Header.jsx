@@ -1,38 +1,30 @@
-import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectIsLoggedIn } from '../../../redux/auth/selectors';
+
 import style from './Header.module.css';
 import Logo from '../Logo/Logo';
 import HeaderNav from '../HeaderNav/HeaderNav';
 import AuthBar from '../AuthBar/AuthBar';
-import { useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { selectIsLoggedIn } from '../../../redux/auth/selectors';
-
 import UserBar from '../UserBar/UserBar';
-import AuthModal from '../../Modals/AuthModal/AuthModal';
-import LogOutModal from '../../Modals/LogOutModal/LogOutModal';
+import { openModal } from '../../../redux/modal/modalSlice';
 
 const Header = () => {
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const [authModalView, setAuthModalView] = useState('signIn');
-  const [isLogOutModalOpen, setIsLogOutModalOpen] = useState(false);
-
   const location = useLocation();
   const variant = location.pathname === '/' ? 'dark' : 'light';
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const auth = true;
+  const dispatch = useDispatch();
 
   const handleLoginClick = () => {
-    setAuthModalView('signIn');
-    setIsAuthModalOpen(true);
+    dispatch(openModal({ modalType: 'auth', modalProps: { view: 'signIn' } }));
   };
 
   const handleRegisterClick = () => {
-    setAuthModalView('signUp');
-    setIsAuthModalOpen(true);
+    dispatch(openModal({ modalType: 'auth', modalProps: { view: 'signUp' } }));
   };
 
   const handleLogOutClick = () => {
-    setIsLogOutModalOpen(true);
+    dispatch(openModal({ modalType: 'logout' }));
   };
 
   return (
@@ -47,13 +39,6 @@ const Header = () => {
           <AuthBar onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />
         )}
       </header>
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onRequestClose={() => setIsAuthModalOpen(false)}
-        view={authModalView}
-        setView={setAuthModalView}
-      />
-      <LogOutModal isOpen={isLogOutModalOpen} onRequestClose={() => setIsLogOutModalOpen(false)} />
     </>
   );
 };
