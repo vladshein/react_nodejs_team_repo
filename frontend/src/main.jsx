@@ -6,9 +6,10 @@ import { persistor, store } from './redux/store.js';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from 'react-router-dom';
 import { injectStore } from './services/api.js';
+import Modal from 'react-modal';
+import AddRecipePage from './pages/AddRecipePage/AddRecipePage.jsx';
 import 'modern-normalize';
 import './index.css';
-import Modal from 'react-modal';
 
 Modal.setAppElement('#root');
 
@@ -19,7 +20,9 @@ createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <BrowserRouter>
-          <App />
+          <AddRecipePage />
+          {/* <LoginTest /> */}
+          {/* <App /> */}
         </BrowserRouter>
       </PersistGate>
     </Provider>
