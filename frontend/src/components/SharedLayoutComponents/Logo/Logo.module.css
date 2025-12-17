@@ -1,13 +1,14 @@
 .headerlogo {
-  width: 83px;
+  width: 69px;
   /* font-size: 1.5rem; */
-  font-size: 24px;
-  line-height: 1.75rem; /* 116.667% */
-  line-height: 28px; /* 116.667% */
-  /* letter-spacing: -0.03rem; */
-  letter-spacing: -0.48px;
+
+  font-family: Mulish;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 800;
+  line-height: 24px; /* 120% */
+  letter-spacing: -0.4px;
   text-transform: lowercase;
-  /* margin-right: 455px; */
 }
 
 @media only screen and (min-width: 768px) {

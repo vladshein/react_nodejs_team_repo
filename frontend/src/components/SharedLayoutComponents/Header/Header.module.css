@@ -1,7 +1,9 @@
 .headerdiv {
   display: flex;
-  width: 1280px;
-  height: 46px;
+  width: 327px;
+  height: 38px;
+  justify-content: space-between;
+  align-items: center;
   /* justify-content: space-between; */
   align-items: center;
   background-color: #050505;
