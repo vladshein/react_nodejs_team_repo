@@ -2,9 +2,7 @@ import { Link } from 'react-router-dom';
 import style from './Hero.module.css';
 import Header from '../../SharedLayoutComponents/Header/Header';
 import mainstyles from '../../../components/App.module.css';
-import { selectIsLoggedIn } from '../../../redux/auth/selectors';
-import { useSelector } from 'react-redux';
-import AddRecipeButton from '../AddRecipeButton/AddRecipeButton';
+import RequireAuthAction from '../../RequireAuthAction/RequireAuthAction';
 
 const Hero = () => {
   return (
@@ -17,7 +15,11 @@ const Hero = () => {
         tastes of various cuisines.
       </p>
 
-      <AddRecipeButton style={style} />
+      <RequireAuthAction to="/recipe/add">
+        <button type="button" className={style.heroButton}>
+          Add Recipe
+        </button>
+      </RequireAuthAction>
 
       <div className={style.heropicture}>
         <img className={style.rotated1} src="./images/Hero/desert2x.webp" alt="icon" />

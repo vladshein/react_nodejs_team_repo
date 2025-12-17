@@ -15,13 +15,6 @@ const AuthModal = ({ isOpen, onRequestClose, view, redirectTo }) => {
   const navigate = useNavigate();
   const modalProps = useSelector(selectModalProps);
 
-  const handleCloseModal = () => {
-    dispatch(closeModal());
-
-    if (modalProps?.from) {
-      navigate(-1); // ⬅️ повертаємось назад
-    }
-  };
   const setView = (view) => {
     dispatch(updateModalProps({ view }));
   };
@@ -34,10 +27,10 @@ const AuthModal = ({ isOpen, onRequestClose, view, redirectTo }) => {
       })
       .then(() => {
         console.log('Login successful');
-        if (redirectTo) {
-          navigate(redirectTo);
-        }
         onRequestClose();
+        if (modalProps.redirectTo) {
+          navigate(modalProps.redirectTo);
+        }
       })
       .catch((error) => {
         console.log('Login failed:', error);
@@ -80,7 +73,7 @@ const AuthModal = ({ isOpen, onRequestClose, view, redirectTo }) => {
   return (
     <Modal
       isOpen={isOpen}
-      onRequestClose={handleCloseModal}
+      onRequestClose={onRequestClose}
       contentLabel="Auth Modal"
       className={style.modal}
       overlayClassName={style.overlay}
