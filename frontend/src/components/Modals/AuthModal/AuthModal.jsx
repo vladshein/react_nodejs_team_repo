@@ -1,18 +1,27 @@
 import Modal from 'react-modal';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login, refreshUser, register } from '../../../redux/auth/actions.js';
 import style from './AuthModal.module.css';
 import SignInForm from '../SignInForm/SignInForm.jsx';
 import SignUpForm from '../SignUpForm/SignUpForm.jsx';
 import IconClose from '../../common/icons/IconClose.jsx';
-import { updateModalProps } from '../../../redux/modal/modalSlice.js';
+import { closeModal, updateModalProps } from '../../../redux/modal/modalSlice.js';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { selectModalProps } from '../../../redux/modal/selectors.js';
 
 const AuthModal = ({ isOpen, onRequestClose, view, redirectTo }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const modalProps = useSelector(selectModalProps);
 
+  const handleCloseModal = () => {
+    dispatch(closeModal());
+
+    if (modalProps?.from) {
+      navigate(-1); // ⬅️ повертаємось назад
+    }
+  };
   const setView = (view) => {
     dispatch(updateModalProps({ view }));
   };
@@ -71,7 +80,7 @@ const AuthModal = ({ isOpen, onRequestClose, view, redirectTo }) => {
   return (
     <Modal
       isOpen={isOpen}
-      onRequestClose={onRequestClose}
+      onRequestClose={handleCloseModal}
       contentLabel="Auth Modal"
       className={style.modal}
       overlayClassName={style.overlay}
