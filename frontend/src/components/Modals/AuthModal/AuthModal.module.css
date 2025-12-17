@@ -1,0 +1,59 @@
+.overlay {
+  background-color: rgba(var(--var-gray), 0.8);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 80px;
+  border-radius: 30px;
+  outline: none;
+  max-width: 120vw;
+  max-height: 120vh;
+  overflow: auto;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 24px;
+  background: transparent;
+  color: white;
+  cursor: pointer;
+}
+
+.image {
+  max-width: 100%;
+  max-height: 60vh;
+  display: block;
+  margin: 0 auto 10px;
+  object-fit: contain;
+}
+
+.info {
+  font-size: 16px;
+  color: #333;
+  padding: 10px;
+  border-top: 1px solid #ccc;
+}
+
+.info a {
+  color: #0073e6;
+  text-decoration: none;
+}
+
+.info a:hover {
+  text-decoration: underline;
+}
