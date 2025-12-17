@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import style from './Hero.module.css';
 import Header from '../../SharedLayoutComponents/Header/Header';
 import mainstyles from '../../../components/App.module.css';

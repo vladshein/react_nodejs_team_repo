@@ -5,12 +5,12 @@ import style from './AuthModal.module.css';
 import SignInForm from '../SignInForm/SignInForm.jsx';
 import SignUpForm from '../SignUpForm/SignUpForm.jsx';
 import IconClose from '../../common/icons/IconClose.jsx';
-import { closeModal, updateModalProps } from '../../../redux/modal/modalSlice.js';
+import { updateModalProps } from '../../../redux/modal/modalSlice.js';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { selectModalProps } from '../../../redux/modal/selectors.js';
 
-const AuthModal = ({ isOpen, onRequestClose, view, redirectTo }) => {
+const AuthModal = ({ isOpen, onRequestClose, view }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const modalProps = useSelector(selectModalProps);
@@ -23,7 +23,7 @@ const AuthModal = ({ isOpen, onRequestClose, view, redirectTo }) => {
     dispatch(login(payload))
       .unwrap()
       .then(() => {
-        return dispatch(refreshUser()).unwrap();
+        return dispatch(refreshUser());
       })
       .then(() => {
         console.log('Login successful');
