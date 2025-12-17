@@ -4,19 +4,20 @@ import { useDispatch } from 'react-redux';
 
 import style from './LogOutModal.module.css';
 import Modal from 'react-modal';
-import { redirect } from 'react-router-dom';
 import IconClose from '../../common/icons/IconClose';
+import { useNavigate } from 'react-router-dom';
 
 const LogOutModal = ({ isOpen, onRequestClose }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogOut = () => {
     dispatch(logout())
       .unwrap()
       .then(() => {
-        toast.success(`Successfully signed out!`);
-        redirect('/');
         onRequestClose();
+        toast.success(`Successfully signed out!`);
+        navigate('/');
       })
       .catch((error) => {
         console.log('Logout failed:', error);
