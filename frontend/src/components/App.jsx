@@ -35,7 +35,7 @@ import { refreshUser } from '../redux/auth/actions.js';
 import AuthModal from './Modals/AuthModal/AuthModal.jsx';
 import LogOutModal from './Modals/LogOutModal/LogOutModal.jsx';
 import { selectIsModalOpen, selectModalType, selectModalProps } from '../redux/modal/selectors.js';
-import { closeModal, updateModalProps } from '../redux/modal/modalSlice.js';
+import { closeModal } from '../redux/modal/modalSlice.js';
 
 const App = () => {
   const isRefreshing = useSelector(selectIsRefreshing);
@@ -50,10 +50,6 @@ const App = () => {
 
   const handleCloseModal = () => {
     dispatch(closeModal());
-  };
-
-  const handleSetView = (view) => {
-    dispatch(updateModalProps({ view }));
   };
 
   return isRefreshing ? (
@@ -77,17 +73,16 @@ const App = () => {
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
       <Toaster position="top-right" reverseOrder={false} />
-      {isModalOpen && modalType === 'auth' && (
-        <AuthModal
-          isOpen={isModalOpen}
-          onRequestClose={handleCloseModal}
-          view={modalProps.view || 'signIn'}
-          setView={handleSetView}
-        />
-      )}
-      {isModalOpen && modalType === 'logout' && (
-        <LogOutModal isOpen={isModalOpen} onRequestClose={handleCloseModal} />
-      )}
+      <AuthModal
+        isOpen={isModalOpen && modalType === 'auth'}
+        onRequestClose={handleCloseModal}
+        view={modalProps.view || 'signIn'}
+        redirectTo={modalProps.redirectTo || '/'}
+      />
+      <LogOutModal
+        isOpen={isModalOpen && modalType === 'logout'}
+        onRequestClose={handleCloseModal}
+      />
     </Suspense>
   );
 };

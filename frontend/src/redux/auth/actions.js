@@ -9,17 +9,24 @@ export const register = createAsyncThunk(
       const { data } = await authService.register(userData);
       return data;
     } catch (error) {
-      return rejectWithValue(error.response?.data?.message || error.message);
+      return rejectWithValue({
+        status: error.response?.status,
+        message: error.response?.data?.message || error.message,
+      });
     }
   }
 );
 
 export const login = createAsyncThunk(authActions.SIGN_IN, async (userData, thunkAPI) => {
   try {
+    console.log(userData);
     const { data } = await authService.login(userData);
     return data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response?.data?.message || error.message);
+    return thunkAPI.rejectWithValue({
+      status: error.response?.status,
+      message: error.response?.data?.message || error.message,
+    });
   }
 });
 
