@@ -38,6 +38,7 @@ const Header = () => {
         ) : (
           <AuthBar onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />
         )}
+        {/* add burger */}
       </header>
     </>
   );
