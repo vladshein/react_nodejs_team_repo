@@ -1,7 +1,6 @@
 .areaWrapper {
   position: relative;
   width: 100%;
-  margin-top: 32px;
 }
 
 .textarea {
@@ -18,17 +17,39 @@
 
 .textarea::placeholder {
   color: var(--cl-light-gray);
+  font-size: var(--fs-14);
+  line-height: var(--lh-140);
 }
 
 .charCountWrapper {
   position: absolute;
   top: 0;
-  right: 16px;
-  font-size: 12px;
+  right: 0;
+  font-size: 14px;
   color: var(--cl-light-gray);
   pointer-events: none;
 }
 
 .charCount {
   color: var(--cl-black);
+}
+
+@media (min-width: 768px) {
+  .areaWrapper {
+    margin-top: 40px;
+  }
+
+  .textarea {
+    font-size: var(--fs-14);
+    line-height: var(--lh-150);
+  }
+
+  .textarea::placeholder {
+    font-size: var(--fs-16);
+    line-height: var(--lh-150);
+  }
+
+  .charCountWrapper {
+    font-size: var(--fs-16);
+  }
 }

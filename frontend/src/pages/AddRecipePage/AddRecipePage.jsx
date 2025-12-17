@@ -5,7 +5,6 @@ import styles from './AddRecipePage.module.css';
 const AddRecipePage = () => {
   return (
     <div>
-      <Header variant="light" />
       <div className={styles.pageWrapper}>
         <h2 className={styles.title}>Add recipe</h2>
         <p className={styles.description}>

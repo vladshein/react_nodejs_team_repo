@@ -17,3 +17,23 @@
   line-height: var(--lh-140);
   text-align: start;
 }
+
+@media (min-width: 768px) {
+  .pageWrapper {
+    padding: 40px 32px 64px 32px;
+  }
+  .title {
+    font-size: var(--fs-40);
+    line-height: var(--lh-115);
+  }
+  .description {
+    font-size: var(--fs-16);
+    max-width: 443px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .pageWrapper {
+    padding: 40px 80px 120px 80px;
+  }
+}

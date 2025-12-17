@@ -12,8 +12,11 @@
 }
 /* Input Title Styles */
 
-.inputTitle {
+.recipeInfo {
   margin-top: 32px;
+}
+
+.inputTitle {
   font-size: var(--fs-18);
   font-weight: var(--fw-800);
   line-height: var(--lh-130);
@@ -24,27 +27,38 @@
   color: var(--cl-light-gray);
 }
 
+.descriptionWrapper {
+  margin-top: 32px;
+}
+
 /* Category Styles */
+
+.selectCategoryWrapper {
+  margin-top: 32px;
+}
 
 .categoryTitle,
 .timeTitle,
 .ingredientsTitle,
 .preparationTitle {
-  margin-top: 32px;
   font-size: var(--fs-16);
   font-weight: var(--fw-800);
   line-height: var(--lh-150);
   text-transform: uppercase;
 }
 
-.selectCategoryWrapper {
-  margin-top: 8px;
+.categoryTitle {
+  margin-bottom: 8px;
 }
 
 /* Time Styles */
 
+.timeInputWrapper {
+  margin-top: 20px;
+}
+
 .timeTitle {
-  margin: 20px 0 8px 0;
+  margin: 0 0 8px 0;
 }
 
 /* Area Styles */
@@ -57,15 +71,22 @@
 }
 
 .selectAreaWrapper {
-  margin-top: 16px;
+  margin-top: 20px;
   margin-right: 13px;
 }
 
+.selectArea {
+  margin-top: 16px;
+}
 /* Ingredients Styles */
 
-.ingredientsTitle {
+.ingredientsWrapper {
   margin-top: 20px;
-  margin-bottom: 8px;
+}
+
+/* Ingredient fieldset (mobile default: no special layout) */
+.ingredientFieldset {
+  margin-top: 8px;
 }
 
 .quantityInput {
@@ -86,7 +107,15 @@
   margin-top: 30px;
   padding: 14px 20px;
   gap: 8px;
+  font-size: var(--fs-14);
+  line-height: var(--lh-140);
+  font-weight: var(--fw-700);
   text-transform: uppercase;
+}
+
+.addIngredientIcon {
+  width: 20px;
+  height: 20px;
 }
 
 .addIngredientButton:hover .addIngredientIcon {
@@ -96,7 +125,7 @@
 
 /* Preparation Styles */
 
-.preparationTitle {
+.recipePreparationWrapper {
   margin-top: 64px;
 }
 
@@ -131,5 +160,138 @@
 
 .submitButton {
   padding: 14px 32px;
+  font-size: var(--fs-14);
+  line-height: var(--lh-140);
+  font-weight: var(--fw-700);
   text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .form {
+    margin-top: 40px;
+  }
+
+  .recipeInfo {
+    margin-right: 55px;
+  }
+
+  .inputTitle {
+    margin-top: 80px;
+    font-size: var(--fs-24);
+    line-height: var(--lh-115);
+  }
+
+  .categoryTitle,
+  .timeTitle,
+  .areaTitle,
+  .ingredientsTitle,
+  .preparationTitle {
+    font-size: var(--fs-20);
+  }
+
+  .categoryAndTimeWrapper,
+  .selectAreaWrapper,
+  .ingredientsWrapper {
+    margin-top: 60px;
+  }
+
+  .categoryAndTimeWrapper {
+    display: flex;
+    gap: 19px;
+  }
+
+  .selectCategoryWrapper,
+  .timeInputWrapper {
+    margin-top: 0;
+  }
+
+  .selectCategory,
+  .timeInput,
+  .ingredientFieldset {
+    margin-top: 16px;
+  }
+
+  .selectCategory {
+    min-width: 315px;
+  }
+
+  .selectArea {
+    width: 330px;
+  }
+
+  .ingredientFieldset {
+    display: flex;
+    gap: 19px;
+    align-items: flex-end;
+  }
+
+  .ingredientFieldset > * {
+    flex: 1;
+  }
+
+  .quantityInput {
+    margin-top: 0;
+    font-size: var(--fs-16);
+    line-height: var(--lh-150);
+  }
+
+  .addIngredientButton {
+    margin-top: 40px;
+    padding: 16px 32px;
+    font-size: var(--fs-16);
+    line-height: var(--lh-150);
+  }
+
+  .addIngredientIcon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .recipePreparationWrapper {
+    margin-top: 80px;
+  }
+
+  .buttonsBlock {
+    margin-top: 80px;
+  }
+
+  .resetButton.resetButton {
+    width: 56px;
+    height: 56px;
+  }
+
+  .resetButton .trashIcon {
+    stroke: var(--cl-black);
+    width: 20px;
+    height: 20px;
+  }
+
+  .submitButton {
+    padding: 16px 39px;
+    font-size: var(--fs-1);
+    line-height: var(--lh-150);
+  }
+
+  @media (min-width: 1440px) {
+    .form {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 80px;
+    }
+
+    .uploadPhotoWrapper {
+      width: 551px;
+    }
+
+    .recipeInfo {
+      margin-top: 0;
+      flex-grow: 1;
+      margin-right: 0;
+      align-self: flex-start;
+    }
+
+    .inputTitle {
+      margin-top: 0;
+    }
+  }
 }

@@ -52,3 +52,28 @@
   font-size: var(--fs-14);
   cursor: pointer;
 }
+
+@media (min-width: 768px) {
+  .photoUploadLabel {
+    height: 400px;
+  }
+
+  .previewImageContainer {
+    height: 400px;
+  }
+
+  .cameraIcon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .uploadText {
+    padding-top: 16px;
+    font-size: var(--fs-16);
+  }
+
+  .uploadAnotherText {
+    padding-top: 20px;
+    font-size: var(--fs-16);
+  }
+}

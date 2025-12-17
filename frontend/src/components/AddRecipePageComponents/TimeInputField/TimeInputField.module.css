@@ -1,10 +1,10 @@
 .timeInput {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
-.button.button[data-variant='outlined'] {
+.button.button {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,4 +37,18 @@
   font-size: 14px;
   line-height: var(--lh-140);
   color: var(--cl-light-gray);
+}
+
+@media (min-width: 768px) {
+  .button.button {
+    width: 56px;
+    height: 56px;
+  }
+
+  .timeValue {
+    min-width: 66px;
+    font-size: var(--fs-16);
+    line-height: var(--lh-150);
+    color: var(--cl-black);
+  }
 }

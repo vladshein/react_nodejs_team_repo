@@ -23,7 +23,7 @@ const UploadPhoto = ({ name, onChange, onBlur, thumbPreview }) => {
           </div>
         ) : (
           <div className={styles.cameraWrapper}>
-            <IconCamera />
+            <IconCamera className={styles.cameraIcon} />
             <span className={styles.uploadText}>Upload a photo</span>
           </div>
         )}
