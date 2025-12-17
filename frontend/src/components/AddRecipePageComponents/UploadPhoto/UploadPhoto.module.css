@@ -1,0 +1,79 @@
+.photoUploadLabel {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 318px;
+  border: 1px dashed var(--cl-light-gray);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+}
+
+.photoUploadLabel:has(.previewWrapper) {
+  cursor: auto;
+  border: none;
+  height: auto;
+}
+
+.cameraWrapper,
+.previewWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.previewWrapper {
+  width: 100%;
+}
+
+.previewImageContainer {
+  width: 100%;
+  height: 318px;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  position: relative;
+}
+
+.previewImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.uploadText {
+  padding-top: 8px;
+  text-decoration: underline;
+  font-size: var(--fs-14);
+}
+
+.uploadAnotherText {
+  padding-top: 16px;
+  text-decoration: underline;
+  font-size: var(--fs-14);
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .photoUploadLabel {
+    height: 400px;
+  }
+
+  .previewImageContainer {
+    height: 400px;
+  }
+
+  .cameraIcon {
+    width: 64px;
+    height: 64px;
+  }
+
+  .uploadText {
+    padding-top: 16px;
+    font-size: var(--fs-16);
+  }
+
+  .uploadAnotherText {
+    padding-top: 20px;
+    font-size: var(--fs-16);
+  }
+}
