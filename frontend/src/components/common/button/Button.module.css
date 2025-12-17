@@ -15,8 +15,7 @@
   border: 1px solid var(--cl-black);
 }
 
-.btn[data-variant='filled']:hover,
-.btn[data-variant='filled']:focus {
+.btn[data-variant='filled']:hover {
   background-color: var(--cl-white);
   color: var(--cl-black);
   border: 1px solid var(--cl-black);
@@ -27,9 +26,7 @@
   border: 1px solid var(--cl-black);
 }
 
-.btn[data-variant='outlined']:hover,
-.btn[data-variant='outlined']:focus {
-  border-color: var(--cl-white);
+.btn[data-variant='outlined']:hover {
   color: var(--cl-white);
   background-color: var(--cl-black);
 }
