@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLoggedIn, selectIsRefreshing } from '../../redux/auth/selectors';
 import { openModal } from '../../redux/modal/modalSlice';
-import { Navigate, redirect, useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const PrivateRoute = ({ component: Component }) => {
