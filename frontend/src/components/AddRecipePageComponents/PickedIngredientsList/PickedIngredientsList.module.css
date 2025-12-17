@@ -1,0 +1,79 @@
+.ingredientsList {
+  margin-top: 32px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ingredientItem {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 155px;
+  height: 75px;
+}
+
+.removeButton.removeButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: none;
+  border: none;
+  border-radius: var(--radius-circle);
+  cursor: pointer;
+}
+
+.removeButton.removeButton:hover {
+  background: none;
+}
+
+.ingredientImage {
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
+  border: 1px solid var(--cl-light-gray);
+  border-radius: var(--radius-15);
+}
+
+.ingredientInfo {
+  display: flex;
+  flex-direction: column;
+  font-size: var(--fs-14);
+  line-height: var(--lh-140);
+  flex: 1;
+  overflow: hidden;
+}
+
+.ingredientInfo > * {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.quantity {
+  color: var(--cl-light-gray);
+}
+
+@media (min-width: 768px) {
+  .ingredientsList {
+    margin-top: 40px;
+    gap: 28px;
+  }
+
+  .ingredientItem {
+    width: 178px;
+    height: 90px;
+    gap: 14px;
+  }
+
+  .ingredientImage {
+    width: 90px;
+    height: 90px;
+  }
+
+  .ingredientInfo {
+    font-size: var(--fs-16);
+    line-height: var(--lh-150);
+  }
+}
