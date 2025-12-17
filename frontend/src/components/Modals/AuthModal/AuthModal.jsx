@@ -1,6 +1,6 @@
 import Modal from 'react-modal';
 import { useDispatch } from 'react-redux';
-import { login, register } from '../../../redux/auth/actions.js';
+import { login, refreshUser, register } from '../../../redux/auth/actions.js';
 import style from './AuthModal.module.css';
 import SignInForm from '../SignInForm/SignInForm.jsx';
 import SignUpForm from '../SignUpForm/SignUpForm.jsx';
@@ -20,6 +20,9 @@ const AuthModal = ({ isOpen, onRequestClose, view, redirectTo }) => {
   const submitSignIn = (payload, actions) => {
     dispatch(login(payload))
       .unwrap()
+      .then(() => {
+        return dispatch(refreshUser()).unwrap();
+      })
       .then(() => {
         console.log('Login successful');
         if (redirectTo) {
