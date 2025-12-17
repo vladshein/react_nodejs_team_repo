@@ -7,7 +7,6 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from 'react-router-dom';
 import { injectStore } from './services/api.js';
 import Modal from 'react-modal';
-import AddRecipePage from './pages/AddRecipePage/AddRecipePage.jsx';
 import 'modern-normalize';
 import './index.css';
 
@@ -20,9 +19,7 @@ createRoot(document.getElementById('root')).render(
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <BrowserRouter>
-          <AddRecipePage />
-          {/* <LoginTest /> */}
-          {/* <App /> */}
+          <App />
         </BrowserRouter>
       </PersistGate>
     </Provider>
