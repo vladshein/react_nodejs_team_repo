@@ -1,9 +1,12 @@
-import styles from './RecipeHomeBlock.module.css';
-import SelectField from './../../common/SelectField/SelectField';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchRecipes } from './../../../redux/recipes/actions';
 import { selectAllRecipes } from './../../../redux/recipes/selectors';
+
+import styles from './RecipeHomeBlock.module.css';
+import MainTitle from './../../common/MainTitle/MainTitle';
+import SubTitle from './../../common/SubTitle/SubTitle';
+import RecipeFilters from './../RecipeFilters/RecipeFilters';
 
 const RecipeHomeBlock = () => {
   const dispatch = useDispatch();
@@ -14,12 +17,10 @@ const RecipeHomeBlock = () => {
     ingredient: '',
     area: '',
   });
-
   // get data from backend
   useEffect(() => {
     dispatch(fetchRecipes(filters));
   }, [filters]);
-
   // filter handlers
   const handleIngredient = (value) => {
     setFilters((prev) => ({
@@ -27,6 +28,7 @@ const RecipeHomeBlock = () => {
       ingredient: value,
     }));
   };
+  // area hendlers
   const handleArea = (value) => {
     setFilters((prev) => ({
       ...prev,
@@ -40,42 +42,14 @@ const RecipeHomeBlock = () => {
         <a href="#" className={styles.back}>
           ← Back
         </a>
-        <h1>DESSERTS</h1>
-        <p className={styles.subtitle}>
-          Go on a taste journey, where every sip is a sophisticated creative chord, every dessert is
-          an expression of the most refined gastronomic desires.
-        </p>
+        <MainTitle text="desserts" />
+        <SubTitle
+          text="Go on a taste journey, where every sip is a sophisticated creative chord, every dessert is
+          an expression of the most refined gastronomic desires."
+        />
+        <RecipeFilters callBackFunctions={[handleIngredient, handleArea]} />
         <div className={styles.layout}>
-          {/* Filters */}
-          <aside className={styles.filters}>
-            <SelectField
-              name="ingredient"
-              value="0"
-              onChange={handleIngredient}
-              onBlur={null}
-              options={[
-                { value: '640c2dd963a319ea671e37aa', label: 'Squid' },
-                { value: '640c2dd963a319ea671e37f5', label: 'Cabbage' },
-                { value: '640c2dd963a319ea671e3665', label: 'Baking Powder' },
-              ]}
-              placeholder="Ingredients"
-            />
-            <SelectField
-              name="area"
-              value="0"
-              onChange={handleArea}
-              onBlur={null}
-              options={[
-                { value: '6462a6f04c3d0ddd28897f9b', label: 'Ukrainian' },
-                { value: '6462a6f04c3d0ddd28897f9c', label: 'Italian' },
-                { value: '6462a6f04c3d0ddd28897f9d', label: 'Moroccan' },
-              ]}
-              placeholder="Area"
-            />
-          </aside>
-
           {/* Cards */}
-
           <section className={styles.grid}>
             {recipes && recipes.length > 0 ? (
               recipes.map((recipe) => (
