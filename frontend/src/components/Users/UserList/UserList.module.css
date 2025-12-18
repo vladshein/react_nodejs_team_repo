@@ -9,11 +9,20 @@
   box-sizing: border-box;
   gap: 16px;
   background-color: #fff;
+  margin: 0 auto;
+  max-width: 343px;
 }
 
 .card+.card {
   border-top: 1px solid #BFBEBE;
 }
+
+@media screen and (min-width: 768px) {
+  .card {
+    max-width: 744px;
+  }
+}
+
 
 .avatarWrapper {
   flex-shrink: 0;
@@ -178,16 +187,10 @@
     .recipePreviews {
       display: flex;
       gap: 12px;
-      /* margin-right: 16px; */
-      /* Відступ до стрілки */
-
-      /* Скидаємо стилі списку */
       list-style: none;
       padding: 0;
       margin-top: 0;
       margin-bottom: 0;
-
-
     }
 
     .recipeItem {
@@ -206,7 +209,6 @@
     }
   }
 }
-
 
 /* =========================================
    4. DESKTOP (1440px+)
