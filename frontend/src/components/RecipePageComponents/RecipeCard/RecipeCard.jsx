@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './RecipeCard.module.css';
 import IconHeart from '../../common/icons/IconHeart';
-import IconArrowUpRight from '../../common/icons/IconArrowUpRight'; 
+import IconArrowUpRight from '../../common/icons/IconArrowUpRight';
 
 /* Using:
 <RecipeCard
@@ -46,7 +46,7 @@ export default function RecipeCard({
 
   const isFavorite = favoriteFromParent ?? localFav;
 
-  const requireAuth = fn => {
+  const requireAuth = (fn) => {
     if (isAuthed) return fn();
     if (onNeedAuth) onNeedAuth();
   };
@@ -56,7 +56,7 @@ export default function RecipeCard({
       setFavLoading(true);
       try {
         if (onToggleFavorite) await onToggleFavorite(id);
-        else setLocalFav(v => !v);
+        else setLocalFav((v) => !v);
       } finally {
         setFavLoading(false);
       }
@@ -103,8 +103,7 @@ export default function RecipeCard({
               className={styles.authorButton}
               type="button"
               title={author?.name}
-              aria-label={`Open ${author?.name} profile`}
-            >
+              aria-label={`Open ${author?.name} profile`}>
               <div
                 className={styles.authorImage}
                 style={{
@@ -122,8 +121,7 @@ export default function RecipeCard({
               aria-pressed={isFavorite}
               title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
               type="button"
-              disabled={favLoading}
-            >
+              disabled={favLoading}>
               {favLoading ? (
                 <div className={styles.loader}>...</div>
               ) : (
@@ -135,8 +133,7 @@ export default function RecipeCard({
               onClick={handleNavigateToRecipe}
               className={`${styles.iconButton} ${styles.viewButton} ${viewPressed ? styles.isPressed : ''}`}
               title="View recipe"
-              type="button"
-            >
+              type="button">
               <IconArrowUpRight className={styles.icon} />
             </button>
           </div>

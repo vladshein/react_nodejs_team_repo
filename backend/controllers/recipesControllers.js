@@ -4,18 +4,18 @@ import { getPagination, formatResponse } from './../helpers/pagination.js';
 
 // +, no owner = public
 export const getRecipesController = async (req, res) => {
-    const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 12;
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 12;
 
-    const { recipes, pagination } = await recipesServices.getRecipes({
-        category: req.query.category,
-        area: req.query.area,
-        ingredients: req.query.ingredients,
-        page,
-        limit,
-    });
-    
-    res.json({ recipes, pagination });
+  const { recipes, pagination } = await recipesServices.getRecipes({
+    category: req.query.category,
+    area: req.query.area,
+    ingredient: req.query.ingredient,
+    page,
+    limit,
+  });
+
+  res.json({ recipes, pagination });
 };
 
 // +, no owner = public
@@ -51,7 +51,13 @@ export const getOwnRecipesController = async (req, res) => {
   const recipes = await recipesServices.getOwnRecipes(ownerId, limit, offset, [
     ['updatedAt', 'ASC'],
   ]);
-  const { totalItems, items, totalPages, currentPage, limit: responseLimit } = formatResponse(recipes, page, limit);
+  const {
+    totalItems,
+    items,
+    totalPages,
+    currentPage,
+    limit: responseLimit,
+  } = formatResponse(recipes, page, limit);
   // Rename items to recipes for consistency with other endpoints
   res.json({
     recipes: items,
@@ -59,8 +65,8 @@ export const getOwnRecipesController = async (req, res) => {
       total: totalItems,
       page: currentPage,
       limit: responseLimit,
-      totalPages
-    }
+      totalPages,
+    },
   });
 };
 

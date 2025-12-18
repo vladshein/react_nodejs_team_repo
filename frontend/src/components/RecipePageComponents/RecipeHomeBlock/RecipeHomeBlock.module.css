@@ -1,0 +1,27 @@
+.recipeContainer {
+  margin-bottom: 50px;
+}
+
+.recipes {
+  display: flex;
+  gap: 32px;
+  padding: 32px;
+}
+
+.recipeFilters {
+  width: 220px;
+  flex-shrink: 0;
+}
+
+.resipesCardsBlock {
+  flex: 1;
+}
+
+.resipesCards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.recipePagination {
+}

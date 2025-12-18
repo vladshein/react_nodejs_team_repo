@@ -32,6 +32,10 @@ const recipesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchRecipes.pending, handlePending)
+      .addCase(fetchRecipes.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.allRecipes = action.payload; //recipes + pagination
+      })
       .addCase(fetchRecipeDetails.pending, handlePending)
       .addCase(fetchTopRecipes.pending, handlePending)
       .addCase(fetchMyRecipes.pending, handlePending)
@@ -40,7 +44,6 @@ const recipesSlice = createSlice({
       .addCase(fetchFavoriteRecipes.pending, handlePending)
       .addCase(addToFavorites.pending, handlePending)
       .addCase(removeFromFavorites.pending, handlePending)
-      .addCase(fetchRecipes.fulfilled, (state, action) => {})
       .addCase(fetchRecipeDetails.fulfilled, (state, action) => {})
       .addCase(fetchTopRecipes.fulfilled, (state, action) => {})
       .addCase(fetchMyRecipes.fulfilled, (state, action) => {})
