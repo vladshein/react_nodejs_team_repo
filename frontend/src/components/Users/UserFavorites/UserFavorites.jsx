@@ -1,33 +1,48 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchFavoriteRecipes } from './../../../redux/recipes/actions';
+import { selectFavorites } from './../../../redux/recipes/selectors';
+// import { selectFavorites, selectIsLoading } from './../../../redux/recipes/selectors';
+
 import styles from './UserFavorites.module.css';
 
 const UserFavorites = () => {
   // ТИМЧАСОВІ ДАНІ (MOCK DATA)
-  const favorites = [
-    { 
-      id: 1, 
-      title: "Spaghetti Carbonara", 
-      time: "40 min", 
-      image: "https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=300&q=80" 
-    },
-    { 
-      id: 2, 
-      title: "Avocado Toast", 
-      time: "15 min", 
-      image: "https://images.unsplash.com/photo-1588137372308-15f75323ca8d?auto=format&fit=crop&w=300&q=80" 
-    },
-    { 
-      id: 3, 
-      title: "Berry Smoothie", 
-      time: "10 min", 
-      image: "https://images.unsplash.com/photo-1553530666-ba11a90696f9?auto=format&fit=crop&w=300&q=80" 
-    },
-    { 
-      id: 4, 
-      title: "Chicken Curry", 
-      time: "60 min", 
-      image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=300&q=80" 
-    },
-  ];
+  // const favorites = [
+  //   {
+  //     id: 1,
+  //     title: "Spaghetti Carbonara",
+  //     time: "40 min",
+  //     image: "https://images.unsplash.com/photo-1612874742237-6526221588e3?auto=format&fit=crop&w=300&q=80"
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Avocado Toast",
+  //     time: "15 min",
+  //     image: "https://images.unsplash.com/photo-1588137372308-15f75323ca8d?auto=format&fit=crop&w=300&q=80"
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Berry Smoothie",
+  //     time: "10 min",
+  //     image: "https://images.unsplash.com/photo-1553530666-ba11a90696f9?auto=format&fit=crop&w=300&q=80"
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "Chicken Curry",
+  //     time: "60 min",
+  //     image: "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=300&q=80"
+  //   },
+  // ];
+
+  const dispatch = useDispatch();
+  const favorites = useSelector(selectFavorites);
+  // const spin = useSelector(selectIsLoading);
+  console.log(favorites);
+
+  useEffect(() => {
+    dispatch(fetchFavoriteRecipes());
+  }, []);
 
   return (
     <div className={styles.container}>

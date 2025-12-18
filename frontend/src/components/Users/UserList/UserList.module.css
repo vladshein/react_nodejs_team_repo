@@ -10,6 +10,7 @@
   gap: 16px;
   background-color: #fff;
   margin: 0 auto;
+  width: 100%;
   max-width: 343px;
 }
 
@@ -22,7 +23,6 @@
     max-width: 744px;
   }
 }
-
 
 .avatarWrapper {
   flex-shrink: 0;
