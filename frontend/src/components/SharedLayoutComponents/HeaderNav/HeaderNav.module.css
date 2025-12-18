@@ -14,7 +14,7 @@
     gap: 40px;
     align-items: center;
     /* margin-right: 300px; */
-    display: none;
+    /* display: none; */
   }
 }
 @media only screen and (min-width: 1440px) {
@@ -26,6 +26,7 @@
     /* margin-right: 300px; */
   }
 }
+
 .headerButtons {
   color: var(--White, #fff);
   font-size: 12px;

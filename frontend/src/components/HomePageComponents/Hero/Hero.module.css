@@ -236,3 +236,77 @@
     height: 273px;
   }
 }
+
+.burgernav {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  /* margin-right: 300px; */
+  margin-bottom: 110px;
+}
+
+.burgerButtons {
+  min-width: 111px;
+  display: flex;
+  padding: 14px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  border-radius: 30px;
+  color: var(--White, #fff);
+  font-family: Mulish;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px; /* 142.857% */
+  letter-spacing: -0.28px;
+  text-transform: uppercase;
+}
+
+.burgerButtons:hover {
+  border: 1px solid #e8e8e8;
+  background: #1a1a1a;
+}
+
+.burgerButtons:active {
+  border: 1px solid #e8e8e8;
+  background: #1a1a1a;
+}
+
+@media only screen and (min-width: 768px) {
+  .burgernav {
+    display: none;
+  }
+}
+.active {
+  border: 1px solid #bfbebe;
+}
+
+.dark {
+  color: black;
+}
+
+.light {
+  color: #fff;
+}
+
+/* Hide nav by default */
+.headerNavWrapper {
+  display: none;
+}
+
+/* Tablet: show only if React renders it */
+@media only screen and (min-width: 768px) {
+  .headerNavWrapper {
+    display: block;
+  }
+}
+
+/* Desktop: always show */
+@media only screen and (min-width: 1440px) {
+  .headerNavWrapper {
+    display: block;
+  }
+}
