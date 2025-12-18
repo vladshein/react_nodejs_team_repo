@@ -34,6 +34,11 @@ const AuthModal = ({ isOpen, onRequestClose, view }) => {
       })
       .catch((error) => {
         console.log('Login failed:', error);
+        if (error.status === 400) {
+          actions.setErrors({
+            email: 'Fails to match the required pattern',
+          });
+        }
         if (error.status === 401) {
           actions.setErrors({
             email: 'Email or password invalid',
@@ -54,14 +59,24 @@ const AuthModal = ({ isOpen, onRequestClose, view }) => {
         return dispatch(login({ email: payload.email, password: payload.password }));
       })
       .then(() => {
+        return dispatch(refreshUser());
+      })
+      .then(() => {
         console.log('Login after registration successful');
         onRequestClose();
       })
       .catch((err) => {
+        if (err.status === 400) {
+          actions.setErrors({
+            email: 'Fails to match the required pattern',
+          });
+          toast.error('Fails to match the required pattern');
+        }
         if (err.status === 409) {
           actions.setErrors({
             email: 'Email already in use',
           });
+          toast.error('Email already in use');
         }
         console.log('Registration failed:', err);
       })
@@ -77,6 +92,7 @@ const AuthModal = ({ isOpen, onRequestClose, view }) => {
       contentLabel="Auth Modal"
       className={style.modal}
       overlayClassName={style.overlay}
+      bodyOpenClassName={style.bodyModalOpen}
       ariaHideApp={true}
       shouldCloseOnOverlayClick={true}
       shouldFocusAfterRender={true}

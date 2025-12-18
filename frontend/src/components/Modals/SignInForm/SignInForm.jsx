@@ -6,16 +6,13 @@ import IconEye from '../../common/icons/IconEye';
 import IconEyeOff from '../../common/icons/IconEyeOff';
 
 const SignInForm = ({ submitSignIn, setView }) => {
-  const handleSubmit = (data, actions) => {
-    console.log(data);
-
-    submitSignIn(data, actions);
-  };
-
   const [showPassword, setShowPassword] = useState(false);
 
   const emailFieldId = useId();
   const passwordFieldId = useId();
+  const handleSubmit = (data, actions) => {
+    submitSignIn(data, actions);
+  };
 
   const initialValues = {
     email: '',
@@ -24,7 +21,7 @@ const SignInForm = ({ submitSignIn, setView }) => {
 
   const SignInSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email').required('Required'),
-    password: Yup.string().required('Required'),
+    password: Yup.string().required('Required').min(8, 'Password must be at least 8 characters'),
   });
 
   return (
@@ -34,28 +31,33 @@ const SignInForm = ({ submitSignIn, setView }) => {
         {({ isValid, dirty, isSubmitting }) => (
           <Form className={style.form}>
             <div className={style.formFieldsContainer}>
-              <Field
-                type="email"
-                name="email"
-                id={emailFieldId}
-                placeholder="Email*"
-                className={style.formField}
-              />
-              <div className={style.passwordFieldContainer}>
+              <div className={style.fieldWrapper}>
                 <Field
-                  type={showPassword ? 'text' : 'password'}
-                  name="password"
-                  id={passwordFieldId}
-                  placeholder="Password*"
+                  type="email"
+                  name="email"
+                  id={emailFieldId}
+                  placeholder="Email*"
                   className={style.formField}
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className={style.eyeBtn}>
-                  {showPassword ? <IconEye /> : <IconEyeOff />}
-                </button>
-                {/* <ErrorMessage name="password" /> */}
+                <ErrorMessage name="email" component="span" className={style.errorText} />
+              </div>
+              <div className={style.fieldWrapper}>
+                <div className={style.passwordFieldContainer}>
+                  <Field
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    id={passwordFieldId}
+                    placeholder="Password*"
+                    className={style.formField}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className={style.eyeBtn}>
+                    {showPassword ? <IconEye /> : <IconEyeOff />}
+                  </button>
+                </div>
+                <ErrorMessage name="password" component="span" className={style.errorText} />
               </div>
             </div>
             <button
