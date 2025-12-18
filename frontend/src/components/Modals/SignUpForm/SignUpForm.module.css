@@ -117,3 +117,9 @@
   cursor: pointer;
   text-decoration: none;
 }
+
+.errorText {
+  color: red;
+  font-size: 12px;
+  margin-left: 10px;
+}

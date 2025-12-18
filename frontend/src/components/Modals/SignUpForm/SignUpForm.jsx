@@ -55,11 +55,7 @@ const SignUpForm = ({ submitSignUp, setView }) => {
                   placeholder="Email*"
                   className={style.formField}
                 />
-                <ErrorMessage
-                  name="email"
-                  component="span" // Рендерить помилку в тегу <span>
-                  className={style.errorText}
-                />
+                <ErrorMessage name="email" component="span" className={style.errorText} />
               </div>
 
               <div className={style.passwordFieldContainer}>
@@ -76,8 +72,12 @@ const SignUpForm = ({ submitSignUp, setView }) => {
                   className={style.eyeBtn}>
                   {showPassword ? <IconEye /> : <IconEyeOff />}
                 </button>
+                <div>
+                  <ErrorMessage name="password" component="span" className={style.errorText} />
+                </div>
               </div>
             </div>
+
             <button disabled={!isValid || !dirty} className={style.formBtn} type="submit">
               {isSubmitting ? 'Creating...' : 'CREATE'}
             </button>

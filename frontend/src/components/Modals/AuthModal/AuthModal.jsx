@@ -54,15 +54,24 @@ const AuthModal = ({ isOpen, onRequestClose, view }) => {
         return dispatch(login({ email: payload.email, password: payload.password }));
       })
       .then(() => {
-        dispatch(refreshUser());
+        return dispatch(refreshUser());
+      })
+      .then(() => {
         console.log('Login after registration successful');
         onRequestClose();
       })
       .catch((err) => {
+        if (err.status === 400) {
+          actions.setErrors({
+            password: 'password must be at least 8 characters',
+          });
+          toast.error('password must be at least 8 characters');
+        }
         if (err.status === 409) {
           actions.setErrors({
             email: 'Email already in use',
           });
+          toast.error('Email already in use');
         }
         console.log('Registration failed:', err);
       })
