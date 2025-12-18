@@ -1,4 +1,5 @@
 import IconArrowUpRight from '../../common/icons/IconArrowUpRight';
+import Button from '../../common/button/Button';
 import styles from './UserList.module.css';
 
 const UserList = ({ user }) => {
@@ -56,12 +57,14 @@ const UserList = ({ user }) => {
           <h3 className={styles.name}>{name}</h3>
           <p className={styles.recipesInfo}>Own recipes: {recipesCount}</p>
 
-          <button
-            className={isFollowing ? styles.unfollowBtn : styles.followBtn}
+          <Button
             type="button"
-            aria-label={isFollowing ? `Unfollow ${name}` : `fOLLOW ${name}`}>
+            variant={isFollowing ? 'outlined' : 'filled'}
+            className={styles.actionBtn} // Один клас для розмірів
+            onClick={() => console.log('Toggle follow logic')} // Твоя функція кліку
+          >
             {isFollowing ? 'UNFOLLOW' : 'FOLLOW'}
-          </button>
+          </Button>
         </div>
 
         <ul className={styles.recipePreviews}>

@@ -116,9 +116,41 @@
   height: 16px;
 }
 
+.actionBtn {
+  width: 92px;
+  height: 36px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.43;
 
+}
 
-.followBtn,
+.actionBtn.actionBtn {
+  padding: 0;
+
+  background-color: transparent;
+
+  /* 🔥 ВИПРАВЛЕННЯ ТУТ: */
+  /* 1. Задаємо сірий колір (#BFBEBE), а не білий */
+  /* 2. Пишемо повну властивість border, щоб точно намалювати рамку */
+  border: 1px solid #BFBEBE;
+
+  color: #1A1A1A;
+}
+
+.actionBtn[data-variant="outlined"] {
+  background-color: transparent;
+
+  /* 🔥 ВИПРАВЛЕННЯ ТУТ: */
+  /* 1. Задаємо сірий колір (#BFBEBE), а не білий */
+  /* 2. Пишемо повну властивість border, щоб точно намалювати рамку */
+  border: 1px solid #BFBEBE;
+
+  color: #1A1A1A;
+}
+
+/* .followBtn,
 .unfollowBtn {
   padding: 8px 16px;
   width: 92px;
@@ -132,8 +164,7 @@
   opacity: 1;
   border-radius: 30px;
   border: 1px solid #BFBEBE;
-
-}
+} */
 
 
 
