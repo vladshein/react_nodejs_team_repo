@@ -1,7 +1,7 @@
 import styles from './Loader.module.css';
 
-const Spinner = () => {
+const Loader = () => {
   return <div className={styles.loader}></div>;
 };
 
-export default Spinner;
+export default Loader;
