@@ -18,7 +18,9 @@ function Subtitle({ tag = 'p', children, className = '' }) {
   return <Tag className={className || undefined}>{children}</Tag>;
 }
 
-const API_BASE = 'https://react-nodejs-team-repo.onrender.com';
+// const API_BASE = 'https://react-nodejs-team-repo.onrender.com';
+const API_BASE = import.meta.env.VITE_API_URL;
+console.log(API_BASE);
 
 const Testimonials = () => {
   const [items, setItems] = useState([]);
@@ -30,7 +32,7 @@ const Testimonials = () => {
       try {
         setStatus('loading');
 
-        const res = await fetch(`${API_BASE}/api/testimonials`);
+        const res = await fetch(`${API_BASE}testimonials`);
         if (!res.ok) {
           throw new Error(`HTTP ${res.status}`);
         }
