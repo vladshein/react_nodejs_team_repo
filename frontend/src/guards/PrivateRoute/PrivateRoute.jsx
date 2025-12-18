@@ -12,6 +12,8 @@ const PrivateRoute = ({ element, redirectTo = '/' }) => {
   }
 
   if (!isLoggedIn) {
+    console.log('isRefreshing:', isRefreshing, 'isLoggedIn:', isLoggedIn);
+
     return <Navigate to={redirectTo} replace state={{ from: location }} />;
   }
 
