@@ -4,9 +4,12 @@ import { fetchRecipes } from './../../../redux/recipes/actions';
 import { selectAllRecipes } from './../../../redux/recipes/selectors';
 
 import styles from './RecipeHomeBlock.module.css';
+import Button from './../../common/button/Button';
 import MainTitle from './../../common/MainTitle/MainTitle';
 import SubTitle from './../../common/SubTitle/SubTitle';
 import RecipeFilters from './../RecipeFilters/RecipeFilters';
+import RecipeList from '../RecipeList/RecipeList';
+import RecipePagination from './../RecipePagination/RecipePagination';
 
 const RecipeHomeBlock = () => {
   const dispatch = useDispatch();
@@ -39,43 +42,15 @@ const RecipeHomeBlock = () => {
   return (
     <section>
       <div className={styles.recipeContainer}>
-        <a href="#" className={styles.back}>
-          ← Back
-        </a>
+        <Button />
         <MainTitle text="desserts" />
         <SubTitle
           text="Go on a taste journey, where every sip is a sophisticated creative chord, every dessert is
           an expression of the most refined gastronomic desires."
         />
         <RecipeFilters callBackFunctions={[handleIngredient, handleArea]} />
-        <div className={styles.layout}>
-          {/* Cards */}
-          <section className={styles.grid}>
-            {recipes && recipes.length > 0 ? (
-              recipes.map((recipe) => (
-                <article className={styles.card}>
-                  <img src={recipe.thumb} alt="Bakewell Tart" />
-                  <div className={styles.cardBody}>
-                    <div className={styles.cardTitle}>{recipe.title}</div>
-                    <div className={styles.cardDesc}>{recipe.description}</div>
-                    <div className={styles.cardFooter}>
-                      <div className={styles.author}>
-                        <img src={recipe.owner.avatar} alt="" />
-                        <span>{recipe.owner.name}</span>
-                      </div>
-                      <div className="actions">
-                        <button className={styles.iconBtn}>♡</button>
-                        <button className={styles.iconBtn}>↗</button>
-                      </div>
-                    </div>
-                  </div>
-                </article>
-              ))
-            ) : (
-              <>No found.</>
-            )}
-          </section>
-        </div>
+        <RecipeList recipes={recipes} />
+        <RecipePagination pagination={pagination} />
       </div>
     </section>
   );
