@@ -22,13 +22,15 @@ async function getRecipes(filters = {}) {
 
   // filter by category (selected from CATEGORIES page)
   if (filters.category) {
-    include[0].where = { name: filters.category };
+    // include[0].where = { name: filters.category };
+    include[0].where = { id: filters.category }; // pavlo
     include[0].required = true;
   }
 
   // filter by area
   if (filters.area) {
-    include[1].where = { name: filters.area };
+    // include[1].where = { name: filters.area };
+    include[1].where = { id: filters.area }; // pavlo
     include[1].required = true;
   }
 

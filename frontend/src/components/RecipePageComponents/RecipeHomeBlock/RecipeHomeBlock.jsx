@@ -1,20 +1,23 @@
 import styles from './RecipeHomeBlock.module.css';
 import SelectField from './../../common/SelectField/SelectField';
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchRecipes } from './../../../redux/recipes/actions';
+import { selectAllRecipes } from './../../../redux/recipes/selectors';
 
 const RecipeHomeBlock = () => {
+  const dispatch = useDispatch();
+  const { recipes, pagination } = useSelector(selectAllRecipes);
   // filters
   const [filters, setFilters] = useState({
+    category: '6462a6cd4c3d0ddd28897f8a', // Seafood
     ingredient: '',
     area: '',
   });
 
-  // trigger
+  // get data from backend
   useEffect(() => {
-    const params = new URLSearchParams(filters); // make a query
-    fetch(`/api/recipe/search?${params.toString()}`)
-      .then((res) => res.json())
-      .then((data) => console.log(data));
+    dispatch(fetchRecipes(filters));
   }, [filters]);
 
   // filter handlers
@@ -33,7 +36,7 @@ const RecipeHomeBlock = () => {
 
   return (
     <section>
-      <div className={styles.container}>
+      <div className={styles.recipeContainer}>
         <a href="#" className={styles.back}>
           ← Back
         </a>
@@ -42,9 +45,9 @@ const RecipeHomeBlock = () => {
           Go on a taste journey, where every sip is a sophisticated creative chord, every dessert is
           an expression of the most refined gastronomic desires.
         </p>
-        <div class={styles.layout}>
+        <div className={styles.layout}>
           {/* Filters */}
-          <aside class={styles.filters}>
+          <aside className={styles.filters}>
             <SelectField
               name="ingredient"
               value="0"
@@ -72,148 +75,31 @@ const RecipeHomeBlock = () => {
           </aside>
 
           {/* Cards */}
-          <section class={styles.grid}>
-            <article class={styles.card}>
-              <img src="https://picsum.photos/400/300?1" alt="Bakewell Tart" />
-              <div class={styles.cardBody}>
-                <div class={styles.cardTitle}>Bakewell Tart</div>
-                <div class={styles.cardDesc}>
-                  To make the pastry, measure the flour into a bowl and rub in the butter with your
-                  fingertips.
-                </div>
-                <div class={styles.cardFooter}>
-                  <div class={styles.author}>
-                    <img src="https://i.pravatar.cc/40?1" alt="" />
-                    <span>Iveta</span>
+
+          <section className={styles.grid}>
+            {recipes && recipes.length > 0 ? (
+              recipes.map((recipe) => (
+                <article className={styles.card}>
+                  <img src={recipe.thumb} alt="Bakewell Tart" />
+                  <div className={styles.cardBody}>
+                    <div className={styles.cardTitle}>{recipe.title}</div>
+                    <div className={styles.cardDesc}>{recipe.description}</div>
+                    <div className={styles.cardFooter}>
+                      <div className={styles.author}>
+                        <img src={recipe.owner.avatar} alt="" />
+                        <span>{recipe.owner.name}</span>
+                      </div>
+                      <div className="actions">
+                        <button className={styles.iconBtn}>♡</button>
+                        <button className={styles.iconBtn}>↗</button>
+                      </div>
+                    </div>
                   </div>
-                  <div class="actions">
-                    <button class={styles.iconBtn}>♡</button>
-                    <button class={styles.iconBtn}>↗</button>
-                  </div>
-                </div>
-              </div>
-            </article>
-            {/* Repeat cards */}
-            <article class={styles.card}>
-              <img src="https://picsum.photos/400/300?1" alt="Bakewell Tart" />
-              <div class={styles.cardBody}>
-                <div class={styles.cardTitle}>Bakewell Tart</div>
-                <div class={styles.cardDesc}>
-                  To make the pastry, measure the flour into a bowl and rub in the butter with your
-                  fingertips.
-                </div>
-                <div class={styles.cardFooter}>
-                  <div class={styles.author}>
-                    <img src="https://i.pravatar.cc/40?1" alt="" />
-                    <span>Iveta</span>
-                  </div>
-                  <div class="actions">
-                    <button class={styles.iconBtn}>♡</button>
-                    <button class={styles.iconBtn}>↗</button>
-                  </div>
-                </div>
-              </div>
-            </article>
-            <article class={styles.card}>
-              <img src="https://picsum.photos/400/300?1" alt="Bakewell Tart" />
-              <div class={styles.cardBody}>
-                <div class={styles.cardTitle}>Bakewell Tart</div>
-                <div class={styles.cardDesc}>
-                  To make the pastry, measure the flour into a bowl and rub in the butter with your
-                  fingertips.
-                </div>
-                <div class={styles.cardFooter}>
-                  <div class={styles.author}>
-                    <img src="https://i.pravatar.cc/40?1" alt="" />
-                    <span>Iveta</span>
-                  </div>
-                  <div class="actions">
-                    <button class={styles.iconBtn}>♡</button>
-                    <button class={styles.iconBtn}>↗</button>
-                  </div>
-                </div>
-              </div>
-            </article>
-            <article class={styles.card}>
-              <img src="https://picsum.photos/400/300?1" alt="Bakewell Tart" />
-              <div class={styles.cardBody}>
-                <div class={styles.cardTitle}>Bakewell Tart</div>
-                <div class={styles.cardDesc}>
-                  To make the pastry, measure the flour into a bowl and rub in the butter with your
-                  fingertips.
-                </div>
-                <div class={styles.cardFooter}>
-                  <div class={styles.author}>
-                    <img src="https://i.pravatar.cc/40?1" alt="" />
-                    <span>Iveta</span>
-                  </div>
-                  <div class="actions">
-                    <button class={styles.iconBtn}>♡</button>
-                    <button class={styles.iconBtn}>↗</button>
-                  </div>
-                </div>
-              </div>
-            </article>
-            <article class={styles.card}>
-              <img src="https://picsum.photos/400/300?1" alt="Bakewell Tart" />
-              <div class={styles.cardBody}>
-                <div class={styles.cardTitle}>Bakewell Tart</div>
-                <div class={styles.cardDesc}>
-                  To make the pastry, measure the flour into a bowl and rub in the butter with your
-                  fingertips.
-                </div>
-                <div class={styles.cardFooter}>
-                  <div class={styles.author}>
-                    <img src="https://i.pravatar.cc/40?1" alt="" />
-                    <span>Iveta</span>
-                  </div>
-                  <div class="actions">
-                    <button class={styles.iconBtn}>♡</button>
-                    <button class={styles.iconBtn}>↗</button>
-                  </div>
-                </div>
-              </div>
-            </article>
-            <article class={styles.card}>
-              <img src="https://picsum.photos/400/300?1" alt="Bakewell Tart" />
-              <div class={styles.cardBody}>
-                <div class={styles.cardTitle}>Bakewell Tart</div>
-                <div class={styles.cardDesc}>
-                  To make the pastry, measure the flour into a bowl and rub in the butter with your
-                  fingertips.
-                </div>
-                <div class={styles.cardFooter}>
-                  <div class={styles.author}>
-                    <img src="https://i.pravatar.cc/40?1" alt="" />
-                    <span>Iveta</span>
-                  </div>
-                  <div class="actions">
-                    <button class={styles.iconBtn}>♡</button>
-                    <button class={styles.iconBtn}>↗</button>
-                  </div>
-                </div>
-              </div>
-            </article>
-            <article class={styles.card}>
-              <img src="https://picsum.photos/400/300?1" alt="Bakewell Tart" />
-              <div class={styles.cardBody}>
-                <div class={styles.cardTitle}>Bakewell Tart</div>
-                <div class={styles.cardDesc}>
-                  To make the pastry, measure the flour into a bowl and rub in the butter with your
-                  fingertips.
-                </div>
-                <div class={styles.cardFooter}>
-                  <div class={styles.author}>
-                    <img src="https://i.pravatar.cc/40?1" alt="" />
-                    <span>Iveta</span>
-                  </div>
-                  <div class="actions">
-                    <button class={styles.iconBtn}>♡</button>
-                    <button class={styles.iconBtn}>↗</button>
-                  </div>
-                </div>
-              </div>
-            </article>
+                </article>
+              ))
+            ) : (
+              <>No found.</>
+            )}
           </section>
         </div>
       </div>

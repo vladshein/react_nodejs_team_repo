@@ -1,11 +1,20 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { recipesActions } from './constants';
+import api from './../../services/api';
 
+/**
+ * Search by creteria
+ * - categoty
+ * - ingredients
+ * - area
+ */
 const fetchRecipes = createAsyncThunk(
   recipesActions.FETCH_RECIPES,
-  async (_, { rejectWithValue }) => {
+  async (filters, { rejectWithValue }) => {
     try {
-      // api call to fetch recipes
+      const params = new URLSearchParams(filters); // make a query
+      const { data } = await api.get('/api/recipes', { params });
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
