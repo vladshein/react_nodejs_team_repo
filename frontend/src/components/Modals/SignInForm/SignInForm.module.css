@@ -1,18 +1,30 @@
 .formContainer {
   display: flex;
-  width: 400px;
+  width: 283px;
   padding: 0px;
   flex-direction: column;
   border: none;
 }
 
+@media only screen and (min-width: 768px) {
+  .formContainer {
+    width: 400px;
+  }
+}
+
 .formHead {
   color: var(--cl-black, #050505);
-  font-size: 32px;
+  font-size: 28px;
   font-style: bold;
   font-weight: var(--fw-800);
   line-height: var(--lh-120); /* 120% */
   margin-bottom: 40px;
+}
+
+@media only screen and (min-width: 768px) {
+  .formHead {
+    font-size: 32px;
+  }
 }
 
 .formFieldsContainer {
@@ -28,10 +40,18 @@
   padding: 16px 18px;
   display: flex;
   width: 100%;
+  font-size: 14px;
+  line-height: var(--lh-150);
   flex-direction: column;
   align-items: flex-start;
   border-radius: 30px;
   border: 1px solid var(--cl-light-gray, #bfbebe);
+}
+
+@media only screen and (min-width: 768px) {
+  .formField {
+    font-size: 16px;
+  }
 }
 
 .formField::placeholder {
@@ -87,12 +107,18 @@
   background: var(--cl-black);
   border: none;
   color: var(--cl-white);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.2;
   margin-bottom: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+
+@media only screen and (min-width: 768px) {
+  .formBtn {
+    font-size: 16px;
+  }
 }
 
 .formBtn:hover:not(:disabled) {
@@ -116,4 +142,10 @@
   color: var(--cl-black);
   cursor: pointer;
   text-decoration: none;
+}
+
+.errorText {
+  color: red;
+  font-size: 12px;
+  margin-left: 10px;
 }

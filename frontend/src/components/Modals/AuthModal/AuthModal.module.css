@@ -14,11 +14,11 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
-  padding: 80px;
+  padding: 60px 30px;
   border-radius: 30px;
   outline: none;
-  max-width: 120vw;
-  max-height: 120vh;
+  /* max-width: 120vw;
+  max-height: 120vh; */
   overflow: auto;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   z-index: 1001;
@@ -26,12 +26,23 @@
 
 .closeBtn {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 16px;
+  right: 16px;
   font-size: 24px;
   background: transparent;
   color: white;
   cursor: pointer;
+}
+
+@media only screen and (min-width: 768px) {
+  .modal {
+    padding: 80px;
+  }
+
+  .closeBtn {
+    top: 20px;
+    right: 20px;
+  }
 }
 
 .image {
@@ -56,4 +67,8 @@
 
 .info a:hover {
   text-decoration: underline;
+}
+
+.bodyModalOpen {
+  overflow: hidden;
 }

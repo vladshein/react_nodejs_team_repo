@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 const LogOutModal = ({ isOpen, onRequestClose }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const windowWidth = window.innerWidth;
 
   const handleLogOut = () => {
     dispatch(logout())
@@ -30,16 +31,17 @@ const LogOutModal = ({ isOpen, onRequestClose }) => {
       onRequestClose={onRequestClose}
       contentLabel="Log Out Modal"
       className={style.modal}
-      overlayClassName={style.overlay}>
+      overlayClassName={style.overlay}
+      bodyOpenClassName={style.bodyModalOpen}>
       <button className={style.closeBtn} onClick={onRequestClose}>
         <IconClose />
       </button>
 
       <div className={style.container}>
-        <h3 className={style.head}>ARE YOU LOGGING OUT?</h3>
+        <h3 className={style.head}>{windowWidth < 768 ? 'LOG OUT' : 'ARE YOU LOGGING OUT?'}</h3>
         <p className={style.text}>You can always log back in at my time.</p>
 
-        <div>
+        <div className={style.btnsContainer}>
           <button className={style.btn} onClick={() => handleLogOut()}>
             LOG OUT
           </button>
