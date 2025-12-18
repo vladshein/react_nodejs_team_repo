@@ -1,89 +1,56 @@
-import style from "./BookForm.module.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useId } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { useState } from 'react';
+import Avatar from '../Avatar/Avatar';
+import style from './UserBar.module.css';
+import IconChevronDown from '../../common/icons/IconChevronDown';
+import IconChevronUp from '../../common/icons/IconChevronUp';
+import { useSelector } from 'react-redux';
+import { selectUserInfo } from '../../../redux/auth/selectors';
+import { Link } from 'react-router-dom';
 
-const BookForm = () => {
-  const notify = (name, date) =>
-    toast.success(`Dear ${name}, thank you for your booking on ${date}!`);
+const navigateToProfile = () => {};
+const auth = true;
 
-  const handleSubmit = data => {
-    console.log("Form Data:", data);
-    notify(data.name, data.bookingDate);
-  };
-
-  const nameFieldId = useId();
-  const emailFieldId = useId();
-  const dateFieldId = useId();
-  const commentFieldId = useId();
-
-  const initialValues = {
-    name: "",
-    email: "",
-    date: "",
-    comment: "",
-  };
+const UserBar = ({ onLogOutClick }) => {
+  const [open, setOpen] = useState(false);
+  const user = useSelector(selectUserInfo);
+  console.log(user);
 
   return (
-    <div className={style.formContainer}>
-      <div className={style.formHead}>
-        <h3>Book your campervan now</h3>
-        <p className={style.formHeadText}>
-          Stay connected! We are always ready to help you.
-        </p>
+    <div className={style.userBar}>
+      <div className={style.userBarTop}>
+        {/* avatar fallback */}
+        <Avatar src={user?.avatar || '/cat_avatar.png'} alt="avatar" />
+
+        <div className={style.nameSvgDiv}>
+          <p className={style.userName}>{user?.name || 'Guest'}</p>
+
+          {/* toggle chevron */}
+          <div onClick={() => setOpen(!open)}>
+            {open ? (
+              <IconChevronUp width={18} height={18} className={style.arrow} />
+            ) : (
+              <IconChevronDown width={18} height={18} className={style.arrow} />
+            )}
+          </div>
+        </div>
       </div>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        className={style.form}
-        // validationSchema={FeedbackSchema}
-      >
-        <Form className={style.feedbackFormItem}>
+
+      {/* dropdown box */}
+      {open && (
+        <div className={style.userBarBottom}>
+          <Link to={`/user`} className={style.profile}>
+            {/* <Link to={`/user/${user?.id}`} className={style.profile}> */}
+            PROFILE
+          </Link>
           <div>
-            <Field
-              type="text"
-              name="name"
-              id={nameFieldId}
-              placeholder="Name*"
-              className={style.formField}
-            />
-            <ErrorMessage name="name" />
+            <span className={style.profile} onClick={onLogOutClick}>
+              Log out
+            </span>
           </div>
-          <div>
-            <Field
-              type="email"
-              name="email"
-              id={emailFieldId}
-              placeholder="Email*"
-              className={style.formField}
-            />
-            <ErrorMessage name="email" />
-          </div>
-          <div>
-            <Field
-              type="date"
-              name="bookingDate"
-              id={dateFieldId}
-              placeholder="Booking date*"
-              className={style.formField}
-            />
-            <ErrorMessage name="number" />
-          </div>
-          <Field
-            as="textarea"
-            name="comment"
-            id={commentFieldId}
-            className={style.formFieldComment}
-            placeholder="Comment"
-          />
-          <button className={style.formBtn} type="submit">
-            Send
-          </button>
-          <Toaster />
-        </Form>
-      </Formik>
+        </div>
+      )}
     </div>
   );
 };
 
-export default BookForm;
+export default UserBar;

@@ -8,7 +8,6 @@ import 'swiper/css/pagination';
 import styles from './Testimonials.module.css';
 import IconQuote from '../../common/icons/IconQuote';
 
-
 function MainTitle({ tag = 'h2', children, className = '' }) {
   const Tag = tag;
   return <Tag className={className || undefined}>{children}</Tag>;
@@ -19,7 +18,9 @@ function Subtitle({ tag = 'p', children, className = '' }) {
   return <Tag className={className || undefined}>{children}</Tag>;
 }
 
-const API_BASE = 'http://localhost:3000';
+// const API_BASE = 'https://react-nodejs-team-repo.onrender.com';
+const API_BASE = import.meta.env.VITE_API_URL;
+console.log(API_BASE);
 
 const Testimonials = () => {
   const [items, setItems] = useState([]);
@@ -31,7 +32,7 @@ const Testimonials = () => {
       try {
         setStatus('loading');
 
-        const res = await fetch(`${API_BASE}/api/testimonials`);
+        const res = await fetch(`${API_BASE}testimonials`);
         if (!res.ok) {
           throw new Error(`HTTP ${res.status}`);
         }
@@ -73,9 +74,7 @@ const Testimonials = () => {
   return (
     <section className={styles.section} aria-labelledby="testimonials-title">
       <div className="f-container">
-        <Subtitle className={styles.subtitle}>
-          What our customers say
-        </Subtitle>
+        <Subtitle className={styles.subtitle}>What our customers say</Subtitle>
 
         <MainTitle tag="h2" id="testimonials-title" className={styles.title}>
           TESTIMONIALS
@@ -89,8 +88,7 @@ const Testimonials = () => {
             autoplay={{ delay: 8000, disableOnInteraction: false }}
             pagination={{ clickable: true }}
             loop={items.length > 1}
-            speed={600}
-          >
+            speed={600}>
             {items.map((t) => (
               <SwiperSlide key={t.id}>
                 <div className={styles.slide}>
@@ -100,9 +98,7 @@ const Testimonials = () => {
 
                   <p className={styles.text}>{t.testimonial}</p>
 
-                  <p className={styles.author}>
-                    {t.authorName || 'Anonymous'}
-                  </p>
+                  <p className={styles.author}>{t.authorName || 'Anonymous'}</p>
                 </div>
               </SwiperSlide>
             ))}

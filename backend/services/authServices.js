@@ -27,10 +27,11 @@ export const registerUser = async (payload) => {
 
 export const loginUser = async ({ password, email }) => {
   const user = await findUser({ email });
+
   if (!user) {
     throw HttpError(401, 'Email or password invalid');
   }
-  const passwordCompare = bcrypt.compare(password, user.password);
+  const passwordCompare = await bcrypt.compare(password, user.password);
   if (!passwordCompare) {
     throw HttpError(401, 'Email or password invalid');
   }
@@ -46,6 +47,8 @@ export const loginUser = async ({ password, email }) => {
   return {
     token,
     email: user.email,
+    avatar: user.avatar,
+    name: user.name,
   };
 };
 

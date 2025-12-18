@@ -10,6 +10,7 @@ import { areasReducer } from './areas/slice';
 import { ingredientsReducer } from './ingredients/slice';
 import { testimonialsReducer } from './testimonials/slice';
 import { recipesReducer } from './recipes/slice';
+import { modalReducer } from './modal/modalSlice';
 
 const authPersistConfig = {
   key: 'auth',
@@ -27,6 +28,7 @@ const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   testimonials: testimonialsReducer,
   recipes: recipesReducer,
+  modal: modalReducer,
 });
 
 export const store = configureStore({

@@ -6,8 +6,11 @@ import { persistor, store } from './redux/store.js';
 import { PersistGate } from 'redux-persist/integration/react';
 import { BrowserRouter } from 'react-router-dom';
 import { injectStore } from './services/api.js';
+import Modal from 'react-modal';
 import 'modern-normalize';
 import './index.css';
+
+Modal.setAppElement('#root');
 
 injectStore(store);
 

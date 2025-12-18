@@ -24,6 +24,9 @@ tags:
     description: Recipes operations
 servers:
   - url: http://localhost:3000/api
+    description: dev
+  - url: https://react-nodejs-team-repo.onrender.com/api
+    description: prod
 paths:
   # AUTH
   /auth/register:

@@ -1,12 +1,38 @@
 .headerdiv {
   display: flex;
-  width: 1280;
-  height: 46px;
+  max-width: 327px;
+  height: 38px;
   /* justify-content: space-between; */
+  justify-content: space-between;
   align-items: center;
   background-color: #050505;
-  margin-bottom: 88px;
+  margin-bottom: 140px;
 }
+
+@media only screen and (min-width: 768px) {
+  .headerdiv {
+    display: flex;
+    max-width: 672px;
+    height: 46px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #050505;
+    margin-bottom: 151px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .headerdiv {
+    display: flex;
+    max-width: 1280px;
+    height: 46px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #050505;
+    margin-bottom: 88px;
+  }
+}
+
 .dark {
   background-color: #050505;
 }
@@ -30,4 +56,17 @@
 a {
   text-decoration: none;
   color: currentColor;
+}
+
+@media only screen and (min-width: 768px) {
+  .burger {
+    display: none;
+  }
+}
+
+.userAndBurger {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  margin-left: auto;
 }

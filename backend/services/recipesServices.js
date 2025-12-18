@@ -22,23 +22,25 @@ async function getRecipes(filters = {}) {
 
   // filter by category (selected from CATEGORIES page)
   if (filters.category) {
-    include[0].where = { name: filters.category };
+    // include[0].where = { name: filters.category };
+    include[0].where = { id: filters.category }; // pavlo
     include[0].required = true;
   }
 
   // filter by area
   if (filters.area) {
-    include[1].where = { name: filters.area };
+    // include[1].where = { name: filters.area };
+    include[1].where = { id: filters.area }; // pavlo
     include[1].required = true;
   }
 
   // filter by ingredients (join table)
-  if (filters.ingredients) {
+  if (filters.ingredient) {
     include.push({
       model: Ingredient,
       as: 'ingredients',
       through: { attributes: ['measure'] },
-      where: { id: filters.ingredients }, // can be array of IDs
+      where: { id: filters.ingredient }, // can be array of IDs
     });
   } else {
     include.push({
