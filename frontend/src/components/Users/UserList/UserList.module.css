@@ -24,6 +24,12 @@
   }
 }
 
+@media screen and (min-width: 768px) {
+  .card {
+    max-width: 846px;
+  }
+}
+
 .avatarWrapper {
   flex-shrink: 0;
   /* margin-left: 16px; */
