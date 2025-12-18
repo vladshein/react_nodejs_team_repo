@@ -35,12 +35,12 @@ async function getRecipes(filters = {}) {
   }
 
   // filter by ingredients (join table)
-  if (filters.ingredients) {
+  if (filters.ingredient) {
     include.push({
       model: Ingredient,
       as: 'ingredients',
       through: { attributes: ['measure'] },
-      where: { id: filters.ingredients }, // can be array of IDs
+      where: { id: filters.ingredient }, // can be array of IDs
     });
   } else {
     include.push({

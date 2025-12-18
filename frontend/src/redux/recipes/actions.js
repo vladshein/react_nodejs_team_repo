@@ -12,7 +12,7 @@ const fetchRecipes = createAsyncThunk(
   recipesActions.FETCH_RECIPES,
   async (filters, { rejectWithValue }) => {
     try {
-      const params = new URLSearchParams(filters); // make a query
+      const params = new URLSearchParams(filters);
       const { data } = await api.get('/api/recipes', { params });
       return data;
     } catch (error) {

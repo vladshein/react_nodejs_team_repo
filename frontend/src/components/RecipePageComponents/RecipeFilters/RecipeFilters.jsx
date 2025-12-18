@@ -1,13 +1,16 @@
+// pavlo
 import styles from './RecipeFilters.module.css';
 import SelectField from '../../common/SelectField/SelectField';
 
-const RecipeFilters = ({ handleIngredient, handleArea }) => {
+// handleIngredient, handleArea
+const RecipeFilters = ({ callBackFunctions }) => {
+  const { handleIngredient, handleArea } = callBackFunctions;
   return (
-    <aside className={styles.filters}>
+    <>
       <SelectField
         name="ingredient"
         value="0"
-        onChange={handleIngredient}
+        onChange={(value) => handleIngredient(value)}
         onBlur={null}
         options={[
           { value: '640c2dd963a319ea671e37aa', label: 'Squid' },
@@ -19,7 +22,7 @@ const RecipeFilters = ({ handleIngredient, handleArea }) => {
       <SelectField
         name="area"
         value="0"
-        onChange={handleArea}
+        onChange={(value) => handleArea(value)}
         onBlur={null}
         options={[
           { value: '6462a6f04c3d0ddd28897f9b', label: 'Ukrainian' },
@@ -28,7 +31,7 @@ const RecipeFilters = ({ handleIngredient, handleArea }) => {
         ]}
         placeholder="Area"
       />
-    </aside>
+    </>
   );
 };
 
