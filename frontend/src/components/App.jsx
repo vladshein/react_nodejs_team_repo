@@ -11,18 +11,10 @@ const NotFoundPage = lazy(() => import('../pages/NotFoundPage/NotFoundPage'));
 // --- USER PROFILE SUB-COMPONENTS ---
 // Ці компоненти зараз використовують мок-дані для візуалізації структури.
 // TODO: Підключити реальну логіку Redux та замінити заглушки.
-const UserRecipes = lazy(
-  () => import('../components/SharedLayoutComponents/UserRecipes/UserRecipes')
-);
-const UserFavorites = lazy(
-  () => import('../components/SharedLayoutComponents/UserFavorites/UserFavorites')
-);
-const UserFollowers = lazy(
-  () => import('../components/SharedLayoutComponents/UserFollowers/UserFollowers')
-);
-const UserFollowing = lazy(
-  () => import('../components/SharedLayoutComponents/UserFollowing/UserFollowing')
-);
+const UserRecipes = lazy(() => import('../components/Users/UserRecipes/UserRecipes'));
+const UserFavorites = lazy(() => import('../components/Users/UserFavorites/UserFavorites'));
+const UserFollowers = lazy(() => import('../components/Users/UserFollowers/UserFollowers'));
+const UserFollowing = lazy(() => import('../components/Users/UserFollowing/UserFollowing'));
 
 // import style from './App.module.css';
 import Categories from './HomePageComponents/Categories/Categories';
