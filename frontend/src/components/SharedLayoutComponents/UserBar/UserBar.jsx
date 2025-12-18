@@ -8,11 +8,12 @@ import { selectUserInfo } from '../../../redux/auth/selectors';
 import { Link } from 'react-router-dom';
 
 const navigateToProfile = () => {};
+const auth = true;
 
 const UserBar = ({ onLogOutClick }) => {
   const [open, setOpen] = useState(false);
   const user = useSelector(selectUserInfo);
-  console.log(open);
+  console.log(user);
 
   return (
     <div className={style.userBar}>

@@ -4,6 +4,27 @@
   gap: 40px;
   align-items: center;
   /* margin-right: 300px; */
+  display: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .headernav {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+    /* margin-right: 300px; */
+    /* display: none; */
+  }
+}
+@media only screen and (min-width: 1440px) {
+  .headernav {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+    align-items: center;
+    /* margin-right: 300px; */
+  }
 }
 
 .headerButtons {
@@ -32,4 +53,8 @@
 
 .light {
   color: #fff;
+}
+
+.showOnTablet {
+  display: block !important;
 }
