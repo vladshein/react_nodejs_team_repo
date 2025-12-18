@@ -23,5 +23,9 @@
   gap: 24px;
 }
 
+.spinCenter {
+  padding-left: 50%;
+}
+
 .recipePagination {
 }
