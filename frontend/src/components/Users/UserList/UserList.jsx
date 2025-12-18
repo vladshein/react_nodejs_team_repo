@@ -1,3 +1,4 @@
+import IconArrowUpRight from '../../common/icons/IconArrowUpRight';
 import styles from './UserList.module.css';
 
 const UserList = ({ user }) => {
@@ -81,9 +82,7 @@ const UserList = ({ user }) => {
             href={`/user/${id}`}
             className={styles.arrowLink}
             aria-label={`Go to ${name}'s profile`}>
-            <svg className={styles.iconArrow} width="18" height="18">
-              <use href="/icons.svg#icon-arrow-up-right" />
-            </svg>
+            <IconArrowUpRight className={styles.iconArrow} width={18} height={18} />
           </a>
         </div>
       </div>
