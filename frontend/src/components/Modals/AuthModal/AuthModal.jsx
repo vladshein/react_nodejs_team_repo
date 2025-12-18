@@ -34,6 +34,11 @@ const AuthModal = ({ isOpen, onRequestClose, view }) => {
       })
       .catch((error) => {
         console.log('Login failed:', error);
+        if (error.status === 400) {
+          actions.setErrors({
+            email: 'Fails to match the required pattern',
+          });
+        }
         if (error.status === 401) {
           actions.setErrors({
             email: 'Email or password invalid',
@@ -63,9 +68,9 @@ const AuthModal = ({ isOpen, onRequestClose, view }) => {
       .catch((err) => {
         if (err.status === 400) {
           actions.setErrors({
-            password: 'password must be at least 8 characters',
+            email: 'Fails to match the required pattern',
           });
-          toast.error('password must be at least 8 characters');
+          toast.error('Fails to match the required pattern');
         }
         if (err.status === 409) {
           actions.setErrors({

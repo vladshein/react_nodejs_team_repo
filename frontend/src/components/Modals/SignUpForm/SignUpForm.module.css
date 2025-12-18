@@ -1,9 +1,15 @@
 .formContainer {
   display: flex;
-  width: 400px;
+  width: 283px;
   padding: 0px;
   flex-direction: column;
   border: none;
+}
+
+@media only screen and (min-width: 768px) {
+  .formContainer {
+    width: 400px;
+  }
 }
 
 .formHead {

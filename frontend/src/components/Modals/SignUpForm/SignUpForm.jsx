@@ -1,4 +1,4 @@
-import style from './SignUpForm.module.css';
+import style from '../SignInForm/SignInForm.module.css';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useId, useState } from 'react';
 import * as Yup from 'yup';
@@ -24,14 +24,14 @@ const SignUpForm = ({ submitSignUp, setView }) => {
   };
 
   const SignInSchema = Yup.object().shape({
-    name: Yup.string().required('Required'),
+    name: Yup.string().required('Required').min(2, 'Name must be at least 2 characters'),
     email: Yup.string().email('Invalid email').required('Required'),
-    password: Yup.string().required('Required'),
+    password: Yup.string().required('Required').min(8, 'Password must be at least 8 characters'),
   });
 
   return (
     <div className={style.formContainer}>
-      <h3 className={style.formHead}>Sign Up</h3>
+      <h3 className={style.formHead}>SIGN UP</h3>
       <Formik
         initialValues={initialValues}
         onSubmit={handleSubmit}
@@ -40,13 +40,16 @@ const SignUpForm = ({ submitSignUp, setView }) => {
         {({ isValid, dirty, isSubmitting }) => (
           <Form className={style.form}>
             <div className={style.formFieldsContainer}>
-              <Field
-                type="text"
-                name="name"
-                id={nameFieldId}
-                placeholder="Name*"
-                className={style.formField}
-              />
+              <div className={style.fieldWrapper}>
+                <Field
+                  type="text"
+                  name="name"
+                  id={nameFieldId}
+                  placeholder="Name*"
+                  className={style.formField}
+                />
+                <ErrorMessage name="name" component="span" className={style.errorText} />
+              </div>
               <div className={style.fieldWrapper}>
                 <Field
                   type="email"
@@ -57,24 +60,23 @@ const SignUpForm = ({ submitSignUp, setView }) => {
                 />
                 <ErrorMessage name="email" component="span" className={style.errorText} />
               </div>
-
-              <div className={style.passwordFieldContainer}>
-                <Field
-                  type={showPassword ? 'text' : 'password'}
-                  name="password"
-                  id={passwordFieldId}
-                  placeholder="Password*"
-                  className={style.formField}
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className={style.eyeBtn}>
-                  {showPassword ? <IconEye /> : <IconEyeOff />}
-                </button>
-                <div>
-                  <ErrorMessage name="password" component="span" className={style.errorText} />
+              <div className={style.fieldWrapper}>
+                <div className={style.passwordFieldContainer}>
+                  <Field
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    id={passwordFieldId}
+                    placeholder="Password*"
+                    className={style.formField}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className={style.eyeBtn}>
+                    {showPassword ? <IconEye /> : <IconEyeOff />}
+                  </button>
                 </div>
+                <ErrorMessage name="password" component="span" className={style.errorText} />
               </div>
             </div>
 
