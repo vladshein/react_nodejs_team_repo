@@ -13,7 +13,7 @@ const fetchRecipes = createAsyncThunk(
   async (filters, { rejectWithValue }) => {
     try {
       const params = new URLSearchParams(filters);
-      const { data } = await api.get('/api/recipes', { params });
+      const { data } = await api.get('recipes', { params });
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
