@@ -54,6 +54,7 @@ const AuthModal = ({ isOpen, onRequestClose, view }) => {
         return dispatch(login({ email: payload.email, password: payload.password }));
       })
       .then(() => {
+        dispatch(refreshUser());
         console.log('Login after registration successful');
         onRequestClose();
       })
