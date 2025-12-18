@@ -51,7 +51,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<HomePage />} />
 
-        <Route path="/recipe/add" element={<PrivateRoute>{<AddRecipePage />}</PrivateRoute>} />
+        <Route path="/recipe/add" element={<PrivateRoute element={<AddRecipePage />} />} />
         {/* <Route path="/recipe/add" element={<AddRecipePage />} /> */}
         <Route path="/recipe/:id" element={<RecipePage />} />
         <Route path="/user/:id" element={<UserPage />}>
