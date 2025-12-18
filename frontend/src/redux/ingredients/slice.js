@@ -18,7 +18,10 @@ const ingredientsSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchIngredients.pending, handlePending)
-      .addCase(fetchIngredients.fulfilled, (state, action) => {})
+      .addCase(fetchIngredients.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.ingredients = action.payload;
+      })
       .addCase(fetchIngredients.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;

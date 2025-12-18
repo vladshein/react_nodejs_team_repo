@@ -1,5 +1,5 @@
-const selectCategories = (state) => state.categories.categories;
-const selectCategoriesLoading = (state) => state.categories.isLoading;
-const selectCategoriesError = (state) => state.categories.error;
+export const selectCategories = (state) => state.categories.categories;
 
-export { selectCategories, selectCategoriesLoading, selectCategoriesError };
+export const selectCategoriesLoading = (state) => state.categories.isLoading;
+
+export const selectCategoriesError = (state) => state.categories.error;
