@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
 import style from './Hero.module.css';
 import Header from '../../SharedLayoutComponents/Header/Header';
 import mainstyles from '../../../components/App.module.css';
+import RequireAuthAction from '../../RequireAuthAction/RequireAuthAction';
 
 const Hero = () => {
   return (
@@ -14,9 +14,11 @@ const Hero = () => {
         tastes of various cuisines.
       </p>
 
-      <Link to="/recipe/add" className={style.heroButton}>
-        Add recipe
-      </Link>
+      <RequireAuthAction to="/recipe/add">
+        <button type="button" className={style.heroButton}>
+          Add Recipe
+        </button>
+      </RequireAuthAction>
 
       <div className={style.heropicture}>
         <img className={style.rotated1} src="./images/Hero/desert2x.webp" alt="icon" />

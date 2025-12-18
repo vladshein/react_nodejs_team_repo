@@ -1,5 +1,5 @@
 import Modal from 'react-modal';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { login, refreshUser, register } from '../../../redux/auth/actions.js';
 import style from './AuthModal.module.css';
 import SignInForm from '../SignInForm/SignInForm.jsx';
@@ -8,10 +8,12 @@ import IconClose from '../../common/icons/IconClose.jsx';
 import { updateModalProps } from '../../../redux/modal/modalSlice.js';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { selectModalProps } from '../../../redux/modal/selectors.js';
 
-const AuthModal = ({ isOpen, onRequestClose, view, redirectTo }) => {
+const AuthModal = ({ isOpen, onRequestClose, view }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const modalProps = useSelector(selectModalProps);
 
   const setView = (view) => {
     dispatch(updateModalProps({ view }));
@@ -21,14 +23,14 @@ const AuthModal = ({ isOpen, onRequestClose, view, redirectTo }) => {
     dispatch(login(payload))
       .unwrap()
       .then(() => {
-        return dispatch(refreshUser()).unwrap();
+        return dispatch(refreshUser());
       })
       .then(() => {
         console.log('Login successful');
-        if (redirectTo) {
-          navigate(redirectTo);
-        }
         onRequestClose();
+        if (modalProps.redirectTo) {
+          navigate(modalProps.redirectTo);
+        }
       })
       .catch((error) => {
         console.log('Login failed:', error);

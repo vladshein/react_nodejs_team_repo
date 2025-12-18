@@ -1,104 +1,297 @@
-.formContainer {
+.form {
   display: flex;
-  width: 641px;
-  padding: 44px;
   flex-direction: column;
-  gap: 24px;
-  border-radius: 10px;
-  border: 1px solid var(--Gray-light, #dadde1);
+  width: 100%;
+  margin-top: 32px;
 }
 
-.formHead {
-  display: flex;
-  flex-direction: column;
-  justify-content: left;
+/* Photo Upload Styles */
+
+.uploadPhotoError {
+  border: 1px solid var(--cl-error);
+}
+/* Input Title Styles */
+
+.recipeInfo {
+  margin-top: 32px;
+}
+
+.inputTitle {
+  font-size: var(--fs-18);
+  font-weight: var(--fw-800);
+  line-height: var(--lh-130);
+  text-transform: uppercase;
+}
+
+.inputTitle::placeholder {
+  color: var(--cl-light-gray);
+}
+
+.descriptionWrapper {
+  margin-top: 32px;
+}
+
+/* Category Styles */
+
+.selectCategoryWrapper {
+  margin-top: 32px;
+}
+
+.categoryTitle,
+.timeTitle,
+.ingredientsTitle,
+.preparationTitle {
+  font-size: var(--fs-16);
+  font-weight: var(--fw-800);
+  line-height: var(--lh-150);
+  text-transform: uppercase;
+}
+
+.categoryTitle {
+  margin-bottom: 8px;
+}
+
+/* Time Styles */
+
+.timeInputWrapper {
+  margin-top: 20px;
+}
+
+.timeTitle {
+  margin: 0 0 8px 0;
+}
+
+/* Area Styles */
+.areaTitle {
+  margin-top: 20px;
+  font-size: var(--fs-20);
+  line-height: var(--lh-120);
+  font-weight: var(--fw-800);
+  text-transform: uppercase;
+}
+
+.selectAreaWrapper {
+  margin-top: 20px;
+  margin-right: 13px;
+}
+
+.selectArea {
+  margin-top: 16px;
+}
+/* Ingredients Styles */
+
+.ingredientsWrapper {
+  margin-top: 20px;
+}
+
+/* Ingredient fieldset (mobile default: no special layout) */
+.ingredientFieldset {
+  margin-top: 8px;
+}
+
+.quantityInput {
+  margin-top: 20px;
+  width: 100%;
+  height: 36px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--cl-light-gray);
+  font-size: var(--fs-14);
+  line-height: var(--lh-140);
+}
+
+.quantityInput::placeholder {
+  color: var(--cl-light-gray);
+}
+
+.addIngredientButton {
+  margin-top: 30px;
+  padding: 14px 20px;
   gap: 8px;
-  color: var(--Main, #101828);
-  /* H3 */
-  font-family: Inter;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 24px; /* 120% */
-  padding: 0 13px;
+  font-size: var(--fs-14);
+  line-height: var(--lh-140);
+  font-weight: var(--fw-700);
+  text-transform: uppercase;
 }
 
-.formHeadText {
-  color: var(--Gray, #6c717b);
-  /* Body */
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 24px; /* 150% */
-
-  align-self: stretch;
+.addIngredientIcon {
+  width: 20px;
+  height: 20px;
 }
 
-.feedbackFormItem {
+.addIngredientButton:hover .addIngredientIcon {
+  stroke: var(--cl-white);
+  transform: var(--trns-ease);
+}
+
+/* Preparation Styles */
+
+.recipePreparationWrapper {
+  margin-top: 64px;
+}
+
+/* Buttons Block Styles */
+
+.buttonsBlock {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 14px;
-  padding: 0 13px;
+  justify-content: flex-start;
+  gap: 8px;
+  margin-top: 32px;
 }
 
-.formField {
-  display: flex;
-  width: 527px;
-  height: 60px;
-  padding: 18px 337px 18px 18px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  border-radius: 12px;
-  background: var(--Inputs, #f7f7f7);
-  border: none;
+.resetButton.resetButton {
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--cl-light-gray);
+  border-radius: var(--radius-circle);
 }
 
-.formField:hover,
-.formField:focus {
-  outline: none; /* Removes default browser outline */
+.resetButton.resetButton:hover {
+  background-color: var(--cl-light-gray);
 }
 
-.formFieldComment {
-  display: flex;
-  width: 527px;
-  padding: 18px 308px 76px 18px;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-  border-radius: 10px;
-  background: var(--Inputs, #f7f7f7);
-  border: none;
-}
-.formFieldComment:focus,
-.formFieldComment:hover {
-  outline: none;
+.resetButton .trashIcon {
+  stroke: var(--cl-light-gray);
 }
 
-.formBtn {
-  display: flex;
-  width: 166px;
-  padding: 16px 60px;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  border-radius: 200px;
-  background: var(--Button, #e44848);
-  margin-top: 10px;
-  border: none;
-  color: var(--White, #fff);
-  font-family: Inter;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 24px; /* 150% */
-  letter-spacing: -0.08px;
+.resetButton:hover .trashIcon {
+  stroke: var(--cl-white);
+  transform: var(--trns-ease);
 }
 
-.formBtn:hover,
-.formBtn:focus {
-  background: #d84343;
+.submitButton {
+  padding: 14px 32px;
+  font-size: var(--fs-14);
+  line-height: var(--lh-140);
+  font-weight: var(--fw-700);
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .form {
+    margin-top: 40px;
+  }
+
+  .recipeInfo {
+    margin-right: 55px;
+  }
+
+  .inputTitle {
+    margin-top: 80px;
+    font-size: var(--fs-24);
+    line-height: var(--lh-115);
+  }
+
+  .categoryTitle,
+  .timeTitle,
+  .areaTitle,
+  .ingredientsTitle,
+  .preparationTitle {
+    font-size: var(--fs-20);
+  }
+
+  .categoryAndTimeWrapper,
+  .selectAreaWrapper,
+  .ingredientsWrapper {
+    margin-top: 60px;
+  }
+
+  .categoryAndTimeWrapper {
+    display: flex;
+    gap: 19px;
+  }
+
+  .selectCategoryWrapper,
+  .timeInputWrapper {
+    margin-top: 0;
+  }
+
+  .selectCategory,
+  .timeInput,
+  .ingredientFieldset {
+    margin-top: 16px;
+  }
+
+  .selectCategory {
+    min-width: 315px;
+  }
+
+  .selectArea {
+    width: 330px;
+  }
+
+  .ingredientFieldset {
+    display: flex;
+    gap: 19px;
+    align-items: flex-end;
+  }
+
+  .ingredientFieldset > * {
+    flex: 1;
+  }
+
+  .quantityInput {
+    margin-top: 0;
+    font-size: var(--fs-16);
+    line-height: var(--lh-150);
+  }
+
+  .addIngredientButton {
+    margin-top: 40px;
+    padding: 16px 32px;
+    font-size: var(--fs-16);
+    line-height: var(--lh-150);
+  }
+
+  .addIngredientIcon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .recipePreparationWrapper {
+    margin-top: 80px;
+  }
+
+  .buttonsBlock {
+    margin-top: 80px;
+  }
+
+  .resetButton.resetButton {
+    width: 56px;
+    height: 56px;
+  }
+
+  .resetButton .trashIcon {
+    stroke: var(--cl-black);
+    width: 20px;
+    height: 20px;
+  }
+
+  .submitButton {
+    padding: 16px 39px;
+    font-size: var(--fs-1);
+    line-height: var(--lh-150);
+  }
+
+  @media (min-width: 1440px) {
+    .form {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 80px;
+    }
+
+    .uploadPhotoWrapper {
+      width: 551px;
+    }
+
+    .recipeInfo {
+      margin-top: 0;
+      flex-grow: 1;
+      margin-right: 0;
+      align-self: flex-start;
+    }
+
+    .inputTitle {
+      margin-top: 0;
+    }
+  }
 }
