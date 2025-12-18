@@ -60,9 +60,8 @@ const UserList = ({ user }) => {
           <Button
             type="button"
             variant={isFollowing ? 'outlined' : 'filled'}
-            className={styles.actionBtn} // Один клас для розмірів
-            onClick={() => console.log('Toggle follow logic')} // Твоя функція кліку
-          >
+            className={styles.actionBtn}
+            onClick={() => console.log('Toggle follow logic')}>
             {isFollowing ? 'UNFOLLOW' : 'FOLLOW'}
           </Button>
         </div>
