@@ -68,3 +68,7 @@
 .info a:hover {
   text-decoration: underline;
 }
+
+.bodyModalOpen {
+  overflow: hidden;
+}

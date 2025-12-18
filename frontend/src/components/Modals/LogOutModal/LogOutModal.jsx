@@ -31,7 +31,8 @@ const LogOutModal = ({ isOpen, onRequestClose }) => {
       onRequestClose={onRequestClose}
       contentLabel="Log Out Modal"
       className={style.modal}
-      overlayClassName={style.overlay}>
+      overlayClassName={style.overlay}
+      bodyOpenClassName={style.bodyModalOpen}>
       <button className={style.closeBtn} onClick={onRequestClose}>
         <IconClose />
       </button>

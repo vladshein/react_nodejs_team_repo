@@ -92,6 +92,7 @@ const AuthModal = ({ isOpen, onRequestClose, view }) => {
       contentLabel="Auth Modal"
       className={style.modal}
       overlayClassName={style.overlay}
+      bodyOpenClassName={style.bodyModalOpen}
       ariaHideApp={true}
       shouldCloseOnOverlayClick={true}
       shouldFocusAfterRender={true}

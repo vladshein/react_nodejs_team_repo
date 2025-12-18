@@ -166,3 +166,7 @@
   background: var(--cl-black);
   color: var(--cl-white);
 }
+
+.bodyModalOpen {
+  overflow: hidden;
+}
