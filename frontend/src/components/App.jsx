@@ -24,7 +24,7 @@ const UserFollowing = lazy(
   () => import('../components/SharedLayoutComponents/UserFollowing/UserFollowing')
 );
 
-// import style from './App.module.css';
+import style from './App.module.css';
 import Categories from './HomePageComponents/Categories/Categories';
 import RestrictedRoute from '../guards/RestrictedRoute/RestrictedRoute';
 import PrivateRoute from '../guards/PrivateRoute/PrivateRoute';
@@ -56,33 +56,35 @@ const App = () => {
     <div>Refreshing user...</div>
   ) : (
     <Suspense fallback={<div>Loading...</div>}>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
+      <div className={style.container}>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
 
-        {/* <Route path="/recipe/add" element={<PrivateRoute element={<AddRecipePage />} />} /> */}
-        <Route path="/recipe/add" element={<AddRecipePage />} />
-        <Route path="/recipe/:id" element={<RecipePage />} />
-        <Route path="/user/:id" element={<UserPage />}>
-          <Route index element={<Navigate to="recipes" replace />} />
-          <Route path="recipes" element={<UserRecipes />} />
-          <Route path="favorites" element={<UserFavorites />} />
-          <Route path="followers" element={<UserFollowers />} />
-          <Route path="following" element={<UserFollowing />} />
-        </Route>
+          {/* <Route path="/recipe/add" element={<PrivateRoute element={<AddRecipePage />} />} /> */}
+          <Route path="/recipe/add" element={<AddRecipePage />} />
+          <Route path="/recipe/:id" element={<RecipePage />} />
+          <Route path="/user/:id" element={<UserPage />}>
+            <Route index element={<Navigate to="recipes" replace />} />
+            <Route path="recipes" element={<UserRecipes />} />
+            <Route path="favorites" element={<UserFavorites />} />
+            <Route path="followers" element={<UserFollowers />} />
+            <Route path="following" element={<UserFollowing />} />
+          </Route>
 
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-      <Toaster position="top-right" reverseOrder={false} />
-      <AuthModal
-        isOpen={isModalOpen && modalType === 'auth'}
-        onRequestClose={handleCloseModal}
-        view={modalProps.view || 'signIn'}
-        redirectTo={modalProps.redirectTo || '/'}
-      />
-      <LogOutModal
-        isOpen={isModalOpen && modalType === 'logout'}
-        onRequestClose={handleCloseModal}
-      />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+        <Toaster position="top-right" reverseOrder={false} />
+        <AuthModal
+          isOpen={isModalOpen && modalType === 'auth'}
+          onRequestClose={handleCloseModal}
+          view={modalProps.view || 'signIn'}
+          redirectTo={modalProps.redirectTo || '/'}
+        />
+        <LogOutModal
+          isOpen={isModalOpen && modalType === 'logout'}
+          onRequestClose={handleCloseModal}
+        />
+      </div>
     </Suspense>
   );
 };

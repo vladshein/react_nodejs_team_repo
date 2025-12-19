@@ -1,11 +1,12 @@
 /* Styles for Mobile devices */
 .heroContainer {
+  width: 100%;
   min-width: 320px;
   max-width: 359px;
   min-height: 796px;
   margin: 0 auto;
   padding: 16px;
-  margin-top: 8px;
+  margin-top: 20px;
   margin-bottom: 64px;
   text-align: center;
   background: var(--Main, #050505);

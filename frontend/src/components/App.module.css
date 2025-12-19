@@ -9,7 +9,7 @@
   min-width: 320px;
   max-width: 359px;
   margin: 0 auto;
-  padding: 0 17px;
+  /* padding: 0 17px; */
   margin-top: 20px;
 }
 
@@ -17,7 +17,7 @@
 @media only screen and (min-width: 768px) {
   .container {
     max-width: 736px;
-    padding: 0 32px;
+    /* padding: 0 32px; */
   }
 }
 
@@ -25,6 +25,28 @@
 @media only screen and (min-width: 1440px) {
   .container {
     max-width: 1400px;
+    /* padding: 0 60px; */
+  }
+}
+
+/* Styles for Mobile devices */
+.section {
+  padding: 0 17px;
+  /* margin-top: 20px; */
+}
+
+/* Styles for Tablet devices */
+@media only screen and (min-width: 768px) {
+  .section {
+    /* max-width: 736px; */
+    padding: 0 32px;
+  }
+}
+
+/* Styles for Desktop devices */
+@media only screen and (min-width: 1440px) {
+  .section {
+    /* max-width: 1400px; */
     padding: 0 60px;
   }
 }
