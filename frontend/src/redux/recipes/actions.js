@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { recipesService } from '../../services/recipesService';
 import { recipesActions } from './constants';
 import api from './../../services/api';
 
@@ -58,9 +59,10 @@ const publishRecipe = createAsyncThunk(
   recipesActions.CREATE_RECIPE,
   async (recipeData, { rejectWithValue }) => {
     try {
-      // api call to create a new recipe with recipeData
+      const data = await recipesService.addRecipe(recipeData);
+      return data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );

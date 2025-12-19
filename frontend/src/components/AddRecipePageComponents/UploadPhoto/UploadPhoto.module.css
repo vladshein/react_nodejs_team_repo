@@ -8,6 +8,10 @@
   cursor: pointer;
 }
 
+.photoUploadLabel.errorBorder {
+  border-color: var(--cl-error);
+}
+
 .photoUploadLabel:has(.previewWrapper) {
   cursor: auto;
   border: none;
@@ -40,10 +44,18 @@
   object-fit: cover;
 }
 
+.IconError {
+  stroke: var(--cl-error);
+}
+
 .uploadText {
   padding-top: 8px;
   text-decoration: underline;
   font-size: var(--fs-14);
+}
+
+.textError {
+  color: var(--cl-error);
 }
 
 .uploadAnotherText {

@@ -52,7 +52,10 @@ const recipesSlice = createSlice({
       .addCase(fetchRecipeDetails.fulfilled, (state, action) => {})
       .addCase(fetchTopRecipes.fulfilled, (state, action) => {})
       .addCase(fetchMyRecipes.fulfilled, (state, action) => {})
-      .addCase(publishRecipe.fulfilled, (state, action) => {})
+      .addCase(publishRecipe.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.myRecipes.push(action.payload);
+      })
       .addCase(deleteRecipe.fulfilled, (state, action) => {})
 
       .addCase(addToFavorites.fulfilled, (state, action) => {})

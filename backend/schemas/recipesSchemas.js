@@ -6,16 +6,16 @@ export const createRecipeSchema = Joi.object({
     'any.required': 'title is required',
     'string.base': 'title must be a string',
   }),
-  category: Joi.string().required().messages({
-    'any.required': 'category is required',
-    'string.base': 'category must be a valid string',
+  category: Joi.string().optional(),
+  categoryId: Joi.string().required().messages({
+    'any.required': 'categoryId is required',
+    'string.base': 'categoryId must be a valid string',
   }),
-  categoryId: Joi.string().optional(),
-  area: Joi.string().required().messages({
-    'any.required': 'area is required',
-    'string.base': 'area must be a valid string',
+  area: Joi.string().optional(),
+  areaId: Joi.string().required().messages({
+    'any.required': 'areaId is required',
+    'string.base': 'areaId must be a valid string',
   }),
-  areaId: Joi.string().optional(),
   instructions: Joi.string().required().messages({
     'any.required': 'instructions is required',
     'string.base': 'instructions must be a valid string',
@@ -24,14 +24,17 @@ export const createRecipeSchema = Joi.object({
     'any.required': 'description is required',
     'string.base': 'description must be a valid string',
   }),
-  thumb: Joi.string().required().messages({
+  thumb: Joi.string().optional().messages({
     'string.base': 'thumb must be a valid link',
   }),
-  time: Joi.string().required().messages({
+  time: Joi.number().required().messages({
     'any.required': 'time is required',
-    'string.base': 'email must be a valid string',
+    'number.base': 'time must be a number',
   }),
-  ingredients: Joi.array().required().required(),
+  ingredients: Joi.string().required().messages({
+    'any.required': 'ingredients is required',
+    'string.base': 'ingredients must be a valid JSON string',
+  }),
 }).required();
 
 export const updateFavoriteSchema = Joi.object({
