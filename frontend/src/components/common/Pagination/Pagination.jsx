@@ -1,19 +1,19 @@
 // pavlo
-import styles from './RecipePagination.module.css';
+import styles from './Pagination.module.css';
 
-const RecipePagination = ({ currentPage, totalPages, onChange }) => {
+const Pagination = ({ currentPage, totalPages, onChange }) => {
   return (
     <div className={styles.pagination}>
       {Array.from({ length: totalPages }, (_, i) => {
         const page = i + 1;
         const isActive = page === currentPage;
-
+        let actClass = isActive ? 'paginationItemActive' : 'paginationItem';
         return (
           <button
             key={page}
-            className={`pagination__item ${isActive ? 'active' : ''}`}
+            className={styles[actClass]}
             onClick={() => onChange(page)}
-            disabled={isActive}>
+            disabled={false}>
             {page}
           </button>
         );
@@ -22,4 +22,4 @@ const RecipePagination = ({ currentPage, totalPages, onChange }) => {
   );
 };
 
-export default RecipePagination;
+export default Pagination;

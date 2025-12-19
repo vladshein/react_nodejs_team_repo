@@ -957,7 +957,7 @@
       }
     },
     "/recipes/favorites/{id}": {
-      "patch": {
+      "post": {
         "tags": [
           "Recipes"
         ],
@@ -974,7 +974,6 @@
             "in": "path",
             "name": "id",
             "schema": {
-              "type": "integer",
               "example": 7
             }
           }

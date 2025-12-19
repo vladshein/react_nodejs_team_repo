@@ -38,8 +38,8 @@ const UserBar = ({ onLogOutClick }) => {
       {/* dropdown box */}
       {open && (
         <div className={style.userBarBottom}>
-          <Link to={`/user`} className={style.profile}>
-            {/* <Link to={`/user/${user?.id}`} className={style.profile}> */}
+          {/* <Link to={`/user`} className={style.profile}> */}
+          <Link to={`/user/${user?.id}`} className={style.profile}>
             PROFILE
           </Link>
           <div>
