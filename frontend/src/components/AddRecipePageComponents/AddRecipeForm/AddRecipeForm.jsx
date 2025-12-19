@@ -18,9 +18,9 @@ import styles from './AddRecipeForm.module.css';
 const initialValues = {
   title: '',
   description: '',
-  category: '',
+  categoryId: '',
   time: 0,
-  area: '',
+  areaId: '',
   ingredients: [],
   instructions: '',
   thumb: '',
@@ -47,9 +47,9 @@ const AddRecipeForm = ({ categoriesOptions, ingredientsOptions, areasOptions }) 
       const formData = new FormData();
       formData.append('title', values.title);
       formData.append('description', values.description);
-      formData.append('category', values.category);
-      formData.append('time', values.time);
-      formData.append('area', values.area);
+      formData.append('categoryId', values.categoryId);
+      formData.append('time', String(values.time));
+      formData.append('areaId', values.areaId);
       formData.append('instructions', values.instructions);
 
       if (values.thumb instanceof File) {
@@ -176,15 +176,15 @@ const AddRecipeForm = ({ categoriesOptions, ingredientsOptions, areasOptions }) 
             <h3 className={styles.categoryTitle}>Category</h3>
             <div className={styles.selectCategory}>
               <SelectField
-                name="category"
+                name="categoryId"
                 options={categoriesOptions}
-                value={formik.values.category}
-                onChange={(val) => formik.setFieldValue('category', val)}
-                onBlur={() => formik.setFieldTouched('category', true)}
+                value={formik.values.categoryId}
+                onChange={(val) => formik.setFieldValue('categoryId', val)}
+                onBlur={() => formik.setFieldTouched('categoryId', true)}
                 placeholder="Select a category"
               />
-              {formik.touched.category && formik.errors.category && (
-                <div className={styles.errorMessage}>{formik.errors.category}</div>
+              {formik.touched.categoryId && formik.errors.categoryId && (
+                <div className={styles.errorMessage}>{formik.errors.categoryId}</div>
               )}
             </div>
           </div>
@@ -206,15 +206,15 @@ const AddRecipeForm = ({ categoriesOptions, ingredientsOptions, areasOptions }) 
           <h3 className={styles.areaTitle}>Area</h3>
           <div className={styles.selectArea}>
             <SelectField
-              name="area"
+              name="areaId"
               options={areasOptions}
-              value={formik.values.area}
-              onChange={(val) => formik.setFieldValue('area', val)}
-              onBlur={() => formik.setFieldTouched('area', true)}
+              value={formik.values.areaId}
+              onChange={(val) => formik.setFieldValue('areaId', val)}
+              onBlur={() => formik.setFieldTouched('areaId', true)}
               placeholder="Area"
             />
-            {formik.touched.area && formik.errors.area && (
-              <div className={styles.errorMessage}>{formik.errors.area}</div>
+            {formik.touched.areaId && formik.errors.areaId && (
+              <div className={styles.errorMessage}>{formik.errors.areaId}</div>
             )}
           </div>
         </div>

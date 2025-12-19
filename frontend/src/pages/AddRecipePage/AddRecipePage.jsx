@@ -25,7 +25,7 @@ const AddRecipePage = () => {
 
   const categoriesOptions = categories.map((category) => ({
     label: category.name,
-    value: category.name,
+    value: category.id,
   }));
 
   const ingredientsOptions = ingredients.map((ingredient) => ({
@@ -36,7 +36,7 @@ const AddRecipePage = () => {
 
   const areasOptions = areas.map((area) => ({
     label: area.name,
-    value: area.name,
+    value: area.id,
   }));
 
   return (
