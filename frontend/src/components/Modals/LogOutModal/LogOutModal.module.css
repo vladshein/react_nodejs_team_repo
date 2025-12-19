@@ -14,11 +14,11 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
-  padding: 80px;
+  padding: 60px 30px;
   border-radius: 30px;
   outline: none;
-  max-width: 120vw;
-  max-height: 120vh;
+  /* max-width: 120vw;
+  max-height: 120vh; */
   overflow: auto;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
   z-index: 1001;
@@ -26,12 +26,23 @@
 
 .closeBtn {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 16px;
+  right: 16px;
   font-size: 24px;
   background: transparent;
   color: white;
   cursor: pointer;
+}
+
+@media only screen and (min-width: 768px) {
+  .modal {
+    padding: 80px;
+  }
+
+  .closeBtn {
+    top: 20px;
+    right: 20px;
+  }
 }
 
 .image {
@@ -60,27 +71,60 @@
 
 .container {
   display: flex;
-  width: 400px;
+  width: 283px;
   padding: 0px;
   flex-direction: column;
   border: none;
 }
 
+@media only screen and (min-width: 768px) {
+  .container {
+    width: 400px;
+  }
+}
+
 .head {
   color: var(--cl-black, #050505);
-  font-size: 32px;
+  font-size: 28px;
   font-style: bold;
   font-weight: var(--fw-800);
   line-height: var(--lh-120); /* 120% */
+  text-align: center;
   margin-bottom: 20px;
 }
 
+@media only screen and (min-width: 768px) {
+  .head {
+    font-size: 32px;
+  }
+}
+
 .text {
-  color: var(--cl-dark-gray);
-  font-size: 16px;
+  color: var(--cl-light-gray);
+  font-size: 14px;
   line-height: 1.5;
   text-align: center;
-  margin-bottom: 40px;
+  margin-bottom: 32px;
+}
+
+@media only screen and (min-width: 768px) {
+  .text {
+    color: var(--cl-dark-gray);
+    font-size: 16px;
+    margin-bottom: 40px;
+  }
+}
+
+.btnsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+@media only screen and (min-width: 768px) {
+  .btnsContainer {
+    gap: 20px;
+  }
 }
 
 .btn {
@@ -93,12 +137,17 @@
   background: var(--cl-black);
   border: none;
   color: var(--cl-white);
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   line-height: 1.2;
-  margin-bottom: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
+}
+
+@media only screen and (min-width: 768px) {
+  .btn {
+    font-size: 16px;
+  }
 }
 
 .btn:hover {
@@ -116,4 +165,8 @@
 .btnCancel:hover {
   background: var(--cl-black);
   color: var(--cl-white);
+}
+
+.bodyModalOpen {
+  overflow: hidden;
 }

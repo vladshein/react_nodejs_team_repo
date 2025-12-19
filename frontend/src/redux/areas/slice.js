@@ -18,7 +18,10 @@ const areasSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchAreas.pending, handlePending)
-      .addCase(fetchAreas.fulfilled, (state, action) => {})
+      .addCase(fetchAreas.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.areas = action.payload;
+      })
       .addCase(fetchAreas.rejected, (state, action) => {
         state.isLoading = false;
         state.error = action.payload;
