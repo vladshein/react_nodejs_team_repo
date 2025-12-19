@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom'; // 1. Імпортуємо хук
+// import { useParams } from 'react-router-dom';
 import { fetchFollowers } from './../../../redux/users/actions';
 import { selectFollowers } from './../../../redux/users/selectors';
 
@@ -9,25 +9,30 @@ import UserList from '../UserList/UserList';
 
 const UserFollowers = () => {
   const dispatch = useDispatch();
-  const { id } = useParams(); // 2. Дістаємо id з адресної стрічки (наприклад, з /user/6432...)
+  // const { id } = useParams();
   const followers = useSelector(selectFollowers);
 
+  console.log('const followers = useSelector(selectFollowers): ', followers);
+
   useEffect(() => {
-    // 3. Передаємо id в екшн, тільки якщо він існує
-    if (id) {
-      // dispatch(fetchFollowers(id));
-      console.log('Followers fetch is disabled for now');
-    }
-  }, [dispatch, id]); // Додаємо id в залежності
+    // if (id) {
+    //   console.log('Followers fetch is disabled for now');
+    // }
+    dispatch(fetchFollowers);
+  }, []);
 
   return (
     <div className={styles.listContainer}>
-      {/* 4. Не роби map тут! UserList сам зробить map. 
-          Просто передай йому масив users. */}
       {followers && followers.length > 0 ? (
-        <UserList users={followers} />
+        <ul className={styles.list}>
+          {followers.map((follower) => (
+            <li key={follower._id || follower.id} className={styles.item}>
+              <UserList user={follower} />
+            </li>
+          ))}
+        </ul>
       ) : (
-        <p>No followers yet.</p>
+        <p className={styles.emptyText}>No followers yet.</p>
       )}
     </div>
   );
