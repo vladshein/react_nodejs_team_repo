@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 export const PublishRecipeSchema = Yup.object().shape({
-  thumb: Yup.mixed().required('Thumbnail image is required'),
+  thumb: Yup.mixed().required('Dish photo is required'),
   title: Yup.string()
     .min(3, 'Title must be at least 3 characters')
     .max(50, 'Title must be 50 characters at most')
