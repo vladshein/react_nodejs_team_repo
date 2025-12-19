@@ -24,3 +24,15 @@ export const getUserById = async (req, res) => {
   const result = await service.getUserById(userId);
   res.json(result);
 };
+
+export const getFollowingController = async (req, res) => {
+  const userId = req.user.id;
+  const followingsList = await service.getFollowingsList(userId);
+  res.json(followingsList);
+};
+
+export const getFollowersController = async (req, res) => {
+  const userId = req.user.id;
+  const followersList = await service.getFollowersList(userId);
+  res.json(followersList);
+};

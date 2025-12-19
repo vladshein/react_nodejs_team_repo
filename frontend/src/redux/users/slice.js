@@ -44,8 +44,14 @@ const usersSlice = createSlice({
         state.selectedUser = action.payload;
       })
       .addCase(updateAvatar.fulfilled, (state, action) => {})
-      .addCase(fetchFollowers.fulfilled, (state, action) => {})
-      .addCase(fetchFollowing.fulfilled, (state, action) => {})
+      .addCase(fetchFollowers.fulfilled, (state, action) => {
+        state.loading = false;
+        state.followers = action.payload;
+      })
+      .addCase(fetchFollowing.fulfilled, (state, action) => {
+        state.loading = false;
+        state.following = action.payload;
+      })
       .addCase(followUser.fulfilled, (state, action) => {})
       .addCase(unfollowUser.fulfilled, (state, action) => {})
       .addMatcher(

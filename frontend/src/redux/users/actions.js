@@ -41,7 +41,8 @@ const fetchFollowers = createAsyncThunk(
   userActions.FETCH_FOLLOWERS,
   async (_, { rejectWithValue }) => {
     try {
-      // api call to fetch followers
+      const { data } = await userService.fetchFollowers();
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -52,6 +53,8 @@ const fetchFollowing = createAsyncThunk(
   userActions.FETCH_FOLLOWING,
   async (_, { rejectWithValue }) => {
     try {
+      const { data } = await userService.fetchFollowing();
+      return data;
       // api call to fetch following
     } catch (error) {
       return rejectWithValue(error.message);

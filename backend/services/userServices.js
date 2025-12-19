@@ -97,3 +97,50 @@ export const getUserById = async (userId) => {
     followersCount: followerCount,
   };
 };
+
+export const getFollowingsList = async (userId) => {
+  const user = await User.findByPk(userId, {
+    include: [
+      {
+        model: User,
+        as: 'following',
+        attributes: ['id', 'name', 'email', 'avatar'],
+        through: { attributes: [] },
+        include: [
+          {
+            model: Recipe,
+            as: 'recipesHas',
+            attributes: ['id', 'title', 'thumb'],
+            limit: 4,
+          },
+        ],
+      },
+    ],
+  });
+
+  return user ? user.following : [];
+};
+
+export const getFollowersList = async (userId) => {
+  // Використовуємо findByPk, щоб знайти конкретного користувача та його підписників
+  const user = await User.findByPk(userId, {
+    include: [
+      {
+        model: User,
+        as: 'followers', // Має збігатися з асоціацією belongsToMany у вашому файлі
+        attributes: ['id', 'name', 'email', 'avatar'],
+        through: { attributes: [] },
+        include: [
+          {
+            model: Recipe,
+            as: 'recipesHas', // У вашому коді User.hasMany(Recipe) має саме такий аліас
+            attributes: ['id', 'title', 'thumb'],
+            limit: 4,
+          },
+        ],
+      },
+    ],
+  });
+
+  return user ? user.followers : [];
+};
