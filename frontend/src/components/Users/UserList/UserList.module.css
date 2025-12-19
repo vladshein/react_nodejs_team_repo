@@ -1,0 +1,227 @@
+/* =========================================
+   2. ADAPTIVE ZONE (MOBILE STANDARD: 375px+)
+   ========================================= */
+/* @media screen and (min-width: 375px)  */
+
+.card {
+  display: flex;
+  align-items: flex-start;
+  box-sizing: border-box;
+  gap: 16px;
+  background-color: #fff;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 343px;
+}
+
+.card+.card {
+  border-top: 1px solid #BFBEBE;
+}
+
+@media screen and (min-width: 768px) {
+  .card {
+    max-width: 744px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .card {
+    max-width: 846px;
+  }
+}
+
+.avatarWrapper {
+  flex-shrink: 0;
+  /* margin-left: 16px; */
+}
+
+.avatar {
+  display: block;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: #f2f2f2;
+}
+
+@media screen and (min-width: 768px) {
+  .avatar {
+    width: 85px;
+    height: 85px;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  justify-content: flex-end;
+  align-content: space-between;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 4px;
+  width: 85px;
+}
+
+.name {
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #050505;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  display: block;
+}
+
+@media screen and (min-width: 768px) {
+  .name {
+    margin-bottom: 4px;
+    font-size: 20px;
+    line-height: 1.2;
+  }
+}
+
+.recipesInfo {
+  font-size: 12px;
+  line-height: 1.5;
+  margin-bottom: 4px;
+  color: #BFBEBE;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+@media screen and (min-width: 768px) {
+  .recipesInfo {
+    font-size: 14px;
+    line-height: 1.43;
+  }
+}
+
+.recipePreviews {
+  display: none;
+}
+
+.arrowLink {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #050505;
+  opacity: 0.6;
+  padding: 4px;
+  margin: 0;
+  border: 1px solid #BFBEBE;
+  border-radius: 50%;
+
+}
+
+.iconArrow {
+  fill: currentColor;
+  width: 16px;
+  height: 16px;
+}
+
+.actionBtn {
+  width: 92px;
+  height: 36px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  line-height: 1.43;
+
+}
+
+.actionBtn.actionBtn {
+  padding: 0;
+  background-color: transparent;
+  border: 1px solid #BFBEBE;
+
+  color: #1A1A1A;
+}
+
+.actionBtn[data-variant="outlined"] {
+  background-color: transparent;
+  border: 1px solid #BFBEBE;
+
+  color: #1A1A1A;
+}
+
+@media screen and (min-width: 768px) {
+  .content {
+    gap: 60px;
+  }
+
+
+  .card {
+    padding: 32px 0;
+  }
+
+
+  .header {
+    gap: 4px;
+    width: 116px;
+    /* height: 100px; */
+  }
+
+
+  .header {
+    margin-bottom: 8px;
+  }
+
+  .recipesInfo {
+    font-size: 14px;
+    margin-bottom: 16px;
+  }
+
+  .followBtn,
+  .unfollowBtn {
+    padding: 10px 24px;
+    font-size: 14px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .recipePreviews {
+      display: flex;
+      gap: 12px;
+      list-style: none;
+      padding: 0;
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+
+    .recipeItem {
+      width: 100px;
+      height: 100px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .recipeImage {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+  }
+}
+
+/* =========================================
+   4. DESKTOP (1440px+)
+   ========================================= */
+@media screen and (min-width: 1440px) {
+  .card:hover {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
+}

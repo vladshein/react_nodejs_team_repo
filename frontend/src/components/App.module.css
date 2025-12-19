@@ -2,6 +2,12 @@
   margin: 0 auto;
   padding: 12px;
   text-align: center;
+  --bg: #fafafa;
+  --card-bg: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --radius: 16px;
 }
 
 /* Styles for Mobile devices */

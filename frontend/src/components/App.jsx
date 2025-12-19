@@ -11,18 +11,10 @@ const NotFoundPage = lazy(() => import('../pages/NotFoundPage/NotFoundPage'));
 // --- USER PROFILE SUB-COMPONENTS ---
 // Ці компоненти зараз використовують мок-дані для візуалізації структури.
 // TODO: Підключити реальну логіку Redux та замінити заглушки.
-const UserRecipes = lazy(
-  () => import('../components/SharedLayoutComponents/UserRecipes/UserRecipes')
-);
-const UserFavorites = lazy(
-  () => import('../components/SharedLayoutComponents/UserFavorites/UserFavorites')
-);
-const UserFollowers = lazy(
-  () => import('../components/SharedLayoutComponents/UserFollowers/UserFollowers')
-);
-const UserFollowing = lazy(
-  () => import('../components/SharedLayoutComponents/UserFollowing/UserFollowing')
-);
+const UserRecipes = lazy(() => import('../components/Users/UserRecipes/UserRecipes'));
+const UserFavorites = lazy(() => import('../components/Users/UserFavorites/UserFavorites'));
+const UserFollowers = lazy(() => import('../components/Users/UserFollowers/UserFollowers'));
+const UserFollowing = lazy(() => import('../components/Users/UserFollowing/UserFollowing'));
 
 import style from './App.module.css';
 import Categories from './HomePageComponents/Categories/Categories';
@@ -60,16 +52,16 @@ const App = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
 
-          {/* <Route path="/recipe/add" element={<PrivateRoute element={<AddRecipePage />} />} /> */}
-          <Route path="/recipe/add" element={<AddRecipePage />} />
-          <Route path="/recipe/:id" element={<RecipePage />} />
-          <Route path="/user/:id" element={<UserPage />}>
-            <Route index element={<Navigate to="recipes" replace />} />
-            <Route path="recipes" element={<UserRecipes />} />
-            <Route path="favorites" element={<UserFavorites />} />
-            <Route path="followers" element={<UserFollowers />} />
-            <Route path="following" element={<UserFollowing />} />
-          </Route>
+        <Route path="/recipe/add" element={<PrivateRoute element={<AddRecipePage />} />} />
+        {/* <Route path="/recipe/add" element={<AddRecipePage />} /> */}
+        <Route path="/recipe/:id" element={<RecipePage />} />
+        <Route path="/user/:id" element={<UserPage />}>
+          <Route index element={<Navigate to="recipes" replace />} />
+          <Route path="recipes" element={<UserRecipes />} />
+          <Route path="favorites" element={<UserFavorites />} />
+          <Route path="followers" element={<UserFollowers />} />
+          <Route path="following" element={<UserFollowing />} />
+        </Route>
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

@@ -1,0 +1,7 @@
+.subtitle {
+  max-width: 600px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}

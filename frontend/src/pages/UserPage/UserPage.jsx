@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useParams, Outlet, NavLink } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import UserInfo from '../../components/SharedLayoutComponents/UserInfo/UserInfo';
+import UserInfo from '../../components/Users/UserInfo/UserInfo';
 import styles from './UserPage.module.css';
 import { fetchUser } from '../../redux/users/actions';
 

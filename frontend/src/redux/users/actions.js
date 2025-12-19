@@ -3,7 +3,7 @@ import { userActions } from './constants';
 
 const fetchUser = createAsyncThunk(userActions.FETCH_USER, async (userId, { rejectWithValue }) => {
   try {
-    // const response = await fetch(`/api/users/${userId}`);
+    // const response = await fetch(`/users/${userId}`);
   } catch (error) {
     return rejectWithValue(error.message);
   }
