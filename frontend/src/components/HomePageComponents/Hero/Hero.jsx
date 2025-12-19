@@ -1,6 +1,6 @@
 import style from './Hero.module.css';
 import Header from '../../SharedLayoutComponents/Header/Header';
-import RequireAuthAction from '../../RequireAuthAction/RequireAuthAction';
+import RequireAuthAction from '../../RequireAuthAction/RequireAuthAction.jsx';
 import { NavLink } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 

@@ -1,4 +1,4 @@
-import RequireAuthAction from '../../RequireAuthAction/RequireAuthAction';
+import RequireAuthAction from '../../RequireAuthAction/RequireAuthAction.jsx';
 import style from './HeaderNav.module.css';
 import { NavLink } from 'react-router-dom';
 

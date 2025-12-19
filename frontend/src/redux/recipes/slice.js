@@ -10,6 +10,7 @@ import {
   addToFavorites,
   removeFromFavorites,
 } from './actions';
+import { logout } from '../auth/actions';
 
 const handlePending = (state) => {
   state.isLoading = true;
@@ -60,6 +61,13 @@ const recipesSlice = createSlice({
 
       .addCase(addToFavorites.fulfilled, (state, action) => {})
       .addCase(removeFromFavorites.fulfilled, (state, action) => {})
+      .addCase(logout.fulfilled, (state) => {
+        state.allRecipes = [];
+        state.myRecipes = [];
+        state.favorites = [];
+        state.topRecipes = [];
+        state.selectedRecipe = null;
+      })
       .addMatcher(
         isAnyOf(
           fetchRecipes.rejected,
