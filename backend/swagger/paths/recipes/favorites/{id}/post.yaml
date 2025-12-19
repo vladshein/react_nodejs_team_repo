@@ -9,7 +9,6 @@ parameters:
   - in: path
     name: id
     schema:
-      type: integer
       example: 7
 responses:
   '200':

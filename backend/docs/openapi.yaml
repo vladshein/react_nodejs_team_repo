@@ -93,8 +93,8 @@ paths:
     get:
       $ref: ./../swagger/paths/recipes/my/get.yaml
   /recipes/favorites/{id}:
-    patch:
-      $ref: ./../swagger/paths/recipes/favorites/{id}/patch.yaml
+    post:
+      $ref: ./../swagger/paths/recipes/favorites/{id}/post.yaml
     delete:
       $ref: ./../swagger/paths/recipes/favorites/{id}/delete.yaml
   /recipes/favorites:
