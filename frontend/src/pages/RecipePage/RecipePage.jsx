@@ -16,7 +16,7 @@ const RecipePage = () => {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/recipes/${id}`);
+        const res = await fetch(`https://react-nodejs-team-repo.onrender.com/api/recipes/${id}`);
         if (!res.ok) throw new Error('Failed to load recipe');
 
         const data = await res.json();
