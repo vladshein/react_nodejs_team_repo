@@ -1,5 +1,10 @@
-import { useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useFormik } from 'formik';
+import toast from 'react-hot-toast';
+import { useDispatch, useSelector } from 'react-redux';
+import { PublishRecipeSchema } from '../../../validation/recipe';
+import { publishRecipe } from '../../../redux/recipes/actions';
+import { selectRecipesError } from '../../../redux/recipes/selectors';
 import Button from '../../common/button/Button';
 import SelectField from '../../common/SelectField/SelectField';
 import TimeInputField from '../TimeInputField/TimeInputField';
@@ -7,8 +12,8 @@ import TextAreaField from '../TextAreaField/TextAreaField';
 import UploadPhoto from '../UploadPhoto/UploadPhoto';
 import IconPlus from '../../common/icons/IconPlus';
 import IconTrash from '../../common/icons/IconTrash';
-import styles from './AddRecipeForm.module.css';
 import PickedIngredientsList from '../PickedIngredientsList/PickedIngredientsList';
+import styles from './AddRecipeForm.module.css';
 
 const initialValues = {
   title: '',
@@ -21,51 +26,57 @@ const initialValues = {
   thumb: '',
 };
 
-const AddRecipeForm = () => {
+const AddRecipeForm = ({ categoriesOptions, ingredientsOptions, areasOptions }) => {
+  const objectUrlRef = useRef(null);
   const [thumbPreview, setThumbPreview] = useState(null);
+  const dispatch = useDispatch();
+  const recipeErrorState = useSelector(selectRecipesError);
   const [currentIngredient, setCurrentIngredient] = useState('');
   const [currentQuantity, setCurrentQuantity] = useState('');
 
-  const categoryOptions = [
-    { label: 'Breakfast', value: 'Breakfast' },
-    { label: 'Beef', value: 'Beef' },
-    { label: 'Chicken', value: 'Chicken' },
-    { label: 'Dessert', value: 'Dessert' },
-    { label: 'Goat', value: 'Goat' },
-  ];
-
-  const areaOptions = [
-    { id: '1', value: 'American', label: 'American' },
-    { id: '2', value: 'British', label: 'British' },
-    { id: '3', value: 'Canadian', label: 'Canadian' },
-    { id: '4', value: 'Ukrainian', label: 'Ukrainian' },
-  ];
-
-  const ingredientsOptions = [
-    { id: '1', value: 'Chicken', label: 'Chicken' },
-    { id: '2', value: 'Beef', label: 'Beef' },
-    { id: '3', value: 'Carrot', label: 'Carrot' },
-    { id: '4', value: 'Potato', label: 'Potato' },
-  ];
+  useEffect(() => {
+    if (recipeErrorState) {
+      toast.error(recipeErrorState);
+    }
+  }, [recipeErrorState]);
 
   const formik = useFormik({
     initialValues,
+    validationSchema: PublishRecipeSchema,
     onSubmit: (values) => {
-      console.log(values);
+      const formData = new FormData();
+      formData.append('title', values.title);
+      formData.append('description', values.description);
+      formData.append('category', values.category);
+      formData.append('time', values.time);
+      formData.append('area', values.area);
+      formData.append('instructions', values.instructions);
+
+      if (values.thumb instanceof File) {
+        formData.append('thumb', values.thumb);
+      }
+
+      formData.append('ingredients', JSON.stringify(values.ingredients));
+
+      dispatch(publishRecipe(formData));
+      formik.resetForm();
+      setThumbPreview(null);
     },
   });
 
   const handleFileChange = (event) => {
-    const file = event.currentTarget.files[0];
-    if (file) {
-      formik.setFieldValue('thumb', file);
+    const file = event.currentTarget.files?.[0];
+    if (!file) return;
+    formik.setFieldValue('thumb', file);
 
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setThumbPreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+    if (objectUrlRef.current) {
+      URL.revokeObjectURL(objectUrlRef.current);
+      objectUrlRef.current = null;
     }
+
+    const previewUrl = URL.createObjectURL(file);
+    objectUrlRef.current = previewUrl;
+    setThumbPreview(previewUrl);
   };
 
   const autoResize = (textarea) => {
@@ -91,12 +102,21 @@ const AddRecipeForm = () => {
   const handleAddIngredient = (e) => {
     e.preventDefault();
     if (currentIngredient && currentQuantity) {
-      const selectedOption = ingredientsOptions.find((opt) => opt.value === currentIngredient);
+      if (formik.values.ingredients.some((item) => item.id === currentIngredient)) {
+        toast.error('This ingredient already added');
+        return;
+      }
+
+      const selectedOption = ingredientsOptions.find((opt) => {
+        return opt.value === currentIngredient;
+      });
       const newIngredient = {
-        id: selectedOption?.id,
+        id: selectedOption?.value,
         quantity: currentQuantity,
       };
+
       formik.setFieldValue('ingredients', [...formik.values.ingredients, newIngredient]);
+      console.log('Picked', formik.values.ingredients);
       setCurrentIngredient('');
       setCurrentQuantity('');
     }
@@ -115,9 +135,10 @@ const AddRecipeForm = () => {
           onChange={handleFileChange}
           onBlur={formik.handleBlur}
           thumbPreview={thumbPreview}
+          isError={formik.touched.thumb && formik.errors.thumb}
         />
         {formik.touched.thumb && formik.errors.thumb && (
-          <div className={styles.uploadPhotoError}>{formik.errors.thumb}</div>
+          <div className={styles.errorMessage}>{formik.errors.thumb}</div>
         )}
       </div>
       <div className={styles.recipeInfo}>
@@ -132,7 +153,7 @@ const AddRecipeForm = () => {
             className={styles.inputTitle}
           />
           {formik.touched.title && formik.errors.title && (
-            <div className={styles.inputError}>{formik.errors.title}</div>
+            <div className={styles.errorMessage}>{formik.errors.title}</div>
           )}
         </div>
         <div className={styles.descriptionWrapper}>
@@ -144,7 +165,11 @@ const AddRecipeForm = () => {
             maxLength={maxDescriptionLength}
             currentLength={descriptionLength}
             placeholder="Enter a description of the dish"
+            isError={formik.touched.description && formik.errors.description}
           />
+          {formik.touched.description && formik.errors.description && (
+            <div className={styles.errorMessage}>{formik.errors.description}</div>
+          )}
         </div>
         <div className={styles.categoryAndTimeWrapper}>
           <div className={styles.selectCategoryWrapper}>
@@ -152,12 +177,15 @@ const AddRecipeForm = () => {
             <div className={styles.selectCategory}>
               <SelectField
                 name="category"
-                options={categoryOptions}
+                options={categoriesOptions}
                 value={formik.values.category}
                 onChange={(val) => formik.setFieldValue('category', val)}
                 onBlur={() => formik.setFieldTouched('category', true)}
                 placeholder="Select a category"
               />
+              {formik.touched.category && formik.errors.category && (
+                <div className={styles.errorMessage}>{formik.errors.category}</div>
+              )}
             </div>
           </div>
           <div className={styles.timeInputWrapper}>
@@ -168,6 +196,9 @@ const AddRecipeForm = () => {
                 value={formik.values.time}
                 onChange={(newValue) => formik.setFieldValue('time', newValue)}
               />
+              {formik.touched.time && formik.errors.time && (
+                <div className={styles.errorMessage}>{formik.errors.time}</div>
+              )}
             </div>
           </div>
         </div>
@@ -176,12 +207,15 @@ const AddRecipeForm = () => {
           <div className={styles.selectArea}>
             <SelectField
               name="area"
-              options={areaOptions}
+              options={areasOptions}
               value={formik.values.area}
               onChange={(val) => formik.setFieldValue('area', val)}
               onBlur={() => formik.setFieldTouched('area', true)}
               placeholder="Area"
             />
+            {formik.touched.area && formik.errors.area && (
+              <div className={styles.errorMessage}>{formik.errors.area}</div>
+            )}
           </div>
         </div>
         <div className={styles.ingredientsWrapper}>
@@ -200,9 +234,12 @@ const AddRecipeForm = () => {
               placeholder="Enter quantity"
               value={currentQuantity}
               onChange={(e) => setCurrentQuantity(e.target.value)}
-              className={styles.quantityInput}
+              className={`${styles.quantityInput} ${formik.touched.ingredients && formik.errors.ingredients ? styles.quantityInputError : ''}`}
             />
           </div>
+          {formik.touched.ingredients && formik.errors.ingredients && (
+            <div className={styles.errorMessage}>{formik.errors.ingredients}</div>
+          )}
           <Button
             variant="outlined"
             onClick={handleAddIngredient}
@@ -228,7 +265,11 @@ const AddRecipeForm = () => {
             maxLength={maxInstructionsLength}
             currentLength={instructionsLength}
             placeholder="Enter recipe"
+            isError={formik.touched.instructions && formik.errors.instructions}
           />
+          {formik.touched.instructions && formik.errors.instructions && (
+            <div className={styles.errorMessage}>{formik.errors.instructions}</div>
+          )}
         </div>
         <div className={styles.buttonsBlock}>
           <Button
