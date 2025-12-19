@@ -1,10 +1,35 @@
 .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
   background-color: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  padding: 24px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 30px;
+  width: 100%;
+  max-width: 343px;
+  border: 1px solid #BFBEBE;
+  padding: 30px 20px;
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    width: 394px;
+    max-width: none;
+    padding: 40px 80px;
+    gap: 20px;
+    min-height: 408px;
+    border: 1px solid #BFBEBE;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .container {
+    border: 1px solid #050505;
+    margin: 0 75px 0 0;
+
+    max-width: 394px;
+  }
 }
 
 .avatarWrapper {
