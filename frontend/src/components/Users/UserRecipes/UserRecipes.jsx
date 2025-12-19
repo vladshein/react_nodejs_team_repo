@@ -1,7 +1,14 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectMyRecipes } from '../../../redux/recipes/selectors';
+import { useEffect } from 'react';
+import { fetchMyRecipes } from '../../../redux/recipes/actions';
 
 const UserRecipes = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchMyRecipes()).unwrap();
+  }, [dispatch]);
+
   const recipes = useSelector(selectMyRecipes);
   const recipesList = recipes.recipes || [];
   console.log(recipes);

@@ -46,6 +46,7 @@ const recipesSlice = createSlice({
       .addCase(fetchFavoriteRecipes.pending, handlePending)
       .addCase(fetchFavoriteRecipes.fulfilled, (state, action) => {
         state.favorites = action.payload; //recipes + pagination
+        state.isLoading = false;
       })
 
       .addCase(addToFavorites.pending, handlePending)

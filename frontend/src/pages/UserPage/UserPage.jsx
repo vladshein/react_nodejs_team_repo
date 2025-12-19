@@ -5,7 +5,6 @@ import UserInfo from '../../components/Users/UserInfo/UserInfo';
 import styles from './UserPage.module.css';
 import { fetchUser, current } from '../../redux/users/actions';
 import {} from '../../redux/users/selectors';
-import { fetchMyRecipes } from '../../redux/recipes/actions';
 
 const UserPage = () => {
   const dispatch = useDispatch();
@@ -14,7 +13,6 @@ const UserPage = () => {
   useEffect(() => {
     if (id === 'current') {
       dispatch(current()).unwrap();
-      dispatch(fetchMyRecipes()).unwrap();
       return;
     }
     dispatch(fetchUser(id)).unwrap();
