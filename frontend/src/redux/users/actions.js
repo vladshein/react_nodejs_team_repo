@@ -1,11 +1,28 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { userActions } from './constants';
+import { userService } from '../../services/userService';
 
 const fetchUser = createAsyncThunk(userActions.FETCH_USER, async (userId, { rejectWithValue }) => {
   try {
-    // const response = await fetch(`/users/${userId}`);
+    const data = await userService.fetchUser(userId);
+    return data;
   } catch (error) {
-    return rejectWithValue(error.message);
+    return rejectWithValue({
+      status: error.response?.status,
+      message: error.response?.data?.message || error.message,
+    });
+  }
+});
+
+const current = createAsyncThunk(userActions.FETCH_CURRENT_USER, async (_, { rejectWithValue }) => {
+  try {
+    const { data } = await userService.current();
+    return data;
+  } catch (error) {
+    return rejectWithValue({
+      status: error.response?.status,
+      message: error.response?.data?.message || error.message,
+    });
   }
 });
 
@@ -64,4 +81,12 @@ const unfollowUser = createAsyncThunk(
   }
 );
 
-export { fetchUser, updateAvatar, fetchFollowers, fetchFollowing, followUser, unfollowUser };
+export {
+  current,
+  fetchUser,
+  updateAvatar,
+  fetchFollowers,
+  fetchFollowing,
+  followUser,
+  unfollowUser,
+};

@@ -52,7 +52,10 @@ const recipesSlice = createSlice({
       .addCase(removeFromFavorites.pending, handlePending)
       .addCase(fetchRecipeDetails.fulfilled, (state, action) => {})
       .addCase(fetchTopRecipes.fulfilled, (state, action) => {})
-      .addCase(fetchMyRecipes.fulfilled, (state, action) => {})
+      .addCase(fetchMyRecipes.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.myRecipes = action.payload;
+      })
       .addCase(publishRecipe.fulfilled, (state, action) => {
         state.isLoading = false;
         state.myRecipes.push(action.payload);

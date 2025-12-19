@@ -1,24 +1,29 @@
-import { useEffect } from 'react';
 import { useParams, Outlet, NavLink } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import UserInfo from '../../components/Users/UserInfo/UserInfo';
 import styles from './UserPage.module.css';
-import { fetchUser } from '../../redux/users/actions';
+import { fetchUser, current } from '../../redux/users/actions';
+import {} from '../../redux/users/selectors';
+import { fetchMyRecipes } from '../../redux/recipes/actions';
 
 const UserPage = () => {
-  const { id } = useParams();
   const dispatch = useDispatch();
+  const { id } = useParams();
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchUser(id));
+    if (id === 'current') {
+      dispatch(current()).unwrap();
+      dispatch(fetchMyRecipes()).unwrap();
+      return;
     }
+    dispatch(fetchUser(id)).unwrap();
   }, [dispatch, id]);
 
   return (
     <div className={styles.pageContainer}>
       <aside className={styles.sidebar}>
-        <UserInfo />
+        <UserInfo id={id} />
 
         <nav className={styles.navMenu}>
           <NavLink to="recipes" className={({ isActive }) => (isActive ? styles.active : '')}>
