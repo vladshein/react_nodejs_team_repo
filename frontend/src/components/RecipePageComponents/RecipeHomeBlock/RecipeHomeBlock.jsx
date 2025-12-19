@@ -10,7 +10,7 @@ import MainTitle from './../../common/MainTitle/MainTitle';
 import SubTitle from './../../common/SubTitle/SubTitle';
 import RecipeFilters from './../RecipeFilters/RecipeFilters';
 import RecipeList from '../RecipeList/RecipeList';
-import RecipePagination from './../RecipePagination/RecipePagination';
+import Pagination from './../../common/Pagination/Pagination';
 import Spinner from './../../common/Loader/Loader';
 
 const RecipeHomeBlock = () => {
@@ -23,17 +23,17 @@ const RecipeHomeBlock = () => {
     category: '6462a6cd4c3d0ddd28897f8a', // Seafood
     ingredient: '',
     area: '',
+    page: 1, // pagination
   });
   // get data from backend
   useEffect(() => {
     dispatch(fetchRecipes(filters));
   }, [filters]);
-  // filter handlers
 
+  // handlers
   const callbackFuncions = {
     // ingredient
     handleIngredient: (value) => {
-      console.log('ind', value);
       setFilters((prev) => ({
         ...prev,
         ingredient: value,
@@ -44,6 +44,13 @@ const RecipeHomeBlock = () => {
       setFilters((prev) => ({
         ...prev,
         area: value,
+      }));
+    },
+    // pagination
+    handlePagination: (value) => {
+      setFilters((prev) => ({
+        ...prev,
+        page: value,
       }));
     },
   };
@@ -76,10 +83,10 @@ const RecipeHomeBlock = () => {
 
         <div className={styles.recipePagination}>
           {!spin && pagination ? (
-            <RecipePagination
+            <Pagination
               currentPage={pagination.page}
               totalPages={pagination.totalPages}
-              onChange={null}
+              onChange={callbackFuncions.handlePagination}
             />
           ) : (
             ''
