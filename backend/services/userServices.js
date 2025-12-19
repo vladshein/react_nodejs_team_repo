@@ -120,22 +120,28 @@ export const getFollowingsList = async (userId, limit = 5, page = 1) => {
     offset: (page - 1) * limit,
   });
 
-  return user ? user.following : [];
+  const followingListWithRecipesCount = await Promise.all(
+    user.following.map(async (user) => {
+      const count = await Recipe.count({ where: { ownerId: user.id } });
+      return { ...user.dataValues, recipesCount: count };
+    })
+  );
+
+  return followingListWithRecipesCount;
 };
 
 export const getFollowersList = async (userId, limit = 5, page = 1) => {
-  // Використовуємо findByPk, щоб знайти конкретного користувача та його підписників
   const user = await User.findByPk(userId, {
     include: [
       {
         model: User,
-        as: 'followers', // Має збігатися з асоціацією belongsToMany у вашому файлі
+        as: 'followers',
         attributes: ['id', 'name', 'email', 'avatar'],
         through: { attributes: [] },
         include: [
           {
             model: Recipe,
-            as: 'recipesHas', // У вашому коді User.hasMany(Recipe) має саме такий аліас
+            as: 'recipesHas',
             attributes: ['id', 'title', 'thumb'],
             limit: 4,
           },
@@ -146,5 +152,46 @@ export const getFollowersList = async (userId, limit = 5, page = 1) => {
     offset: (page - 1) * limit,
   });
 
-  return user ? user.followers : [];
+  const followersListWithRecipesCount = await Promise.all(
+    user.followers.map(async (user) => {
+      const count = await Recipe.count({ where: { ownerId: user.id } });
+      return { ...user.dataValues, recipesCount: count };
+    })
+  );
+
+  return followersListWithRecipesCount;
 };
+
+// export const getFollowingsList = async (userId) => {
+//   try {
+//     const followings = await UserFollowers.findAll({
+//       where: { followerId: userId },
+//     });
+//     const followingsIds = followings.map((follow) => follow.followingId);
+
+//     const followingsUsersList = await User.findAll({
+//       where: {
+//         id: followingsIds,
+//       },
+//       attributes: ['id', 'name', 'avatar'],
+//       include: [
+//         {
+//           model: Recipe,
+//           as: 'recipes',
+//           attributes: ['id', 'title', 'thumb'],
+//         },
+//       ],
+//     });
+
+//     const followingListWithRecipesCount = await Promise.all(
+//       followingsUsersList.map(async (user) => {
+//         const count = await Recipe.count({ where: { ownerId: user.id } });
+//         return { ...user.dataValues, recipesCount: count };
+//       })
+//     );
+
+//     return followingListWithRecipesCount;
+//   } catch (error) {
+//     throw error;
+//   }
+// };

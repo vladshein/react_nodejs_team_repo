@@ -8,6 +8,7 @@ import {
   followUser,
   unfollowUser,
 } from './actions';
+import { logout } from '../auth/actions';
 
 const handlePending = (state) => {
   state.loading = true;
@@ -54,6 +55,10 @@ const usersSlice = createSlice({
       })
       .addCase(followUser.fulfilled, (state, action) => {})
       .addCase(unfollowUser.fulfilled, (state, action) => {})
+      .addCase(logout.fulfilled, (state) => {
+        state.currentUser = null;
+        state.selectedUser = null;
+      })
       .addMatcher(
         isAnyOf(
           current.rejected,
