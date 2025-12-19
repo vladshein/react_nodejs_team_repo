@@ -1,0 +1,71 @@
+.burgernav {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  padding: 60px 20px;
+  position: fixed;
+  top: 80px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(5, 5, 5, 0.98);
+  z-index: 999;
+  overflow-y: auto;
+}
+
+.burgerButtons {
+  min-width: 111px;
+  display: flex;
+  padding: 14px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 30px;
+  color: #fff;
+  font-family: 'Mulish', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+  letter-spacing: -0.28px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 1px solid transparent;
+}
+
+.burgerButtons:hover {
+  border: 1px solid #e8e8e8;
+  background: #1a1a1a;
+}
+
+.burgerButtons:active {
+  border: 1px solid #e8e8e8;
+  background: #1a1a1a;
+}
+
+.active {
+  border: 1px solid #bfbebe;
+  background: #1a1a1a;
+}
+
+.dark {
+  color: #050505;
+  background: #f0f0f0;
+}
+
+.dark:hover {
+  background: #e0e0e0;
+  border-color: #050505;
+}
+
+.light {
+  color: #fff;
+}
+
+@media only screen and (min-width: 768px) {
+  .burgernav {
+    display: none;
+  }
+}

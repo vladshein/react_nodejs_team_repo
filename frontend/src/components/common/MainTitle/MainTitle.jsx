@@ -1,9 +1,13 @@
 import styles from './MainTitle.module.css';
 
-const MainTitle = ({ title = 'Main Title Component' }) => {
+const MainTitle = ({ title, text, align = 'center', className = '' }) => {
+  const titleText = title || text || 'Main Title Component';
+  const alignClass = align === 'left' ? styles.left : '';
   return (
     <>
-      <h1>{title.toUpperCase()}</h1>
+      <h1 className={`${styles.title} ${alignClass} ${className}`.trim()}>
+        {titleText.toUpperCase()}
+      </h1>
     </>
   );
 };

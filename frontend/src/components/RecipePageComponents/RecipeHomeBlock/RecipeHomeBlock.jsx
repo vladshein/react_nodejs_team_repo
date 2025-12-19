@@ -1,6 +1,7 @@
 // pavlo
-import { useState, useEffect } from 'react';
+import { useMemo, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { fetchRecipes } from './../../../redux/recipes/actions';
 import { selectAllRecipes, selectIsLoading } from './../../../redux/recipes/selectors';
 
@@ -15,51 +16,72 @@ import Spinner from './../../common/Loader/Loader';
 
 const RecipeHomeBlock = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const { recipes, pagination } = useSelector(selectAllRecipes);
   const spin = useSelector(selectIsLoading);
 
-  // filters
-  const [filters, setFilters] = useState({
-    category: '6462a6cd4c3d0ddd28897f8a', // Seafood
-    ingredient: '',
-    area: '',
-    page: 1, // pagination
-  });
+  // Get category from URL params
+  const categoryIdFromUrl = searchParams.get('category') || '';
+  const categoryNameFromUrl = searchParams.get('name') || 'All Recipes';
+
+  // Other filters (URL is the source of truth)
+  const ingredientFromUrl = searchParams.get('ingredient') || '';
+  const areaFromUrl = searchParams.get('area') || '';
+  const pageFromUrlRaw = Number.parseInt(searchParams.get('page') || '1', 10);
+  const pageFromUrl = Number.isFinite(pageFromUrlRaw) && pageFromUrlRaw > 0 ? pageFromUrlRaw : 1;
+
+  const effectiveFilters = useMemo(
+    () => ({
+      category: categoryIdFromUrl,
+      ingredient: ingredientFromUrl,
+      area: areaFromUrl,
+      page: pageFromUrl,
+      limit: 12,
+    }),
+    [categoryIdFromUrl, ingredientFromUrl, areaFromUrl, pageFromUrl]
+  );
+
   // get data from backend
   useEffect(() => {
-    dispatch(fetchRecipes(filters));
-  }, [filters]);
+    dispatch(fetchRecipes(effectiveFilters));
+  }, [dispatch, effectiveFilters]);
+
+  const updateUrlParams = (updates) => {
+    const next = new URLSearchParams(searchParams);
+
+    Object.entries(updates).forEach(([key, value]) => {
+      if (value === undefined || value === null || value === '') {
+        next.delete(key);
+      } else {
+        next.set(key, String(value));
+      }
+    });
+
+    setSearchParams(next, { replace: true });
+  };
 
   // handlers
   const callbackFuncions = {
     // ingredient
     handleIngredient: (value) => {
-      setFilters((prev) => ({
-        ...prev,
-        ingredient: value,
-      }));
+      updateUrlParams({ ingredient: value, page: 1 });
     },
     // area
     handleArea: (value) => {
-      setFilters((prev) => ({
-        ...prev,
-        area: value,
-      }));
+      updateUrlParams({ area: value, page: 1 });
     },
     // pagination
     handlePagination: (value) => {
-      setFilters((prev) => ({
-        ...prev,
-        page: value,
-      }));
+      updateUrlParams({ page: value });
     },
   };
 
   return (
     <section>
       <div className={styles.recipeContainer}>
-        <Button>Back</Button>
-        <MainTitle text="desserts" />
+        <Button onClick={() => navigate(-1)}>Back</Button>
+        <MainTitle text={categoryNameFromUrl} />
         <SubTitle
           text="Go on a taste journey, where every sip is a sophisticated creative chord, every dessert is
           an expression of the most refined gastronomic desires."
