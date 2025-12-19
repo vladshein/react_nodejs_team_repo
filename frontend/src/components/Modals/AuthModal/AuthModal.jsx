@@ -7,12 +7,14 @@ import SignUpForm from '../SignUpForm/SignUpForm.jsx';
 import IconClose from '../../common/icons/IconClose.jsx';
 import { updateModalProps } from '../../../redux/modal/modalSlice.js';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { selectModalProps } from '../../../redux/modal/selectors.js';
 
 const AuthModal = ({ isOpen, onRequestClose, view }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  const previousPage = location.state?.from?.pathname || '/';
   const modalProps = useSelector(selectModalProps);
 
   const setView = (view) => {
@@ -30,6 +32,9 @@ const AuthModal = ({ isOpen, onRequestClose, view }) => {
         onRequestClose();
         if (modalProps.redirectTo) {
           navigate(modalProps.redirectTo);
+        }
+        if (previousPage) {
+          navigate(previousPage);
         }
       })
       .catch((error) => {

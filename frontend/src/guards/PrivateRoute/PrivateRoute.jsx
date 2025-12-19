@@ -1,42 +1,23 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { selectIsLoading, selectIsLoggedIn, selectIsRefreshing } from '../../redux/auth/selectors';
-import { openModal } from '../../redux/modal/modalSlice';
-import { useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { selectIsLoggedIn, selectIsRefreshing } from '../../redux/auth/selectors';
+import { Navigate, useLocation } from 'react-router-dom';
 
-const PrivateRoute = ({ component: Component }) => {
+const PrivateRoute = ({ element, redirectTo = '/' }) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const isRefreshing = useSelector(selectIsRefreshing);
-  const isLoading = useSelector(selectIsLoading); // Додайте логіку для визначення стану завантаження, якщо потрібно
   const location = useLocation();
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (isLoading || isRefreshing) return;
-
-    if (!isLoggedIn) {
-      dispatch(
-        openModal({
-          modalType: 'auth',
-          modalProps: {
-            view: 'signIn',
-            redirectTo: location.pathname,
-            from: location,
-          },
-        })
-      );
-    }
-  }, [isLoggedIn, isRefreshing, isLoading, dispatch, location]);
 
   if (isRefreshing) {
     return <div>Loading...</div>;
   }
 
   if (!isLoggedIn) {
-    return null;
+    console.log('isRefreshing:', isRefreshing, 'isLoggedIn:', isLoggedIn);
+
+    return <Navigate to={redirectTo} replace state={{ from: location }} />;
   }
 
-  return Component;
+  return element;
 };
 
 export default PrivateRoute;
