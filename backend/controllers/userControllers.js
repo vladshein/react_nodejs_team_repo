@@ -27,12 +27,16 @@ export const getUserById = async (req, res) => {
 
 export const getFollowingController = async (req, res) => {
   const userId = req.user.id;
-  const followingsList = await service.getFollowingsList(userId);
+  const limit = req.query.limit ? req.query.limit : 5;
+  const page = req.query.page ? req.query.page : 1;
+  const followingsList = await service.getFollowingsList(userId, Number(limit), Number(page));
   res.json(followingsList);
 };
 
 export const getFollowersController = async (req, res) => {
   const userId = req.user.id;
-  const followersList = await service.getFollowersList(userId);
+  const limit = req.query.limit ? req.query.limit : 5;
+  const page = req.query.page ? req.query.page : 1;
+  const followersList = await service.getFollowersList(userId, Number(limit), Number(page));
   res.json(followersList);
 };

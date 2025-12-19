@@ -98,7 +98,7 @@ export const getUserById = async (userId) => {
   };
 };
 
-export const getFollowingsList = async (userId) => {
+export const getFollowingsList = async (userId, limit = 5, page = 1) => {
   const user = await User.findByPk(userId, {
     include: [
       {
@@ -116,12 +116,14 @@ export const getFollowingsList = async (userId) => {
         ],
       },
     ],
+    limit: limit,
+    offset: (page - 1) * limit,
   });
 
   return user ? user.following : [];
 };
 
-export const getFollowersList = async (userId) => {
+export const getFollowersList = async (userId, limit = 5, page = 1) => {
   // Використовуємо findByPk, щоб знайти конкретного користувача та його підписників
   const user = await User.findByPk(userId, {
     include: [
@@ -140,6 +142,8 @@ export const getFollowersList = async (userId) => {
         ],
       },
     ],
+    limit: limit,
+    offset: (page - 1) * limit,
   });
 
   return user ? user.followers : [];
