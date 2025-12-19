@@ -14,7 +14,7 @@ const fetchRecipes = createAsyncThunk(
   async (filters, { rejectWithValue }) => {
     try {
       const params = new URLSearchParams(filters);
-      const { data } = await api.get('/api/recipes', { params });
+      const { data } = await api.get('recipes', { params });
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -82,7 +82,9 @@ const fetchFavoriteRecipes = createAsyncThunk(
   recipesActions.FETCH_FAVORITES,
   async (_, { rejectWithValue }) => {
     try {
-      // api call to fetch favorite recipes
+      const { data } = await api.get('recipes/favorites');
+      console.log('redux: ', data);
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }

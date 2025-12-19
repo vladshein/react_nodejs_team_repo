@@ -63,20 +63,26 @@ const RecipeHomeBlock = () => {
           </aside>
           <div className={styles.resipesCardsBlock}>
             <div className={styles.resipesCards}>
-              {!spin && recipes ? <RecipeList recipes={recipes} /> : <Spinner />}
+              {!spin && recipes ? (
+                <RecipeList recipes={recipes} />
+              ) : (
+                <div className={styles.spinCenter}>
+                  <Spinner />
+                </div>
+              )}
             </div>
           </div>
         </div>
 
         <div className={styles.recipePagination}>
-          {pagination ? (
+          {!spin && pagination ? (
             <RecipePagination
               currentPage={pagination.page}
               totalPages={pagination.totalPages}
               onChange={null}
             />
           ) : (
-            'Panding ...'
+            ''
           )}
         </div>
       </div>
