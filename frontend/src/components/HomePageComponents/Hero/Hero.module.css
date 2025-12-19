@@ -1,34 +1,29 @@
 /* Styles for Mobile devices */
 .heroContainer {
+  position: relative;
   min-width: 320px;
-  max-width: 359px;
+  max-width: 100%;
   min-height: 796px;
-  margin: 0 auto;
-  padding: 16px;
-  margin-top: 8px;
-  margin-bottom: 64px;
+  padding: 70px 16px 40px;
   text-align: center;
-  background: var(--Main, #050505);
-  border-radius: 20px;
+  background: #050505;
+  border-radius: 30px;
 }
 
 /* Styles for Tablet devices */
 @media only screen and (min-width: 768px) {
   .heroContainer {
-    max-width: 736px;
     min-height: 992px;
     border-radius: 30px;
-    padding: 20px 32px 0 32px;
-    margin-bottom: 100px;
+    padding: 80px 32px 60px;
   }
 }
 
 @media only screen and (min-width: 1440px) {
   .heroContainer {
-    max-width: 1400px; /* better than fixed width */
-    min-height: 970px; /* better than fixed height */
-    padding: 20px 60px 0 60px;
-    margin-bottom: 120px;
+    min-height: 970px;
+    padding: 90px 60px 80px;
+    border-radius: 30px;
   }
 }
 
@@ -47,6 +42,7 @@
   line-height: 40px; /* 100% */
   letter-spacing: -0.8px;
   text-transform: uppercase;
+  margin-top: 140px;
   margin-bottom: 20px;
 }
 
@@ -64,6 +60,7 @@
   .heroText {
     max-width: 875px;
     margin-left: 197px;
+    margin-top: 151px;
     font-size: 90px;
     line-height: 90px; /* 100% */
     letter-spacing: -1.8px;

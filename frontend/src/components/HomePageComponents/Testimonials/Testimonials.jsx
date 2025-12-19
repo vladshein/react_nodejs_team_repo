@@ -19,7 +19,7 @@ function Subtitle({ tag = 'p', children, className = '' }) {
 }
 
 // const API_BASE = 'https://react-nodejs-team-repo.onrender.com';
-const API_BASE = import.meta.env.VITE_API_URL;
+const API_BASE = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
 console.log(API_BASE);
 
 const Testimonials = () => {
