@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { recipesService } from '../../services/recipesService';
 import { recipesActions } from './constants';
 import api from './../../services/api';
 
@@ -58,9 +59,10 @@ const publishRecipe = createAsyncThunk(
   recipesActions.CREATE_RECIPE,
   async (recipeData, { rejectWithValue }) => {
     try {
-      // api call to create a new recipe with recipeData
+      const data = await recipesService.addRecipe(recipeData);
+      return data;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error.response?.data?.message || error.message);
     }
   }
 );
@@ -80,7 +82,9 @@ const fetchFavoriteRecipes = createAsyncThunk(
   recipesActions.FETCH_FAVORITES,
   async (_, { rejectWithValue }) => {
     try {
-      // api call to fetch favorite recipes
+      const { data } = await api.get('recipes/favorites');
+      console.log('redux: ', data);
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }

@@ -1,14 +1,12 @@
 import styles from './UserInfo.module.css';
 
-// UserInfo.jsx
-
 const UserInfo = () => {
   // 1. Додаємо favorites у Mock Data
   const user = {
     id: 1,
     name: 'Harry Potter',
     avatar: 'https://i.pravatar.cc/300?img=68',
-    bio: 'Cooking is my passion! Creating magic in the kitchen every day.',
+    email: 'victoria28682@gmai.com',
     stats: {
       recipes: 24,
       favorites: 42,
@@ -24,8 +22,7 @@ const UserInfo = () => {
       </div>
 
       <h3 className={styles.name}>{user.name}</h3>
-      <p className={styles.role}>Master Chef</p>
-      <p className={styles.bio}>{user.bio}</p>
+      <p className={styles.bio}>{user.email}</p>
 
       <div className={styles.statsRow}>
         {/* Recipes */}

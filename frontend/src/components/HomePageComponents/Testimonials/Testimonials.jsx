@@ -32,7 +32,7 @@ const Testimonials = () => {
       try {
         setStatus('loading');
 
-        const res = await fetch(`${API_BASE}testimonials`);
+        const res = await fetch(`${API_BASE}/testimonials`);
         if (!res.ok) {
           throw new Error(`HTTP ${res.status}`);
         }

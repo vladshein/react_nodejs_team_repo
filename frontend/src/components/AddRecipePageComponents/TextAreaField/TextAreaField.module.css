@@ -34,6 +34,18 @@
   color: var(--cl-black);
 }
 
+.textareaError {
+  border-color: var(--cl-error);
+}
+
+.textareaError::placeholder {
+  color: var(--cl-error);
+}
+
+.charCountWrapperError {
+  color: var(--cl-error);
+}
+
 @media (min-width: 768px) {
   .areaWrapper {
     margin-top: 40px;

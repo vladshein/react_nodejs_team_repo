@@ -1,7 +1,7 @@
 import IconCamera from '../../common/icons/IconCamera';
 import styles from './UploadPhoto.module.css';
 
-const UploadPhoto = ({ name, onChange, onBlur, thumbPreview }) => {
+const UploadPhoto = ({ name, onChange, onBlur, thumbPreview, isError }) => {
   return (
     <>
       <input
@@ -13,7 +13,9 @@ const UploadPhoto = ({ name, onChange, onBlur, thumbPreview }) => {
         onBlur={onBlur}
         hidden
       />
-      <label htmlFor="photo-upload" className={styles.photoUploadLabel}>
+      <label
+        htmlFor="photo-upload"
+        className={`${styles.photoUploadLabel} ${isError ? styles.errorBorder : ''}`}>
         {thumbPreview ? (
           <div className={styles.previewWrapper}>
             <div className={styles.previewImageContainer}>
@@ -23,8 +25,10 @@ const UploadPhoto = ({ name, onChange, onBlur, thumbPreview }) => {
           </div>
         ) : (
           <div className={styles.cameraWrapper}>
-            <IconCamera className={styles.cameraIcon} />
-            <span className={styles.uploadText}>Upload a photo</span>
+            <IconCamera className={`${styles.cameraIcon} ${isError ? styles.IconError : ''}`} />
+            <span className={`${styles.uploadText} ${isError ? styles.textError : ''}`}>
+              Upload a photo
+            </span>
           </div>
         )}
       </label>
