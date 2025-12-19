@@ -10,12 +10,9 @@ import {
   updateFavoriteRecipeController,
   removeFavoriteRecipeController,
 } from '../controllers/recipesControllers.js';
-import { validateBody, validateQuery, validateParams } from '../helpers/validateFunctions.js';
-import {
-  createRecipeSchema,
-  paginationSchema,
-  deleteRecipeSchema,
-} from '../schemas/recipesSchemas.js';
+import upload from '../middlewares/upload.js';
+import { validateQuery, validateParams } from '../helpers/validateFunctions.js';
+import { paginationSchema, deleteRecipeSchema } from '../schemas/recipesSchemas.js';
 import authenticate from '../middlewares/authenticate.js';
 
 const recipesRouter = express.Router();
@@ -36,7 +33,7 @@ recipesRouter.delete('/favorites/:id', authenticate, removeFavoriteRecipeControl
 recipesRouter.get('/:id', getRecipeByIdController);
 
 // protected recipe CRUD
-recipesRouter.post('/', [authenticate, validateBody(createRecipeSchema)], createRecipeController);
+recipesRouter.post('/', [authenticate, upload.single('thumb')], createRecipeController);
 recipesRouter.delete(
   '/:id',
   [authenticate, validateParams(deleteRecipeSchema)],

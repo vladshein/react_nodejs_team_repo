@@ -103,6 +103,14 @@
   color: var(--cl-light-gray);
 }
 
+.quantityInputError {
+  border-color: var(--cl-error);
+}
+
+.quantityInputError::placeholder {
+  color: var(--cl-error);
+}
+
 .addIngredientButton {
   margin-top: 30px;
   padding: 14px 20px;
@@ -127,6 +135,10 @@
 
 .recipePreparationWrapper {
   margin-top: 64px;
+}
+
+.preparationTitle {
+  margin-bottom: 32px;
 }
 
 /* Buttons Block Styles */
@@ -166,6 +178,12 @@
   text-transform: uppercase;
 }
 
+.errorMessage {
+  color: var(--cl-error);
+  margin-top: 4px;
+  font-size: var(--fs-12);
+}
+
 @media (min-width: 768px) {
   .form {
     margin-top: 40px;
@@ -187,6 +205,7 @@
   .ingredientsTitle,
   .preparationTitle {
     font-size: var(--fs-20);
+    margin-bottom: 0px;
   }
 
   .categoryAndTimeWrapper,

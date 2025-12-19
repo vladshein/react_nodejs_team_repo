@@ -1,6 +1,7 @@
 import recipesServices from '../services/recipesServices.js';
 import HttpError from '../helpers/HttpError.js';
 import { getPagination, formatResponse } from './../helpers/pagination.js';
+import { createRecipeSchema } from '../schemas/recipesSchemas.js';
 
 // +, no owner = public
 export const getRecipesController = async (req, res) => {
@@ -89,7 +90,37 @@ export const deleteRecipeController = async (req, res) => {
 export const createRecipeController = async (req, res) => {
   const { id: ownerId } = req.user;
 
-  const recipe = await recipesServices.addRecipe({ ...req.body, ownerId });
+  let ingredients = req.body.ingredients;
+  if (typeof ingredients === 'string') {
+    try {
+      ingredients = JSON.parse(ingredients);
+    } catch (error) {
+      throw HttpError(400, 'Invalid ingredients format');
+    }
+  }
+
+  // Validate the parsed body with ingredients as array
+  const bodyToValidate = {
+    ...req.body,
+    ingredients: JSON.stringify(ingredients),
+    thumb: req.file.path,
+  };
+
+  const { error, value } = createRecipeSchema.validate(bodyToValidate);
+
+  if (error) {
+    throw HttpError(400, error.message);
+  }
+
+  // Parse ingredients back to array for service
+  const parsedIngredients = JSON.parse(value.ingredients);
+
+  const recipe = await recipesServices.addRecipe({
+    ...value,
+    ingredients: parsedIngredients,
+    ownerId,
+  });
+
   res.status(201).json(recipe);
 };
 

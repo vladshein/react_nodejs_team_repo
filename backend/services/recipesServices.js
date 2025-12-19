@@ -165,21 +165,18 @@ async function deleteRecipe(id, ownerId) {
 }
 
 async function addRecipe(payload) {
-  let categoryId = payload.categoryId;
-  let areaId = payload.areaId;
+  const categoryId = payload.categoryId;
+  const areaId = payload.areaId;
 
-  if (payload.category && !categoryId) {
-    const category = await Category.findOne({ where: { name: payload.category } });
-    if (category) {
-      categoryId = category.id;
-    }
+  // Validate that category and area exist
+  const category = await Category.findByPk(categoryId);
+  if (!category) {
+    throw HttpError(404, 'Category not found');
   }
 
-  if (payload.area && !areaId) {
-    const area = await Area.findOne({ where: { name: payload.area } });
-    if (area) {
-      areaId = area.id;
-    }
+  const area = await Area.findByPk(areaId);
+  if (!area) {
+    throw HttpError(404, 'Area not found');
   }
 
   const newRecipe = await Recipe.create({
@@ -197,7 +194,7 @@ async function addRecipe(payload) {
   // Add ingredients if provided
   if (payload.ingredients && payload.ingredients.length > 0) {
     const ingredientPromises = payload.ingredients.map((ing) =>
-      newRecipe.addIngredient(ing.id, { through: { measure: ing.measure } })
+      newRecipe.addIngredient(ing.id, { through: { measure: ing.measure || ing.quantity } })
     );
     await Promise.all(ingredientPromises);
   }
