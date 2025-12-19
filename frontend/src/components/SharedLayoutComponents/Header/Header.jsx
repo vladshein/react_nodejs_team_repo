@@ -8,6 +8,7 @@ import HeaderNav from '../HeaderNav/HeaderNav';
 import AuthBar from '../AuthBar/AuthBar';
 import UserBar from '../UserBar/UserBar';
 import IconBurgerMenu from '../../common/icons/IconBurgerMenu';
+import BurgerMenu from '../BurgerMenu/BurgerMenu';
 import { openModal } from '../../../redux/modal/modalSlice';
 import { useEffect, useState } from 'react';
 
@@ -23,14 +24,15 @@ function useBreakpoint() {
   return width;
 }
 
-const Header = ({ onBurgerClick }) => {
+const Header = () => {
   const location = useLocation();
-  const variant = location.pathname === '/' ? 'dark' : 'light';
+  const variant = location.pathname === '/' || location.pathname === '/recipes' ? 'dark' : 'light';
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const dispatch = useDispatch();
   const width = useBreakpoint();
   const isDesktop = width >= 1440;
   const isTablet = width >= 768 && width < 1440;
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const handleLoginClick = () => {
     dispatch(openModal({ modalType: 'auth', modalProps: { view: 'signIn' } }));
@@ -42,6 +44,10 @@ const Header = ({ onBurgerClick }) => {
 
   const handleLogOutClick = () => {
     dispatch(openModal({ modalType: 'logout' }));
+  };
+
+  const handleBurgerClick = () => {
+    setMenuOpen(!menuOpen);
   };
 
   return (
@@ -61,13 +67,14 @@ const Header = ({ onBurgerClick }) => {
           // <div className={style.userAndBurger}>
           <>
             <UserBar onLogOutClick={handleLogOutClick} />
-            <IconBurgerMenu className={style.burger} onClick={onBurgerClick} />
+            <IconBurgerMenu className={style.burger} onClick={handleBurgerClick} />
           </>
         ) : (
           //
           <AuthBar onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />
         )}
       </header>
+      <BurgerMenu isOpen={menuOpen} variant={variant} />
     </>
   );
 };

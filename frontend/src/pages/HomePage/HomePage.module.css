@@ -1,3 +1,27 @@
+.heroSection {
+  position: relative;
+  min-width: 320px;
+  max-width: 375px;
+  margin: 8px auto 64px;
+  padding: 16px;
+}
+
+@media only screen and (min-width: 768px) {
+  .heroSection {
+    max-width: 768px;
+    margin: 8px auto 100px;
+    padding: 16px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .heroSection {
+    max-width: 1440px;
+    margin: 8px auto 120px;
+    padding: 20px;
+  }
+}
+
 .hero {
   /* text-align: center; */
   padding: 260px 64px;

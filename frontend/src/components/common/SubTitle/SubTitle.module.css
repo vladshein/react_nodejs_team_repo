@@ -1,7 +1,38 @@
 .subtitle {
-  max-width: 600px;
-  color: var(--muted);
+  max-width: 100%;
+  margin: 0 auto;
+  color: var(--cl-black, #050505);
+  font-family: 'Mulish', sans-serif;
   font-size: 14px;
-  line-height: 1.6;
+  font-weight: 500;
+  line-height: 1.43;
+  letter-spacing: -0.28px;
+  text-align: center;
   margin-bottom: 24px;
+}
+
+.left {
+  text-align: left;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (min-width: 768px) {
+  .subtitle {
+    max-width: 656px;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.32px;
+    margin-bottom: 40px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .subtitle {
+    max-width: 656px;
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.32px;
+    margin-bottom: 40px;
+  }
 }
