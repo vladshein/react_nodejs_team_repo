@@ -1,9 +1,8 @@
 import style from './AuthBar.module.css';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './AuthBar.module.css'; // Optional: move styles to a separate file
 
 const AuthBar = ({ onLoginClick, onRegisterClick }) => {
-  console.log('AuthBar');
   const [active, setActive] = useState('signup'); // default active
 
   return (

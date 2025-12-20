@@ -116,7 +116,6 @@ const AddRecipeForm = ({ categoriesOptions, ingredientsOptions, areasOptions }) 
       };
 
       formik.setFieldValue('ingredients', [...formik.values.ingredients, newIngredient]);
-      console.log('Picked', formik.values.ingredients);
       setCurrentIngredient('');
       setCurrentQuantity('');
     }
