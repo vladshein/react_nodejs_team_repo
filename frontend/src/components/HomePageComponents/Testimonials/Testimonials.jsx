@@ -7,6 +7,7 @@ import 'swiper/css/pagination';
 
 import styles from './Testimonials.module.css';
 import IconQuote from '../../common/icons/IconQuote';
+import Loader from '../../common/Loader/Loader';
 
 function MainTitle({ tag = 'h2', children, className = '' }) {
   const Tag = tag;
@@ -23,10 +24,14 @@ function Subtitle({ tag = 'p', children, className = '' }) {
 const API_BASE = import.meta.env.VITE_API_URL;
 console.log(API_BASE);
 
-const Testimonials = () => {
+const Testimonials = ({ onLoadingChange = () => {} }) => {
   const [items, setItems] = useState([]);
   const [status, setStatus] = useState('loading');
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    onLoadingChange(status === 'loading');
+  }, [onLoadingChange, status]);
 
   useEffect(() => {
     const fetchTestimonials = async () => {
@@ -56,7 +61,9 @@ const Testimonials = () => {
     return (
       <section className={styles.section}>
         <div className="f-container">
-          <p>Loading testimonials…</p>
+          <div className={styles.loading} aria-busy="true" aria-live="polite">
+            <Loader />
+          </div>
         </div>
       </section>
     );
