@@ -1,15 +1,29 @@
 .container {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 20px;
+  width: 649px;
+  min-height: 248px;
 }
 
+/* title */
+.recipeTitle {
+  font-family: Mulish;
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 28px;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #050505;
+}
+
+/* badges */
 .badgesBlock {
-  min-width: 145px;
-  height: 38px;
-  margin-top: 20px;
-  margin-bottom: 20px;
   display: flex;
-  gap: 10px;
+  gap: 8px;
+  height: 38px;
 }
 
 .badge {
@@ -20,50 +34,58 @@
   border-radius: 20px;
   border: 1px solid #BFBEBE;
 
+  font-family: Mulish;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: -0.02em;
+  color: #BFBEBE;
 }
 
-.recipeDescriptionContainer {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-
+/* description */
 .recipeDescriptionText {
   font-family: Mulish;
-  font-weight: 400;
-  font-style: Regular;
+  font-weight: 500;
   font-size: 16px;
   line-height: 24px;
-  letter-spacing: -2%;
-  color: #4F4E4E;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  letter-spacing: -0.02em;
+  color: #1A1A1A;
 }
 
+/* owner */
 .ownerContainer {
   display: flex;
   align-items: center;
-  min-width: 138px;
-  height: 50px
+  gap: 16px;
 }
 
 .ownerAvatar {
   width: 50px;
   height: 50px;
   border-radius: 30px;
+  background-color: #BFBEBE;
 }
 
 .ownerBlock {
-  align-items: flex-start;
+  display: flex;
   flex-direction: column;
-  padding-left: 16px;
+  gap: 4px;
 }
 
 .ownerCreatedBy {
   font-family: Mulish;
   font-weight: 500;
-  font-style: Medium;
   font-size: 14px;
   line-height: 20px;
-  letter-spacing: -2%;
+  letter-spacing: -0.02em;
   color: #BFBEBE;
+}
+
+.ownerName {
+  font-family: Mulish;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  color: #1A1A1A;
 }
