@@ -8,6 +8,24 @@
   padding: 12px 14px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: #fff;
+  background: var(--cl-white);
   font-size: 14px;
+}
+
+@media only screen and (min-width: 768px) {
+  .filters {
+    flex-direction: row;
+    gap: 14px;
+  }
+
+  .filter {
+    flex: 1;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .filters {
+    display: flex;
+    flex-direction: column;
+  }
 }

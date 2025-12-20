@@ -1,7 +1,15 @@
+.container {
+  min-width: 320px;
+  max-width: 375px;
+  margin: 0 auto;
+  padding: 0 20px;
+  margin-top: 20px;
+}
+
 .recipeBackBtn {
   display: inline-flex;
   gap: 6px;
-  background: #fff;
+  background: var(--cl-white);
   border: none;
   font-family: var(--font-family);
   font-weight: 700;
@@ -9,30 +17,28 @@
   line-height: 129%;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  color: var(--main);
+  color: var(--cl-black);
   cursor: pointer;
   margin-bottom: 20px;
 }
 
 .recipes {
   display: flex;
+  flex-direction: column;
   gap: 32px;
 }
 
-/* filters */
 .recipeFilters {
-  width: 330px;
-  height: 222px;
+  width: 100%;
 }
 
-/* cards */
-.resipesCardsBlock {
-  width: 910px;
+.recipesCardsBlock {
   flex: 1;
 }
 
-.resipesCards {
+.recipesCards {
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 40px 20px;
   padding-bottom: 60px;
@@ -43,4 +49,48 @@
 }
 
 .spinCenter {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 9999;
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 736px;
+    padding: 0 32px;
+  }
+  .recipesCards {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1400px;
+    padding: 0 40px;
+  }
+
+  .recipes {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .recipeFilters {
+    flex: 0 0 330px;
+  }
+
+  .recipesCardsBlock {
+    flex: 1;
+  }
+
+  .recipesCards {
+    justify-content: flex-start;
+  }
 }

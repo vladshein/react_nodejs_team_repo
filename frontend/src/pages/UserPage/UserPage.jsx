@@ -10,6 +10,8 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchUser, current } from '../../redux/users/actions';
+import {} from '../../redux/users/selectors';
+import TabsList from '../../components/Users/TabsList/TabsList';
 
 const UserPage = () => {
   const { id } = useParams();
@@ -33,29 +35,11 @@ const UserPage = () => {
   ) : (
     <div className={styles.pageContainer}>
       <aside className={styles.sidebar}>
-        {user && <UserInfo user={user} />}
-
-        <nav className={styles.navMenu}>
-          <NavLink to="recipes" className={({ isActive }) => (isActive ? styles.active : '')}>
-            {id === 'current' ? 'My Recipes' : 'Recipes'}
-          </NavLink>
-          {id === 'current' && (
-            <NavLink to="favorites" className={({ isActive }) => (isActive ? styles.active : '')}>
-              Favorites
-            </NavLink>
-          )}
-          <NavLink to="followers" className={({ isActive }) => (isActive ? styles.active : '')}>
-            Followers
-          </NavLink>
-          {id === 'current' && (
-            <NavLink to="following" className={({ isActive }) => (isActive ? styles.active : '')}>
-              Following
-            </NavLink>
-          )}
-        </nav>
+        <UserInfo id={id} />
       </aside>
 
       <main className={styles.content}>
+        <TabsList />
         <Outlet />
       </main>
     </div>
