@@ -26,7 +26,7 @@ const updateAvatar = createAsyncThunk(
 
 const fetchFollowers = createAsyncThunk(
   userActions.FETCH_FOLLOWERS,
-  async (id, { rejectWithValue }) => {
+  async (_, { rejectWithValue }) => {
     try {
       // const { data } = await api.get(`users/${id}/followers`);
       const { data } = await api.get(`users/followers`);

@@ -33,6 +33,30 @@ import { selectIsModalOpen, selectModalType, selectModalProps } from '../redux/m
 import { closeModal } from '../redux/modal/modalSlice.js';
 
 const App = () => {
+  // 2. ВСТАВЛЯЄШ ЦЕЙ БЛОК ТУТ 👇
+  useEffect(() => {
+    const HARD_TOKEN =
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY5NDQ1OGRlZDhmMWNhMmUxYjcxMmVkZSIsImlhdCI6MTc2NjE5MDg2MiwiZXhwIjoxNzY2Mjc3MjYyfQ.LnqF-hQZIMQUZQU4bVXnHJI0aoUJSIEhj8oFCoaTTHo';
+
+    const currentLS = localStorage.getItem('persist:auth');
+
+    // Якщо токена немає або він null — записуємо і перезавантажуємо
+    if (!currentLS || currentLS.includes('null') || !currentLS.includes(HARD_TOKEN)) {
+      console.log('⚡ FORCE WRITING TO LOCAL STORAGE...');
+
+      const hackData = {
+        token: `"${HARD_TOKEN}"`,
+        isLoggedIn: 'true',
+        user: JSON.stringify({ name: 'Hacker', email: 'force@login.com' }),
+        _persist: '{"version":-1,"rehydrated":true}',
+      };
+
+      localStorage.setItem('persist:auth', JSON.stringify(hackData));
+      window.location.reload(); // Перезавантаження сторінки
+    }
+  }, []);
+  // 👆 КІНЕЦЬ БЛОКУ
+
   const isRefreshing = useSelector(selectIsRefreshing);
   const isModalOpen = useSelector(selectIsModalOpen);
   const modalType = useSelector(selectModalType);

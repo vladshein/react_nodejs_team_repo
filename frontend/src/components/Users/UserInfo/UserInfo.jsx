@@ -1,13 +1,11 @@
 import { useSelector } from 'react-redux';
-import { selectUserInfo } from '../../../redux/auth/selectors';
+// import { selectUserInfo } from '../../../redux/auth/selectors';
 import { selectedUser } from '../../../redux/users/selectors';
 import styles from './UserInfo.module.css';
 
 const UserInfo = () => {
-  // 1. Отримуємо детальні дані профілю (які ми завантажили через fetchUser)
   const user = useSelector(selectedUser);
 
-  // 👇 КОМЕНТАР: Це знадобиться пізніше для порівняння ID
   // const myAuthData = useSelector(selectUserInfo);
 
   // 2. Захист від null (поки дані вантажаться)
@@ -15,11 +13,8 @@ const UserInfo = () => {
     return <div className={styles.loading}>Loading profile...</div>;
   }
 
-  // 👇 КОМЕНТАР: Логіка визначення "свій/чужий" (Закоментовано)
   // const isMyProfile = myAuthData?.id === user.id;
-
-  // 🔥 ТИМЧАСОВО: Вважаємо, що ми завжди на своєму профілі
-  const isMyProfile = true;
+  // const isMyProfile = true;
 
   return (
     <section className={styles.container}>
