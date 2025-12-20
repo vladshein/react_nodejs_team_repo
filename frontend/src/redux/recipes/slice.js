@@ -39,7 +39,12 @@ const recipesSlice = createSlice({
       })
       .addCase(fetchRecipeDetails.pending, handlePending)
       .addCase(fetchTopRecipes.pending, handlePending)
+
       .addCase(fetchMyRecipes.pending, handlePending)
+      .addCase(fetchMyRecipes.fulfilled, (state, action) => {
+        state.myRecipes = action.payload;
+      })
+
       .addCase(publishRecipe.pending, handlePending)
       .addCase(deleteRecipe.pending, handlePending)
 

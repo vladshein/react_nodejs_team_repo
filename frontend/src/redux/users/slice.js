@@ -31,9 +31,24 @@ const usersSlice = createSlice({
     builder
       .addCase(current.pending, handlePending)
       .addCase(fetchUser.pending, handlePending)
+      .addCase(fetchUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.selectedUser = action.payload;
+      })
+
       .addCase(updateAvatar.pending, handlePending)
+
       .addCase(fetchFollowers.pending, handlePending)
+      .addCase(fetchFollowers.fulfilled, (state, action) => {
+        state.loading = false;
+        state.followers = action.payload;
+      })
+
       .addCase(fetchFollowing.pending, handlePending)
+      .addCase(fetchFollowing.fulfilled, (state, action) => {
+        state.following = action.payload;
+      })
+
       .addCase(followUser.pending, handlePending)
       .addCase(unfollowUser.pending, handlePending)
       .addCase(current.fulfilled, (state, action) => {

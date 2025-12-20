@@ -1,89 +1,71 @@
-import style from "./BookForm.module.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useId } from "react";
-import toast, { Toaster } from "react-hot-toast";
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import IconArrowUpRight from '../../common/icons/IconArrowUpRight';
+import {
+  selectCategories,
+  selectCategoriesLoading,
+  selectCategoriesError,
+} from '../../../redux/categories/selectors';
+import { fetchCategories } from '../../../redux/categories/actions';
+import styles from './CategoryList.module.css';
 
-const BookForm = () => {
-  const notify = (name, date) =>
-    toast.success(`Dear ${name}, thank you for your booking on ${date}!`);
+const CategoryList = ({ limit = 11, showAllCard = true }) => {
+  const dispatch = useDispatch();
+  const categories = useSelector(selectCategories);
+  const isLoading = useSelector(selectCategoriesLoading);
+  const error = useSelector(selectCategoriesError);
+  const [isExpanded, setIsExpanded] = useState(false);
 
-  const handleSubmit = data => {
-    console.log("Form Data:", data);
-    notify(data.name, data.bookingDate);
-  };
+  useEffect(() => {
+    dispatch(fetchCategories());
+  }, [dispatch]);
 
-  const nameFieldId = useId();
-  const emailFieldId = useId();
-  const dateFieldId = useId();
-  const commentFieldId = useId();
+  if (isLoading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
 
-  const initialValues = {
-    name: "",
-    email: "",
-    date: "",
-    comment: "",
-  };
+  const hasLimit = typeof limit === 'number';
+  const canExpand = showAllCard && hasLimit && categories.length > limit;
+  const displayedCategories = isExpanded || !hasLimit ? categories : categories.slice(0, limit);
+
+  const getSrc = (name) => `/images/Categories_1x/${name}.webp`;
+  const getSrcSet = (name) =>
+    `/images/Categories_1x/${name}.webp 1x, /images/Categories_2x/${name}.jpg 2x`;
 
   return (
-    <div className={style.formContainer}>
-      <div className={style.formHead}>
-        <h3>Book your campervan now</h3>
-        <p className={style.formHeadText}>
-          Stay connected! We are always ready to help you.
-        </p>
-      </div>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        className={style.form}
-        // validationSchema={FeedbackSchema}
-      >
-        <Form className={style.feedbackFormItem}>
-          <div>
-            <Field
-              type="text"
-              name="name"
-              id={nameFieldId}
-              placeholder="Name*"
-              className={style.formField}
-            />
-            <ErrorMessage name="name" />
-          </div>
-          <div>
-            <Field
-              type="email"
-              name="email"
-              id={emailFieldId}
-              placeholder="Email*"
-              className={style.formField}
-            />
-            <ErrorMessage name="email" />
-          </div>
-          <div>
-            <Field
-              type="date"
-              name="bookingDate"
-              id={dateFieldId}
-              placeholder="Booking date*"
-              className={style.formField}
-            />
-            <ErrorMessage name="number" />
-          </div>
-          <Field
-            as="textarea"
-            name="comment"
-            id={commentFieldId}
-            className={style.formFieldComment}
-            placeholder="Comment"
-          />
-          <button className={style.formBtn} type="submit">
-            Send
+    <ul className={styles.grid}>
+      {displayedCategories.map((cat) => (
+        <li key={cat.id} className={styles.card}>
+          <Link to={`/recipes?category=${cat.id}&name=${cat.name}`} className={styles.cardLink}>
+            <figure className={styles.figure}>
+              <img
+                src={getSrc(cat.name)}
+                srcSet={getSrcSet(cat.name)}
+                loading="lazy"
+                decoding="async"
+                alt={cat.name}
+                className={styles.image}
+              />
+              <figcaption className={styles.caption}>
+                <span className={styles.namePill}>{cat.name}</span>
+                <span className={styles.arrowPill} aria-hidden="true">
+                  <IconArrowUpRight className={styles.arrowIcon} />
+                </span>
+              </figcaption>
+            </figure>
+          </Link>
+        </li>
+      ))}
+
+      {canExpand && !isExpanded && (
+        <li className={`${styles.card} ${styles.allCard}`}>
+          <button type="button" className={styles.allButton} onClick={() => setIsExpanded(true)}>
+            ALL CATEGORIES
           </button>
-          <Toaster />
-        </Form>
-      </Formik>
-    </div>
+        </li>
+      )}
+    </ul>
   );
 };
 
-export default BookForm;
+export default CategoryList;
