@@ -1,8 +1,5 @@
 .headerdiv {
-  position: absolute;
-  top: 40px;
-  left: 0;
-  right: 0;
+  position: relative;
   z-index: 100;
   display: flex;
   max-width: 327px;
@@ -10,8 +7,16 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 16px;
-  margin: 0 auto;
+  margin: 40px auto 64px;
   background: transparent;
+}
+
+.overlay {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
 }
 
 @media only screen and (min-width: 768px) {
@@ -19,6 +24,11 @@
     max-width: 704px;
     height: 46px;
     padding: 0 32px;
+    margin-bottom: 80px;
+  }
+
+  .overlay {
+    top: 40px;
   }
 }
 
