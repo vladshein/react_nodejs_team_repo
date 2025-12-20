@@ -12,6 +12,7 @@ import RecipeFilters from './../RecipeFilters/RecipeFilters';
 import RecipeList from '../RecipeList/RecipeList';
 import Pagination from './../../common/Pagination/Pagination';
 import Spinner from './../../common/Loader/Loader';
+import icons from './../../../images/icons.svg';
 
 const RecipeHomeBlock = () => {
   const dispatch = useDispatch();
@@ -56,42 +57,49 @@ const RecipeHomeBlock = () => {
   };
 
   return (
-    <section>
-      <div className={styles.recipeContainer}>
-        <Button>Back</Button>
-        <MainTitle text="desserts" />
-        <SubTitle
-          text="Go on a taste journey, where every sip is a sophisticated creative chord, every dessert is
+    <section className={styles.recipeContainer}>
+      <div className={styles.recipeBackBtn}>
+        <Button>
+          <svg class="icon">
+            {/* <use href="href={'/icons.svg##icon-back-btn'}"></use> */}
+            <use href={`${icons}#icon-back-btn`} />
+            {/* <use href={`${icons}#${feature.svg}`} /> */}
+          </svg>
+          Back
+        </Button>
+      </div>
+      <MainTitle text="desserts" />
+      <SubTitle
+        text="Go on a taste journey, where every sip is a sophisticated creative chord, every dessert is
           an expression of the most refined gastronomic desires."
-        />
-        <div className={styles.recipes}>
-          <aside className={styles.recipeFilters}>
-            <RecipeFilters callBackFunctions={callbackFuncions} />
-          </aside>
-          <div className={styles.resipesCardsBlock}>
-            <div className={styles.resipesCards}>
-              {!spin && recipes ? (
-                <RecipeList recipes={recipes} />
-              ) : (
-                <div className={styles.spinCenter}>
-                  <Spinner />
-                </div>
-              )}
-            </div>
+      />
+      <div className={styles.recipes}>
+        <aside className={styles.recipeFilters}>
+          <RecipeFilters callBackFunctions={callbackFuncions} />
+        </aside>
+        <div className={styles.resipesCardsBlock}>
+          <div className={styles.resipesCards}>
+            {!spin && recipes ? (
+              <RecipeList recipes={recipes} />
+            ) : (
+              <div className={styles.spinCenter}>
+                <Spinner />
+              </div>
+            )}
           </div>
         </div>
+      </div>
 
-        <div className={styles.recipePagination}>
-          {!spin && pagination ? (
-            <Pagination
-              currentPage={pagination.page}
-              totalPages={pagination.totalPages}
-              onChange={callbackFuncions.handlePagination}
-            />
-          ) : (
-            ''
-          )}
-        </div>
+      <div className={styles.recipePagination}>
+        {!spin && pagination ? (
+          <Pagination
+            currentPage={pagination.page}
+            totalPages={pagination.totalPages}
+            onChange={callbackFuncions.handlePagination}
+          />
+        ) : (
+          ''
+        )}
       </div>
     </section>
   );

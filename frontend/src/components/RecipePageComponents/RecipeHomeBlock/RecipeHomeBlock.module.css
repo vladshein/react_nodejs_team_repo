@@ -1,5 +1,13 @@
-.recipeContainer {
-  margin-bottom: 50px;
+@media (min-width: 1440px) {
+  .recipeContainer {
+    width: 1280px;
+    /* height: 2118px; */
+  }
+}
+
+.recipeBackBtn {
+  width: 62px;
+  height: 18px;
 }
 
 .recipes {
