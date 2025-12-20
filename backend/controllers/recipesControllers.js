@@ -90,6 +90,10 @@ export const deleteRecipeController = async (req, res) => {
 export const createRecipeController = async (req, res) => {
   const { id: ownerId } = req.user;
 
+  if (!req.file) {
+    throw HttpError(400, 'Recipe photo is required');
+  }
+
   let ingredients = req.body.ingredients;
   if (typeof ingredients === 'string') {
     try {
@@ -99,11 +103,13 @@ export const createRecipeController = async (req, res) => {
     }
   }
 
+  const normalizedPath = req.file.path.replace(/\\/g, '/');
+
   // Validate the parsed body with ingredients as array
   const bodyToValidate = {
     ...req.body,
     ingredients: JSON.stringify(ingredients),
-    thumb: req.file.path,
+    thumb: normalizedPath,
   };
 
   const { error, value } = createRecipeSchema.validate(bodyToValidate);
