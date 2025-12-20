@@ -22,7 +22,7 @@ const RequireAuthAction = ({ children, to }) => {
       return;
     }
 
-    // ✅ CALL ORIGINAL HANDLER
+    // CALL ORIGINAL HANDLER
     if (children.props.onClick) {
       children.props.onClick(e);
     }
