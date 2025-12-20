@@ -109,7 +109,9 @@ const addToFavorites = createAsyncThunk(
   recipesActions.ADD_TO_FAVORITES,
   async (recipeId, { rejectWithValue }) => {
     try {
-      // api call to add recipe to favorites by recipeId
+      const { data } = await recipesService.addToFavorites(recipeId);
+      console.log('data', data);
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
