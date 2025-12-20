@@ -1,60 +1,285 @@
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 24px;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-top: 40px;
+  list-style: none;
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-top: 60px;
+  }
+  
+  .card {
+    grid-column: span 1;
+  }
+  
+  .allCard {
+    grid-column: span 1;
+  }
+}
+
+@media (min-width: 1440px) {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 80px;
+  }
+
+
+  .card {
+    grid-column: span 2;
+  }
+
+  .card:nth-child(3):not(.allCard),
+  .card:nth-child(4):not(.allCard),
+  .card:nth-child(8):not(.allCard),
+  .card:nth-child(10):not(.allCard) {
+    grid-column: span 3;
+  }
+
+  .allCard {
+    grid-column: span 2;
+  }
 }
 
 .card {
   position: relative;
   overflow: hidden;
-  border-radius: 24px;
+  border-radius: 20px;
   cursor: pointer;
+  min-height: 180px;
+  transition: transform 0.3s ease;
 }
 
-.imageWrapper {
+.cardLink {
+  display: block;
   width: 100%;
-  height: 0;
-  padding-bottom: 70%;
-  overflow: hidden;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
+
+.card:not(.allCard) {
+  aspect-ratio: 1 / 1;
+}
+
+@media (min-width: 768px) {
+  .card {
+    border-radius: 24px;
+    min-height: 220px;
+  }
+  
+  .card:not(.allCard) {
+    aspect-ratio: 1 / 1;
+  }
+  
+  .allCard {
+    aspect-ratio: 1 / 1;
+  }
+}
+
+@media (min-width: 1440px) {
+  .card {
+    min-height: 0;
+    height: 369px;
+    border-radius: 30px;
+  }
+
+  .card:not(.allCard),
+  .allCard {
+    aspect-ratio: auto;
+  }
+}
+
+.figure {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  position: relative;
+}
+
+.figure::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
 }
 
 .image {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
-.footer {
+.caption {
   position: absolute;
   left: 16px;
   right: 16px;
   bottom: 16px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
+  gap: 8px;
   color: #fff;
-  font-weight: 500;
+  z-index: 1;
 }
 
-.button {
-  width: 32px;
-  height: 32px;
-  border-radius: 10px;
-  border: none;
-  background: rgba(0, 0, 0, 0.6);
-  color: #fff;
+@media (min-width: 768px) {
+  .caption {
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .caption {
+    left: 28px;
+    right: 28px;
+    bottom: 28px;
+  }
+}
+
+.namePill {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 18px;
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+
+  font-family: 'Mulish', sans-serif;
+  font-weight: var(--fw-800);
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.02em;
+  text-transform: capitalize;
+  color: var(--cl-white);
+}
+
+.arrowPill {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-circle);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(6px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+}
+
+.arrowIcon {
+  stroke: var(--cl-white);
+}
+
+.card:hover .namePill,
+.card:hover .arrowPill {
+  border-color: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.16);
+}
+
+@media (min-width: 768px) {
+  .namePill {
+    height: 40px;
+    padding: 0 20px;
+    font-size: 18px;
+  }
+
+  .arrowPill {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .namePill {
+    height: 44px;
+    padding: 0 24px;
+    font-size: 20px;
+  }
+
+  .arrowPill {
+    width: 44px;
+    height: 44px;
+  }
 }
 
 .allCard {
-  background: #000;
+  background: #050505;
   display: flex;
   align-items: center;
   justify-content: center;
+  aspect-ratio: 1 / 1;
+  min-height: 180px;
+  transition: background-color 0.3s ease;
+}
+
+.allCard:hover {
+  background: #1a1a1a;
+}
+
+@media (min-width: 768px) {
+  .allCard {
+    min-height: 220px;
+    aspect-ratio: 2 / 1;
+  }
+}
+
+@media (min-width: 1440px) {
+  .allCard {
+    min-height: unset;
+    aspect-ratio: auto;
+  }
 }
 
 .allButton {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
   border: none;
   background: transparent;
   color: #fff;
-  font-weight: 600;
+  font-weight: 700;
+  font-family: 'Mulish', sans-serif;
+  font-size: 14px;
+  line-height: 1.43;
+  letter-spacing: -0.28px;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  padding: 0;
+  transition: opacity 0.3s ease;
+}
+
+.allButton:hover {
+  opacity: 0.8;
+}
+
+@media (min-width: 768px) {
+  .allButton {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: -0.32px;
+  }
 }

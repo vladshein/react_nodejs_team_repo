@@ -16,9 +16,12 @@ const UserFavorites = lazy(() => import('../components/Users/UserFavorites/UserF
 const UserFollowers = lazy(() => import('../components/Users/UserFollowers/UserFollowers'));
 const UserFollowing = lazy(() => import('../components/Users/UserFollowing/UserFollowing'));
 
-// import style from './App.module.css';
-import Categories from './HomePageComponents/Categories/Categories';
-import RestrictedRoute from '../guards/RestrictedRoute/RestrictedRoute';
+import Header from './SharedLayoutComponents/Header/Header';
+import Footer from './SharedLayoutComponents/Footer/Footer';
+import RecipeHomeBlock from './RecipePageComponents/RecipeHomeBlock/RecipeHomeBlock';
+import Hero from './HomePageComponents/Hero/Hero';
+import homeStyles from '../pages/HomePage/HomePage.module.css';
+
 import PrivateRoute from '../guards/PrivateRoute/PrivateRoute';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsRefreshing } from '../redux/auth/selectors';
@@ -50,6 +53,20 @@ const App = () => {
     <Suspense fallback={<div>Loading...</div>}>
       <Routes>
         <Route path="/" element={<HomePage />} />
+
+        <Route
+          path="/recipes"
+          element={
+            <div>
+              <div className={homeStyles.heroSection}>
+                <Header />
+                <Hero />
+              </div>
+              <RecipeHomeBlock />
+              <Footer />
+            </div>
+          }
+        />
 
         <Route path="/recipe/add" element={<PrivateRoute element={<AddRecipePage />} />} />
         {/* <Route path="/recipe/add" element={<AddRecipePage />} /> */}
