@@ -1,4 +1,5 @@
 const userActions = {
+  FETCH_CURRENT_USER: 'users/current',
   FETCH_USER: 'users/fetchUser',
   UPDATE_AVATAR: 'users/updateAvatar',
   FETCH_FOLLOWERS: 'users/fetchFollowers',

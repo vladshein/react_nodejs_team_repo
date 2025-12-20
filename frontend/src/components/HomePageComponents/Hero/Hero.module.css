@@ -3,7 +3,8 @@
   position: relative;
   min-width: 320px;
   max-width: 100%;
-  min-height: 796px;
+  min-height: 90vh;
+  min-height: 90svh;
   padding: 70px 16px 40px;
   text-align: center;
   background: #050505;
@@ -13,7 +14,6 @@
 /* Styles for Tablet devices */
 @media only screen and (min-width: 768px) {
   .heroContainer {
-    min-height: 992px;
     border-radius: 30px;
     padding: 80px 32px 60px;
   }
@@ -21,7 +21,6 @@
 
 @media only screen and (min-width: 1440px) {
   .heroContainer {
-    min-height: 970px;
     padding: 90px 60px 80px;
     border-radius: 30px;
   }

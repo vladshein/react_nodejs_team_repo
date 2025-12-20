@@ -49,41 +49,49 @@ const App = () => {
     dispatch(closeModal());
   };
 
-  return isRefreshing ? (
-    <div>Refreshing user...</div>
-  ) : (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
+  return (
+    <div className="appShell">
+      <div className="appMain">
+        {isRefreshing ? (
+          <div>Refreshing user...</div>
+        ) : (
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
 
-        <Route
-          path="/recipes"
-          element={
-            <div>
-              <div className={homeStyles.heroSection}>
-                <Header />
-                <Hero />
-              </div>
-              <Recipes />
-              <Testimonials />
-              <Footer />
-            </div>
-          }
-        />
+              <Route
+                path="/recipes"
+                element={
+                  <div>
+                    <div className={homeStyles.heroSection}>
+                      <Header />
+                      <Hero />
+                    </div>
+                    <Recipes />
+                    <Testimonials />
+                  </div>
+                }
+              />
 
-        <Route path="/recipe/add" element={<PrivateRoute element={<AddRecipePage />} />} />
-        {/* <Route path="/recipe/add" element={<AddRecipePage />} /> */}
-        <Route path="/recipe/:id" element={<RecipePage />} />
-        <Route path="/user/:id" element={<UserPage />}>
-          <Route index element={<Navigate to="recipes" replace />} />
-          <Route path="recipes" element={<UserRecipes />} />
-          <Route path="favorites" element={<UserFavorites />} />
-          <Route path="followers" element={<UserFollowers />} />
-          <Route path="following" element={<UserFollowing />} />
-        </Route>
+              <Route path="/recipe/add" element={<PrivateRoute element={<AddRecipePage />} />} />
+              {/* <Route path="/recipe/add" element={<AddRecipePage />} /> */}
+              <Route path="/recipe/:id" element={<RecipePage />} />
+              <Route path="/user/:id" element={<UserPage />}>
+                <Route index element={<Navigate to="recipes" replace />} />
+                <Route path="recipes" element={<UserRecipes />} />
+                <Route path="favorites" element={<UserFavorites />} />
+                <Route path="followers" element={<UserFollowers />} />
+                <Route path="following" element={<UserFollowing />} />
+              </Route>
 
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </Suspense>
+        )}
+      </div>
+
+      <Footer />
+
       <Toaster position="top-right" reverseOrder={false} />
       <AuthModal
         isOpen={isModalOpen && modalType === 'auth'}
@@ -95,7 +103,7 @@ const App = () => {
         isOpen={isModalOpen && modalType === 'logout'}
         onRequestClose={handleCloseModal}
       />
-    </Suspense>
+    </div>
   );
 };
 

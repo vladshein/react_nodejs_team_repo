@@ -25,11 +25,8 @@
 .hero {
   /* text-align: center; */
   padding: 260px 64px;
-  background: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.2) 0%,
-      rgba(0, 0, 0, 0.2) 100%
-    ),
+  background:
+    linear-gradient(0deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.2) 100%),
     url(../../images/bg@1x.webp) lightgray 0px -192.086px / 100% 138.099% no-repeat;
   background-size: cover;
   background-position: center;
@@ -40,8 +37,8 @@
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   .hero {
-    background-image: url("../../images/bg@1x.webp") lightgray 0px -192.086px / 100%
-      138.099% no-repeat;
+    background-image: url('../../images/bg@1x.webp') lightgray 0px -192.086px / 100% 138.099%
+      no-repeat;
   }
 }
 

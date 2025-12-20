@@ -39,6 +39,25 @@
   --trns-ease: 0.3s ease;
 }
 
+html,
+body {
+  height: 100%;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.appShell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.appMain {
+  flex: 1;
+}
+
 body {
   font-family: 'Mulish', sans-serif;
   line-height: var(--lh-150);

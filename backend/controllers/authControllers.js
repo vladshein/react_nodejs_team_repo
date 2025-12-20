@@ -49,7 +49,6 @@ export const getFollowersController = async (req, res) => {
   const followers = await getUserFollowers(id);
 
   res.status(200).json({
-    amount: followers.length,
     followers,
   });
 };

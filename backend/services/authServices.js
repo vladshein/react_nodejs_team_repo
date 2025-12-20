@@ -46,6 +46,7 @@ export const loginUser = async ({ password, email }) => {
   await user.update({ token });
   return {
     token,
+    id: user.id,
     email: user.email,
     avatar: user.avatar,
     name: user.name,
@@ -57,6 +58,7 @@ export const refreshUser = async (user) => {
 
   await user.update({ token });
   return {
+    id: user.id,
     email: user.email,
     avatar: user.avatar,
     name: user.name,
