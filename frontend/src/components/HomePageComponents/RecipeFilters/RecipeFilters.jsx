@@ -1,89 +1,65 @@
-import style from "./BookForm.module.css";
-import { Formik, Form, Field, ErrorMessage } from "formik";
-import { useId } from "react";
-import toast, { Toaster } from "react-hot-toast";
+// pavlo
+import styles from './RecipeFilters.module.css';
+import SelectField from '../../common/SelectField/SelectField';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchIngredients } from './../../../redux/ingredients/actions';
+import { selectIngredients } from './../../../redux/ingredients/selectors';
+import { fetchAreas } from './../../../redux/areas/actions';
+import { selectAreas } from './../../../redux/areas/selectors';
 
-const BookForm = () => {
-  const notify = (name, date) =>
-    toast.success(`Dear ${name}, thank you for your booking on ${date}!`);
+// handleIngredient, handleArea
+const RecipeFilters = ({ callBackFunctions }) => {
+  const dispatch = useDispatch();
+  const ingredient = useSelector(selectIngredients);
+  const area = useSelector(selectAreas);
 
-  const handleSubmit = data => {
-    console.log("Form Data:", data);
-    notify(data.name, data.bookingDate);
-  };
+  const newIngredient = ingredient.map(({ id, name, ...rest }) => ({
+    ...rest,
+    value: id,
+    label: name,
+  }));
 
-  const nameFieldId = useId();
-  const emailFieldId = useId();
-  const dateFieldId = useId();
-  const commentFieldId = useId();
+  const newArea = area.map(({ id, name, ...rest }) => ({
+    ...rest,
+    value: id,
+    label: name,
+  }));
+  // get data from backend
+  useEffect(() => {
+    dispatch(fetchIngredients());
+    dispatch(fetchAreas());
+  }, []);
 
-  const initialValues = {
-    name: "",
-    email: "",
-    date: "",
-    comment: "",
-  };
+  const [ind, setInd] = useState();
+  const [are, setAre] = useState();
 
   return (
-    <div className={style.formContainer}>
-      <div className={style.formHead}>
-        <h3>Book your campervan now</h3>
-        <p className={style.formHeadText}>
-          Stay connected! We are always ready to help you.
-        </p>
-      </div>
-      <Formik
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        className={style.form}
-        // validationSchema={FeedbackSchema}
-      >
-        <Form className={style.feedbackFormItem}>
-          <div>
-            <Field
-              type="text"
-              name="name"
-              id={nameFieldId}
-              placeholder="Name*"
-              className={style.formField}
-            />
-            <ErrorMessage name="name" />
-          </div>
-          <div>
-            <Field
-              type="email"
-              name="email"
-              id={emailFieldId}
-              placeholder="Email*"
-              className={style.formField}
-            />
-            <ErrorMessage name="email" />
-          </div>
-          <div>
-            <Field
-              type="date"
-              name="bookingDate"
-              id={dateFieldId}
-              placeholder="Booking date*"
-              className={style.formField}
-            />
-            <ErrorMessage name="number" />
-          </div>
-          <Field
-            as="textarea"
-            name="comment"
-            id={commentFieldId}
-            className={style.formFieldComment}
-            placeholder="Comment"
-          />
-          <button className={style.formBtn} type="submit">
-            Send
-          </button>
-          <Toaster />
-        </Form>
-      </Formik>
+    <div className={styles.filters}>
+      <SelectField
+        name="ingredient"
+        value={ind}
+        onChange={(value) => {
+          setInd(value);
+          callBackFunctions.handleIngredient(value);
+        }}
+        onBlur={false}
+        options={newIngredient}
+        placeholder="Ingredients"
+      />
+      <SelectField
+        name="area"
+        value={are}
+        onChange={(value) => {
+          setAre(value);
+          callBackFunctions.handleArea(value);
+        }}
+        onBlur={false}
+        options={newArea}
+        placeholder="Area"
+      />
     </div>
   );
 };
 
-export default BookForm;
+export default RecipeFilters;

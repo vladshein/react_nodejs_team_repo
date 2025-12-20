@@ -18,8 +18,10 @@ const UserFollowing = lazy(() => import('../components/Users/UserFollowing/UserF
 
 import Header from './SharedLayoutComponents/Header/Header';
 import Footer from './SharedLayoutComponents/Footer/Footer';
-import RecipeHomeBlock from './RecipePageComponents/RecipeHomeBlock/RecipeHomeBlock';
+
 import Hero from './HomePageComponents/Hero/Hero';
+import Recipes from './HomePageComponents/Recipes/Recipes';
+import Testimonials from './HomePageComponents/Testimonials/Testimonials';
 import homeStyles from '../pages/HomePage/HomePage.module.css';
 
 import PrivateRoute from '../guards/PrivateRoute/PrivateRoute';
@@ -62,7 +64,8 @@ const App = () => {
                 <Header />
                 <Hero />
               </div>
-              <RecipeHomeBlock />
+              <Recipes />
+              <Testimonials />
               <Footer />
             </div>
           }
