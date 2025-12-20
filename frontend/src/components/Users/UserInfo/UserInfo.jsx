@@ -1,8 +1,12 @@
 import styles from './UserInfo.module.css';
 import { openModal } from '../../../redux/modal/modalSlice';
 import { useParams } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 const UserInfo = ({ user }) => {
+  console.log(user);
+
+  const dispatch = useDispatch();
   const { id } = useParams();
 
   return (
