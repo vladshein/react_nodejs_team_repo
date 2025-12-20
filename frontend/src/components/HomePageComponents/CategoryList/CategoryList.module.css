@@ -206,6 +206,14 @@
   background: rgba(255, 255, 255, 0.16);
 }
 
+.loading {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+}
+
 @media (min-width: 768px) {
   .namePill {
     height: 40px;

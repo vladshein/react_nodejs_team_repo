@@ -1,20 +1,5 @@
 import style from './Hero.module.css';
-import Header from '../../SharedLayoutComponents/Header/Header';
 import RequireAuthAction from '../../RequireAuthAction/RequireAuthAction.jsx';
-import { NavLink } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-
-function useBreakpoint() {
-  const [width, setWidth] = useState(window.innerWidth);
-
-  useEffect(() => {
-    const handleResize = () => setWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  return width;
-}
 
 const Hero = () => {
   return (

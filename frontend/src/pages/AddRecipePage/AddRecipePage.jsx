@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Header from '../../components/SharedLayoutComponents/Header/Header';
 import AddRecipeForm from '../../components/AddRecipePageComponents/AddRecipeForm/AddRecipeForm';
 import { selectCategories } from '../../redux/categories/selectors';
 import { selectIngredients } from '../../redux/ingredients/selectors';
@@ -47,7 +46,6 @@ const AddRecipePage = () => {
 
   return (
     <div>
-      <Header />
       <div className={styles.container}>
         <Breadcrumbs paths={breadcrumbs} />
         <div className={styles.pageWrapper}>
