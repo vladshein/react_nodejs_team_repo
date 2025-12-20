@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { fetchMyRecipes } from './../../../redux/recipes/actions';
 // import { deleteRecipe } from './../../../redux/recipes/actions';
 import { selectMyRecipes } from './../../../redux/recipes/selectors';
@@ -8,15 +8,19 @@ import UserRecipeCard from '../UserRecipeCard/UserRecipeCard';
 import styles from './UserRecipes.module.css';
 
 const UserRecipes = () => {
+  const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const myRecipes = useSelector(selectMyRecipes);
+  const { recipes } = useSelector(selectMyRecipes);
 
-  console.log('UserRecipes render:', myRecipes);
+  console.log('UserRecipes render:', recipes);
 
   useEffect(() => {
-    dispatch(fetchMyRecipes());
-  }, [dispatch]);
+    if (id !== 'current') {
+      dispatch(fetchMyRecipes());
+      return;
+    }
+  }, [dispatch, id]);
 
   const handleOpenRecipe = (id) => {
     navigate(`/recipes/${id}`);
@@ -31,9 +35,9 @@ const UserRecipes = () => {
 
   return (
     <div className={styles.container}>
-      {myRecipes && myRecipes.length > 0 ? (
+      {recipes && recipes.length > 0 ? (
         <ul className={styles.list}>
-          {myRecipes.map((recipe) => (
+          {recipes.map((recipe) => (
             <li key={recipe._id || recipe.id} className={styles.item}>
               <UserRecipeCard
                 id={recipe._id || recipe.id}

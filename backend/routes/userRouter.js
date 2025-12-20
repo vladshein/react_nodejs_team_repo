@@ -8,13 +8,14 @@ import {
   getUserById,
 } from './../controllers/userControllers.js';
 import { updateAvatarController } from '../controllers/authControllers.js';
-import { getFollowingsListController } from '../controllers/followersController.js';
 
 const userRouter = express.Router();
 userRouter.get('/current', authenticate, getCurrentUser);
 userRouter.patch('/avatars', authenticate, upload.single('avatar'), updateAvatarController);
-userRouter.get('/followers', authenticate, getFollowersController);
-userRouter.get('/following', authenticate, getFollowingController);
+// userRouter.get('/followers', authenticate, getFollowersController);
+// userRouter.get('/following', authenticate, getFollowingController);
 userRouter.get('/:userId', authenticate, getUserById);
+userRouter.get('/:userId/following', authenticate, getFollowingController);
+userRouter.get('/:userId/followers', authenticate, getFollowersController);
 
 export default userRouter;

@@ -1,41 +1,57 @@
 import { useParams, Outlet, NavLink } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import UserInfo from '../../components/Users/UserInfo/UserInfo';
 import styles from './UserPage.module.css';
+
+import {
+  selectCurrentUser,
+  selectSelectedUser,
+  selectUserIsLoading,
+} from '../../redux/users/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 import { fetchUser, current } from '../../redux/users/actions';
-import {} from '../../redux/users/selectors';
 
 const UserPage = () => {
-  const dispatch = useDispatch();
   const { id } = useParams();
-
+  const dispatch = useDispatch();
   useEffect(() => {
     if (id === 'current') {
-      dispatch(current()).unwrap();
+      dispatch(current()).unwrap(); // Correct usage: dispatch the action
       return;
     }
     dispatch(fetchUser(id)).unwrap();
   }, [dispatch, id]);
 
-  return (
+  const select = id === 'current' ? selectCurrentUser : selectSelectedUser;
+
+  const user = useSelector(select);
+  const isLoading = useSelector(selectUserIsLoading);
+  console.log(user);
+
+  return isLoading ? (
+    <div>Loading user data...</div>
+  ) : (
     <div className={styles.pageContainer}>
       <aside className={styles.sidebar}>
-        <UserInfo id={id} />
+        {user && <UserInfo user={user} />}
 
         <nav className={styles.navMenu}>
           <NavLink to="recipes" className={({ isActive }) => (isActive ? styles.active : '')}>
-            My Recipes
+            {id === 'current' ? 'My Recipes' : 'Recipes'}
           </NavLink>
-          <NavLink to="favorites" className={({ isActive }) => (isActive ? styles.active : '')}>
-            Favorites
-          </NavLink>
+          {id === 'current' && (
+            <NavLink to="favorites" className={({ isActive }) => (isActive ? styles.active : '')}>
+              Favorites
+            </NavLink>
+          )}
           <NavLink to="followers" className={({ isActive }) => (isActive ? styles.active : '')}>
             Followers
           </NavLink>
-          <NavLink to="following" className={({ isActive }) => (isActive ? styles.active : '')}>
-            Following
-          </NavLink>
+          {id === 'current' && (
+            <NavLink to="following" className={({ isActive }) => (isActive ? styles.active : '')}>
+              Following
+            </NavLink>
+          )}
         </nav>
       </aside>
 

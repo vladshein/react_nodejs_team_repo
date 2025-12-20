@@ -26,7 +26,7 @@ export const getUserById = async (req, res) => {
 };
 
 export const getFollowingController = async (req, res) => {
-  const userId = req.user.id;
+  const userId = req.params.userId === 'current' ? req.user.id : req.params.userId;
   const limit = req.query.limit ? req.query.limit : 5;
   const page = req.query.page ? req.query.page : 1;
   const followingsList = await service.getFollowingsList(userId, Number(limit), Number(page));
@@ -34,7 +34,7 @@ export const getFollowingController = async (req, res) => {
 };
 
 export const getFollowersController = async (req, res) => {
-  const userId = req.user.id;
+  const userId = req.params.userId === 'current' ? req.user.id : req.params.userId;
   const limit = req.query.limit ? req.query.limit : 5;
   const page = req.query.page ? req.query.page : 1;
   const followersList = await service.getFollowersList(userId, Number(limit), Number(page));
