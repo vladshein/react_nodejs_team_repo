@@ -4,8 +4,6 @@ import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 const UserInfo = ({ user }) => {
-  console.log(user);
-
   const dispatch = useDispatch();
   const { id } = useParams();
 

@@ -25,8 +25,6 @@ const AuthModal = ({ isOpen, onRequestClose, view }) => {
     dispatch(login(payload))
       .unwrap()
       .then(() => {
-        console.log(modalProps);
-
         if (modalProps.redirectTo) {
           navigate(modalProps.redirectTo);
         }
@@ -37,7 +35,7 @@ const AuthModal = ({ isOpen, onRequestClose, view }) => {
         dispatch(refreshUser());
       })
       .catch((error) => {
-        console.log('Login failed:', error);
+        toast.error(`Login failed: ${error.message}`);
         if (error.status === 400) {
           actions.setErrors({
             email: 'Fails to match the required pattern',
@@ -58,9 +56,8 @@ const AuthModal = ({ isOpen, onRequestClose, view }) => {
   const submitSignUp = (payload, actions) => {
     dispatch(register(payload))
       .unwrap()
-      .then((data) => {
+      .then(() => {
         onRequestClose();
-        console.log('Registration successful:', data);
         return dispatch(login({ email: payload.email, password: payload.password })).unwrap();
       })
       .then(() => {
