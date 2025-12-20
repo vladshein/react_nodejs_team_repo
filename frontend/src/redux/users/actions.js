@@ -1,9 +1,13 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { userActions } from './constants';
+import api from './../../services/api';
 
 const fetchUser = createAsyncThunk(userActions.FETCH_USER, async (userId, { rejectWithValue }) => {
   try {
-    // const response = await fetch(`/users/${userId}`);
+    const { data } = await api.get(`/users/${userId}`);
+
+    console.log('Fetched user profile:', data);
+    return data;
   } catch (error) {
     return rejectWithValue(error.message);
   }
@@ -24,7 +28,10 @@ const fetchFollowers = createAsyncThunk(
   userActions.FETCH_FOLLOWERS,
   async (_, { rejectWithValue }) => {
     try {
-      // api call to fetch followers
+      // const { data } = await api.get(`users/${id}/followers`);
+      const { data } = await api.get(`users/followers`);
+      console.log('redux fetchFollowers: ', data);
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -35,7 +42,10 @@ const fetchFollowing = createAsyncThunk(
   userActions.FETCH_FOLLOWING,
   async (_, { rejectWithValue }) => {
     try {
-      // api call to fetch following
+      // const { data } = await api.get(`users/${id}/following`);
+      const { data } = await api.get(`users/following`);
+      console.log('redux fetchFollowers: ', data);
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }

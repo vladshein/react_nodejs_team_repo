@@ -38,20 +38,25 @@ const recipesSlice = createSlice({
       })
       .addCase(fetchRecipeDetails.pending, handlePending)
       .addCase(fetchTopRecipes.pending, handlePending)
+
       .addCase(fetchMyRecipes.pending, handlePending)
+      .addCase(fetchMyRecipes.fulfilled, (state, action) => {
+        state.myRecipes = action.payload;
+      })
+
       .addCase(publishRecipe.pending, handlePending)
       .addCase(deleteRecipe.pending, handlePending)
 
       .addCase(fetchFavoriteRecipes.pending, handlePending)
       .addCase(fetchFavoriteRecipes.fulfilled, (state, action) => {
-        state.favorites = action.payload; //recipes + pagination
+        state.favorites = action.payload;
       })
 
       .addCase(addToFavorites.pending, handlePending)
       .addCase(removeFromFavorites.pending, handlePending)
       .addCase(fetchRecipeDetails.fulfilled, (state, action) => {})
       .addCase(fetchTopRecipes.fulfilled, (state, action) => {})
-      .addCase(fetchMyRecipes.fulfilled, (state, action) => {})
+
       .addCase(publishRecipe.fulfilled, (state, action) => {
         state.isLoading = false;
         state.myRecipes.push(action.payload);

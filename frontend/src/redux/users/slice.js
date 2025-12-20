@@ -28,15 +28,28 @@ const usersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchUser.pending, handlePending)
+      .addCase(fetchUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.selectedUser = action.payload;
+      })
+
       .addCase(updateAvatar.pending, handlePending)
+
       .addCase(fetchFollowers.pending, handlePending)
+      .addCase(fetchFollowers.fulfilled, (state, action) => {
+        state.loading = false;
+        state.followers = action.payload;
+      })
+
       .addCase(fetchFollowing.pending, handlePending)
+      .addCase(fetchFollowing.fulfilled, (state, action) => {
+        state.following = action.payload;
+      })
+
       .addCase(followUser.pending, handlePending)
       .addCase(unfollowUser.pending, handlePending)
-      .addCase(fetchUser.fulfilled, (state, action) => {})
+
       .addCase(updateAvatar.fulfilled, (state, action) => {})
-      .addCase(fetchFollowers.fulfilled, (state, action) => {})
-      .addCase(fetchFollowing.fulfilled, (state, action) => {})
       .addCase(followUser.fulfilled, (state, action) => {})
       .addCase(unfollowUser.fulfilled, (state, action) => {})
       .addMatcher(
