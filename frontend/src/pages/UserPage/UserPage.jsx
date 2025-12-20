@@ -5,6 +5,7 @@ import UserInfo from '../../components/Users/UserInfo/UserInfo';
 import styles from './UserPage.module.css';
 import { fetchUser, current } from '../../redux/users/actions';
 import {} from '../../redux/users/selectors';
+import TabsList from '../../components/Users/TabsList/TabsList';
 
 const UserPage = () => {
   const dispatch = useDispatch();
@@ -22,24 +23,10 @@ const UserPage = () => {
     <div className={styles.pageContainer}>
       <aside className={styles.sidebar}>
         <UserInfo id={id} />
-
-        <nav className={styles.navMenu}>
-          <NavLink to="recipes" className={({ isActive }) => (isActive ? styles.active : '')}>
-            My Recipes
-          </NavLink>
-          <NavLink to="favorites" className={({ isActive }) => (isActive ? styles.active : '')}>
-            Favorites
-          </NavLink>
-          <NavLink to="followers" className={({ isActive }) => (isActive ? styles.active : '')}>
-            Followers
-          </NavLink>
-          <NavLink to="following" className={({ isActive }) => (isActive ? styles.active : '')}>
-            Following
-          </NavLink>
-        </nav>
       </aside>
 
       <main className={styles.content}>
+        <TabsList />
         <Outlet />
       </main>
     </div>

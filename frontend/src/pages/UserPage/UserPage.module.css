@@ -8,20 +8,8 @@
 .pageContainer {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-@media (min-width: 1440px) {
-  .pageContainer {
-    flex-direction: row;
-  }
-}
-
-.sidebar {
-  width: 300px;
+  gap: 64px;
+  padding: 32px 16px 64px 16px;
 }
 
 .content {
@@ -40,8 +28,29 @@
   gap: 16px;
 }
 
-
-
 .sidebar {
   width: 100%;
+}
+
+@media (min-width: 768px) {
+  .pageContainer {
+    gap: 80px;
+    padding: 40px 32px 100px 32px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .pageContainer {
+    flex-direction: row;
+    gap: 40px;
+    padding: 40px 80px 120px 80px;
+  }
+
+  .sidebar {
+    width: 394px;
+  }
+
+  .content {
+    margin-top: 0;
+  }
 }
