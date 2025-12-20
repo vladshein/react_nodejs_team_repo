@@ -2,7 +2,7 @@ import styles from './RecipeMainInfo.module.css';
 
 const RecipeMainInfo = ({ recipe }) => {
   return (
-    <>
+    <div className={styles.container}>
       <h1>{recipe.title}</h1>
       <div className={styles.badgesBlock}>
         <div className={styles.badge}>{recipe.category.name}</div>
@@ -19,7 +19,7 @@ const RecipeMainInfo = ({ recipe }) => {
           <p>{recipe.owner.name}</p>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

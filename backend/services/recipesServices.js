@@ -92,7 +92,7 @@ async function getRecipes(filters = {}) {
 //     return await Recipe.findAll({ where });
 // }
 // Get popular recipes (sorted by favorites count)
-export async function getPopularRecipes(limit = 10) {
+export async function getPopularRecipes(limit = 4) {
   const recipes = await Recipe.findAll({
     order: [['favoritesCount', 'DESC']],
     limit,

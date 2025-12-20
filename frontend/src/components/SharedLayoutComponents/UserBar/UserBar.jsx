@@ -13,7 +13,6 @@ const auth = true;
 const UserBar = ({ onLogOutClick }) => {
   const [open, setOpen] = useState(false);
   const user = useSelector(selectUserInfo);
-  console.log(user);
 
   return (
     <div className={style.userBar}>

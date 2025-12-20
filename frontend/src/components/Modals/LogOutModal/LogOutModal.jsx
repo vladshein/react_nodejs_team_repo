@@ -1,4 +1,4 @@
-import toast, { Toaster } from 'react-hot-toast';
+import toast from 'react-hot-toast';
 import { logout } from '../../../redux/auth/actions';
 import { useDispatch } from 'react-redux';
 
@@ -21,7 +21,7 @@ const LogOutModal = ({ isOpen, onRequestClose }) => {
         navigate('/');
       })
       .catch((error) => {
-        console.log('Logout failed:', error);
+        toast.error(`Logout failed: ${error.message}`);
       });
   };
 

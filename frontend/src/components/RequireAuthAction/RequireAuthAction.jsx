@@ -13,10 +13,21 @@ const RequireAuthAction = ({ children, to }) => {
     if (!isLoggedIn) {
       e.preventDefault();
       e.stopPropagation();
-      dispatch(openModal({ modalType: 'auth', modalProps: { view: 'signIn', redirectTo: to } }));
+      dispatch(
+        openModal({
+          modalType: 'auth',
+          modalProps: { view: 'signIn', redirectTo: to },
+        })
+      );
       return;
     }
 
+    // CALL ORIGINAL HANDLER
+    if (children.props.onClick) {
+      children.props.onClick(e);
+    }
+
+    // optional navigation
     const isLink = children.type.name === 'NavLink' || children.type === 'a';
     if (to && !isLink) {
       navigate(to);
