@@ -35,7 +35,6 @@ const usersSlice = createSlice({
         state.loading = false;
         state.selectedUser = action.payload;
       })
-
       .addCase(updateAvatar.pending, handlePending)
 
       .addCase(fetchFollowers.pending, handlePending)

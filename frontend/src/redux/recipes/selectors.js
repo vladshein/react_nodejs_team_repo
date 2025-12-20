@@ -10,4 +10,6 @@ export const selectFavorites = (state) => state.recipes.favorites;
 
 export const selectMyRecipes = (state) => state.recipes.myRecipes;
 
+export const selectUserRecipes = (state) => state.recipes.userRecipes;
+
 export const selectRecipesError = (state) => state.recipes.error;

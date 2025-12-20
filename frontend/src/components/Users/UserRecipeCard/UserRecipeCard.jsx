@@ -23,6 +23,7 @@ export default function UserRecipeCard({
   onDelete,
   isDeleting,
 }) {
+  console.log(thumb);
   return (
     <article className={styles.row}>
       <img className={styles.thumb} src={thumb} alt={title} />
@@ -36,8 +37,7 @@ export default function UserRecipeCard({
               className={styles.actionBtn}
               onClick={() => onOpen(id)}
               disabled={isDeleting}
-              aria-label="Open recipe"
-            >
+              aria-label="Open recipe">
               <IconArrowUpRight className={styles.icon} width={18} height={18} />
             </button>
             {onDelete && (
@@ -46,8 +46,7 @@ export default function UserRecipeCard({
                 className={`${styles.actionBtn} ${styles.deleteBtn}`}
                 onClick={() => onDelete(id)}
                 disabled={isDeleting}
-                aria-label="Delete recipe"
-              >
+                aria-label="Delete recipe">
                 <IconTrash className={styles.icon} width={18} height={18} />
               </button>
             )}

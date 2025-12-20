@@ -4,7 +4,7 @@ import { userService } from '../../services/userService';
 
 const fetchUser = createAsyncThunk(userActions.FETCH_USER, async (userId, { rejectWithValue }) => {
   try {
-    const data = await userService.fetchUser(userId);
+    const { data } = await userService.fetchUser(userId);
     return data;
   } catch (error) {
     return rejectWithValue({
@@ -39,9 +39,9 @@ const updateAvatar = createAsyncThunk(
 
 const fetchFollowers = createAsyncThunk(
   userActions.FETCH_FOLLOWERS,
-  async (_, { rejectWithValue }) => {
+  async (userId, { rejectWithValue }) => {
     try {
-      const { data } = await userService.fetchFollowers();
+      const { data } = await userService.fetchFollowers(userId);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -51,9 +51,9 @@ const fetchFollowers = createAsyncThunk(
 
 const fetchFollowing = createAsyncThunk(
   userActions.FETCH_FOLLOWING,
-  async (_, { rejectWithValue }) => {
+  async (userId, { rejectWithValue }) => {
     try {
-      const { data } = await userService.fetchFollowing();
+      const { data } = await userService.fetchFollowing(userId);
       return data;
       // api call to fetch following
     } catch (error) {

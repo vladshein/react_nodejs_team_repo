@@ -12,5 +12,6 @@ export const recipesService = {
   },
 
   getMyRecipes: async () => await api.get('/recipes/my'),
+  getUserRecipes: async (userId) => await api.get(`/recipes/userrecipes/${userId}`),
   getRecipesFavorites: async () => await api.get('/recipes/favorites'),
 };

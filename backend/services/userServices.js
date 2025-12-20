@@ -93,8 +93,8 @@ export const getUserById = async (userId) => {
     name: user.name,
     email: user.email,
     avatar: user.avatar,
-    recipesCount: user.recipesHas.length,
-    followersCount: followerCount,
+    count_user_recipes: user.recipesHas.length,
+    count_followers: followerCount,
   };
 };
 

@@ -57,6 +57,19 @@ const fetchMyRecipes = createAsyncThunk(
   }
 );
 
+const fetchUserRecipes = createAsyncThunk(
+  recipesActions.FETCH_USER_RECIPES,
+  async (userId, { rejectWithValue }) => {
+    try {
+      const { data } = await recipesService.getUserRecipes(userId);
+      return data;
+      // api call to fetch user's own recipes
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
 const publishRecipe = createAsyncThunk(
   recipesActions.CREATE_RECIPE,
   async (recipeData, { rejectWithValue }) => {
@@ -119,6 +132,7 @@ export {
   fetchRecipeDetails,
   fetchTopRecipes,
   fetchMyRecipes,
+  fetchUserRecipes,
   publishRecipe,
   deleteRecipe,
   fetchFavoriteRecipes,

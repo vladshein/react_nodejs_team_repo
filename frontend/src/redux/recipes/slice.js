@@ -4,6 +4,7 @@ import {
   fetchRecipeDetails,
   fetchTopRecipes,
   fetchMyRecipes,
+  fetchUserRecipes,
   publishRecipe,
   deleteRecipe,
   fetchFavoriteRecipes,
@@ -20,6 +21,7 @@ const handlePending = (state) => {
 const initialState = {
   allRecipes: [],
   myRecipes: [],
+  userRecipes: [],
   favorites: [],
   topRecipes: [],
   selectedRecipe: null,
@@ -46,6 +48,11 @@ const recipesSlice = createSlice({
         state.isLoading = false;
       })
 
+      .addCase(fetchUserRecipes.pending, handlePending)
+      .addCase(fetchUserRecipes.fulfilled, (state, action) => {
+        state.userRecipes = action.payload;
+        state.isLoading = false;
+      })
       .addCase(publishRecipe.pending, handlePending)
       .addCase(deleteRecipe.pending, handlePending)
 
