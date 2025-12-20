@@ -36,28 +36,32 @@ const RecipeFilters = ({ callBackFunctions }) => {
 
   return (
     <div className={styles.filters}>
-      <SelectField
-        name="ingredient"
-        value={ind}
-        onChange={(value) => {
-          setInd(value);
-          callBackFunctions.handleIngredient(value);
-        }}
-        onBlur={false}
-        options={newIngredient}
-        placeholder="Ingredients"
-      />
-      <SelectField
-        name="area"
-        value={are}
-        onChange={(value) => {
-          setAre(value);
-          callBackFunctions.handleArea(value);
-        }}
-        onBlur={false}
-        options={newArea}
-        placeholder="Area"
-      />
+      <div className={styles.filter}>
+        <SelectField
+          name="ingredient"
+          value={ind}
+          onChange={(value) => {
+            setInd(value);
+            callBackFunctions.handleIngredient(value);
+          }}
+          onBlur={false}
+          options={newIngredient}
+          placeholder="Ingredients"
+        />
+      </div>
+      <div className={styles.filter}>
+        <SelectField
+          name="area"
+          value={are}
+          onChange={(value) => {
+            setAre(value);
+            callBackFunctions.handleArea(value);
+          }}
+          onBlur={false}
+          options={newArea}
+          placeholder="Area"
+        />
+      </div>
     </div>
   );
 };

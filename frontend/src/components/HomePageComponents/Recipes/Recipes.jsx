@@ -77,7 +77,7 @@ const Recipes = () => {
   };
 
   return (
-    <section className={styles.section}>
+    <section className={styles.container}>
       <button onClick={() => navigate(-1)} className={styles.recipeBackBtn}>
         <svg
           width="18"
@@ -112,8 +112,8 @@ const Recipes = () => {
         <aside className={styles.recipeFilters}>
           <RecipeFilters callBackFunctions={callbackFuncions} />
         </aside>
-        <div className={styles.resipesCardsBlock}>
-          <div className={styles.resipesCards}>
+        <div className={styles.recipesCardsBlock}>
+          <div className={styles.recipesCards}>
             {!spin && recipes ? (
               <RecipeList recipes={recipes} />
             ) : (
