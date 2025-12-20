@@ -26,7 +26,8 @@ function useBreakpoint() {
 
 const Header = () => {
   const location = useLocation();
-  const variant = location.pathname === '/' || location.pathname === '/recipes' ? 'dark' : 'light';
+  const isHeroPage = location.pathname === '/' || location.pathname === '/recipes';
+  const variant = isHeroPage ? 'dark' : 'light';
   const isLoggedIn = useSelector(selectIsLoggedIn);
   const dispatch = useDispatch();
   const width = useBreakpoint();
@@ -52,7 +53,11 @@ const Header = () => {
 
   return (
     <>
-      <header className={`${style.headerdiv} ${variant === 'dark' ? style.dark : style.light}`}>
+      <header
+        className={`${style.headerdiv} ${isHeroPage ? style.overlay : ''} ${
+          variant === 'dark' ? style.dark : style.light
+        }`}
+      >
         <Logo variant={variant === 'dark' ? 'light' : 'dark'} />
         {/* <HeaderNav variant={variant === 'dark' ? 'light' : 'dark'} /> */}
 
