@@ -1,13 +1,20 @@
 import express from 'express';
 import upload from '../middlewares/upload.js';
 import authenticate from '../middlewares/authenticate.js';
-import { getCurrentUser, getUserById } from './../controllers/userControllers.js';
-import { updateAvatarController, getFollowersController } from '../controllers/authControllers.js';
+import {
+  getCurrentUser,
+  getFollowingController,
+  getFollowersController,
+  getUserById,
+} from './../controllers/userControllers.js';
+import { updateAvatarController } from '../controllers/authControllers.js';
+import { getFollowingsListController } from '../controllers/followersController.js';
 
 const userRouter = express.Router();
 userRouter.get('/current', authenticate, getCurrentUser);
-userRouter.get('/:userId', authenticate, getUserById);
 userRouter.patch('/avatars', authenticate, upload.single('avatar'), updateAvatarController);
 userRouter.get('/followers', authenticate, getFollowersController);
+userRouter.get('/following', authenticate, getFollowingController);
+userRouter.get('/:userId', authenticate, getUserById);
 
 export default userRouter;

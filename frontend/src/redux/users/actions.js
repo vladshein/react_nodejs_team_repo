@@ -1,15 +1,28 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { userActions } from './constants';
-import api from './../../services/api';
+import { userService } from '../../services/userService';
 
 const fetchUser = createAsyncThunk(userActions.FETCH_USER, async (userId, { rejectWithValue }) => {
   try {
-    const { data } = await api.get(`/users/${userId}`);
-
-    console.log('Fetched user profile:', data);
+    const data = await userService.fetchUser(userId);
     return data;
   } catch (error) {
-    return rejectWithValue(error.message);
+    return rejectWithValue({
+      status: error.response?.status,
+      message: error.response?.data?.message || error.message,
+    });
+  }
+});
+
+const current = createAsyncThunk(userActions.FETCH_CURRENT_USER, async (_, { rejectWithValue }) => {
+  try {
+    const { data } = await userService.current();
+    return data;
+  } catch (error) {
+    return rejectWithValue({
+      status: error.response?.status,
+      message: error.response?.data?.message || error.message,
+    });
   }
 });
 
@@ -28,9 +41,7 @@ const fetchFollowers = createAsyncThunk(
   userActions.FETCH_FOLLOWERS,
   async (_, { rejectWithValue }) => {
     try {
-      // const { data } = await api.get(`users/${id}/followers`);
-      const { data } = await api.get(`users/followers`);
-      console.log('redux fetchFollowers: ', data);
+      const { data } = await userService.fetchFollowers();
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
@@ -42,10 +53,9 @@ const fetchFollowing = createAsyncThunk(
   userActions.FETCH_FOLLOWING,
   async (_, { rejectWithValue }) => {
     try {
-      // const { data } = await api.get(`users/${id}/following`);
-      const { data } = await api.get(`users/following`);
-      console.log('redux fetchFollowers: ', data);
+      const { data } = await userService.fetchFollowing();
       return data;
+      // api call to fetch following
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -74,4 +84,12 @@ const unfollowUser = createAsyncThunk(
   }
 );
 
-export { fetchUser, updateAvatar, fetchFollowers, fetchFollowing, followUser, unfollowUser };
+export {
+  current,
+  fetchUser,
+  updateAvatar,
+  fetchFollowers,
+  fetchFollowing,
+  followUser,
+  unfollowUser,
+};

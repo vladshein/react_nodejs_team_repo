@@ -14,7 +14,7 @@ const AuthModal = ({ isOpen, onRequestClose, view }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const previousPage = location.state?.from?.pathname || '/';
+  const previousPage = location.state?.from?.pathname;
   const modalProps = useSelector(selectModalProps);
 
   const setView = (view) => {
@@ -25,17 +25,16 @@ const AuthModal = ({ isOpen, onRequestClose, view }) => {
     dispatch(login(payload))
       .unwrap()
       .then(() => {
-        return dispatch(refreshUser());
-      })
-      .then(() => {
-        console.log('Login successful');
-        onRequestClose();
+        console.log(modalProps);
+
         if (modalProps.redirectTo) {
           navigate(modalProps.redirectTo);
         }
         if (previousPage) {
           navigate(previousPage);
         }
+        onRequestClose();
+        dispatch(refreshUser());
       })
       .catch((error) => {
         console.log('Login failed:', error);
@@ -60,15 +59,12 @@ const AuthModal = ({ isOpen, onRequestClose, view }) => {
     dispatch(register(payload))
       .unwrap()
       .then((data) => {
-        console.log('Registration successful:', data);
-        return dispatch(login({ email: payload.email, password: payload.password }));
-      })
-      .then(() => {
-        return dispatch(refreshUser());
-      })
-      .then(() => {
-        console.log('Login after registration successful');
         onRequestClose();
+        console.log('Registration successful:', data);
+        return dispatch(login({ email: payload.email, password: payload.password })).unwrap();
+      })
+      .then(() => {
+        dispatch(refreshUser()).unwrap();
       })
       .catch((err) => {
         if (err.status === 400) {

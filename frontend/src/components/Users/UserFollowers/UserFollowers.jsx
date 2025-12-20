@@ -2,26 +2,33 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchFollowers } from './../../../redux/users/actions';
 import { selectFollowers } from './../../../redux/users/selectors';
-
 import styles from './UserFollowers.module.css';
 import UserList from '../UserList/UserList';
 
 const UserFollowers = () => {
+  // Тимчасові дані (імітація відповіді сервера)
+  // const followers = [
+  //   { id: 1, name: 'Maria K.', avatar: '', isFollowed: false },
+  //   { id: 2, name: 'John D.', avatar: '', isFollowed: true },
+  //   { id: 3, name: 'Anna S.', avatar: '', isFollowed: false },
+  //   { id: 4, name: 'Mike T.', avatar: '', isFollowed: true },
+  // ];
   const dispatch = useDispatch();
-  const followers = useSelector(selectFollowers);
-
-  console.log('const followers = useSelector(selectFollowers): ', followers);
-
   useEffect(() => {
     dispatch(fetchFollowers());
   }, [dispatch]);
 
-  return (
+  const followers = useSelector(selectFollowers);
+
+  // Replace with actual data from Redux store
+  return followers.length === 0 ? (
+    <div>No followers found.</div>
+  ) : (
     <div className={styles.listContainer}>
       {followers && followers.length > 0 ? (
         <ul className={styles.list}>
           {followers.map((follower) => (
-            <UserList key={follower._id || follower.id} user={follower} />
+            <UserList key={follower.id} user={follower} />
           ))}
         </ul>
       ) : (

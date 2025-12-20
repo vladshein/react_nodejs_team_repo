@@ -48,9 +48,9 @@ const fetchMyRecipes = createAsyncThunk(
   recipesActions.FETCH_MY_RECIPES,
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await api.get('recipes/my');
-      console.log('reduxRecipes: ', data);
+      const { data } = await recipesService.getMyRecipes();
       return data;
+      // api call to fetch user's own recipes
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -84,8 +84,7 @@ const fetchFavoriteRecipes = createAsyncThunk(
   recipesActions.FETCH_FAVORITES,
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await api.get('recipes/favorites');
-      console.log('reduxFavoriteRecipes: ', data);
+      const { data } = await recipesService.getRecipesFavorites();
       return data;
     } catch (error) {
       return rejectWithValue(error.message);

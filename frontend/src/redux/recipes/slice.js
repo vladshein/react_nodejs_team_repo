@@ -10,6 +10,7 @@ import {
   addToFavorites,
   removeFromFavorites,
 } from './actions';
+import { logout } from '../auth/actions';
 
 const handlePending = (state) => {
   state.isLoading = true;
@@ -42,6 +43,7 @@ const recipesSlice = createSlice({
       .addCase(fetchMyRecipes.pending, handlePending)
       .addCase(fetchMyRecipes.fulfilled, (state, action) => {
         state.myRecipes = action.payload;
+        state.isLoading = false;
       })
 
       .addCase(publishRecipe.pending, handlePending)
@@ -49,14 +51,14 @@ const recipesSlice = createSlice({
 
       .addCase(fetchFavoriteRecipes.pending, handlePending)
       .addCase(fetchFavoriteRecipes.fulfilled, (state, action) => {
-        state.favorites = action.payload;
+        state.favorites = action.payload; //recipes + pagination
+        state.isLoading = false;
       })
 
       .addCase(addToFavorites.pending, handlePending)
       .addCase(removeFromFavorites.pending, handlePending)
       .addCase(fetchRecipeDetails.fulfilled, (state, action) => {})
       .addCase(fetchTopRecipes.fulfilled, (state, action) => {})
-
       .addCase(publishRecipe.fulfilled, (state, action) => {
         state.isLoading = false;
         state.myRecipes.push(action.payload);
@@ -65,6 +67,13 @@ const recipesSlice = createSlice({
 
       .addCase(addToFavorites.fulfilled, (state, action) => {})
       .addCase(removeFromFavorites.fulfilled, (state, action) => {})
+      .addCase(logout.fulfilled, (state) => {
+        state.allRecipes = [];
+        state.myRecipes = [];
+        state.favorites = [];
+        state.topRecipes = [];
+        state.selectedRecipe = null;
+      })
       .addMatcher(
         isAnyOf(
           fetchRecipes.rejected,

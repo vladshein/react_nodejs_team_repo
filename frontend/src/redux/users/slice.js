@@ -1,5 +1,6 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import {
+  current,
   fetchUser,
   updateAvatar,
   fetchFollowers,
@@ -7,6 +8,7 @@ import {
   followUser,
   unfollowUser,
 } from './actions';
+import { logout } from '../auth/actions';
 
 const handlePending = (state) => {
   state.loading = true;
@@ -27,6 +29,7 @@ const usersSlice = createSlice({
   initialState,
   extraReducers: (builder) => {
     builder
+      .addCase(current.pending, handlePending)
       .addCase(fetchUser.pending, handlePending)
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.loading = false;
@@ -44,16 +47,24 @@ const usersSlice = createSlice({
       .addCase(fetchFollowing.pending, handlePending)
       .addCase(fetchFollowing.fulfilled, (state, action) => {
         state.following = action.payload;
+        state.loading = false;
       })
-
       .addCase(followUser.pending, handlePending)
       .addCase(unfollowUser.pending, handlePending)
-
+      .addCase(current.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentUser = action.payload;
+      })
       .addCase(updateAvatar.fulfilled, (state, action) => {})
       .addCase(followUser.fulfilled, (state, action) => {})
       .addCase(unfollowUser.fulfilled, (state, action) => {})
+      .addCase(logout.fulfilled, (state) => {
+        state.currentUser = null;
+        state.selectedUser = null;
+      })
       .addMatcher(
         isAnyOf(
+          current.rejected,
           fetchUser.rejected,
           updateAvatar.rejected,
           fetchFollowers.rejected,
