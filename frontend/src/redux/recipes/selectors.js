@@ -11,5 +11,3 @@ export const selectFavorites = (state) => state.recipes.favorites;
 export const selectMyRecipes = (state) => state.recipes.myRecipes;
 
 export const selectRecipesError = (state) => state.recipes.error;
-
-export const selectMyRecipes = (state) => state.recipes.myRecipes;

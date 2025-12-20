@@ -2,13 +2,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchFollowers } from './../../../redux/users/actions';
 import { selectFollowers } from './../../../redux/users/selectors';
-
 import styles from './UserFollowers.module.css';
 import UserList from '../UserList/UserList';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import { fetchFollowers } from '../../../redux/users/actions';
-import { selectFollowers } from '../../../redux/users/selectors';
 
 const UserFollowers = () => {
   // Тимчасові дані (імітація відповіді сервера)
@@ -33,7 +28,7 @@ const UserFollowers = () => {
       {followers && followers.length > 0 ? (
         <ul className={styles.list}>
           {followers.map((follower) => (
-            <UserList key={follower._id || follower.id} user={follower} />
+            <UserList key={follower.id} user={follower} />
           ))}
         </ul>
       ) : (

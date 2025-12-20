@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
-import UserList from '../UserList/UserList';
-import { fetchFollowing } from '../../../redux/users/actions';
 import { useDispatch, useSelector } from 'react-redux';
+import { fetchFollowing } from '../../../redux/users/actions';
 import { selectFollowing } from '../../../redux/users/selectors';
+import UserList from '../UserList/UserList';
 
 const UserFollowing = () => {
   // const following = [
