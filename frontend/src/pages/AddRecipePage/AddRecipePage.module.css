@@ -1,8 +1,12 @@
+.container {
+  margin: 0 16px 64px 16px;
+}
+
 .pageWrapper {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 32px 16px 64px 16px;
+  margin-top: 32px;
 }
 .title {
   text-transform: uppercase;
@@ -19,8 +23,12 @@
 }
 
 @media (min-width: 768px) {
+  .container {
+    margin: 0 32px 64px 32px;
+  }
+
   .pageWrapper {
-    padding: 40px 32px 64px 32px;
+    margin-top: 40px;
   }
   .title {
     font-size: var(--fs-40);
@@ -33,7 +41,10 @@
 }
 
 @media (min-width: 1440px) {
+  .container {
+    margin: 0 80px 120px 80px;
+  }
   .pageWrapper {
-    padding: 40px 80px 120px 80px;
+    margin-top: 40px;
   }
 }

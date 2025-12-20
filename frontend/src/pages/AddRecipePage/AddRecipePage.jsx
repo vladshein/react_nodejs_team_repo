@@ -9,6 +9,7 @@ import { fetchAreas } from '../../redux/areas/actions';
 import { fetchCategories } from '../../redux/categories/actions';
 import { fetchIngredients } from '../../redux/ingredients/actions';
 import styles from './AddRecipePage.module.css';
+import Breadcrumbs from '../../components/SharedLayoutComponents/Breadcrumbs/Breadcrumbs';
 
 const AddRecipePage = () => {
   const dispatch = useDispatch();
@@ -39,20 +40,28 @@ const AddRecipePage = () => {
     value: area.id,
   }));
 
+  const breadcrumbs = [
+    { name: 'Home', link: '/' },
+    { name: 'Add Recipe', link: '/recipe/add' },
+  ];
+
   return (
     <div>
       <Header />
-      <div className={styles.pageWrapper}>
-        <h2 className={styles.title}>Add recipe</h2>
-        <p className={styles.description}>
-          Reveal your culinary art, share your favorite recipe and create gastronomic masterpieces
-          with us.
-        </p>
-        <AddRecipeForm
-          categoriesOptions={categoriesOptions}
-          ingredientsOptions={ingredientsOptions}
-          areasOptions={areasOptions}
-        />
+      <div className={styles.container}>
+        <Breadcrumbs paths={breadcrumbs} />
+        <div className={styles.pageWrapper}>
+          <h2 className={styles.title}>Add recipe</h2>
+          <p className={styles.description}>
+            Reveal your culinary art, share your favorite recipe and create gastronomic masterpieces
+            with us.
+          </p>
+          <AddRecipeForm
+            categoriesOptions={categoriesOptions}
+            ingredientsOptions={ingredientsOptions}
+            areasOptions={areasOptions}
+          />
+        </div>
       </div>
     </div>
   );
