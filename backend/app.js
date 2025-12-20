@@ -2,6 +2,7 @@ import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import 'dotenv/config';
+import path from 'node:path';
 
 import authRouter from './routes/authRouter.js';
 import userRouter from './routes/userRouter.js';
@@ -18,6 +19,8 @@ const app = express();
 
 // syncDatabase();
 
+const publicDir = path.join(process.cwd(), 'public');
+
 app.use(morgan('tiny'));
 app.use(
   cors({
@@ -25,7 +28,7 @@ app.use(
   })
 );
 app.use(express.json());
-app.use(express.static('public'));
+app.use(express.static(publicDir));
 
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
