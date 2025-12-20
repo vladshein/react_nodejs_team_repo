@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import IconArrowUpRight from '../../common/icons/IconArrowUpRight';
+import Loader from '../../common/Loader/Loader';
 import {
   selectCategories,
   selectCategoriesLoading,
@@ -21,7 +22,12 @@ const CategoryList = ({ limit = 11, showAllCard = true }) => {
     dispatch(fetchCategories());
   }, [dispatch]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <div className={styles.loading} aria-busy="true" aria-live="polite">
+        <Loader />
+      </div>
+    );
   if (error) return <p>Error: {error}</p>;
 
   const hasLimit = typeof limit === 'number';

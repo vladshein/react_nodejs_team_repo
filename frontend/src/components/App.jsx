@@ -16,8 +16,8 @@ const UserFavorites = lazy(() => import('../components/Users/UserFavorites/UserF
 const UserFollowers = lazy(() => import('../components/Users/UserFollowers/UserFollowers'));
 const UserFollowing = lazy(() => import('../components/Users/UserFollowing/UserFollowing'));
 
-import Header from './SharedLayoutComponents/Header/Header';
 import Footer from './SharedLayoutComponents/Footer/Footer';
+import Header from './SharedLayoutComponents/Header/Header';
 
 import Hero from './HomePageComponents/Hero/Hero';
 import Recipes from './HomePageComponents/Recipes/Recipes';
@@ -26,16 +26,28 @@ import homeStyles from '../pages/HomePage/HomePage.module.css';
 
 import PrivateRoute from '../guards/PrivateRoute/PrivateRoute';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsRefreshing } from '../redux/auth/selectors';
+import { selectIsLoading as selectAuthIsLoading, selectIsRefreshing } from '../redux/auth/selectors';
 import { useEffect } from 'react';
 import { refreshUser } from '../redux/auth/actions.js';
 import AuthModal from './Modals/AuthModal/AuthModal.jsx';
 import LogOutModal from './Modals/LogOutModal/LogOutModal.jsx';
 import { selectIsModalOpen, selectModalType, selectModalProps } from '../redux/modal/selectors.js';
 import { closeModal } from '../redux/modal/modalSlice.js';
+import Loader from './common/Loader/Loader';
 
 const App = () => {
   const isRefreshing = useSelector(selectIsRefreshing);
+  const authIsLoading = useSelector(selectAuthIsLoading);
+  const isReduxLoading = useSelector((state) => {
+    return Boolean(
+      state?.categories?.isLoading ||
+        state?.areas?.isLoading ||
+        state?.ingredients?.isLoading ||
+        state?.recipes?.isLoading ||
+        state?.users?.isLoading ||
+        state?.testimonials?.isLoading
+    );
+  });
   const isModalOpen = useSelector(selectIsModalOpen);
   const modalType = useSelector(selectModalType);
   const modalProps = useSelector(selectModalProps);
@@ -52,10 +64,24 @@ const App = () => {
   return (
     <div className="appShell">
       <div className="appMain">
+        <Header />
+        {(authIsLoading || isReduxLoading) && !isRefreshing && (
+          <div className="appSpinnerOverlay" aria-busy="true" aria-live="polite">
+            <Loader />
+          </div>
+        )}
         {isRefreshing ? (
-          <div>Refreshing user...</div>
+          <div className="appSpinnerOverlay" aria-busy="true" aria-live="polite">
+            <Loader />
+          </div>
         ) : (
-          <Suspense fallback={<div>Loading...</div>}>
+          <Suspense
+            fallback={
+              <div className="appSpinnerOverlay" aria-busy="true" aria-live="polite">
+                <Loader />
+              </div>
+            }
+          >
             <Routes>
               <Route path="/" element={<HomePage />} />
 
@@ -64,7 +90,6 @@ const App = () => {
                 element={
                   <div>
                     <div className={homeStyles.heroSection}>
-                      <Header />
                       <Hero />
                     </div>
                     <Recipes />
