@@ -33,16 +33,18 @@ const UserPage = () => {
   return isLoading ? (
     <div>Loading user data...</div>
   ) : (
-    <div className={styles.pageContainer}>
-      <aside className={styles.sidebar}>
-        <UserInfo id={id} />
-      </aside>
+    user && (
+      <div className={styles.pageContainer}>
+        <aside className={styles.sidebar}>
+          <UserInfo user={user} />
+        </aside>
 
-      <main className={styles.content}>
-        <TabsList />
-        <Outlet />
-      </main>
-    </div>
+        <main className={styles.content}>
+          <TabsList />
+          <Outlet />
+        </main>
+      </div>
+    )
   );
 };
 

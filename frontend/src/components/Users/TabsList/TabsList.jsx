@@ -1,7 +1,8 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
 import styles from './TabsList.module.css';
 
 const TabsList = () => {
+  const { id } = useParams();
   return (
     <nav className={styles.navMenu}>
       <NavLink
@@ -9,21 +10,27 @@ const TabsList = () => {
         className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}>
         My Recipes
       </NavLink>
-      <NavLink
-        to="favorites"
-        className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}>
-        Favorites
-      </NavLink>
+      {id === 'current' && (
+        <NavLink
+          to="favorites"
+          className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}>
+          Favorites
+        </NavLink>
+      )}
+
       <NavLink
         to="followers"
         className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}>
         Followers
       </NavLink>
-      <NavLink
-        to="following"
-        className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}>
-        Following
-      </NavLink>
+
+      {id === 'current' && (
+        <NavLink
+          to="following"
+          className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}>
+          Following
+        </NavLink>
+      )}
     </nav>
   );
 };
