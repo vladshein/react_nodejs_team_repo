@@ -4,6 +4,7 @@ const recipesActions = {
   FETCH_TOP_RECIPES: 'recipes/fetchTopRecipes',
 
   FETCH_MY_RECIPES: 'recipes/fetchMyRecipes',
+  FETCH_USER_RECIPES: 'recipes/fetchUserRecipes',
   CREATE_RECIPE: 'recipes/createRecipe',
   DELETE_RECIPE: 'recipes/deleteRecipe',
 

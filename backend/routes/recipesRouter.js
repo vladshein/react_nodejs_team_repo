@@ -4,6 +4,7 @@ import {
   getPopularRecipesController,
   getRecipeByIdController,
   getOwnRecipesController,
+  getUserRecipesController,
   createRecipeController,
   deleteRecipeController,
   getFavoriteRecipesController,
@@ -28,6 +29,7 @@ recipesRouter.get('/my', [authenticate, validateQuery(paginationSchema)], getOwn
 recipesRouter.get('/favorites', authenticate, getFavoriteRecipesController); // список улюблених
 recipesRouter.post('/favorites/:id', authenticate, updateFavoriteRecipeController); // додати улюблений
 recipesRouter.delete('/favorites/:id', authenticate, removeFavoriteRecipeController); // видалити з улюблених
+recipesRouter.get('/userrecipes/:id', authenticate, getUserRecipesController);
 
 // public route with dynamic parameter - must be AFTER specific routes
 recipesRouter.get('/:id', getRecipeByIdController);

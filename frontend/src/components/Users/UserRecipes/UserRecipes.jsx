@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { fetchMyRecipes } from './../../../redux/recipes/actions';
+import { fetchMyRecipes, fetchUserRecipes } from './../../../redux/recipes/actions';
 // import { deleteRecipe } from './../../../redux/recipes/actions';
-import { selectMyRecipes } from './../../../redux/recipes/selectors';
+import { selectMyRecipes, selectUserRecipes } from './../../../redux/recipes/selectors';
 import UserRecipeCard from '../UserRecipeCard/UserRecipeCard';
 import styles from './UserRecipes.module.css';
 
@@ -11,15 +11,16 @@ const UserRecipes = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { recipes } = useSelector(selectMyRecipes);
+  const { recipes } = useSelector(id === 'current' ? selectMyRecipes : selectUserRecipes);
 
   console.log('UserRecipes render:', recipes);
 
   useEffect(() => {
-    if (id !== 'current') {
+    if (id === 'current') {
       dispatch(fetchMyRecipes());
       return;
     }
+    dispatch(fetchUserRecipes(id));
   }, [dispatch, id]);
 
   const handleOpenRecipe = (id) => {

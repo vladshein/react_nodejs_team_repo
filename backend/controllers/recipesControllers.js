@@ -46,7 +46,7 @@ export const getOwnRecipesController = async (req, res) => {
   const { id: ownerId } = req.user;
   const query = req.validatedQuery || req.query;
   const page = parseInt(query.page) || 1;
-  const limit = parseInt(query.limit) || 10;
+  const limit = parseInt(query.limit) || 4;
   const { offset } = getPagination(page, limit);
   // GO!
   const recipes = await recipesServices.getOwnRecipes(ownerId, limit, offset, [
@@ -67,6 +67,31 @@ export const getOwnRecipesController = async (req, res) => {
       page: currentPage,
       limit: responseLimit,
       totalPages,
+    },
+  });
+};
+
+export const getUserRecipesController = async (req, res) => {
+  const { id } = req.params;
+  const page = parseInt(req.query.page) || 1; // Fixed query reference
+  const limit = parseInt(req.query.limit) || 4; // Fixed query reference
+  const { offset } = getPagination(page, limit);
+
+  const recipes = await recipesServices.getOwnRecipes(id, limit, offset, [['updatedAt', 'ASC']]);
+  const {
+    totalItems,
+    items,
+    totalPages,
+    currentPage,
+    limit: responseLimit,
+  } = formatResponse(recipes, page, limit);
+
+  res.json({
+    recipes: items,
+    pagination: {
+      total: totalItems,
+      page: currentPage,
+      limit: responseLimit,
     },
   });
 };
