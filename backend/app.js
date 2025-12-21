@@ -20,6 +20,7 @@ const app = express();
 // syncDatabase();
 
 const publicDir = path.join(process.cwd(), 'public');
+const tempDir = path.join(process.cwd(), 'temp');
 
 app.use(morgan('tiny'));
 app.use(
@@ -29,6 +30,7 @@ app.use(
 );
 app.use(express.json());
 app.use(express.static(publicDir));
+app.use('/temp', express.static(tempDir));
 
 app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
