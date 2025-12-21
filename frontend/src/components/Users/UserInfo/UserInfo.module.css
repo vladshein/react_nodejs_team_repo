@@ -22,7 +22,8 @@
 @media screen and (min-width: 768px) {
   .card {
     width: 394px;
-    padding: 40px 80px;
+    max-width: 394px;
+    padding: 40px 40px;
     gap: 20px;
     min-height: 408px;
     padding-top: 40px;
@@ -33,7 +34,7 @@
 @media screen and (min-width: 1440px) {
   .card {
     border: 1px solid #050505;
-    /* margin: 0 75px 0 0; */
+    margin: 0 0 20px 60px;
     max-width: 394px;
     padding-top: 40px;
     margin-bottom: 20px;
@@ -41,6 +42,7 @@
 }
 
 .avatarWrapper {
+  position: relative;
   margin-bottom: 16px;
 }
 
@@ -63,6 +65,42 @@
     height: 120px;
   }
 }
+
+.uploadBtn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(100% - 23px);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #050505;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid transparent;
+  padding: 0;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.uploadBtn svg {
+  filter: invert(1);
+  transition: filter 0.3s ease;
+}
+
+.uploadBtn:hover,
+.uploadBtn:active {
+  background: #FFFFFF;
+  border: 1px solid #050505;
+}
+
+.uploadBtn:hover svg,
+.uploadBtn:active svg {
+  filter: invert(0);
+}
+
 
 .name {
   font-weight: 800;
@@ -109,24 +147,55 @@
   color: #050505;
 }
 
+.actionBtn {
+  width: 343px;
+  height: 48px;
+  font-size: 14px;
+  line-height: 1.5;
+
+
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: #FFFFFF;
+  background-color: #1A1A1A;
+}
+
 @media screen and (min-width: 768px) {
-  .statValue {}
+  .actionBtn {
+    width: 394px;
+    height: 60px;
+    font-size: 16px;
+  }
 }
 
+@media screen and (min-width: 1440px) {
 
-.editBtn {
-  width: 100%;
-  padding: 12px;
-  background-color: #fff;
-  border: 1px solid #000;
-  color: #000;
-  font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s;
+  .actionBtn {
+    margin: 0 0 0 60px;
+  }
 }
 
-.editBtn:hover {
-  background-color: #000;
-  color: #fff;
+.actionBtn:hover,
+.actionBtn:active {
+  background: #050505;
+  border-color: #050505;
+}
+
+.actionBtn:hover .icon,
+.actionBtn:active .icon {
+  filter: invert(0.5);
+}
+
+.actionBtn.isActive,
+.favoriteButton.isFavorite {
+  background: #050505;
+  border-color: #050505;
+}
+
+.actionBtn.isActive .icon,
+.favoriteButton.isFavorite .icon {
+  filter: invert(0.5);
 }

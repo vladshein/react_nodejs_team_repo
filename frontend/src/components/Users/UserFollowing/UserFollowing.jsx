@@ -17,6 +17,10 @@ const UserFollowing = () => {
   const following = useSelector(selectFollowing);
   console.log(following);
 
+  // const handleRemoveFollowing = (followingId) => {
+  //   dispatch(unfollowUser(followingId)).unwrap();
+  // };
+
   return following.length === 0 ? (
     <div>No following users found.</div>
   ) : (

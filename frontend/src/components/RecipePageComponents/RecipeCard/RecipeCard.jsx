@@ -4,6 +4,10 @@ import styles from './RecipeCard.module.css';
 import IconHeart from '../../common/icons/IconHeart';
 import IconArrowUpRight from '../../common/icons/IconArrowUpRight';
 
+import { selectIsLoggedIn } from './../../../redux/auth/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { openModal } from '../../../redux/modal/modalSlice';
+
 /* Using:
 <RecipeCard
     recipe={{
@@ -37,7 +41,11 @@ export default function RecipeCard({
     description,
     image,
     thumb,
-    author = { id: null, name: 'User', avatar: '../../../images/favicon.png' },
+    author = {
+      id: recipe.owner.id || null,
+      name: recipe.owner.name || 'User',
+      avatar: recipe.owner.avatar || '../../../images/favicon.png',
+    },
   } = recipe || {};
 
   const [localFav, setLocalFav] = useState(false);
@@ -46,16 +54,32 @@ export default function RecipeCard({
 
   const isFavorite = favoriteFromParent ?? localFav;
 
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector(selectIsLoggedIn);
+
   const requireAuth = (fn) => {
     if (isAuthed) return fn();
     if (onNeedAuth) onNeedAuth();
   };
 
-  const handleFavoriteToggle = () => {
+  const handleFavoriteToggle = (e) => {
+    // auth
+    if (!isLoggedIn) {
+      e.preventDefault();
+      e.stopPropagation();
+      dispatch(
+        openModal({
+          modalType: 'auth',
+          modalProps: { view: 'signIn', redirectTo: '' },
+        })
+      );
+      return;
+    }
+
     requireAuth(async () => {
       setFavLoading(true);
       try {
-        if (onToggleFavorite) await onToggleFavorite(id);
+        if (onToggleFavorite) await onToggleFavorite({ id, isFavorite });
         else setLocalFav((v) => !v);
       } finally {
         setFavLoading(false);

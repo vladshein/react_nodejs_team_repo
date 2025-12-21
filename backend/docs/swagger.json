@@ -1011,7 +1011,6 @@
             "in": "path",
             "name": "id",
             "schema": {
-              "type": "integer",
               "example": 7
             }
           }
