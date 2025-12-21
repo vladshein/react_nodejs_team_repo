@@ -105,13 +105,38 @@ const fetchFavoriteRecipes = createAsyncThunk(
   }
 );
 
+/**
+ * add favorites
+ */
 const addToFavorites = createAsyncThunk(
   recipesActions.ADD_TO_FAVORITES,
   async (recipeId, { rejectWithValue }) => {
     try {
-      const { data } = await recipesService.addToFavorites(recipeId);
-      console.log('data', data);
-      return data;
+      // put here
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+/**
+ * add favorites
+ */
+const handleFavorites = createAsyncThunk(
+  recipesActions.ADD_TO_FAVORITES,
+  async (obj, { rejectWithValue }) => {
+    try {
+      // {id: '6462a8f74c3d0ddd28897fbf', isFavorite: true}
+      // isFavorite: true - recipe in favorites and we make delete
+      // isFavorite: false - recipe not in favorites and we make add
+      console.log(obj);
+      if (obj.isFavorite) {
+        // isFavorite: true then remove from
+        return await recipesService.deleteFromFavorite(obj.id);
+      } else {
+        // isFavorite: false then add to
+        return await recipesService.addToFavorites(obj.id);
+      }
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -140,4 +165,5 @@ export {
   fetchFavoriteRecipes,
   addToFavorites,
   removeFromFavorites,
+  handleFavorites,
 };

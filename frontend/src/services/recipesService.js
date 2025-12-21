@@ -15,4 +15,5 @@ export const recipesService = {
   getUserRecipes: async (userId) => await api.get(`/recipes/userrecipes/${userId}`),
   getRecipesFavorites: async () => await api.get('/recipes/favorites'),
   addToFavorites: async (recipeId) => await api.post(`/recipes/favorites/${recipeId}`),
+  deleteFromFavorite: async (recipeId) => await api.delete(`/recipes/favorites/${recipeId}`),
 };
