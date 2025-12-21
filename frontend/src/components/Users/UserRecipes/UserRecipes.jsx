@@ -39,9 +39,9 @@ const UserRecipes = () => {
       {recipes && recipes.length > 0 ? (
         <ul className={styles.list}>
           {recipes.map((recipe) => (
-            <li key={recipe._id || recipe.id} className={styles.item}>
+            <li key={recipe.id} className={styles.item}>
               <UserRecipeCard
-                id={recipe._id || recipe.id}
+                id={recipe.id}
                 title={recipe.title}
                 description={recipe.description}
                 thumb={recipe.thumb || recipe.preview || 'https://via.placeholder.com/343'}
