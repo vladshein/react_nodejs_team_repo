@@ -11,12 +11,20 @@ import { Link } from 'react-router-dom';
 const UserBar = ({ onLogOutClick }) => {
   const [open, setOpen] = useState(false);
   const user = useSelector(selectUserInfo);
+  const API_URL = import.meta.env.VITE_API_URL;
+  const SERVER_URL = API_URL.replace('/api', '');
+
+  let avatarUrl = user.avatar || 'https://www.gravatar.com/avatar/?d=mp';
+
+  if (user.avatar && !user.avatar.startsWith('http')) {
+    avatarUrl = `${SERVER_URL}${user.avatar}`;
+  }
 
   return (
     <div className={style.userBar}>
       <div className={style.userBarTop}>
         {/* avatar fallback */}
-        <Avatar src={user?.avatar || '/cat_avatar.png'} alt="avatar" />
+        <Avatar src={avatarUrl} alt="avatar" />
 
         <div className={style.nameSvgDiv}>
           <p className={style.userName}>{user?.name || 'Guest'}</p>
