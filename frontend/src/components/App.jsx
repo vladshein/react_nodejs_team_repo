@@ -26,7 +26,10 @@ import homeStyles from '../pages/HomePage/HomePage.module.css';
 
 import PrivateRoute from '../guards/PrivateRoute/PrivateRoute';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsLoading as selectAuthIsLoading, selectIsRefreshing } from '../redux/auth/selectors';
+import {
+  selectIsLoading as selectAuthIsLoading,
+  selectIsRefreshing,
+} from '../redux/auth/selectors';
 import { useEffect } from 'react';
 import { refreshUser } from '../redux/auth/actions.js';
 import AuthModal from './Modals/AuthModal/AuthModal.jsx';
@@ -41,11 +44,11 @@ const App = () => {
   const isReduxLoading = useSelector((state) => {
     return Boolean(
       state?.categories?.isLoading ||
-        state?.areas?.isLoading ||
-        state?.ingredients?.isLoading ||
-        state?.recipes?.isLoading ||
-        state?.users?.isLoading ||
-        state?.testimonials?.isLoading
+      state?.areas?.isLoading ||
+      state?.ingredients?.isLoading ||
+      state?.recipes?.isLoading ||
+      state?.users?.isLoading ||
+      state?.testimonials?.isLoading
     );
   });
   const isModalOpen = useSelector(selectIsModalOpen);
@@ -80,8 +83,7 @@ const App = () => {
               <div className="appSpinnerOverlay" aria-busy="true" aria-live="polite">
                 <Loader />
               </div>
-            }
-          >
+            }>
             <Routes>
               <Route path="/" element={<HomePage />} />
 
@@ -101,7 +103,7 @@ const App = () => {
               <Route path="/recipe/add" element={<PrivateRoute element={<AddRecipePage />} />} />
               {/* <Route path="/recipe/add" element={<AddRecipePage />} /> */}
               <Route path="/recipe/:id" element={<RecipePage />} />
-              <Route path="/user/:id" element={<UserPage />}>
+              <Route path="/user/:id" element={<PrivateRoute element={<UserPage />} />}>
                 <Route index element={<Navigate to="recipes" replace />} />
                 <Route path="recipes" element={<UserRecipes />} />
                 <Route path="favorites" element={<UserFavorites />} />
