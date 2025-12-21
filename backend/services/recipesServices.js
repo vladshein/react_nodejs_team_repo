@@ -62,7 +62,7 @@ async function getRecipes(filters = {}, loggedUserId = null) {
   // Get total count with distinct
   const count = await Recipe.count({
     where,
-    include: include.filter((inc) => inc.required), // Only include required (filtered) associations for count
+    include,
     distinct: true,
     col: 'id',
   });

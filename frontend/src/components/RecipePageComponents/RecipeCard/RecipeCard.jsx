@@ -10,6 +10,8 @@ import { selectIsLoggedIn } from '../../../redux/auth/selectors';
 import { openModal } from '../../../redux/modal/modalSlice';
 import { useFavoriteRecipe } from '../../../services/useFavoriteRecipes';
 
+import noimage from './../../../../public/images/no-image.png';
+
 export default function RecipeCard({ recipe }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -20,7 +22,8 @@ export default function RecipeCard({ recipe }) {
   const author = {
     id: owner?.id,
     name: owner?.name || 'User',
-    avatar: owner?.avatar || '../../../images/favicon.png',
+    // avatar: owner?.avatar || '../../../images/favicon.png',
+    avatar: owner?.avatar || noimage,
   };
 
   const { isFavorite, toggleFavorite, loading } = useFavoriteRecipe(id);
@@ -60,7 +63,8 @@ export default function RecipeCard({ recipe }) {
       <div
         className={styles.imageContainer}
         style={{
-          backgroundImage: `url(${image || thumb || '../../../images/favicon.png'})`,
+          // backgroundImage: `url(${image || thumb || '../../../images/favicon.png'})`,
+          backgroundImage: `url(${image || thumb || noimage})`,
         }}
         onClick={handleNavigateToRecipe}
         role="img"

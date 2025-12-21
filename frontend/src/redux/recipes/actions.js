@@ -131,7 +131,7 @@ const handleFavorites = createAsyncThunk(
       // {id: '6462a8f74c3d0ddd28897fbf', isFavorite: true}
       // isFavorite: true - recipe in favorites and we make delete
       // isFavorite: false - recipe not in favorites and we make add
-      console.log(obj);
+      // console.log(obj);
       if (obj.isFavorite) {
         // isFavorite: true then remove from
         return await recipesService.deleteFromFavorite(obj.id);
