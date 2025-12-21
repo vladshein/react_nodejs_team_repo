@@ -10,7 +10,7 @@ import {
 import { selectUserId } from '../../redux/auth/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchUser, current } from '../../redux/users/actions';
+import { fetchUser, current, fetchFollowers, fetchFollowing } from '../../redux/users/actions';
 import {} from '../../redux/users/selectors';
 import TabsList from '../../components/Users/TabsList/TabsList';
 
@@ -24,10 +24,9 @@ const UserPage = () => {
   }
 
   useEffect(() => {
-    if (id === 'current') {
-      dispatch(current()).unwrap();
-      return;
-    }
+    dispatch(fetchFollowers(id)).unwrap();
+    dispatch(fetchFollowing('current')).unwrap();
+    dispatch(current()).unwrap();
     dispatch(fetchUser(id)).unwrap();
   }, [dispatch, id]);
 
@@ -35,7 +34,6 @@ const UserPage = () => {
 
   const user = useSelector(select);
   const isLoading = useSelector(selectUserIsLoading);
-  console.log(user);
 
   return isLoading ? (
     <div>Loading user data...</div>

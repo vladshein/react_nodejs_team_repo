@@ -2,18 +2,29 @@ import { useNavigate } from 'react-router-dom';
 import IconArrowUpRight from '../../common/icons/IconArrowUpRight';
 import Button from '../../common/button/Button';
 import styles from './UserList.module.css';
-import { useSelector } from 'react-redux';
-import { selectCurrentUser } from '../../../redux/users/selectors';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectCurrentUserId, selectIsFollowing } from '../../../redux/users/selectors';
+import { followUser, unfollowUser } from '../../../redux/users/actions';
 
-const UserList = ({ user, onFollow }) => {
-  const currnetUser = useSelector(selectCurrentUser);
+const UserList = ({ user }) => {
+  const dispatch = useDispatch();
+  const currentUserId = useSelector(selectCurrentUserId);
   const navigate = useNavigate();
-  const { avatar, name, recipesCount, isFollowing, id } = user;
+  const { avatar, name, recipesCount, id } = user;
+  const isFollowing = useSelector(selectIsFollowing(id));
 
   const recipes = user.recipesHas || [];
   const defaultAvatar = '/cat_avatar.png';
   const handleGoToProfile = () => {
     navigate(`/user/${id}`);
+  };
+
+  const handleFollow = (userId) => {
+    dispatch(followUser(userId)).unwrap();
+  };
+
+  const handleUnfollow = (userId) => {
+    dispatch(unfollowUser(userId)).unwrap();
   };
 
   return (
@@ -39,17 +50,22 @@ const UserList = ({ user, onFollow }) => {
           </h3>
           <p className={styles.recipesInfo}>Own recipes: {recipesCount}</p>
 
-          <Button
-            type="button"
-            variant={isFollowing ? 'outlined' : 'filled'}
-            className={styles.actionBtn}
-            onClick={(e) => {
-              e.stopPropagation();
-              onFollow();
-              console.log('Toggle follow logic');
-            }}>
-            {isFollowing ? 'UNFOLLOW' : 'FOLLOW'}
-          </Button>
+          {currentUserId !== id && (
+            <Button
+              type="button"
+              variant={isFollowing ? 'outlined' : 'filled'}
+              className={styles.actionBtn}
+              onClick={(e) => {
+                e.stopPropagation();
+                if (isFollowing) {
+                  handleUnfollow(id);
+                } else {
+                  handleFollow(id);
+                }
+              }}>
+              {isFollowing ? 'UNFOLLOW' : 'FOLLOW'}
+            </Button>
+          )}
         </div>
 
         {recipes.length > 0 && (
