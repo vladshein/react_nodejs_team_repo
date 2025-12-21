@@ -19,10 +19,22 @@ const handlePending = (state) => {
 };
 
 const initialState = {
-  allRecipes: [],
-  myRecipes: [],
-  userRecipes: [],
-  favorites: [],
+  allRecipes: {
+    recipes: [],
+    pagination: {},
+  },
+  myRecipes: {
+    recipes: [],
+    pagination: {},
+  },
+  userRecipes: {
+    recipes: [],
+    pagination: {},
+  },
+  favorites: {
+    recipes: [],
+    pagination: {},
+  },
   topRecipes: [],
   selectedRecipe: null,
   isLoading: false,
@@ -71,7 +83,7 @@ const recipesSlice = createSlice({
       .addCase(removeFromFavorites.fulfilled, (state, action) => {
         state.isLoading = false;
         const removedId = action.meta.arg;
-        state.favorites = state.favorites.filter((recipe) => {
+        state.favorites.recipes = state.favorites.recipes.filter((recipe) => {
           const currentId = String(recipe.id || recipe._id);
           const targetId = String(removedId);
           return currentId !== targetId;
@@ -81,11 +93,11 @@ const recipesSlice = createSlice({
       .addCase(fetchTopRecipes.fulfilled, (state, action) => {})
       .addCase(publishRecipe.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.myRecipes.push(action.payload);
+        state.myRecipes.recipes.push(action.payload);
       })
       .addCase(deleteRecipe.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.myRecipes = state.myRecipes.filter((recipe) => {
+        state.myRecipes.recipes = state.myRecipes.recipes.filter((recipe) => {
           const currentId = String(recipe.id || recipe._id);
           const deletedId = String(action.meta.arg);
           return currentId !== deletedId;
