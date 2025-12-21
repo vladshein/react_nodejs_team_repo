@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useParams, Outlet, NavLink, useNavigate } from 'react-router-dom';
 import UserInfo from '../../components/Users/UserInfo/UserInfo';
 import styles from './UserPage.module.css';
+import Breadcrumbs from '../../components/SharedLayoutComponents/Breadcrumbs/Breadcrumbs';
 
 import {
   selectCurrentUser,
@@ -35,15 +36,20 @@ const UserPage = () => {
   const user = useSelector(select);
   const isLoading = useSelector(selectUserIsLoading);
 
+  const breadcrumbs = [
+    { name: 'Home', link: '/' },
+    { name: 'Profile', link: '/recipe/add' },
+  ];
+
   return isLoading ? (
     <div>Loading user data...</div>
   ) : (
     user && (
       <div className={styles.pageContainer}>
+        <Breadcrumbs paths={breadcrumbs} />
         <aside className={styles.sidebar}>
           <UserInfo user={user} />
         </aside>
-
         <main className={styles.content}>
           <TabsList />
           <Outlet />
