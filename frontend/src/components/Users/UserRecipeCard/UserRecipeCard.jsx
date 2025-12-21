@@ -3,18 +3,6 @@ import IconArrowUpRight from './../../common/icons/IconArrowUpRight';
 import IconTrash from './../../common/icons/IconTrash';
 import styles from './UserRecipeCard.module.css';
 
-/* Using
-<UserRecipeCard
-            key={recipe.id}
-            id={recipe.id}
-            title={recipe.title}
-            description={recipe.description}
-            thumb={recipe.thumb || recipe.image}
-            onOpen={handleOpenRecipe}
-            onDelete={handleRemoveFromFavorites}
-            isDeleting={deletingId === recipe.id}
-/> */
-
 export default function UserRecipeCard({
   id,
   title,
