@@ -14,9 +14,10 @@ const UserBar = ({ onLogOutClick }) => {
   const API_URL = import.meta.env.VITE_API_URL;
   const SERVER_URL = API_URL.replace('/api', '');
 
-  let avatarUrl = user?.avatar || 'https://www.gravatar.com/avatar/?d=mp';
+  let avatarUrl = user.avatar || 'https://www.gravatar.com/avatar/?d=mp';
+
   if (user.avatar && !user.avatar.startsWith('http')) {
-    avatarUrl = `${SERVER_URL}/${user.avatar}`;
+    avatarUrl = `${SERVER_URL}${user.avatar}`;
   }
 
   return (
