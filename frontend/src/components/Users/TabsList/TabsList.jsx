@@ -8,7 +8,7 @@ const TabsList = () => {
       <NavLink
         to="recipes"
         className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}>
-        My Recipes
+        {id === 'current' ? 'My Recipes' : 'Recipes'}
       </NavLink>
       {id === 'current' && (
         <NavLink

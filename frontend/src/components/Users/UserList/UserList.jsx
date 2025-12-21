@@ -13,10 +13,6 @@ const UserList = ({ user }) => {
   const recipes = user.recipesHas || [];
   const defaultAvatar = '/cat_avatar.png';
   const handleGoToProfile = () => {
-    if (currnetUser && currnetUser.id === id) {
-      navigate('/user/current');
-      return;
-    }
     navigate(`/user/${id}`);
   };
 

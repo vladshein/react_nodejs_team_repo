@@ -120,7 +120,8 @@ const removeFromFavorites = createAsyncThunk(
   recipesActions.REMOVE_FROM_FAVORITES,
   async (recipeId, { rejectWithValue }) => {
     try {
-      // api call to remove recipe from favorites by recipeId
+      const { data } = await recipesService.removeFromFavorites(recipeId);
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
