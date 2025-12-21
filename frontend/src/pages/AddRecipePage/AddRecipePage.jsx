@@ -7,8 +7,9 @@ import { selectAreas } from '../../redux/areas/selectors';
 import { fetchAreas } from '../../redux/areas/actions';
 import { fetchCategories } from '../../redux/categories/actions';
 import { fetchIngredients } from '../../redux/ingredients/actions';
-import styles from './AddRecipePage.module.css';
+import Loader from '../../components/common/Loader/Loader';
 import Breadcrumbs from '../../components/SharedLayoutComponents/Breadcrumbs/Breadcrumbs';
+import styles from './AddRecipePage.module.css';
 
 const AddRecipePage = () => {
   const dispatch = useDispatch();
