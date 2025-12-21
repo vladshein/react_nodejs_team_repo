@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { fetchFavoriteRecipes, removeFromFavorites } from './../../../redux/recipes/actions';
 import { selectFavorites } from './../../../redux/recipes/selectors';
 import UserRecipeCard from '../UserRecipeCard/UserRecipeCard';
@@ -18,7 +18,7 @@ const UserFavorites = () => {
   }, [dispatch]);
 
   const handleOpenRecipe = (id) => {
-    navigate(`/recipes/${id}`);
+    navigate(`/recipe/${id}`);
   };
 
   const handleRemoveFromFavorites = (id) => {

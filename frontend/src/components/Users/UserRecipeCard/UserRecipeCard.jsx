@@ -1,3 +1,4 @@
+import { useParams } from 'react-router-dom';
 import IconArrowUpRight from './../../common/icons/IconArrowUpRight';
 import IconTrash from './../../common/icons/IconTrash';
 import styles from './UserRecipeCard.module.css';
@@ -23,7 +24,8 @@ export default function UserRecipeCard({
   onDelete,
   isDeleting,
 }) {
-  console.log(thumb);
+  const isCurrentUser = useParams().id === 'current';
+
   return (
     <article className={styles.row}>
       <img className={styles.thumb} src={thumb} alt={title} />
@@ -40,7 +42,7 @@ export default function UserRecipeCard({
               aria-label="Open recipe">
               <IconArrowUpRight className={styles.icon} width={18} height={18} />
             </button>
-            {onDelete && (
+            {onDelete && isCurrentUser && (
               <button
                 type="button"
                 className={`${styles.actionBtn} ${styles.deleteBtn}`}
