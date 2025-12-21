@@ -74,7 +74,7 @@ const publishRecipe = createAsyncThunk(
   recipesActions.CREATE_RECIPE,
   async (recipeData, { rejectWithValue }) => {
     try {
-      const data = await recipesService.addRecipe(recipeData);
+      const { data } = await recipesService.addRecipe(recipeData);
       return data;
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || error.message);
@@ -87,6 +87,8 @@ const deleteRecipe = createAsyncThunk(
   async (recipeId, { rejectWithValue }) => {
     try {
       // api call to delete recipe by recipeId
+      const { data } = await recipesService.deleteRecipe(recipeId);
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }

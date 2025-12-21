@@ -74,7 +74,6 @@ const recipesSlice = createSlice({
         state.favorites = state.favorites.filter((recipe) => {
           const currentId = String(recipe.id || recipe._id);
           const targetId = String(removedId);
-
           return currentId !== targetId;
         });
       })
@@ -82,9 +81,16 @@ const recipesSlice = createSlice({
       .addCase(fetchTopRecipes.fulfilled, (state, action) => {})
       .addCase(publishRecipe.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.myRecipes.push(action.payload);
+        state.myRecipes.recipes.push(action.payload);
       })
-      .addCase(deleteRecipe.fulfilled, (state, action) => {})
+      .addCase(deleteRecipe.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.myRecipes.recipes = state.myRecipes.recipes.filter((recipe) => {
+          const currentId = String(recipe.id || recipe._id);
+          const deletedId = String(action.meta.arg);
+          return currentId !== deletedId;
+        });
+      })
       .addCase(logout.fulfilled, (state) => {
         state.allRecipes = [];
         state.myRecipes = [];

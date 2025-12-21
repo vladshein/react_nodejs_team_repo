@@ -1,11 +1,12 @@
 import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './UserInfo.module.css';
 import { openModal } from '../../../redux/modal/modalSlice';
 import Button from '../../common/button/Button';
 import IconPlus from '../../common/icons/IconPlus';
-import { updateAvatar } from '../../../redux/users/actions';
+import { followUser, unfollowUser, updateAvatar } from '../../../redux/users/actions';
+import { selectIsFollowing } from '../../../redux/users/selectors';
 
 const API_URL = import.meta.env.VITE_API_URL;
 const SERVER_URL = API_URL.replace('/api', '');
@@ -14,6 +15,7 @@ const UserInfo = ({ user }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const isCurrentUser = id === 'current';
+  const isFollowing = useSelector(selectIsFollowing(user.id));
 
   const fileInputRef = useRef(null);
 
@@ -32,6 +34,14 @@ const UserInfo = ({ user }) => {
 
       dispatch(updateAvatar(file));
     }
+  };
+
+  const handleFollow = () => {
+    dispatch(followUser(user.id));
+  };
+
+  const handleUnfollow = () => {
+    dispatch(unfollowUser(user.id));
   };
 
   let avatarUrl = user.avatar || 'https://www.gravatar.com/avatar/?d=mp';
@@ -112,9 +122,9 @@ const UserInfo = ({ user }) => {
           type="button"
           variant="filled"
           className={styles.actionBtn}
-          // Тут можна додати логіку підписки
-          onClick={() => console.log('Follow clicked')}>
-          FOLLOW
+          // Тут можна додати логіку підпискиq
+          onClick={isFollowing ? handleUnfollow : handleFollow}>
+          {isFollowing ? 'UNFOLLOW' : 'FOLLOW'}
         </Button>
       )}
     </section>
