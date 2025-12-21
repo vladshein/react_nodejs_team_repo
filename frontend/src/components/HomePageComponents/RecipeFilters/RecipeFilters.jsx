@@ -11,20 +11,21 @@ import { selectAreas } from './../../../redux/areas/selectors';
 // handleIngredient, handleArea
 const RecipeFilters = ({ callBackFunctions }) => {
   const dispatch = useDispatch();
-  const ingredient = useSelector(selectIngredients);
-  const area = useSelector(selectAreas);
-
+  let ingredient = useSelector(selectIngredients);
   const newIngredient = ingredient.map(({ id, name, ...rest }) => ({
     ...rest,
     value: id,
     label: name,
   }));
+  const allIng = [{ value: '', label: 'All Ingredients' }, ...newIngredient];
 
+  let area = useSelector(selectAreas);
   const newArea = area.map(({ id, name, ...rest }) => ({
     ...rest,
     value: id,
     label: name,
   }));
+  const allArea = [{ value: '', label: 'All Areas' }, ...newArea];
   // get data from backend
   useEffect(() => {
     dispatch(fetchIngredients());
@@ -45,8 +46,8 @@ const RecipeFilters = ({ callBackFunctions }) => {
             callBackFunctions.handleIngredient(value);
           }}
           onBlur={false}
-          options={newIngredient}
-          placeholder="Ingredients"
+          options={allIng}
+          placeholder="All Ingredients"
         />
       </div>
       <div className={styles.filter}>
@@ -58,8 +59,8 @@ const RecipeFilters = ({ callBackFunctions }) => {
             callBackFunctions.handleArea(value);
           }}
           onBlur={false}
-          options={newArea}
-          placeholder="Area"
+          options={allArea}
+          placeholder="All Areas"
         />
       </div>
     </div>

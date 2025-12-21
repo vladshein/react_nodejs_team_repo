@@ -46,6 +46,11 @@ const Recipes = () => {
     dispatch(fetchRecipes(effectiveFilters));
   }, [dispatch, effectiveFilters]);
 
+  // wrapper for favorites
+  const runSearchAgain = async () => {
+    setSearchParams(); // fix correct params
+  };
+
   const updateUrlParams = (updates) => {
     const next = new URLSearchParams(searchParams);
 
@@ -115,7 +120,7 @@ const Recipes = () => {
         <div className={styles.recipesCardsBlock}>
           <div className={styles.recipesCards}>
             {!spin && recipes ? (
-              <RecipeList recipes={recipes} />
+              <RecipeList recipes={recipes} fn={runSearchAgain} />
             ) : (
               <div className={styles.spinCenter}>
                 <Spinner />
