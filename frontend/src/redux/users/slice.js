@@ -57,21 +57,36 @@ const usersSlice = createSlice({
       .addCase(followUser.fulfilled, (state, action) => {
         state.loading = false;
         state.following.push({ id: action.meta.arg });
-        if (action.meta.arg === state.currentUser.id) {
-          state.selectedUserFollowers.push(state.currentUser);
+        if (state.currentUser) {
+          const currentCount = Number(state.currentUser.count_following) || 0;
+          state.currentUser.count_following = currentCount > 0 ? currentCount + 1 : 1;
         }
       })
       .addCase(unfollowUser.pending, handlePending)
       .addCase(unfollowUser.fulfilled, (state, action) => {
         state.loading = false;
         const unfollowedId = action.meta.arg;
-        state.following = state.following.filter((user) => {
-          return String(user.id) !== String(unfollowedId);
-        });
-        if (action.meta.arg === 'current') {
-          state.selectedUserFollowers = state.selectedUserFollowers.filter((user) => {
-            return String(user.id) !== String(state.currentUser.id);
-          });
+
+        // 1. Видаляємо юзера зі списку тих, на кого ми підписані
+        state.following = state.following.filter(
+          (user) => String(user.id) !== String(unfollowedId)
+        );
+
+        // 2. Оновлюємо лічильник МОЇХ підписок (безпечно)
+        if (state.currentUser) {
+          const currentCount = Number(state.currentUser.count_following) || 0;
+          state.currentUser.count_following = currentCount > 0 ? currentCount - 1 : 0;
+        }
+
+        // 3. Якщо ми зараз у профілі того, від кого відписалися, оновлюємо ЙОГО фоловерів
+        if (state.selectedUser && String(state.selectedUser.id) === String(unfollowedId)) {
+          // Видаляємо себе з його списку підписників
+          state.selectedUserFollowers = state.selectedUserFollowers.filter(
+            (user) => String(user.id) !== String(state.currentUser?.id)
+          );
+          // Зменшуємо ЙОГО лічильник фоловерів
+          const followersCount = Number(state.selectedUser.count_followers) || 0;
+          state.selectedUser.count_followers = followersCount > 0 ? followersCount - 1 : 0;
         }
       })
       .addCase(current.fulfilled, (state, action) => {
