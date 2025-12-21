@@ -1,96 +1,46 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
 import styles from './RecipeCard.module.css';
 import IconHeart from '../../common/icons/IconHeart';
 import IconArrowUpRight from '../../common/icons/IconArrowUpRight';
 
-import { selectIsLoggedIn } from './../../../redux/auth/selectors';
-import { useDispatch, useSelector } from 'react-redux';
+import { selectIsLoggedIn } from '../../../redux/auth/selectors';
 import { openModal } from '../../../redux/modal/modalSlice';
+import { useFavoriteRecipe } from '../../../services/useFavoriteRecipes';
 
-/* Using:
-<RecipeCard
-    recipe={{
-      id: '123',
-      title: 'Chocolate Cake',
-      description: 'Delicious homemade chocolate cake',
-      image: '../images/Hero/desert2x.webp',
-      author: {
-        id: '456',
-        name: 'John Chef',
-        avatar: '../images/Hero/desert2x.webp'
-      }
-    }}
-    isAuthed="false"
-    onNeedAuth={() => openSignInModal()}
-    onToggleFavorite={async (id) => await toggleFavorite(id)}
-    isFavorite={true}
-/> */
-
-export default function RecipeCard({
-  recipe,
-  isAuthed = false,
-  onNeedAuth,
-  onToggleFavorite,
-  isFavorite: favoriteFromParent,
-}) {
+export default function RecipeCard({ recipe }) {
   const navigate = useNavigate();
-  const {
-    id,
-    title,
-    description,
-    image,
-    thumb,
-    author = {
-      id: recipe.owner.id || null,
-      name: recipe.owner.name || 'User',
-      avatar: recipe.owner.avatar || '../../../images/favicon.png',
-    },
-  } = recipe || {};
-
-  const [localFav, setLocalFav] = useState(false);
-  const [favLoading, setFavLoading] = useState(false);
-  const [viewPressed, setViewPressed] = useState(false);
-
-  const isFavorite = favoriteFromParent ?? localFav;
-
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
-  const requireAuth = (fn) => {
-    if (isAuthed) return fn();
-    if (onNeedAuth) onNeedAuth();
+  const { id, title, description, image, thumb, owner } = recipe;
+
+  const author = {
+    id: owner?.id,
+    name: owner?.name || 'User',
+    avatar: owner?.avatar || '../../../images/favicon.png',
   };
 
-  const handleFavoriteToggle = (e) => {
-    // auth
+  const { isFavorite, toggleFavorite, loading } = useFavoriteRecipe(id);
+
+  const [viewPressed, setViewPressed] = useState(false);
+
+  const handleFavoriteClick = (e) => {
+    e.stopPropagation();
+
     if (!isLoggedIn) {
-      e.preventDefault();
-      e.stopPropagation();
       dispatch(
         openModal({
           modalType: 'auth',
-          modalProps: { view: 'signIn', redirectTo: '' },
+          modalProps: { view: 'signIn' },
         })
       );
       return;
     }
 
-    requireAuth(async () => {
-      setFavLoading(true);
-      try {
-        if (onToggleFavorite) await onToggleFavorite({ id, isFavorite });
-        else setLocalFav((v) => !v);
-      } finally {
-        setFavLoading(false);
-      }
-    });
-  };
-
-  const handleAuthorClick = () => {
-    requireAuth(() => {
-      if (author?.id) navigate(`/user/${author.id}`);
-    });
+    toggleFavorite();
   };
 
   const handleNavigateToRecipe = () => {
@@ -99,63 +49,59 @@ export default function RecipeCard({
     navigate(`/recipe/${id}`);
   };
 
+  const handleAuthorClick = (e) => {
+    e.stopPropagation();
+    if (author.id) navigate(`/user/${author.id}/recipes`);
+  };
+
   return (
     <div className={styles.card}>
       {/* Image */}
       <div
         className={styles.imageContainer}
-        style={{ backgroundImage: `url(${image || thumb || '../../../images/favicon.png'})` }}
-        aria-label={title}
-        role="img"
+        style={{
+          backgroundImage: `url(${image || thumb || '../../../images/favicon.png'})`,
+        }}
         onClick={handleNavigateToRecipe}
+        role="img"
+        aria-label={title}
       />
 
       {/* Info */}
       <div className={styles.info}>
         <div className={styles.header}>
           <h3 className={styles.title}>{title}</h3>
-          <div className={styles.descSlot}>
-            <p className={styles.description}>{description}</p>
-          </div>
+          <p className={styles.description}>{description}</p>
         </div>
 
         {/* Footer */}
         <div className={styles.footer}>
-          <div className={styles.author}>
-            <button
-              onClick={handleAuthorClick}
-              className={styles.authorButton}
-              type="button"
-              title={author?.name}
-              aria-label={`Open ${author?.name} profile`}>
-              <div
-                className={styles.authorImage}
-                style={{
-                  backgroundImage: `url(${author?.avatar || '../../../images/favicon.png'})`,
-                }}
-              />
-              <span className={styles.authorName}>{author?.name}</span>
-            </button>
-          </div>
+          <button className={styles.authorButton} onClick={handleAuthorClick} type="button">
+            <div
+              className={styles.authorImage}
+              style={{ backgroundImage: `url(${author.avatar})` }}
+            />
+            <span className={styles.authorName}>{author.name}</span>
+          </button>
 
           <div className={styles.actions}>
             <button
-              onClick={handleFavoriteToggle}
-              className={`${styles.iconButton} ${styles.favoriteButton} ${isFavorite ? styles.isFavorite : ''} ${favLoading ? styles.isLoading : ''}`}
+              onClick={handleFavoriteClick}
+              className={`${styles.iconButton} ${styles.favoriteButton} ${
+                isFavorite ? styles.isFavorite : ''
+              }`}
+              disabled={loading}
               aria-pressed={isFavorite}
               title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-              type="button"
-              disabled={favLoading}>
-              {favLoading ? (
-                <div className={styles.loader}>...</div>
-              ) : (
-                <IconHeart className={styles.icon} />
-              )}
+              type="button">
+              <IconHeart className={styles.icon} />
             </button>
 
             <button
               onClick={handleNavigateToRecipe}
-              className={`${styles.iconButton} ${styles.viewButton} ${viewPressed ? styles.isPressed : ''}`}
+              className={`${styles.iconButton} ${styles.viewButton} ${
+                viewPressed ? styles.isPressed : ''
+              }`}
               title="View recipe"
               type="button">
               <IconArrowUpRight className={styles.icon} />
