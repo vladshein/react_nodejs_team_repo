@@ -1,33 +1,68 @@
+import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styles from './UserInfo.module.css';
 import { openModal } from '../../../redux/modal/modalSlice';
-import { selectIsFollowing } from '../../../redux/users/selectors';
-import { followUser, unfollowUser } from '../../../redux/users/actions';
+import Button from '../../common/button/Button';
+import IconPlus from '../../common/icons/IconPlus';
+import { updateAvatar } from '../../../redux/users/actions';
+
+const API_URL = import.meta.env.VITE_API_URL;
+const SERVER_URL = API_URL.replace('/api', '');
 
 const UserInfo = ({ user }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const isCurrentUser = id === 'current';
 
-  const isFollowing = useSelector(selectIsFollowing(id));
+  const fileInputRef = useRef(null);
 
-  const handleFollow = (userId) => {
-    dispatch(followUser(userId)).unwrap();
+  const handleUploadClick = () => {
+    console.log('Upload modal');
+    fileInputRef.current.click();
   };
 
-  const handleUnfollow = (userId) => {
-    dispatch(unfollowUser(userId)).unwrap();
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        alert('File is too large. Max 5MB.');
+        return;
+      }
+
+      dispatch(updateAvatar(file));
+    }
   };
+
+  let avatarUrl = user.avatar || 'https://www.gravatar.com/avatar/?d=mp';
+
+  if (user.avatar && !user.avatar.startsWith('http')) {
+    avatarUrl = `${SERVER_URL}/${user.avatar}`;
+  }
 
   return (
     <section className={styles.container}>
       <div className={styles.card}>
         <div className={styles.avatarWrapper}>
-          <img
-            src={user.avatar || 'https://www.gravatar.com/avatar/?d=mp'}
-            alt={user.name}
-            className={styles.avatar}
+          <img src={avatarUrl} alt={user.name} className={styles.avatar} />
+
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            accept="image/*"
+            style={{ display: 'none' }}
           />
+
+          {isCurrentUser && (
+            <button
+              className={styles.uploadBtn}
+              type="button"
+              onClick={handleUploadClick}
+              aria-label="Upload avatar">
+              <IconPlus width={20} height={20} className={styles.iconPlus} />
+            </button>
+          )}
         </div>
 
         <h3 className={styles.name}>{user.name}</h3>
@@ -65,24 +100,22 @@ const UserInfo = ({ user }) => {
       </div>
 
       {id === 'current' ? (
-        <button
-          className={styles.editBtn}
+        <Button
+          type="button"
+          variant="filled" // Чорна кнопка
+          className={styles.actionBtn} // Додатковий клас для розмірів
           onClick={() => dispatch(openModal({ modalType: 'logout' }))}>
           LOG OUT
-        </button>
+        </Button>
       ) : (
-        <button
-          className={styles.editBtn}
-          onClick={(e) => {
-            e.stopPropagation();
-            if (isFollowing) {
-              handleUnfollow(id);
-            } else {
-              handleFollow(id);
-            }
-          }}>
-          {isFollowing ? 'UNFOLLOW' : 'FOLLOW'}
-        </button>
+        <Button
+          type="button"
+          variant="filled"
+          className={styles.actionBtn}
+          // Тут можна додати логіку підписки
+          onClick={() => console.log('Follow clicked')}>
+          FOLLOW
+        </Button>
       )}
     </section>
   );

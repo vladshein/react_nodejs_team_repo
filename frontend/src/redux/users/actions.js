@@ -1,6 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
 import { userActions } from './constants';
 import { userService } from '../../services/userService';
+
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 const fetchUser = createAsyncThunk(userActions.FETCH_USER, async (userId, { rejectWithValue }) => {
   try {
@@ -28,10 +31,18 @@ const current = createAsyncThunk(userActions.FETCH_CURRENT_USER, async (_, { rej
 
 const updateAvatar = createAsyncThunk(
   userActions.UPDATE_AVATAR,
-  async (avatarData, { rejectWithValue }) => {
+  async (file, { rejectWithValue }) => {
     try {
-      // api call to update avatar
+      const formData = new FormData();
+      formData.append('avatar', file);
+
+      const { data } = await userService.updateAvatar(formData);
+
+      toast.success('Avatar updated successfully!');
+      return data;
     } catch (error) {
+      const errorMsg = error.response?.data?.message || error.message;
+      toast.error(errorMsg);
       return rejectWithValue(error.message);
     }
   }

@@ -14,6 +14,8 @@ export const selectSelectedUserFollowers = (state) => state.users.selectedUserFo
 
 export const selectFollowing = (state) => state.users.following;
 
+export const selectUploadAvatar = (state) => state.users.avatar;
+
 export const selectIsFollowing = (userId) => (state) => {
   const followingList = state.users.following || []; // або state.users.following
   return followingList.some((user) => String(user.id) === String(userId));
