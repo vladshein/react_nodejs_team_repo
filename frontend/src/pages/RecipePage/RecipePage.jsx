@@ -4,7 +4,6 @@ import PopularRecipes from '../../components/RecipePageComponents/PopularRecipes
 import RecipeMainInfo from '../../components/RecipePageComponents/RecipeMainInfo/RecipeMainInfo';
 import RecipePreparation from '../../components/RecipePageComponents/RecipePreparation/RecipePreparation';
 import RecipeIngredients from '../../components/RecipePageComponents/RecipeIngredients/RecipeIngredients';
-import Header from '../../components/SharedLayoutComponents/Header/Header';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Button from '../../components/common/button/Button';
@@ -111,7 +110,6 @@ const RecipePage = () => {
 
   return (
     <>
-      <Header />
       <div className={styles.catalogContainer}>
         <RecipeInfo>
           <div className={styles.columnContainerLeft}>

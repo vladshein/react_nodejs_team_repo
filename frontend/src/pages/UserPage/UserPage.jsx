@@ -1,4 +1,4 @@
-import { useParams, Outlet, NavLink } from 'react-router-dom';
+import { useParams, Outlet, NavLink, useNavigate } from 'react-router-dom';
 import UserInfo from '../../components/Users/UserInfo/UserInfo';
 import styles from './UserPage.module.css';
 
@@ -7,6 +7,7 @@ import {
   selectSelectedUser,
   selectUserIsLoading,
 } from '../../redux/users/selectors';
+import { selectUserId } from '../../redux/auth/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { fetchUser, current } from '../../redux/users/actions';
@@ -15,10 +16,16 @@ import TabsList from '../../components/Users/TabsList/TabsList';
 
 const UserPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const currentUserId = useSelector(selectUserId);
+  if (id === currentUserId) {
+    navigate('/user/current', { replace: true });
+  }
+
   useEffect(() => {
     if (id === 'current') {
-      dispatch(current()).unwrap(); // Correct usage: dispatch the action
+      dispatch(current()).unwrap();
       return;
     }
     dispatch(fetchUser(id)).unwrap();

@@ -66,7 +66,8 @@ const followUser = createAsyncThunk(
   userActions.FOLLOW_USER,
   async (userIdToFollow, { rejectWithValue }) => {
     try {
-      // api call to follow user
+      const { data } = await userService.followUser(userIdToFollow);
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -77,7 +78,8 @@ const unfollowUser = createAsyncThunk(
   userActions.UNFOLLOW_USER,
   async (userIdToUnfollow, { rejectWithValue }) => {
     try {
-      // api call to unfollow user
+      const { data } = await userService.unfollowUser(userIdToUnfollow);
+      return data;
     } catch (error) {
       return rejectWithValue(error.message);
     }

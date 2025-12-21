@@ -6,10 +6,6 @@ import UserList from '../UserList/UserList';
 import { useParams } from 'react-router-dom';
 
 const UserFollowing = () => {
-  // const following = [
-  //   { id: 10, name: 'Gordon Ramsay', avatar: '', isFollowed: true },
-  //   { id: 11, name: 'Jamie Oliver', avatar: '', isFollowed: true },
-  // ];
   const { id } = useParams();
 
   const dispatch = useDispatch();

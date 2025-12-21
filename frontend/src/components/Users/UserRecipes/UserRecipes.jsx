@@ -24,7 +24,7 @@ const UserRecipes = () => {
   }, [dispatch, id]);
 
   const handleOpenRecipe = (id) => {
-    navigate(`/recipes/${id}`);
+    navigate(`/recipe/${id}`);
   };
 
   const handleRemove = (id) => {

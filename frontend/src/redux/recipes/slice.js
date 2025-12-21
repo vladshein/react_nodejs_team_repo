@@ -66,13 +66,13 @@ const recipesSlice = createSlice({
       .addCase(addToFavorites.pending, handlePending)
       .addCase(addToFavorites.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log('full-add', action);
       })
       .addCase(removeFromFavorites.pending, handlePending)
-      .addCase(fetchRecipeDetails.fulfilled, (state, action) => {
-        console.log('full-del', action);
+      .addCase(removeFromFavorites.fulfilled, (state, action) => {
         state.isLoading = false;
+        state.favorites = state.favorites.filter((recipe) => recipe._id !== action.payload._id);
       })
+      .addCase(fetchRecipeDetails.fulfilled, (state, action) => {})
       .addCase(fetchTopRecipes.fulfilled, (state, action) => {})
       .addCase(publishRecipe.fulfilled, (state, action) => {
         state.isLoading = false;
@@ -80,7 +80,7 @@ const recipesSlice = createSlice({
       })
       .addCase(deleteRecipe.fulfilled, (state, action) => {})
 
-      .addCase(removeFromFavorites.fulfilled, (state, action) => {})
+      .addCase(addToFavorites.fulfilled, (state, action) => {})
       .addCase(logout.fulfilled, (state) => {
         state.allRecipes = [];
         state.myRecipes = [];

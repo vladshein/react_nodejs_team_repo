@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchFollowers } from './../../../redux/users/actions';
+import { fetchFollowers, followUser } from './../../../redux/users/actions';
 import { selectFollowers } from './../../../redux/users/selectors';
 import styles from './UserFollowers.module.css';
 import UserList from '../UserList/UserList';
@@ -16,6 +16,11 @@ const UserFollowers = () => {
 
   const followers = useSelector(selectFollowers);
 
+  const handleAddFollower = (followerId) => {
+    // Implement follow user functionality here
+    dispatch(followUser(followerId));
+    dispatch(fetchFollowers(id));
+  };
   return followers.length === 0 ? (
     <div>No followers found.</div>
   ) : (
@@ -23,7 +28,11 @@ const UserFollowers = () => {
       {followers && followers.length > 0 ? (
         <ul className={styles.list}>
           {followers.map((follower) => (
-            <UserList key={follower.id} user={follower} />
+            <UserList
+              key={follower.id}
+              user={follower}
+              onFollow={() => handleAddFollower(follower.id)}
+            />
           ))}
         </ul>
       ) : (

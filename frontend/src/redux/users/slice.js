@@ -49,14 +49,21 @@ const usersSlice = createSlice({
         state.loading = false;
       })
       .addCase(followUser.pending, handlePending)
+      .addCase(followUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.following.push(action.payload);
+      })
       .addCase(unfollowUser.pending, handlePending)
+      .addCase(unfollowUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.following = state.following.filter((user) => user.id !== action.payload.id);
+      })
       .addCase(current.fulfilled, (state, action) => {
         state.loading = false;
         state.currentUser = action.payload;
       })
       .addCase(updateAvatar.fulfilled, (state, action) => {})
-      .addCase(followUser.fulfilled, (state, action) => {})
-      .addCase(unfollowUser.fulfilled, (state, action) => {})
+
       .addCase(logout.fulfilled, (state) => {
         state.currentUser = null;
         state.selectedUser = null;
