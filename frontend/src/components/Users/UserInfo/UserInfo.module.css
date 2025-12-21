@@ -13,8 +13,8 @@
   border-radius: 30px;
   width: 100%;
   max-width: 343px;
-  border: 1px solid #BFBEBE;
-  padding: 30px 24px 42px 24px;
+  border: 1px solid #bfbebe;
+  /* padding: 30px 24px 42px 24px; */
   margin: 0 auto;
   margin-bottom: 42px;
 }
@@ -34,10 +34,10 @@
 @media screen and (min-width: 1440px) {
   .card {
     border: 1px solid #050505;
-    margin: 0 0 20px 60px;
+    /* margin: 0 0 20px 60px; */
     max-width: 394px;
-    padding-top: 40px;
-    margin-bottom: 20px;
+    /* padding-top: 40px; */
+    /* margin-bottom: 20px; */
   }
 }
 
@@ -92,7 +92,7 @@
 
 .uploadBtn:hover,
 .uploadBtn:active {
-  background: #FFFFFF;
+  background: #ffffff;
   border: 1px solid #050505;
 }
 
@@ -100,7 +100,6 @@
 .uploadBtn:active svg {
   filter: invert(0);
 }
-
 
 .name {
   font-weight: 800;
@@ -136,7 +135,7 @@
   font-size: 14px;
   line-height: 1.43;
   letter-spacing: -0.02em;
-  color: #BFBEBE;
+  color: #bfbebe;
 }
 
 .statValue {
@@ -153,14 +152,13 @@
   font-size: 14px;
   line-height: 1.5;
 
-
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  color: #FFFFFF;
-  background-color: #1A1A1A;
+  color: #ffffff;
+  background-color: #1a1a1a;
 }
 
 @media screen and (min-width: 768px) {
@@ -172,9 +170,8 @@
 }
 
 @media screen and (min-width: 1440px) {
-
   .actionBtn {
-    margin: 0 0 0 60px;
+    /* margin: 0 0 0 60px; */
   }
 }
 
