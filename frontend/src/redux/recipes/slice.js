@@ -91,9 +91,6 @@ const recipesSlice = createSlice({
           return currentId !== deletedId;
         });
       })
-      .addCase(addToFavorites.fulfilled, (state, action) => {
-        state.isLoading = false;
-      })
       .addCase(logout.fulfilled, (state) => {
         state.allRecipes = [];
         state.myRecipes = [];

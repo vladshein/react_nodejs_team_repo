@@ -108,10 +108,6 @@ const usersSlice = createSlice({
         state.loading = false;
         state.currentUser = action.payload;
       })
-
-      .addCase(followUser.fulfilled, (state, action) => {})
-      .addCase(unfollowUser.fulfilled, (state, action) => {})
-      .addCase(updateAvatar.fulfilled, (state, action) => {})
       .addCase(removeFromFavorites.fulfilled, (state, action) => {
         state.currentUser.count_favorite_recipes = state.currentUser.count_favorite_recipes - 1;
       })
