@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
-import { fetchMyRecipes, fetchUserRecipes } from './../../../redux/recipes/actions';
+import { deleteRecipe, fetchMyRecipes, fetchUserRecipes } from './../../../redux/recipes/actions';
 // import { deleteRecipe } from './../../../redux/recipes/actions';
 import { selectMyRecipes, selectUserRecipes } from './../../../redux/recipes/selectors';
 import UserRecipeCard from '../UserRecipeCard/UserRecipeCard';
@@ -30,7 +30,7 @@ const UserRecipes = () => {
   const handleRemove = (id) => {
     if (window.confirm('Are you sure you want to delete this recipe?')) {
       console.log('Deleting recipe with id:', id);
-      // dispatch(deleteRecipe(id));
+      dispatch(deleteRecipe(id));
     }
   };
 

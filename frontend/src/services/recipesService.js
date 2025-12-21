@@ -11,6 +11,8 @@ export const recipesService = {
     return response.data;
   },
 
+  deleteRecipe: async (recipeId) => await api.delete(`/recipes/${recipeId}`),
+
   getMyRecipes: async () => await api.get('/recipes/my'),
   getUserRecipes: async (userId) => await api.get(`/recipes/userrecipes/${userId}`),
   getRecipesFavorites: async () => await api.get('/recipes/favorites'),

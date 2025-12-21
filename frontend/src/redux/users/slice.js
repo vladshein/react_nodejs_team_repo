@@ -9,7 +9,7 @@ import {
   unfollowUser,
 } from './actions';
 import { logout } from '../auth/actions';
-import { addToFavorites, removeFromFavorites } from '../recipes/actions';
+import { addToFavorites, deleteRecipe, removeFromFavorites } from '../recipes/actions';
 
 const handlePending = (state) => {
   state.loading = true;
@@ -101,6 +101,9 @@ const usersSlice = createSlice({
       .addCase(logout.fulfilled, (state) => {
         state.currentUser = null;
         state.selectedUser = null;
+      })
+      .addCase(deleteRecipe.fulfilled, (state, action) => {
+        state.currentUser.count_user_recipes = state.currentUser.count_user_recipes - 1;
       })
       .addMatcher(
         isAnyOf(
