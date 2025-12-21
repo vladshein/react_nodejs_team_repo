@@ -1,4 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,6 +29,7 @@ const initialValues = {
 
 const AddRecipeForm = ({ categoriesOptions, ingredientsOptions, areasOptions }) => {
   const objectUrlRef = useRef(null);
+  const navigate = useNavigate();
   const [thumbPreview, setThumbPreview] = useState(null);
   const dispatch = useDispatch();
   const recipeErrorState = useSelector(selectRecipesError);
@@ -43,24 +45,30 @@ const AddRecipeForm = ({ categoriesOptions, ingredientsOptions, areasOptions }) 
   const formik = useFormik({
     initialValues,
     validationSchema: PublishRecipeSchema,
-    onSubmit: (values) => {
-      const formData = new FormData();
-      formData.append('title', values.title);
-      formData.append('description', values.description);
-      formData.append('categoryId', values.categoryId);
-      formData.append('time', String(values.time));
-      formData.append('areaId', values.areaId);
-      formData.append('instructions', values.instructions);
+    onSubmit: async (values) => {
+      try {
+        const formData = new FormData();
+        formData.append('title', values.title);
+        formData.append('description', values.description);
+        formData.append('categoryId', values.categoryId);
+        formData.append('time', String(values.time));
+        formData.append('areaId', values.areaId);
+        formData.append('instructions', values.instructions);
 
-      if (values.thumb instanceof File) {
-        formData.append('thumb', values.thumb);
+        if (values.thumb instanceof File) {
+          formData.append('thumb', values.thumb);
+        }
+
+        formData.append('ingredients', JSON.stringify(values.ingredients));
+
+        const newRecipe = await dispatch(publishRecipe(formData)).unwrap();
+        formik.resetForm();
+        setThumbPreview(null);
+
+        navigate(`/recipe/${newRecipe.id}`);
+      } catch (err) {
+        toast.error(err?.message || 'Failed to publish recipe');
       }
-
-      formData.append('ingredients', JSON.stringify(values.ingredients));
-
-      dispatch(publishRecipe(formData));
-      formik.resetForm();
-      setThumbPreview(null);
     },
   });
 
