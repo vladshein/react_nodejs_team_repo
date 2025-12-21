@@ -1,11 +1,29 @@
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './UserInfo.module.css';
 import { openModal } from '../../../redux/modal/modalSlice';
+import { selectIsFollowing } from '../../../redux/users/selectors';
+import { followUser, unfollowUser } from '../../../redux/users/actions';
 
 const UserInfo = ({ user }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
+
+  const isFollowing = useSelector(selectIsFollowing(id));
+
+  console.log(id, isFollowing);
+  console.log(
+    'folowing state:',
+    useSelector((state) => state.users.following)
+  );
+
+  const handleFollow = (userId) => {
+    dispatch(followUser(userId)).unwrap();
+  };
+
+  const handleUnfollow = (userId) => {
+    dispatch(unfollowUser(userId)).unwrap();
+  };
 
   return (
     <section className={styles.container}>
@@ -59,7 +77,18 @@ const UserInfo = ({ user }) => {
           LOG OUT
         </button>
       ) : (
-        <button className={styles.editBtn}>FOLLOW</button>
+        <button
+          className={styles.editBtn}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (isFollowing) {
+              handleUnfollow(id);
+            } else {
+              handleFollow(id);
+            }
+          }}>
+          {isFollowing ? 'UNFOLLOW' : 'FOLLOW'}
+        </button>
       )}
     </section>
   );

@@ -66,7 +66,13 @@ const recipesSlice = createSlice({
       .addCase(removeFromFavorites.pending, handlePending)
       .addCase(removeFromFavorites.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.favorites = state.favorites.filter((recipe) => recipe._id !== action.payload._id);
+        const removedId = action.meta.arg;
+        state.favorites = state.favorites.filter((recipe) => {
+          const currentId = String(recipe.id || recipe._id);
+          const targetId = String(removedId);
+
+          return currentId !== targetId;
+        });
       })
       .addCase(fetchRecipeDetails.fulfilled, (state, action) => {})
       .addCase(fetchTopRecipes.fulfilled, (state, action) => {})

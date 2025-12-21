@@ -3,20 +3,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { fetchFavoriteRecipes, removeFromFavorites } from './../../../redux/recipes/actions';
 import { selectFavorites } from './../../../redux/recipes/selectors';
-// import { removeFromFavorites } from './../../../redux/recipes/actions';
-
 import UserRecipeCard from '../UserRecipeCard/UserRecipeCard';
 import styles from './UserFavorites.module.css';
+import { selectIsLoading } from '../../../redux/recipes/selectors';
 
 const UserFavorites = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const favorites = useSelector(selectFavorites);
-
-  console.log('Favorites list:', favorites);
+  const isLoading = useSelector(selectIsLoading);
 
   useEffect(() => {
-    dispatch(fetchFavoriteRecipes());
+    dispatch(fetchFavoriteRecipes()).unwrap();
   }, [dispatch]);
 
   const handleOpenRecipe = (id) => {
@@ -24,12 +22,12 @@ const UserFavorites = () => {
   };
 
   const handleRemoveFromFavorites = (id) => {
-    dispatch(removeFromFavorites(id));
-    dispatch(fetchFavoriteRecipes());
-    console.log('Removing from favorites:', id);
+    dispatch(removeFromFavorites(id)).unwrap();
   };
 
-  return (
+  return isLoading ? (
+    <div>Loading favorite recipes...</div>
+  ) : (
     <div className={styles.container}>
       {favorites && favorites.length > 0 ? (
         <ul className={styles.list}>

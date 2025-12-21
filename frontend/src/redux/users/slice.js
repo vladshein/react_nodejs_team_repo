@@ -18,6 +18,7 @@ const handlePending = (state) => {
 const initialState = {
   currentUser: null, // logged-in user for updating avatar
   selectedUser: null, //other user profile that you view
+  selectedUserFollowers: [],
   followers: [],
   following: [],
   loading: false,
@@ -40,7 +41,11 @@ const usersSlice = createSlice({
       .addCase(fetchFollowers.pending, handlePending)
       .addCase(fetchFollowers.fulfilled, (state, action) => {
         state.loading = false;
-        state.followers = action.payload;
+        if (action.meta.arg === 'current') {
+          state.followers = action.payload;
+        } else {
+          state.selectedUserFollowers = action.payload;
+        }
       })
 
       .addCase(fetchFollowing.pending, handlePending)
@@ -51,12 +56,15 @@ const usersSlice = createSlice({
       .addCase(followUser.pending, handlePending)
       .addCase(followUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.following.push(action.payload);
+        state.following.push({ id: action.meta.arg });
       })
       .addCase(unfollowUser.pending, handlePending)
       .addCase(unfollowUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.following = state.following.filter((user) => user.id !== action.payload.id);
+        const unfollowedId = action.meta.arg;
+        state.following = state.following.filter((user) => {
+          return String(user.id) !== String(unfollowedId);
+        });
       })
       .addCase(current.fulfilled, (state, action) => {
         state.loading = false;
