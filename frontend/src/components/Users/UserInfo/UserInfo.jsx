@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styles from './UserInfo.module.css';
 import { openModal } from '../../../redux/modal/modalSlice';
+import Button from '../../common/button/Button';
 
 const UserInfo = ({ user }) => {
   const dispatch = useDispatch();
@@ -53,13 +54,22 @@ const UserInfo = ({ user }) => {
       </div>
 
       {id === 'current' ? (
-        <button
-          className={styles.editBtn}
+        <Button
+          type="button"
+          variant="filled" // Чорна кнопка
+          className={styles.actionBtn} // Додатковий клас для розмірів
           onClick={() => dispatch(openModal({ modalType: 'logout' }))}>
           LOG OUT
-        </button>
+        </Button>
       ) : (
-        <button className={styles.editBtn}>FOLLOW</button>
+        <Button
+          type="button"
+          variant="filled"
+          className={styles.actionBtn}
+          // Тут можна додати логіку підписки
+          onClick={() => console.log('Follow clicked')}>
+          FOLLOW
+        </Button>
       )}
     </section>
   );
