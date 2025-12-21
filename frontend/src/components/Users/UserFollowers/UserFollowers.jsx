@@ -1,22 +1,23 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchFollowers } from './../../../redux/users/actions';
-import { selectFollowers } from './../../../redux/users/selectors';
+import { useSelector } from 'react-redux';
+import {
+  selectFollowers,
+  selectSelectedUserFollowers,
+  selectUserIsLoading,
+} from './../../../redux/users/selectors';
 import styles from './UserFollowers.module.css';
 import UserList from '../UserList/UserList';
 import { useParams } from 'react-router-dom';
 
 const UserFollowers = () => {
   const { id } = useParams();
-  const dispatch = useDispatch();
+  const select = id === 'current' ? selectFollowers : selectSelectedUserFollowers;
+  const followers = useSelector(select);
+  const isLoading = useSelector(selectUserIsLoading);
+  console.log('id', id, 'followers', followers);
 
-  useEffect(() => {
-    dispatch(fetchFollowers(id)).unwrap();
-  }, [dispatch, id]);
-
-  const followers = useSelector(selectFollowers);
-
-  return followers.length === 0 ? (
+  return isLoading ? (
+    <div>Loading...</div>
+  ) : followers.length === 0 ? (
     <div>No followers found.</div>
   ) : (
     <div className={styles.listContainer}>

@@ -19,6 +19,7 @@ const initialState = {
   currentUser: null, // logged-in user for updating avatar
   selectedUser: null, //other user profile that you view
   avatar: null,
+  selectedUserFollowers: [],
   followers: [],
   following: [],
   loading: false,
@@ -57,7 +58,11 @@ const usersSlice = createSlice({
       .addCase(fetchFollowers.pending, handlePending)
       .addCase(fetchFollowers.fulfilled, (state, action) => {
         state.loading = false;
-        state.followers = action.payload;
+        if (action.meta.arg === 'current') {
+          state.followers = action.payload;
+        } else {
+          state.selectedUserFollowers = action.payload;
+        }
       })
 
       .addCase(fetchFollowing.pending, handlePending)
@@ -66,7 +71,26 @@ const usersSlice = createSlice({
         state.loading = false;
       })
       .addCase(followUser.pending, handlePending)
+      .addCase(followUser.fulfilled, (state, action) => {
+        state.loading = false;
+        state.following.push({ id: action.meta.arg });
+        if (action.meta.arg === state.currentUser.id) {
+          state.selectedUserFollowers.push(state.currentUser);
+        }
+      })
       .addCase(unfollowUser.pending, handlePending)
+      .addCase(unfollowUser.fulfilled, (state, action) => {
+        state.loading = false;
+        const unfollowedId = action.meta.arg;
+        state.following = state.following.filter((user) => {
+          return String(user.id) !== String(unfollowedId);
+        });
+        if (action.meta.arg === 'current') {
+          state.selectedUserFollowers = state.selectedUserFollowers.filter((user) => {
+            return String(user.id) !== String(state.currentUser.id);
+          });
+        }
+      })
       .addCase(current.fulfilled, (state, action) => {
         state.loading = false;
         state.currentUser = action.payload;
@@ -74,6 +98,8 @@ const usersSlice = createSlice({
 
       .addCase(followUser.fulfilled, (state, action) => {})
       .addCase(unfollowUser.fulfilled, (state, action) => {})
+      .addCase(updateAvatar.fulfilled, (state, action) => {})
+
       .addCase(logout.fulfilled, (state) => {
         state.currentUser = null;
         state.selectedUser = null;

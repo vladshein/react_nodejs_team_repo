@@ -48,6 +48,10 @@
   border: 1px solid #e8e8e8;
 }
 
+.active:hover {
+  background-color: #000;
+}
+
 .inactive {
   background: transparent; /* stays white because group bg is white */
   color: #000;

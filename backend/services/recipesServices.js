@@ -6,9 +6,8 @@ import HttpError from '../helpers/HttpError.js';
 // async function getRecipes(where) {
 //     return await Recipe.findAll({ where });
 // }
-async function getRecipes(filters = {}) {
+async function getRecipes(filters = {}, loggedUserId = null) {
   const where = {};
-
   // filter by ownerId
   if (filters.ownerId) {
     where.ownerId = filters.ownerId;

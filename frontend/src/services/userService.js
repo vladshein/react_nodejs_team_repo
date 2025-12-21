@@ -6,4 +6,6 @@ export const userService = {
   updateAvatar: (formData) => api.patch('users/avatars', formData),
   fetchFollowers: (userId) => api.get(`users/${userId}/followers`),
   fetchFollowing: (userId) => api.get(`users/${userId}/following`),
+  followUser: (userId) => api.post(`following/${userId}`),
+  unfollowUser: (userId) => api.delete(`following/${userId}`),
 };

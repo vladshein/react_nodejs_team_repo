@@ -2,6 +2,8 @@ export const selectIsLoggedIn = (state) => state.auth.isLoggedIn;
 
 export const selectUserInfo = (state) => state.auth.user;
 
+export const selectUserId = (state) => state.auth.user.id;
+
 export const selectUserName = (state) => state.auth.user?.name;
 
 export const selectUserAvatar = (state) => state.auth.user?.avatar;

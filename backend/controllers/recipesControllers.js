@@ -7,14 +7,16 @@ import { createRecipeSchema } from '../schemas/recipesSchemas.js';
 export const getRecipesController = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 12;
-
-  const { recipes, pagination } = await recipesServices.getRecipes({
-    category: req.query.category,
-    area: req.query.area,
-    ingredient: req.query.ingredient,
-    page,
-    limit,
-  });
+  const { recipes, pagination } = await recipesServices.getRecipes(
+    {
+      category: req.query.category,
+      area: req.query.area,
+      ingredient: req.query.ingredient,
+      page,
+      limit,
+    }
+    // req.user.id ? req.user.id : null
+  );
 
   res.json({ recipes, pagination });
 };

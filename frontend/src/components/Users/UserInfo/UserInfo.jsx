@@ -7,8 +7,6 @@ import Button from '../../common/button/Button';
 import IconPlus from '../../common/icons/IconPlus';
 import { updateAvatar } from '../../../redux/users/actions';
 
-// const SERVER_URL = 'http://localhost:3000';
-// const BASE_URL = import.meta.env.VITE_API_URL;
 const API_URL = import.meta.env.VITE_API_URL;
 const SERVER_URL = API_URL.replace('/api', '');
 

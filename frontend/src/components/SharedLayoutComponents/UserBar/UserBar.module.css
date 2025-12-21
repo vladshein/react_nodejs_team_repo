@@ -85,21 +85,8 @@
 }
 @media only screen and (min-width: 768px) {
   .userBarBottom {
-    position: absolute;
-    border: 1px solid #e8e8e8;
-    top: 110%; /* place directly below .userBarTop */
-
-    margin-top: 8px;
-    background: black;
-    border-radius: 8px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
     gap: 6px;
     min-height: 74px;
-    z-index: 10; /* ensure it overlays */
-    right: 10px; /* align to the right edge */
     width: 148px;
     height: 74px;
   }
@@ -107,25 +94,22 @@
 
 @media only screen and (min-width: 1440px) {
   .userBarBottom {
-    position: absolute;
-    border: 1px solid #e8e8e8;
-    top: 110%; /* place directly below .userBarTop */
-
-    margin-top: 8px;
-    background: black;
-    border-radius: 8px;
-    padding: 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 6px;
-    min-height: 74px;
-    z-index: 10; /* ensure it overlays */
     right: 14px; /* align to the right edge */
-    width: 148px;
-    height: 74px;
   }
 }
+
+.logoutArrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
+
+.arrow2 {
+  display: flex;
+  cursor: pointer;
+}
+
 .profile {
   color: #fff;
 
@@ -140,5 +124,10 @@
 }
 
 .profile:hover {
-  background: #333;
+  background: #1a1a1a;
+}
+
+.arrow2:hover {
+  display: flex;
+  background-color: #1a1a1a;
 }
