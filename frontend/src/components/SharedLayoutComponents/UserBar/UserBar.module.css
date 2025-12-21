@@ -126,6 +126,18 @@
     height: 74px;
   }
 }
+
+.logoutArrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
+
+.arrow2 {
+  display: flex;
+  cursor: pointer;
+}
 .profile {
   color: #fff;
 
@@ -140,5 +152,10 @@
 }
 
 .profile:hover {
-  background: #333;
+  background: #1a1a1a;
+}
+
+.arrow2:hover {
+  display: flex;
+  background-color: #1a1a1a;
 }

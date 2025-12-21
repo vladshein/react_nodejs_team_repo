@@ -3,6 +3,7 @@ import Avatar from '../Avatar/Avatar';
 import style from './UserBar.module.css';
 import IconChevronDown from '../../common/icons/IconChevronDown';
 import IconChevronUp from '../../common/icons/IconChevronUp';
+import IconArrowUpRight from '../../common/icons/IconArrowUpRight';
 import { useSelector } from 'react-redux';
 import { selectUserInfo } from '../../../redux/auth/selectors';
 import { Link } from 'react-router-dom';
@@ -37,14 +38,21 @@ const UserBar = ({ onLogOutClick }) => {
       {/* dropdown box */}
       {open && (
         <div className={style.userBarBottom}>
-          <Link to={`/user/current`} className={style.profile}>
+          <Link to={`/user/current`} className={style.profile} onClick={() => setOpen(false)}>
             {/* <Link to={`/user/${user?.id}`} className={style.profile}> */}
             PROFILE
           </Link>
-          <div>
+          <div className={style.logoutArrow}>
             <span className={style.profile} onClick={onLogOutClick}>
               Log out
             </span>
+            <IconArrowUpRight
+              className={style.arrow2}
+              stroke="#FFFFFF"
+              width={18}
+              height={18}
+              onClick={onLogOutClick}
+            />
           </div>
         </div>
       )}
