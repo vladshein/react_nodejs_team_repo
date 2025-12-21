@@ -9,6 +9,7 @@ import {
   unfollowUser,
 } from './actions';
 import { logout } from '../auth/actions';
+import { addToFavorites, removeFromFavorites } from '../recipes/actions';
 
 const handlePending = (state) => {
   state.loading = true;
@@ -57,9 +58,13 @@ const usersSlice = createSlice({
       .addCase(followUser.fulfilled, (state, action) => {
         state.loading = false;
         state.following.push({ id: action.meta.arg });
-        if (state.currentUser) {
-          const currentCount = Number(state.currentUser.count_following) || 0;
-          state.currentUser.count_following = currentCount > 0 ? currentCount + 1 : 1;
+        const currentCount = Number(state.currentUser.count_following) || 0;
+        state.currentUser.count_following = currentCount > 0 ? currentCount + 1 : 1;
+
+        if (state.selectedUser.id === action.meta.arg) {
+          state.selectedUserFollowers.push(state.currentUser);
+          const followersCount = Number(state.selectedUser.count_followers) || 0;
+          state.selectedUser.count_followers = followersCount > 0 ? followersCount + 1 : 1;
         }
       })
       .addCase(unfollowUser.pending, handlePending)
@@ -67,24 +72,17 @@ const usersSlice = createSlice({
         state.loading = false;
         const unfollowedId = action.meta.arg;
 
-        // 1. Видаляємо юзера зі списку тих, на кого ми підписані
         state.following = state.following.filter(
           (user) => String(user.id) !== String(unfollowedId)
         );
 
-        // 2. Оновлюємо лічильник МОЇХ підписок (безпечно)
-        if (state.currentUser) {
-          const currentCount = Number(state.currentUser.count_following) || 0;
-          state.currentUser.count_following = currentCount > 0 ? currentCount - 1 : 0;
-        }
+        const currentCount = Number(state.currentUser.count_following) || 0;
+        state.currentUser.count_following = currentCount > 0 ? currentCount - 1 : 0;
 
-        // 3. Якщо ми зараз у профілі того, від кого відписалися, оновлюємо ЙОГО фоловерів
-        if (state.selectedUser && String(state.selectedUser.id) === String(unfollowedId)) {
-          // Видаляємо себе з його списку підписників
+        if (state.selectedUser.id === unfollowedId) {
           state.selectedUserFollowers = state.selectedUserFollowers.filter(
             (user) => String(user.id) !== String(state.currentUser?.id)
           );
-          // Зменшуємо ЙОГО лічильник фоловерів
           const followersCount = Number(state.selectedUser.count_followers) || 0;
           state.selectedUser.count_followers = followersCount > 0 ? followersCount - 1 : 0;
         }
@@ -94,7 +92,12 @@ const usersSlice = createSlice({
         state.currentUser = action.payload;
       })
       .addCase(updateAvatar.fulfilled, (state, action) => {})
-
+      .addCase(removeFromFavorites.fulfilled, (state, action) => {
+        state.currentUser.count_favorite_recipes = state.currentUser.count_favorite_recipes - 1;
+      })
+      .addCase(addToFavorites.fulfilled, (state, action) => {
+        state.currentUser.count_favorite_recipes = state.currentUser.count_favorite_recipes + 1;
+      })
       .addCase(logout.fulfilled, (state) => {
         state.currentUser = null;
         state.selectedUser = null;

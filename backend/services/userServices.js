@@ -90,6 +90,7 @@ export const getUserById = async (userId) => {
     throw HttpError(404, 'User not found');
   }
   return {
+    id: user.id,
     name: user.name,
     email: user.email,
     avatar: user.avatar,

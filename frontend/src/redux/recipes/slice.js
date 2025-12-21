@@ -70,7 +70,6 @@ const recipesSlice = createSlice({
         state.favorites = state.favorites.filter((recipe) => {
           const currentId = String(recipe.id || recipe._id);
           const targetId = String(removedId);
-
           return currentId !== targetId;
         });
       })
