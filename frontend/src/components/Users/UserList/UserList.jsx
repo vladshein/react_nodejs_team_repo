@@ -5,7 +5,7 @@ import styles from './UserList.module.css';
 import { useSelector } from 'react-redux';
 import { selectCurrentUser } from '../../../redux/users/selectors';
 
-const UserList = ({ user }) => {
+const UserList = ({ user, onFollow }) => {
   const currnetUser = useSelector(selectCurrentUser);
   const navigate = useNavigate();
   const { avatar, name, recipesCount, isFollowing, id } = user;
@@ -13,10 +13,6 @@ const UserList = ({ user }) => {
   const recipes = user.recipesHas || [];
   const defaultAvatar = '/cat_avatar.png';
   const handleGoToProfile = () => {
-    if (currnetUser && currnetUser.id === id) {
-      navigate('/user/current');
-      return;
-    }
     navigate(`/user/${id}`);
   };
 
@@ -49,6 +45,7 @@ const UserList = ({ user }) => {
             className={styles.actionBtn}
             onClick={(e) => {
               e.stopPropagation();
+              onFollow();
               console.log('Toggle follow logic');
             }}>
             {isFollowing ? 'UNFOLLOW' : 'FOLLOW'}

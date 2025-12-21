@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { fetchFavoriteRecipes } from './../../../redux/recipes/actions';
+import { fetchFavoriteRecipes, removeFromFavorites } from './../../../redux/recipes/actions';
 import { selectFavorites } from './../../../redux/recipes/selectors';
 // import { removeFromFavorites } from './../../../redux/recipes/actions';
 
@@ -24,7 +24,8 @@ const UserFavorites = () => {
   };
 
   const handleRemoveFromFavorites = (id) => {
-    // dispatch(removeFromFavorites(id));
+    dispatch(removeFromFavorites(id));
+    dispatch(fetchFavoriteRecipes());
     console.log('Removing from favorites:', id);
   };
 
