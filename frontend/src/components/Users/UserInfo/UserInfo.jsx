@@ -1,37 +1,67 @@
+import { useRef } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import styles from './UserInfo.module.css';
 import { openModal } from '../../../redux/modal/modalSlice';
 import Button from '../../common/button/Button';
 import IconPlus from '../../common/icons/IconPlus';
+import { updateAvatar } from '../../../redux/users/actions';
+
+// const SERVER_URL = 'http://localhost:3000';
+// const BASE_URL = import.meta.env.VITE_API_URL;
+const API_URL = import.meta.env.VITE_API_URL;
+const SERVER_URL = API_URL.replace('/api', '');
 
 const UserInfo = ({ user }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const isCurrentUser = id === 'current';
 
-  const handleUploadAvatar = () => {
-    // dispatch(openModal({ modalType: 'uploadAvatar' }));
+  const fileInputRef = useRef(null);
+
+  const handleUploadClick = () => {
     console.log('Upload modal');
+    fileInputRef.current.click();
   };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        alert('File is too large. Max 5MB.');
+        return;
+      }
+
+      dispatch(updateAvatar(file));
+    }
+  };
+
+  let avatarUrl = user.avatar || 'https://www.gravatar.com/avatar/?d=mp';
+
+  if (user.avatar && !user.avatar.startsWith('http')) {
+    avatarUrl = `${SERVER_URL}/${user.avatar}`;
+  }
 
   return (
     <section className={styles.container}>
       <div className={styles.card}>
         <div className={styles.avatarWrapper}>
-          <img
-            src={user.avatar || 'https://www.gravatar.com/avatar/?d=mp'}
-            alt={user.name}
-            className={styles.avatar}
+          <img src={avatarUrl} alt={user.name} className={styles.avatar} />
+
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+            accept="image/*"
+            style={{ display: 'none' }}
           />
 
           {isCurrentUser && (
             <button
               className={styles.uploadBtn}
               type="button"
-              onClick={handleUploadAvatar}
+              onClick={handleUploadClick}
               aria-label="Upload avatar">
-              {/* Іконка трохи менша за кнопку, щоб були відступи */}
               <IconPlus width={20} height={20} className={styles.iconPlus} />
             </button>
           )}

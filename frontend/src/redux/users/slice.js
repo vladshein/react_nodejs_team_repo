@@ -18,6 +18,7 @@ const handlePending = (state) => {
 const initialState = {
   currentUser: null, // logged-in user for updating avatar
   selectedUser: null, //other user profile that you view
+  avatar: null,
   followers: [],
   following: [],
   loading: false,
@@ -30,12 +31,28 @@ const usersSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(current.pending, handlePending)
+
       .addCase(fetchUser.pending, handlePending)
       .addCase(fetchUser.fulfilled, (state, action) => {
         state.loading = false;
         state.selectedUser = action.payload;
       })
+
       .addCase(updateAvatar.pending, handlePending)
+      .addCase(updateAvatar.fulfilled, (state, action) => {
+        state.loading = false;
+
+        const newAvatarUrl = action.payload.avatar;
+        state.avatar = newAvatarUrl;
+
+        if (state.currentUser) {
+          state.currentUser.avatar = newAvatarUrl;
+        }
+
+        if (state.selectedUser) {
+          state.selectedUser.avatar = newAvatarUrl;
+        }
+      })
 
       .addCase(fetchFollowers.pending, handlePending)
       .addCase(fetchFollowers.fulfilled, (state, action) => {
@@ -54,7 +71,7 @@ const usersSlice = createSlice({
         state.loading = false;
         state.currentUser = action.payload;
       })
-      .addCase(updateAvatar.fulfilled, (state, action) => {})
+
       .addCase(followUser.fulfilled, (state, action) => {})
       .addCase(unfollowUser.fulfilled, (state, action) => {})
       .addCase(logout.fulfilled, (state) => {

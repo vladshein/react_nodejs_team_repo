@@ -9,3 +9,5 @@ export const selectUserError = (state) => state.users.error;
 export const selectFollowers = (state) => state.users.followers;
 
 export const selectFollowing = (state) => state.users.following;
+
+export const selectUploadAvatar = (state) => state.users.avatar;
