@@ -14,6 +14,7 @@ const SERVER_URL = API_URL.replace('/api', '');
 const UserInfo = ({ user }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
+
   const isCurrentUser = id === 'current';
   const isFollowing = useSelector(selectIsFollowing(user.id));
 

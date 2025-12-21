@@ -15,12 +15,11 @@ import upload from '../middlewares/upload.js';
 import { validateQuery, validateParams } from '../helpers/validateFunctions.js';
 import { paginationSchema, deleteRecipeSchema } from '../schemas/recipesSchemas.js';
 import authenticate from '../middlewares/authenticate.js';
-import isauth from '../middlewares/isauth.js';
 
 const recipesRouter = express.Router();
 
 // public recipe routes (specific routes must be before /:id pattern)
-recipesRouter.get('/', isauth, getRecipesController);
+recipesRouter.get('/', getRecipesController);
 recipesRouter.get('/popular', getPopularRecipesController);
 
 // protected routes - must be defined BEFORE /:id to avoid route collision

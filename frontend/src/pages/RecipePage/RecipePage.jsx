@@ -8,8 +8,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Button from '../../components/common/button/Button';
 import RequireAuthAction from '../../components/RequireAuthAction/RequireAuthAction';
-import { useSelector } from 'react-redux';
-import { selectUserInfo } from '../../redux/auth/selectors';
+import { useFavoriteRecipe } from '../../services/useFavoriteRecipes';
 
 const RecipePage = () => {
   const { id } = useParams(); // recipe id from URL
@@ -17,8 +16,7 @@ const RecipePage = () => {
   const [popular, setPopular] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const user = useSelector(selectUserInfo);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { isFavorite, toggleFavorite } = useFavoriteRecipe(id);
 
   const API_BASE = import.meta.env.VITE_API_URL;
 
@@ -58,53 +56,6 @@ const RecipePage = () => {
     fetchPopular();
   }, [API_BASE]);
 
-  useEffect(() => {
-    if (!user?.token) return;
-
-    const checkFavorite = async () => {
-      try {
-        const res = await fetch(`${API_BASE}recipes/favorites`, {
-          headers: {
-            Authorization: `Bearer ${user.token}`,
-          },
-        });
-
-        if (!res.ok) throw new Error('Failed to load favorites');
-
-        const data = await res.json();
-        console.log('checkFAv', data);
-
-        const exists = data.some((item) => item.id === id);
-        setIsFavorite(exists);
-        console.log(isFavorite);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-
-    checkFavorite();
-  }, [id, API_BASE, user?.token, isFavorite]);
-
-  const toggleFavorite = async () => {
-    if (!user?.token) return;
-    console.log('trying to fetch!');
-
-    try {
-      const res = await fetch(`${API_BASE}recipes/favorites/${id}`, {
-        method: isFavorite ? 'DELETE' : 'POST',
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-
-      if (!res.ok) throw new Error('Favorite action failed');
-
-      setIsFavorite((prev) => !prev);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   if (loading) return <div>Loading...</div>;
   if (!recipe) return <div>Recipe not found</div>;
 
@@ -131,7 +82,7 @@ const RecipePage = () => {
           </div>
         </RecipeInfo>
       </div>
-      <PopularRecipes popular={popular} />
+      <PopularRecipes popular={popular} isFavorite={isFavorite} />
     </>
   );
 };

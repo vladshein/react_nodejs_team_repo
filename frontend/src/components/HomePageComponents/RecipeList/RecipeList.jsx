@@ -4,11 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { handleFavorites } from './../../../redux/recipes/actions';
 import { selectIsLoggedIn } from './../../../redux/auth/selectors';
 
-const RecipeList = ({ recipes, fn }) => {
+const RecipeList = ({ recipes }) => {
   const dispatch = useDispatch();
   const favClick = (obj) => {
     dispatch(handleFavorites(obj));
-    fn(); // trigger parent func (its reload search data)
   };
   const isLoggedIn = useSelector(selectIsLoggedIn);
 
