@@ -79,8 +79,6 @@ const recipesSlice = createSlice({
         state.myRecipes.push(action.payload);
       })
       .addCase(deleteRecipe.fulfilled, (state, action) => {})
-
-      .addCase(addToFavorites.fulfilled, (state, action) => {})
       .addCase(logout.fulfilled, (state) => {
         state.allRecipes = [];
         state.myRecipes = [];
