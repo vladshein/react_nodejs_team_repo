@@ -130,13 +130,17 @@ export const createRecipeController = async (req, res) => {
     }
   }
 
-  const normalizedPath = req.file.path.replace(/\\/g, '/');
+  const getBaseUrl = (req) => {
+    return process.env.BASE_URL || `${req.protocol}://${req.get('host')}`;
+  };
+
+  const thumbPath = `${getBaseUrl(req)}/temp/${req.file.filename}`;
 
   // Validate the parsed body with ingredients as array
   const bodyToValidate = {
     ...req.body,
     ingredients: JSON.stringify(ingredients),
-    thumb: normalizedPath,
+    thumb: thumbPath,
   };
 
   const { error, value } = createRecipeSchema.validate(bodyToValidate);
