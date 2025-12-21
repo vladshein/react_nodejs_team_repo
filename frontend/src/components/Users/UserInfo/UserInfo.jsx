@@ -11,12 +11,6 @@ const UserInfo = ({ user }) => {
 
   const isFollowing = useSelector(selectIsFollowing(id));
 
-  console.log(id, isFollowing);
-  console.log(
-    'folowing state:',
-    useSelector((state) => state.users.following)
-  );
-
   const handleFollow = (userId) => {
     dispatch(followUser(userId)).unwrap();
   };

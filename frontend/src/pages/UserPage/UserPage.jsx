@@ -34,7 +34,6 @@ const UserPage = () => {
 
   const user = useSelector(select);
   const isLoading = useSelector(selectUserIsLoading);
-  console.log(user);
 
   return isLoading ? (
     <div>Loading user data...</div>

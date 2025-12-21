@@ -57,7 +57,9 @@ const usersSlice = createSlice({
       .addCase(followUser.fulfilled, (state, action) => {
         state.loading = false;
         state.following.push({ id: action.meta.arg });
-        state.selectedUserFollowers.push({ id: action.meta.arg });
+        if (action.meta.arg === state.currentUser.id) {
+          state.selectedUserFollowers.push(state.currentUser);
+        }
       })
       .addCase(unfollowUser.pending, handlePending)
       .addCase(unfollowUser.fulfilled, (state, action) => {
@@ -66,9 +68,11 @@ const usersSlice = createSlice({
         state.following = state.following.filter((user) => {
           return String(user.id) !== String(unfollowedId);
         });
-        state.selectedUserFollowers = state.selectedUserFollowers.filter((user) => {
-          return String(user.id) !== String(unfollowedId);
-        });
+        if (action.meta.arg === 'current') {
+          state.selectedUserFollowers = state.selectedUserFollowers.filter((user) => {
+            return String(user.id) !== String(state.currentUser.id);
+          });
+        }
       })
       .addCase(current.fulfilled, (state, action) => {
         state.loading = false;
