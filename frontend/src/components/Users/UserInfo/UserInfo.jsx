@@ -3,10 +3,17 @@ import { useDispatch } from 'react-redux';
 import styles from './UserInfo.module.css';
 import { openModal } from '../../../redux/modal/modalSlice';
 import Button from '../../common/button/Button';
+import IconPlus from '../../common/icons/IconPlus';
 
 const UserInfo = ({ user }) => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const isCurrentUser = id === 'current';
+
+  const handleUploadAvatar = () => {
+    // dispatch(openModal({ modalType: 'uploadAvatar' }));
+    console.log('Upload modal');
+  };
 
   return (
     <section className={styles.container}>
@@ -17,6 +24,17 @@ const UserInfo = ({ user }) => {
             alt={user.name}
             className={styles.avatar}
           />
+
+          {isCurrentUser && (
+            <button
+              className={styles.uploadBtn}
+              type="button"
+              onClick={handleUploadAvatar}
+              aria-label="Upload avatar">
+              {/* Іконка трохи менша за кнопку, щоб були відступи */}
+              <IconPlus width={20} height={20} className={styles.iconPlus} />
+            </button>
+          )}
         </div>
 
         <h3 className={styles.name}>{user.name}</h3>

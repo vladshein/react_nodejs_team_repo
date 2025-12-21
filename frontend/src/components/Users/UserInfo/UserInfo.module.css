@@ -42,6 +42,7 @@
 }
 
 .avatarWrapper {
+  position: relative;
   margin-bottom: 16px;
 }
 
@@ -64,6 +65,42 @@
     height: 120px;
   }
 }
+
+.uploadBtn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(100% - 23px);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #050505;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: 1px solid transparent;
+  padding: 0;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.uploadBtn svg {
+  filter: invert(1);
+  transition: filter 0.3s ease;
+}
+
+.uploadBtn:hover,
+.uploadBtn:active {
+  background: #FFFFFF;
+  border: 1px solid #050505;
+}
+
+.uploadBtn:hover svg,
+.uploadBtn:active svg {
+  filter: invert(0);
+}
+
 
 .name {
   font-weight: 800;
