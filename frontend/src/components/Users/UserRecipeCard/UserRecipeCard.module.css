@@ -84,7 +84,7 @@
 
 .actionBtn:hover .icon,
 .actionBtn:active .icon {
-  filter: invert(1);
+  filter: invert(0.5);
 }
 
 .actionBtn.isActive,
@@ -95,7 +95,7 @@
 
 .actionBtn.isActive .icon,
 .favoriteButton.isFavorite .icon {
-  filter: invert(1);
+  filter: invert(0.5);
 }
 
 .isActive {
@@ -104,7 +104,7 @@
 }
 
 .isActive .icon {
-  filter: invert(1);
+  filter: invert(0.5);
 }
 
 .desc {
@@ -137,14 +137,17 @@
     font-size: 20px;
     line-height: 1.2;
   }
+
   .desc {
     font-size: 16px;
     line-height: 1.5;
   }
+
   .actionBtn {
     width: 42px;
     height: 42px;
   }
+
   .icon {
     width: 18px;
     height: 18px;

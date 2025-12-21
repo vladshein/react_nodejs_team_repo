@@ -1,0 +1,32 @@
+.container {
+  width: 100%;
+  padding-bottom: 40px;
+  /* Відступ знизу, щоб не прилипало до футера */
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  /* Відстань між картками юзерів */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Стиль для порожнього списку */
+.emptyText {
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.5;
+  color: rgba(0, 0, 0, 0.5);
+  /* Сірий колір тексту */
+  margin-top: 40px;
+}
+
+/* Адаптив: на великих екранах можна зробити сітку, якщо захочеш */
+@media screen and (min-width: 768px) {
+  .list {
+    gap: 20px;
+  }
+}
