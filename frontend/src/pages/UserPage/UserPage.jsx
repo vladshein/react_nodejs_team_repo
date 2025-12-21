@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useParams, Outlet, NavLink, useNavigate } from 'react-router-dom';
 import UserInfo from '../../components/Users/UserInfo/UserInfo';
 import styles from './UserPage.module.css';
@@ -9,7 +10,6 @@ import {
 } from '../../redux/users/selectors';
 import { selectUserId } from '../../redux/auth/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import { fetchUser, current, fetchFollowers, fetchFollowing } from '../../redux/users/actions';
 import {} from '../../redux/users/selectors';
 import TabsList from '../../components/Users/TabsList/TabsList';

@@ -165,11 +165,11 @@
   overflow: visible;
 }
 
-.iconButton:hover,
+/* .iconButton:hover,
 .iconButton:active {
   background: #050505;
   border-color: #050505;
-}
+} */
 
 .isLoading {
   transform: scale(0.86);
@@ -180,14 +180,21 @@
   transform: scale(0.86);
 }
 
-.favoriteButton.isFavorite .icon {
-  fill: #ffffff;
-  stroke: #050505;
+.favoriteButton.isFavorite {
+  background: #050505;
+  border-color: #050505;
 }
 
-.iconButton:hover .icon {
-  stroke: #ffffff;
+.favoriteButton.isFavorite .icon {
+  /* fill: #ffffff; */
+  /* stroke: #050505; */
+  fill: none;
+  stroke: #fff;
 }
+
+/* .iconButton:hover .icon {
+  stroke: #ffffff;
+} */
 
 .circleIcon {
   width: 18px;

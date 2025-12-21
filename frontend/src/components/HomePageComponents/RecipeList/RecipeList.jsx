@@ -1,10 +1,16 @@
 import RecipeCard from './../../RecipePageComponents/RecipeCard/RecipeCard';
 import styles from './RecipeList.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { handleFavorites } from './../../../redux/recipes/actions';
+import { selectIsLoggedIn } from './../../../redux/auth/selectors';
 
-const RecipeList = ({ recipes }) => {
-  const handleFavorite = () => {
-    console.log('dfsdfsdf');
+const RecipeList = ({ recipes, fn }) => {
+  const dispatch = useDispatch();
+  const favClick = (obj) => {
+    dispatch(handleFavorites(obj));
+    fn(); // trigger parent func (its reload search data)
   };
+  const isLoggedIn = useSelector(selectIsLoggedIn);
 
   return (
     <>
@@ -14,10 +20,13 @@ const RecipeList = ({ recipes }) => {
               key={index}
               recipe={recipe}
               className={styles.recipeCard}
-              onToggleFavorite={handleFavorite}
+              isAuthed={isLoggedIn}
+              // onNeedAuth={openModal}
+              onToggleFavorite={(obj) => favClick(obj)}
+              isFavorite={Boolean(recipe.favoritesCount)}
             />
           ))
-        : 'There is no result, try something new'}
+        : 'There are no results, try something new'}
     </>
   );
 };

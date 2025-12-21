@@ -62,7 +62,11 @@ const recipesSlice = createSlice({
         state.isLoading = false;
       })
 
+      // add favorites/remove
       .addCase(addToFavorites.pending, handlePending)
+      .addCase(addToFavorites.fulfilled, (state, action) => {
+        state.isLoading = false;
+      })
       .addCase(removeFromFavorites.pending, handlePending)
       .addCase(removeFromFavorites.fulfilled, (state, action) => {
         state.isLoading = false;
