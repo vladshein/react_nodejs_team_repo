@@ -15,7 +15,7 @@ const RecipeIngredients = ({ ingredients }) => {
                     className={styles.ingredientImage}
                   />
                   <div className={styles.ingredientBlock}>
-                    <span className="">{ingredient.name}</span>
+                    <span className={styles.ingredientName}>{ingredient.name}</span>
                     <p>{ingredient.recipeIngredient.measure}</p>
                   </div>
                 </div>

@@ -1,16 +1,12 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   padding: 0px;
   gap: 20px;
-  width: 649px;
 }
 
 .ingredientsTitle {
-  font-family: Mulish;
   font-weight: 800;
-  font-style: ExtraBold;
   font-size: 20px;
   line-height: 24px;
   letter-spacing: -2%;
@@ -19,9 +15,8 @@
 
 .ingredientsContainer {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(178px, 1fr));
-  gap: 20px;
-  width: 649px;
+  grid-template-columns: repeat(auto-fill, minmax(152px, 1fr));
+  gap: 16px;
 }
 
 .ingredientItem {
@@ -35,7 +30,7 @@
 .ingredientImage {
   width: 90px;
   height: 90px;
-  border: 1px solid #BFBEBE;
+  border: 1px solid #bfbebe;
   border-radius: 15px;
   object-fit: cover;
 }
@@ -44,4 +39,18 @@
   display: flex;
   flex-direction: column;
   gap: 4px;
+  overflow: hidden;
+}
+
+.ingredientName {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (min-width: 768px) {
+  .ingredientsContainer {
+    grid-template-columns: repeat(auto-fill, minmax(178px, 1fr));
+    gap: 20px;
+  }
 }
