@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { login, logout, refreshUser, register } from './actions';
+import { updateAvatar } from '../users/actions';
 
 const handlePending = (state) => {
   state.isLoading = true;
@@ -63,6 +64,10 @@ const authSlice = createSlice({
         state.isRefreshing = false;
         state.token = null;
         state.isLoggedIn = false;
+      })
+      .addCase(updateAvatar.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.user.avatar = payload.avatar;
       }),
 });
 
