@@ -162,17 +162,39 @@ export const createRecipeController = async (req, res) => {
   res.status(201).json(recipe);
 };
 
+/**
+ * User (Profiles) Favorites Tabs
+ * @param {*} req
+ * @param {*} res
+ */
 export const getFavoriteRecipesController = async (req, res) => {
+  const page = parseInt(req.query.page) || 1; // Fixed query reference
+  const limit = parseInt(req.query.limit) || 9; // Fixed query reference
+  const { offset } = getPagination(page, limit);
   const { id: userId } = req.user;
 
   try {
-    const recipes = await recipesServices.getFavoriteRecipes(userId);
+    const favorites = await recipesServices.getFavoriteRecipes(userId, limit, offset, [
+      ['updatedAt', 'ASC'],
+    ]);
 
-    if (!recipes) {
-      throw HttpError(404, `Not found`);
-    }
+    const {
+      totalItems,
+      items,
+      totalPages,
+      currentPage,
+      limit: responseLimit,
+    } = formatResponse(favorites, page, limit);
 
-    res.status(200).json(recipes);
+    res.json({
+      favorites: items,
+      pagination: {
+        total: totalItems,
+        totalPages,
+        page: currentPage,
+        limit: responseLimit,
+      },
+    });
   } catch (error) {
     throw error;
   }

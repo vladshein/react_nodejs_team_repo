@@ -255,13 +255,13 @@ async function removeFavoriteRecipe(userId, recipeId) {
   return fav;
 }
 
-const getFavoriteRecipes = async (userId) => {
-  return await Recipe.findAll({
+const getFavoriteRecipes = async (ownerId, limit, offset, order) => {
+  return await Recipe.findAndCountAll({
     include: [
       {
         model: User,
         as: 'favoritedBy',
-        where: { id: userId },
+        where: { id: ownerId },
         attributes: [],
         through: { attributes: [] },
       },
@@ -281,6 +281,9 @@ const getFavoriteRecipes = async (userId) => {
         attributes: ['id', 'name'],
       },
     ],
+    limit,
+    offset,
+    order,
   });
 };
 

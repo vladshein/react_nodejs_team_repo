@@ -97,9 +97,10 @@ const deleteRecipe = createAsyncThunk(
 
 const fetchFavoriteRecipes = createAsyncThunk(
   recipesActions.FETCH_FAVORITES,
-  async (_, { rejectWithValue }) => {
+  async (filters, { rejectWithValue }) => {
     try {
-      const { data } = await recipesService.getRecipesFavorites();
+      const { limit, page } = filters;
+      const { data } = await recipesService.getRecipesFavorites(limit, page);
       return data;
     } catch (error) {
       return rejectWithValue(error.message);
