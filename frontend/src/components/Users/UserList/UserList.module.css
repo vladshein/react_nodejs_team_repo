@@ -5,17 +5,16 @@
 
 .card {
   display: flex;
-  align-items: flex-start;
-  box-sizing: border-box;
+  flex-direction: row;
+  justify-content: flex-start;
   gap: 16px;
-  background-color: #fff;
-  margin: 0 auto;
   width: 100%;
-  max-width: 343px;
+  padding: 40px 0px;
+  border-bottom: 1px solid #bfbebe;
 }
 
-.card+.card {
-  border-top: 1px solid #BFBEBE;
+.card:last-child {
+  border-bottom: none;
 }
 
 @media screen and (min-width: 768px) {
@@ -24,15 +23,12 @@
   }
 }
 
-@media screen and (min-width: 768px) {
-  .card {
-    max-width: 846px;
-  }
+.recipesInfo {
+  margin-bottom: 8px; /* Додаємо простір перед кнопкою */
 }
 
 .avatarWrapper {
   flex-shrink: 0;
-  /* margin-left: 16px; */
 }
 
 .avatar {
@@ -54,18 +50,24 @@
 .content {
   display: flex;
   flex-direction: row;
-  flex-grow: 1;
-  justify-content: flex-end;
-  align-content: space-between;
+  flex: 1;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .header {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: flex-start;
-  gap: 4px;
-  width: 85px;
+  gap: 8px;
+  min-width: 110px;
+}
+
+.footer {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
 }
 
 .name {
@@ -94,7 +96,7 @@
   font-size: 12px;
   line-height: 1.5;
   margin-bottom: 4px;
-  color: #BFBEBE;
+  color: #bfbebe;
   font-weight: 500;
   letter-spacing: -0.02em;
 }
@@ -120,40 +122,39 @@
   opacity: 0.6;
   padding: 4px;
   margin: 0;
-  border: 1px solid #BFBEBE;
+  border: 1px solid #bfbebe;
   border-radius: 50%;
-
 }
 
-.iconArrow {
-  fill: currentColor;
-  width: 16px;
-  height: 16px;
+.arrowBtn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #bfbebe;
+  border-radius: 50%;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
 }
 
 .actionBtn {
-  width: 92px;
-  height: 36px;
+  padding: 8px 16px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: -0.02em;
   line-height: 1.43;
-
+  background-color: transparent;
+  border: 1px solid #bfbebe;
+  color: #1a1a1a;
 }
 
-.actionBtn.actionBtn {
-  padding: 0;
+.actionBtn[data-variant='outlined'] {
   background-color: transparent;
-  border: 1px solid #BFBEBE;
+  border: 1px solid #bfbebe;
 
-  color: #1A1A1A;
-}
-
-.actionBtn[data-variant="outlined"] {
-  background-color: transparent;
-  border: 1px solid #BFBEBE;
-
-  color: #1A1A1A;
+  color: #1a1a1a;
 }
 
 @media screen and (min-width: 768px) {
@@ -161,18 +162,11 @@
     gap: 60px;
   }
 
-
-  .card {
-    padding: 32px 0;
-  }
-
-
   .header {
     gap: 4px;
     width: 116px;
     /* height: 100px; */
   }
-
 
   .header {
     margin-bottom: 8px;
@@ -213,6 +207,33 @@
       object-fit: cover;
       display: block;
     }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .header {
+    width: auto;
+    min-width: 120px;
+    margin-bottom: 0;
+  }
+
+  .recipePreviews {
+    display: flex;
+    flex-grow: 1;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .footer {
+    margin-left: 0;
   }
 }
 

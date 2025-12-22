@@ -13,14 +13,12 @@ const UserRecipes = () => {
   const navigate = useNavigate();
   const { recipes } = useSelector(id === 'current' ? selectMyRecipes : selectUserRecipes);
 
-  console.log('UserRecipes render:', recipes);
-
   useEffect(() => {
     if (id === 'current') {
-      dispatch(fetchMyRecipes());
+      dispatch(fetchMyRecipes({ limit: 9, page: 1 }));
       return;
     }
-    dispatch(fetchUserRecipes(id));
+    dispatch(fetchUserRecipes({ id, limit: 9, page: 1 }));
   }, [dispatch, id]);
 
   const handleOpenRecipe = (id) => {
