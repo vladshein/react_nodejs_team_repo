@@ -25,6 +25,7 @@
     height: 46px;
     padding: 0 48px;
     margin-bottom: 80px;
+    margin-top: 20px;
   }
 
   .overlay {
@@ -37,6 +38,7 @@
     max-width: 1400px;
     height: 46px;
     padding: 0 60px;
+    margin-top: 20px;
   }
 }
 
