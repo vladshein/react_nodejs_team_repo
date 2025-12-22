@@ -28,8 +28,7 @@ const RecipeMainInfo = ({ recipe }) => {
 
   return (
     <div className={styles.container}>
-      <h1>{recipe.title}</h1>
-
+      <h1 className={styles.recipeTitle}>{recipe.title}</h1>
       <div className={styles.badgesBlock}>
         <div className={styles.badge}>{recipe.category.name}</div>
         <div className={styles.badge}>{recipe.time} min</div>

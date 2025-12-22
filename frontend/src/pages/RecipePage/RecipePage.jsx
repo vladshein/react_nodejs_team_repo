@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import Button from '../../components/common/button/Button';
 import RequireAuthAction from '../../components/RequireAuthAction/RequireAuthAction';
 import { useFavoriteRecipe } from '../../services/useFavoriteRecipes';
+import Breadcrumbs from '../../components/SharedLayoutComponents/Breadcrumbs/Breadcrumbs';
 
 const RecipePage = () => {
   const { id } = useParams(); // recipe id from URL
@@ -56,18 +57,23 @@ const RecipePage = () => {
     fetchPopular();
   }, [API_BASE]);
 
+  const breadcrumbs = [
+    { name: 'Home', path: '/' },
+    { name: recipe?.title, path: `/recipe/${recipe?.id}` },
+  ];
+
   if (loading) return <div>Loading...</div>;
   if (!recipe) return <div>Recipe not found</div>;
 
   return (
     <>
-      <div className={styles.catalogContainer}>
+      <div className={styles.pageContainer}>
+        <Breadcrumbs paths={breadcrumbs} />
         <RecipeInfo>
-          <div className={styles.columnContainerLeft}>
-            {' '}
+          <div className={styles.imageContainer}>
             {recipe && <img src={recipe.thumb} className={styles.recipeImage} />}
           </div>
-          <div className={styles.columnContainerRight}>
+          <div className={styles.infoContainer}>
             <RecipeMainInfo recipe={recipe} />
             <RecipeIngredients ingredients={recipe.ingredients} />
             <RecipePreparation instructions={recipe.instructions} />

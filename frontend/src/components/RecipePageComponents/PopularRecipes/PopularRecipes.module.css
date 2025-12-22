@@ -3,15 +3,14 @@
   display: flex;
   flex-direction: column;
   gap: 40px;
-  width: 1280px;
+  padding: 0 16px 48px 16px;
 }
 
 .title {
-  font-family: Mulish;
-  font-weight: 800;
+  font-weight: var(--fw-800);
+  text-align: left;
   font-size: 24px;
   line-height: 28px;
-  letter-spacing: -0.02em;
   text-transform: uppercase;
   color: #050505;
 }
@@ -19,6 +18,8 @@
 /* cards */
 .cards {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 20px;
 }
 
@@ -27,12 +28,14 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  width: 305px;
+  height: 362px;
+  width: 100%;
+  max-width: 343px;
 }
 
 /* image */
 .cardImage {
-  width: 305px;
+  width: 100%;
   height: 275px;
   border-radius: 30px;
   object-fit: cover;
@@ -74,7 +77,7 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.02em;
-  color: #1A1A1A;
+  color: #1a1a1a;
 }
 
 .cardDescription {
@@ -103,7 +106,7 @@
   width: 40px;
   height: 40px;
   border-radius: 30px;
-  background-color: #BFBEBE;
+  background-color: #bfbebe;
 }
 
 .userName {
@@ -112,7 +115,7 @@
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.02em;
-  color: #1A1A1A;
+  color: #1a1a1a;
 }
 
 /* icons */
@@ -124,10 +127,35 @@
 .iconButton {
   width: 42px;
   height: 42px;
-  border: 1px solid #BFBEBE;
+  border: 1px solid #bfbebe;
   border-radius: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   background: transparent;
+}
+
+@media (min-width: 768px) {
+  .popular {
+    padding: 0 32px 60px 32px;
+  }
+
+  .cards {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .card {
+    width: 342px;
+    height: 412px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .card {
+    width: 305px;
+    height: 421px;
+  }
 }
