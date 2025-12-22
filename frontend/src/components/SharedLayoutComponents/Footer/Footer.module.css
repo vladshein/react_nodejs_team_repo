@@ -1,5 +1,22 @@
 .footer {
-  padding: 72px 40px;
+  max-width: 375px;
+  padding: 16px 32px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+@media only screen and (min-width: 768px) {
+  .footer {
+    max-width: 768px;
+    padding: 40px 32px;
+  }
+}
+
+@media only screen and (min-width: 1440px) {
+  .footer {
+    max-width: 1400px;
+    padding: 50px 60px;
+  }
 }
 
 .topRow {
@@ -21,17 +38,8 @@
   border-top: 1px solid #e0e0e0;
   text-align: center;
 }
-@media (min-width: 375px) {
-  .footer {
-    padding: 32px 32px;
-  }
-}
 
-@media (min-width: 768px) {
-  .footer {
-    padding: 40px 40px;
-  }
-
+@media only screen and (min-width: 768px) {
   .topRow {
     flex-direction: row;
     align-items: center;
@@ -40,11 +48,5 @@
 
   .bottomRow {
     text-align: center;
-  }
-}
-
-@media (min-width: 1440px) {
-  .footer {
-    padding: 50px 100px;
   }
 }

@@ -16,8 +16,20 @@ const UserBar = ({ onLogOutClick }) => {
   const SERVER_URL = API_URL.replace('/api', '');
 
   let avatarUrl = noimage;
-  if (user) {
-    avatarUrl = user.avatar;
+
+  // if (user) {
+  // avatarUrl = user.avatar;
+  // const defaultAvatar = '/cat_avatar.png';
+
+  // let avatarUrl = defaultAvatar;
+
+  if (user?.avatar) {
+    if (user.avatar.startsWith('http')) {
+      avatarUrl = user.avatar;
+    } else {
+      const normalizedPath = user.avatar.startsWith('/') ? user.avatar : `/${user.avatar}`;
+      avatarUrl = `${SERVER_URL}${normalizedPath}`;
+    }
   }
 
   // if (user.avatar && !user.avatar.startsWith('http')) {

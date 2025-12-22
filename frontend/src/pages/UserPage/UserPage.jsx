@@ -45,16 +45,15 @@ const UserPage = () => {
   ) : (
     user && (
       <div className={styles.container}>
-        <Breadcrumbs paths={breadcrumbs} />
-        <div className={styles.pageContainer}>
-          <div className={styles.header}>
-            <h2 className={styles.title}>PROFILE</h2>
-            <p className={styles.subtitle}>
-              Reveal your culinary art, share your favorite recipe and create gastronomic
-              masterpieces with us.
-            </p>
-          </div>
-          <div className={styles.heroSection}>
+          <Breadcrumbs paths={breadcrumbs} />
+          
+        <div className={styles.pageWrapper}>
+          <h2 className={styles.title}>profile</h2>
+          <p className={styles.description}>
+            Reveal your culinary art, share your favorite recipe and create gastronomic masterpieces
+            with us.
+          </p>
+          <div className={styles.outletContainer}>
             <aside className={styles.sidebar}>
               <UserInfo user={user} />
             </aside>
@@ -65,6 +64,9 @@ const UserPage = () => {
           </div>
         </div>
       </div>
+      // <div className={styles.pageContainer}>
+
+      // </div>
     )
   );
 };
