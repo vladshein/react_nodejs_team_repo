@@ -4,6 +4,13 @@
 
 ---
 
+## 🔗 Посилання на проєкт
+
+- **Live Demo:** [https://react-nodejs-team-repo-7bmf.vercel.app/](https://react-nodejs-team-repo-7bmf.vercel.app/)
+- **GitHub Репозиторій:** [vladshein/react_nodejs_team_repo](https://github.com/vladshein/react_nodejs_team_repo)
+
+---
+
 ## 🚀 Технологічний стек
 
 ### **Frontend**
@@ -61,4 +68,13 @@
 1. **Клонуйте репозиторій:**
    ```bash
    git clone [https://github.com/vladshein/react_nodejs_team_repo.git](https://github.com/vladshein/react_nodejs_team_repo.git)
+   ```
+2. **Встановлення залежностей:**
+   ```bash
+   npm install
+   ```
+3. **Налаштування середовища: Створіть файл .env у корені проєкту та додайте ваші змінні (ключі бази даних, секрети JWT).**
+4. **Запуск проєкту:**
+   ```bash # Для розробки (Frontend + Backend)
+   npm run dev
    ```
