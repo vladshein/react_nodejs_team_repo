@@ -37,13 +37,11 @@
   }
 }
 
-
 /* .outletContainer {
   display: flex;
   flex-direction: row;
   gap: 40px;
-}
-
+} */
 .container {
   /* margin: 0 16px 64px 16px; */
   max-width: 359px;
