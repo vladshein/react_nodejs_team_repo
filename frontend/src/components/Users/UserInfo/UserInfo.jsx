@@ -46,7 +46,6 @@ const UserInfo = ({ user }) => {
     dispatch(unfollowUser(user.id));
   };
 
-  // const defaultAvatar = `${import.meta.env.BASE_URL}cat_avatar.png`;
   let avatarUrl = user.avatar || defaultAvatar;
   if (user.avatar && !user.avatar.startsWith('http') && !user.avatar.startsWith('//')) {
     avatarUrl = defaultAvatar;
