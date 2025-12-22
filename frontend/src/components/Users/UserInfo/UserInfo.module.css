@@ -151,7 +151,9 @@
 }
 
 .actionBtn {
-  width: 343px;
+  width: 100%;
+  max-width: 343px;
+  /* width: 343px; */
   height: 48px;
   font-size: 14px;
   line-height: 1.5;
@@ -167,7 +169,8 @@
 
 @media screen and (min-width: 768px) {
   .actionBtn {
-    width: 394px;
+    width: 100%;
+    max-width: 394px;
     height: 60px;
     font-size: 16px;
   }

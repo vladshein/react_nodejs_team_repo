@@ -21,7 +21,24 @@
   }
 }
 
-.outletContainer {
+.containerWrapper {
+  margin: 0 16px 0 0;
+}
+
+@media screen and (min-width: 768px) {
+  .containerWrapper {
+    margin: 0 16px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .containerWrapper {
+    margin: 0;
+  }
+}
+
+
+/* .outletContainer {
   display: flex;
   flex-direction: row;
   gap: 40px;
