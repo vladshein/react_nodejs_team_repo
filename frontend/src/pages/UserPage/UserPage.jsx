@@ -45,8 +45,8 @@ const UserPage = () => {
   ) : (
     user && (
       <div className={styles.container}>
-          <Breadcrumbs paths={breadcrumbs} />
-          
+        <Breadcrumbs paths={breadcrumbs} />
+
         <div className={styles.pageWrapper}>
           <h2 className={styles.title}>profile</h2>
           <p className={styles.description}>

@@ -48,13 +48,13 @@
 
 }
 
-.container {
-  /* margin: 0 16px 64px 16px; */
+/* .container {
+
   max-width: 359px;
   padding: 0 16px;
   margin: 0 auto;
   margin-bottom: 64px;
-}
+} */
 
 .pageContainer {
   display: flex;
