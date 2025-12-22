@@ -2,8 +2,8 @@
   position: relative;
   min-width: 320px;
   max-width: 375px;
-  margin: 8px auto 64px;
-  padding: 16px;
+  margin:auto;
+  padding: 8px;
 }
 
 @media only screen and (min-width: 768px) {

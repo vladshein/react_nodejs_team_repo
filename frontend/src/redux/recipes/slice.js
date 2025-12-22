@@ -83,7 +83,7 @@ const recipesSlice = createSlice({
       .addCase(removeFromFavorites.fulfilled, (state, action) => {
         state.isLoading = false;
         const removedId = action.meta.arg;
-        state.favorites = state.favorites.filter((recipe) => {
+        state.favorites.favorites = state.favorites.favorites.filter((recipe) => {
           const currentId = String(recipe.id || recipe._id);
           const targetId = String(removedId);
           return currentId !== targetId;

@@ -6,6 +6,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUserId, selectIsFollowing } from '../../../redux/users/selectors';
 import { followUser, unfollowUser } from '../../../redux/users/actions';
 
+import defaultAvatar from '../../../assets/no-image.png';
+
+const API_URL = import.meta.env.VITE_API_URL;
+const SERVER_URL = API_URL.replace('/api', '');
+
 const UserList = ({ user }) => {
   const dispatch = useDispatch();
   const currentUserId = useSelector(selectCurrentUserId);
@@ -14,7 +19,6 @@ const UserList = ({ user }) => {
   const isFollowing = useSelector(selectIsFollowing(id));
 
   const recipes = user.recipesHas || [];
-  const defaultAvatar = '/cat_avatar.png';
   const handleGoToProfile = () => {
     navigate(`/user/${id}`);
   };
@@ -27,6 +31,11 @@ const UserList = ({ user }) => {
     dispatch(unfollowUser(userId)).unwrap();
   };
 
+  let avatarUrl = user.avatar || defaultAvatar;
+  if (user.avatar && !user.avatar.startsWith('http') && !user.avatar.startsWith('//')) {
+    avatarUrl = `${SERVER_URL}/${user.avatar}`;
+  }
+
   return (
     <li className={styles.card}>
       <div
@@ -34,7 +43,7 @@ const UserList = ({ user }) => {
         onClick={handleGoToProfile}
         style={{ cursor: 'pointer' }}>
         <img
-          src={avatar || defaultAvatar}
+          src={avatarUrl || defaultAvatar}
           alt={name}
           className={styles.avatar}
           width="60"

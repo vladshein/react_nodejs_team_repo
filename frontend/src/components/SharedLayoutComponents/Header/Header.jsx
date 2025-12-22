@@ -33,7 +33,7 @@ const Header = () => {
   const width = useBreakpoint();
   const isDesktop = width >= 1440;
   const isTablet = width >= 768 && width < 1440;
-  const [menuOpen, setMenuOpen] = useState(false);
+  const isMobile = width < 768;
 
   const handleLoginClick = () => {
     dispatch(openModal({ modalType: 'auth', modalProps: { view: 'signIn' } }));
@@ -47,8 +47,53 @@ const Header = () => {
     dispatch(openModal({ modalType: 'logout' }));
   };
 
+  return (
+    <HeaderContent
+      key={`${location.pathname}:${isMobile ? 'm' : 'd'}`}
+      isHeroPage={isHeroPage}
+      variant={variant}
+      isLoggedIn={isLoggedIn}
+      isDesktop={isDesktop}
+      isTablet={isTablet}
+      onLoginClick={handleLoginClick}
+      onRegisterClick={handleRegisterClick}
+      onLogOutClick={handleLogOutClick}
+    />
+  );
+};
+
+const HeaderContent = ({
+  isHeroPage,
+  variant,
+  isLoggedIn,
+  isDesktop,
+  isTablet,
+  onLoginClick,
+  onRegisterClick,
+  onLogOutClick,
+}) => {
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+
+    const originalOverflow = document.body.style.overflow;
+    const originalPaddingRight = document.body.style.paddingRight;
+
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+    document.body.style.overflow = 'hidden';
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+    }
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.body.style.paddingRight = originalPaddingRight;
+    };
+  }, [menuOpen]);
+
   const handleBurgerClick = () => {
-    setMenuOpen(!menuOpen);
+    setMenuOpen((prev) => !prev);
   };
 
   return (
@@ -58,7 +103,6 @@ const Header = () => {
           variant === 'dark' ? style.dark : style.light
         }`}>
         <Logo variant={variant === 'dark' ? 'light' : 'dark'} width={83} height={28} />
-        {/* <HeaderNav variant={variant === 'dark' ? 'light' : 'dark'} /> */}
 
         {/* Always show on desktop, only if logged in on tablet */}
         <div className={style.headerNavWrapper}>
@@ -68,21 +112,20 @@ const Header = () => {
         </div>
 
         {isLoggedIn ? (
-          // <div className={style.userAndBurger}>
-          <>
-            <UserBar onLogOutClick={handleLogOutClick} />
+          <div className={style.userAndBurger}>
+            <UserBar onLogOutClick={onLogOutClick} />
             <IconBurgerMenu
               className={style.burger}
               onClick={handleBurgerClick}
               stroke={variant === 'dark' ? '#fff' : '#000'}
             />
-          </>
+          </div>
         ) : (
-          //
-          <AuthBar onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />
+          <AuthBar onLoginClick={onLoginClick} onRegisterClick={onRegisterClick} />
         )}
       </header>
-      <BurgerMenu isOpen={menuOpen} variant={variant === 'dark' ? 'light' : 'dark'} />
+
+      <BurgerMenu isOpen={menuOpen} variant={variant === 'dark' ? 'light' : 'dark'} onNavigate={() => setMenuOpen(false)} />
     </>
   );
 };

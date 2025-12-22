@@ -1,13 +1,8 @@
 .list {
   display: flex;
   flex-direction: column;
-  gap: 0; /* Прибираємо відстань між елементами списку */
+  gap: 0;
   padding: 0;
   margin: 0;
   list-style: none;
 }
-/* 
-@media screen and (min-width: 768px) {
-  .list {
-  }
-} */
