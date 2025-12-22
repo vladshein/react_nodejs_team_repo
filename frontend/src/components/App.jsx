@@ -47,7 +47,7 @@ const App = () => {
       state?.areas?.isLoading ||
       state?.ingredients?.isLoading ||
       state?.recipes?.isLoading ||
-      state?.users?.isLoading ||
+      state?.users?.loading ||
       state?.testimonials?.isLoading
     );
   });
