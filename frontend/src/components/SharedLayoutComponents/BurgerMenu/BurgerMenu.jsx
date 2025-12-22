@@ -44,8 +44,8 @@ const BurgerMenu = ({ isOpen, variant = 'dark', onNavigate }) => {
         </nav>
 
         <div className={styles.pictures} aria-hidden="true">
-          <img className={styles.rotated1} src="./images/Hero/desert2x.webp" alt="" />
-          <img className={styles.rotated2} src="./images/Hero/hot_dog2x.webp" alt="" />
+          <img className={styles.rotated1} src="/images/Hero/desert2x.webp" alt="" />
+          <img className={styles.rotated2} src="/images/Hero/hot_dog2x.webp" alt="" />
         </div>
       </div>
     </div>
