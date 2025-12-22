@@ -10,6 +10,7 @@ import { fetchIngredients } from '../../redux/ingredients/actions';
 import Loader from '../../components/common/Loader/Loader';
 import Breadcrumbs from '../../components/SharedLayoutComponents/Breadcrumbs/Breadcrumbs';
 import styles from './AddRecipePage.module.css';
+import mainStyles from '../../components/App.module.css';
 
 const AddRecipePage = () => {
   const dispatch = useDispatch();
@@ -47,7 +48,7 @@ const AddRecipePage = () => {
 
   return (
     <div>
-      <div className={styles.container}>
+      <div className={`${styles.container} `}>
         <Breadcrumbs paths={breadcrumbs} />
         <div className={styles.pageWrapper}>
           <h2 className={styles.title}>Add recipe</h2>

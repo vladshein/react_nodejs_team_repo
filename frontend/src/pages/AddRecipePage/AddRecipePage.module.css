@@ -1,5 +1,9 @@
 .container {
-  margin: 0 16px 64px 16px;
+  /* margin: 0 16px 64px 16px; */
+  max-width: 359px;
+  padding: 0 16px;
+  margin: 0 auto;
+  margin-bottom: 64px;
 }
 
 .pageWrapper {
@@ -24,7 +28,11 @@
 
 @media (min-width: 768px) {
   .container {
-    margin: 0 32px 64px 32px;
+    /* margin: 0 32px 64px 32px; */
+    max-width: 768px;
+    margin: 0 auto;
+    margin-bottom: 64px;
+    padding: 0 32px;
   }
 
   .pageWrapper {
@@ -42,7 +50,11 @@
 
 @media (min-width: 1440px) {
   .container {
-    margin: 0 80px 120px 80px;
+    max-width: 1400px;
+    margin: 0 auto;
+    /* margin: 0 80px 120px 80px; */
+    margin-bottom: 120px;
+    padding: 0 60px;
   }
   .pageWrapper {
     margin-top: 40px;

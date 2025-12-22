@@ -43,9 +43,9 @@
 }
 
 .dark {
-  fill: black;
+  color: black;
 }
 
 .light {
-  fill: #fff;
+  color: #fff;
 }
