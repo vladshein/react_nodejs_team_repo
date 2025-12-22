@@ -45,16 +45,28 @@ const UserPage = () => {
     <div>Loading user data...</div>
   ) : (
     user && (
-      <div className={styles.pageContainer}>
+      <div className={styles.container}>
         <Breadcrumbs paths={breadcrumbs} />
-        <aside className={styles.sidebar}>
-          <UserInfo user={user} />
-        </aside>
-        <main className={styles.content}>
-          <TabsList />
-          <Outlet />
-        </main>
+        <div className={styles.pageWrapper}>
+          <h2 className={styles.title}>profile</h2>
+          <p className={styles.description}>
+            Reveal your culinary art, share your favorite recipe and create gastronomic masterpieces
+            with us.
+          </p>
+          <div className={styles.outletContainer}>
+            <aside className={styles.sidebar}>
+              <UserInfo user={user} />
+            </aside>
+            <main className={styles.content}>
+              <TabsList />
+              <Outlet />
+            </main>
+          </div>
+        </div>
       </div>
+      // <div className={styles.pageContainer}>
+
+      // </div>
     )
   );
 };
