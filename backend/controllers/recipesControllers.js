@@ -92,6 +92,7 @@ export const getUserRecipesController = async (req, res) => {
     recipes: items,
     pagination: {
       total: totalItems,
+      totalPages,
       page: currentPage,
       limit: responseLimit,
     },

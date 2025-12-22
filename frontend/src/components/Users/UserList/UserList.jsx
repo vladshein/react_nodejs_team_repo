@@ -82,7 +82,6 @@ const UserList = ({ user }) => {
             ))}
           </ul>
         )}
-
         <div className={styles.footer}>
           <button
             type="button"

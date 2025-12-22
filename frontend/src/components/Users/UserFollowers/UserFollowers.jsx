@@ -13,7 +13,7 @@ const UserFollowers = () => {
   const select = id === 'current' ? selectFollowers : selectSelectedUserFollowers;
   const followers = useSelector(select);
   const isLoading = useSelector(selectUserIsLoading);
-  console.log('id', id, 'followers', followers);
+  // console.log('id', id, 'followers', followers);
 
   return isLoading ? (
     <div>Loading...</div>
