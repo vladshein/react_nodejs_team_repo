@@ -52,7 +52,7 @@ const UserInfo = ({ user }) => {
   }
 
   return (
-    <section className={styles.container}>
+    <section className={styles.sectionContainer}>
       <div className={styles.card}>
         <div className={styles.avatarWrapper}>
           <img src={avatarUrl} alt={user.name} className={styles.avatar} />

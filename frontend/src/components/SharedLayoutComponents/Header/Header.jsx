@@ -56,9 +56,8 @@ const Header = () => {
       <header
         className={`${style.headerdiv} ${isHeroPage ? style.overlay : ''} ${
           variant === 'dark' ? style.dark : style.light
-        }`}
-      >
-        <Logo variant={variant === 'dark' ? 'light' : 'dark'} />
+        }`}>
+        <Logo variant={variant === 'dark' ? 'light' : 'dark'} width={83} height={28} />
         {/* <HeaderNav variant={variant === 'dark' ? 'light' : 'dark'} /> */}
 
         {/* Always show on desktop, only if logged in on tablet */}
@@ -72,14 +71,18 @@ const Header = () => {
           // <div className={style.userAndBurger}>
           <>
             <UserBar onLogOutClick={handleLogOutClick} />
-            <IconBurgerMenu className={style.burger} onClick={handleBurgerClick} />
+            <IconBurgerMenu
+              className={style.burger}
+              onClick={handleBurgerClick}
+              stroke={variant === 'dark' ? '#fff' : '#000'}
+            />
           </>
         ) : (
           //
           <AuthBar onLoginClick={handleLoginClick} onRegisterClick={handleRegisterClick} />
         )}
       </header>
-      <BurgerMenu isOpen={menuOpen} variant={variant} />
+      <BurgerMenu isOpen={menuOpen} variant={variant === 'dark' ? 'light' : 'dark'} />
     </>
   );
 };

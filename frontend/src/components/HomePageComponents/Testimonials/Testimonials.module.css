@@ -1,6 +1,8 @@
 .section {
   text-align: center;
   padding-bottom: 20px;
+  max-width: 343px;
+  margin: 0 auto;
 }
 
 .loading {
@@ -83,8 +85,7 @@
 
 @media (min-width: 768px) {
   .section {
-    width: 704px;
-    margin: 0 auto;
+    max-width: 704px;
   }
 
   .subtitle {
@@ -128,7 +129,7 @@
 
 @media (min-width: 1440px) {
   .section {
-    width: 822px;
+    max-width: 822px;
     margin: 0 auto;
   }
 }

@@ -14,10 +14,17 @@ const UserBar = ({ onLogOutClick }) => {
   const API_URL = import.meta.env.VITE_API_URL;
   const SERVER_URL = API_URL.replace('/api', '');
 
-  let avatarUrl = user.avatar || 'https://www.gravatar.com/avatar/?d=mp';
+  const defaultAvatar = '/cat_avatar.png';
 
-  if (user.avatar && !user.avatar.startsWith('http')) {
-    avatarUrl = `${SERVER_URL}${user.avatar}`;
+  let avatarUrl = defaultAvatar;
+
+  if (user?.avatar) {
+    if (user.avatar.startsWith('http')) {
+      avatarUrl = user.avatar;
+    } else {
+      const normalizedPath = user.avatar.startsWith('/') ? user.avatar : `/${user.avatar}`;
+      avatarUrl = `${SERVER_URL}${normalizedPath}`;
+    }
   }
 
   return (
