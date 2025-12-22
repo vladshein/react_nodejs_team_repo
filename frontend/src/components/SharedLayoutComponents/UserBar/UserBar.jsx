@@ -7,6 +7,7 @@ import IconArrowUpRight from '../../common/icons/IconArrowUpRight';
 import { useSelector } from 'react-redux';
 import { selectUserInfo } from '../../../redux/auth/selectors';
 import { Link } from 'react-router-dom';
+import noimage from './../../../images/no-image.png';
 
 const UserBar = ({ onLogOutClick }) => {
   const [open, setOpen] = useState(false);
@@ -14,9 +15,13 @@ const UserBar = ({ onLogOutClick }) => {
   const API_URL = import.meta.env.VITE_API_URL;
   const SERVER_URL = API_URL.replace('/api', '');
 
-  const defaultAvatar = '/cat_avatar.png';
+  let avatarUrl = noimage;
 
-  let avatarUrl = defaultAvatar;
+  // if (user) {
+  // avatarUrl = user.avatar;
+  // const defaultAvatar = '/cat_avatar.png';
+
+  // let avatarUrl = defaultAvatar;
 
   if (user?.avatar) {
     if (user.avatar.startsWith('http')) {
@@ -26,6 +31,10 @@ const UserBar = ({ onLogOutClick }) => {
       avatarUrl = `${SERVER_URL}${normalizedPath}`;
     }
   }
+
+  // if (user.avatar && !user.avatar.startsWith('http')) {
+  //   avatarUrl = `${SERVER_URL}${user.avatar}`;
+  // }
 
   return (
     <div className={style.userBar}>
