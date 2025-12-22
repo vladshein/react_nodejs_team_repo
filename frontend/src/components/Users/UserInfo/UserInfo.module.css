@@ -2,54 +2,41 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
 }
 
 .card {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
   box-sizing: border-box;
-  background-color: #fff;
   border-radius: 30px;
   width: 100%;
   max-width: 343px;
-  border: 1px solid #BFBEBE;
-  padding: 30px 24px 42px 24px;
-  margin: 0 auto;
-  margin-bottom: 42px;
+  border: 1px solid #bfbebe;
+  padding: 30px 70px;
 }
 
 @media screen and (min-width: 768px) {
   .card {
     width: 394px;
     max-width: 394px;
-    padding: 40px 40px;
+    padding: 40px;
     gap: 20px;
     min-height: 408px;
-    padding-top: 40px;
-    margin-bottom: 30px;
   }
 }
 
 @media screen and (min-width: 1440px) {
   .card {
     border: 1px solid #050505;
-    margin: 0 0 20px 60px;
     max-width: 394px;
-    padding-top: 40px;
-    margin-bottom: 20px;
   }
 }
 
 .avatarWrapper {
   position: relative;
-  margin-bottom: 16px;
-}
-
-@media screen and (min-width: 768px) {
-  .avatarWrapper {
-    margin-bottom: 8px;
-  }
 }
 
 .avatar {
@@ -85,14 +72,30 @@
   transition: all 0.3s ease;
 }
 
+.uploadBtn {
+  width: 28px;
+  height: 28px;
+}
+
+@media screen and (min-width: 768px) {
+  .uploadBtn {
+    width: 38px;
+    height: 38px;
+  }
+}
+
 .uploadBtn svg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   filter: invert(1);
   transition: filter 0.3s ease;
 }
 
 .uploadBtn:hover,
 .uploadBtn:active {
-  background: #FFFFFF;
+  background: #ffffff;
   border: 1px solid #050505;
 }
 
@@ -101,7 +104,6 @@
   filter: invert(0);
 }
 
-
 .name {
   font-weight: 800;
   font-size: 18px;
@@ -109,7 +111,6 @@
   letter-spacing: -0.02em;
   text-transform: uppercase;
   color: #050505;
-  margin-bottom: 20px;
 }
 
 @media screen and (min-width: 768px) {
@@ -123,7 +124,19 @@
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  gap: 8px;
+  align-self: flex-start;
+  gap: 6px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+
+@media screen and (min-width: 768px) {
+  .statsCard {
+    gap: 8px;
+    font-size: 14px;
+  }
 }
 
 .statItem {
@@ -132,19 +145,7 @@
 }
 
 .statLabel {
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 1.43;
-  letter-spacing: -0.02em;
-  color: #BFBEBE;
-}
-
-.statValue {
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1.5;
-  letter-spacing: -0.02em;
-  color: #050505;
+  color: #bfbebe;
 }
 
 .actionBtn {
@@ -153,14 +154,13 @@
   font-size: 14px;
   line-height: 1.5;
 
-
   font-weight: 700;
   font-size: 16px;
   line-height: 1.5;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  color: #FFFFFF;
-  background-color: #1A1A1A;
+  color: #ffffff;
+  background-color: #1a1a1a;
 }
 
 @media screen and (min-width: 768px) {
@@ -172,9 +172,8 @@
 }
 
 @media screen and (min-width: 1440px) {
-
   .actionBtn {
-    margin: 0 0 0 60px;
+    /* margin: 0 0 0 60px; */
   }
 }
 
@@ -198,4 +197,16 @@
 .actionBtn.isActive .icon,
 .favoriteButton.isFavorite .icon {
   filter: invert(0.5);
+}
+
+.iconPlus {
+  width: 16px;
+  height: 16px;
+}
+
+@media screen and (min-width: 768px) {
+  .iconPlus {
+    width: 18px;
+    height: 18px;
+  }
 }

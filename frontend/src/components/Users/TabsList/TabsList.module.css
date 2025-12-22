@@ -8,6 +8,18 @@
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  scroll-snap-type: x mandatory;
+  margin-bottom: 32px;
+}
+
+@media screen and (min-width: 768px) {
+  .navMenu {
+    margin-bottom: 48px;
+  }
+}
+
+.navMenu::-webkit-scrollbar {
+  display: none;
 }
 
 .navItem {
@@ -20,6 +32,8 @@
   white-space: nowrap;
   flex-shrink: 0;
   cursor: pointer;
+
+  scroll-snap-align: start;
 }
 
 .navItem.active {

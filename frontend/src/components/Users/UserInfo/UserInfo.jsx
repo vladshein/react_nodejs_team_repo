@@ -71,7 +71,7 @@ const UserInfo = ({ user }) => {
               type="button"
               onClick={handleUploadClick}
               aria-label="Upload avatar">
-              <IconPlus width={20} height={20} className={styles.iconPlus} />
+              <IconPlus width={16} height={16} className={styles.iconPlus} />
             </button>
           )}
         </div>
@@ -80,8 +80,8 @@ const UserInfo = ({ user }) => {
 
         <div className={styles.statsCard}>
           <p className={styles.statItem}>
-            <span className={styles.label}>Email:</span>
-            <span className={styles.value}>{user.email}</span>
+            <span className={styles.statLabel}>Email:</span>
+            <span className={styles.statValue}>{user.email}</span>
           </p>
 
           <div className={styles.statItem}>

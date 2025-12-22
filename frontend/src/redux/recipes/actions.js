@@ -46,9 +46,9 @@ const fetchTopRecipes = createAsyncThunk(
 
 const fetchMyRecipes = createAsyncThunk(
   recipesActions.FETCH_MY_RECIPES,
-  async (_, { rejectWithValue }) => {
+  async ({ limit, page }, { rejectWithValue }) => {
     try {
-      const { data } = await recipesService.getMyRecipes();
+      const { data } = await recipesService.getMyRecipes(limit, page);
       return data;
       // api call to fetch user's own recipes
     } catch (error) {
@@ -59,9 +59,9 @@ const fetchMyRecipes = createAsyncThunk(
 
 const fetchUserRecipes = createAsyncThunk(
   recipesActions.FETCH_USER_RECIPES,
-  async (userId, { rejectWithValue }) => {
+  async ({ id, limit, page }, { rejectWithValue }) => {
     try {
-      const { data } = await recipesService.getUserRecipes(userId);
+      const { data } = await recipesService.getUserRecipes(id, limit, page);
       return data;
       // api call to fetch user's own recipes
     } catch (error) {

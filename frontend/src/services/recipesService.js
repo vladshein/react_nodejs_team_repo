@@ -13,8 +13,9 @@ export const recipesService = {
 
   deleteRecipe: async (recipeId) => await api.delete(`/recipes/${recipeId}`),
 
-  getMyRecipes: async () => await api.get('/recipes/my'),
-  getUserRecipes: async (userId) => await api.get(`/recipes/userrecipes/${userId}`),
+  getMyRecipes: async (limit, page) => await api.get('/recipes/my', { params: { limit, page } }),
+  getUserRecipes: async (userId, limit, page) =>
+    await api.get(`/recipes/userrecipes/${userId}`, { params: { limit, page } }),
   getRecipesFavorites: async () => await api.get('/recipes/favorites'),
   addToFavorites: async (recipeId) => await api.post(`/recipes/favorites/${recipeId}`),
   deleteFromFavorite: async (recipeId) => await api.delete(`/recipes/favorites/${recipeId}`),

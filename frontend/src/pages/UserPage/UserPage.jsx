@@ -32,7 +32,6 @@ const UserPage = () => {
   }, [dispatch, id]);
 
   const select = id === 'current' ? selectCurrentUser : selectSelectedUser;
-
   const user = useSelector(select);
   const isLoading = useSelector(selectUserIsLoading);
 
@@ -45,15 +44,26 @@ const UserPage = () => {
     <div>Loading user data...</div>
   ) : (
     user && (
-      <div className={styles.pageContainer}>
+      <div className={styles.container}>
         <Breadcrumbs paths={breadcrumbs} />
-        <aside className={styles.sidebar}>
-          <UserInfo user={user} />
-        </aside>
-        <main className={styles.content}>
-          <TabsList />
-          <Outlet />
-        </main>
+        <div className={styles.pageContainer}>
+          <div className={styles.header}>
+            <h2 className={styles.title}>PROFILE</h2>
+            <p className={styles.subtitle}>
+              Reveal your culinary art, share your favorite recipe and create gastronomic
+              masterpieces with us.
+            </p>
+          </div>
+          <div className={styles.heroSection}>
+            <aside className={styles.sidebar}>
+              <UserInfo user={user} />
+            </aside>
+            <main className={styles.content}>
+              <TabsList />
+              <Outlet />
+            </main>
+          </div>
+        </div>
       </div>
     )
   );
