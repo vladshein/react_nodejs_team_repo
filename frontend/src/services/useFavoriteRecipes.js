@@ -24,7 +24,7 @@ export const useFavoriteRecipe = (recipeId) => {
         if (!res.ok) throw new Error('Failed to load favorites');
 
         const data = await res.json();
-        setIsFavorite(data.some((item) => item.id === recipeId));
+        setIsFavorite(data.favorites.some((item) => item.id === recipeId));
       } catch (err) {
         console.error(err);
       }
