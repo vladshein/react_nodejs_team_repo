@@ -15,8 +15,8 @@ const Hero = () => {
         </button>
       </RequireAuthAction>
       <div className={style.heropicture}>
-        <img className={style.rotated1} src="./images/Hero/desert2x.webp" alt="icon" />
-        <img className={style.rotated2} src="./images/Hero/hot_dog2x.webp" alt="icon" />
+        <img className={style.rotated1} src="/images/Hero/desert2x.webp" alt="icon" />
+        <img className={style.rotated2} src="/images/Hero/hot_dog2x.webp" alt="icon" />
       </div>
     </section>
   );
