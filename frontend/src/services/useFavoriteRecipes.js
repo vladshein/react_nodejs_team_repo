@@ -24,11 +24,7 @@ export const useFavoriteRecipe = (recipeId) => {
         if (!res.ok) throw new Error('Failed to load favorites');
 
         const data = await res.json();
-
-        const favorites = Array.isArray(data) ? data : data.recipes || data.favorites || [];
-
-        const exists = favorites.some((item) => item.id === recipeId);
-        setIsFavorite(exists);
+        setIsFavorite(data.favorites.some((item) => item.id === recipeId));
       } catch (err) {
         console.error(err);
       }

@@ -88,16 +88,16 @@ const Recipes = () => {
           <path
             d="M14.3029 9.0005L3.6963 8.99935"
             stroke="#050505"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
           <path
             d="M8.99902 14.3032L3.6963 8.99935L9.00017 3.69662"
             stroke="#050505"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+            strokeWidth="1.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
           />
         </svg>
         <span className={styles.btnTxt}>back</span>
