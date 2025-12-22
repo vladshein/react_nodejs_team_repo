@@ -1,7 +1,3 @@
-.userBar {
-  margin-left: auto;
-}
-
 .userBarTop {
   min-width: 80px;
   max-width: 250px;
@@ -10,7 +6,6 @@
   align-items: center;
   border-radius: 30px;
   background: #1a1a1a;
-  margin-left: auto;
 }
 
 .userBarBottom {
@@ -21,7 +16,6 @@
   align-items: center;
   border-radius: 30px;
   background: #1a1a1a;
-  margin-left: auto;
 }
 
 .nameSvgDiv {
@@ -66,7 +60,7 @@
 
 .userBarBottom {
   position: absolute;
-  border: 1px solid #e8e8e8;
+  border: 1px solid #FFFFFF33;
   top: 110%; /* place directly below .userBarTop */
 
   margin-top: 8px;

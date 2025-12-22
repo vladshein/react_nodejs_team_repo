@@ -12,7 +12,7 @@ import { useFavoriteRecipe } from '../../../services/useFavoriteRecipes';
 
 import noimage from './../../../images/no-image.png';
 
-export default function RecipeCard({ recipe }) {
+export default function RecipeCard({ recipe, className = '' }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -67,7 +67,7 @@ export default function RecipeCard({ recipe }) {
   };
 
   return (
-    <div className={styles.card}>
+    <div className={`${styles.card} ${className}`.trim()}>
       {/* Image */}
       <div
         className={styles.imageContainer}

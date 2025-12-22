@@ -1,14 +1,12 @@
 const IconBurgerMenu = ({ className, width = 28, height = 28, onClick, stroke = '#fff' }) => {
   return (
-    <button className={className} onClick={onClick} aria-label="Menu">
+    <button type="button" className={className} onClick={onClick} aria-label="Menu">
       <svg
         width={width}
         height={height}
         viewBox="0 0 28 28"
         fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        onClick={onClick}
-        className={className}>
+        xmlns="http://www.w3.org/2000/svg">
         <path
           d="M24.5 11.6667H3.5"
           stroke={stroke}
