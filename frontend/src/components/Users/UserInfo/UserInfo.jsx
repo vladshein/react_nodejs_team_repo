@@ -45,10 +45,9 @@ const UserInfo = ({ user }) => {
     dispatch(unfollowUser(user.id));
   };
 
-  const defaultAvatar = `${import.meta.env.BASE_URL}cat_avatar.png`;
-  let avatarUrl = user.avatar || defaultAvatar;
+  let avatarUrl = user.avatar || 'https://www.gravatar.com/avatar/?d=mp';
 
-  if (user.avatar && !user.avatar.startsWith('http') && !user.avatar.startsWith('//')) {
+  if (user.avatar && !user.avatar.startsWith('http')) {
     avatarUrl = `${SERVER_URL}/${user.avatar}`;
   }
 

@@ -22,7 +22,7 @@ function Subtitle({ tag = 'p', children, className = '' }) {
 // const API_BASE = 'https://react-nodejs-team-repo.onrender.com';
 // const API_BASE = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
 const API_BASE = import.meta.env.VITE_API_URL;
-console.log(API_BASE);
+// console.log(API_BASE);
 
 const Testimonials = ({ onLoadingChange = () => {} }) => {
   const [items, setItems] = useState([]);
