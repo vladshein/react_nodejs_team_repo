@@ -7,6 +7,7 @@ import Button from '../../common/button/Button';
 import IconPlus from '../../common/icons/IconPlus';
 import { followUser, unfollowUser, updateAvatar } from '../../../redux/users/actions';
 import { selectIsFollowing } from '../../../redux/users/selectors';
+import defaultAvatar from '../../../assets/no-image.png';
 
 const API_URL = import.meta.env.VITE_API_URL;
 const SERVER_URL = API_URL.replace('/api', '');
@@ -45,10 +46,9 @@ const UserInfo = ({ user }) => {
     dispatch(unfollowUser(user.id));
   };
 
-  let avatarUrl = user.avatar || 'https://www.gravatar.com/avatar/?d=mp';
-
-  if (user.avatar && !user.avatar.startsWith('http')) {
-    avatarUrl = `${SERVER_URL}/${user.avatar}`;
+  let avatarUrl = user.avatar || defaultAvatar;
+  if (user.avatar && !user.avatar.startsWith('http') && !user.avatar.startsWith('//')) {
+    avatarUrl = defaultAvatar;
   }
 
   return (
