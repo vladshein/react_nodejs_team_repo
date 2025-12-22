@@ -37,7 +37,7 @@ export default function RecipeCard({ recipe }) {
       dispatch(
         openModal({
           modalType: 'auth',
-          modalProps: { view: 'signIn' },
+          modalProps: { view: 'signIn', redirectTo: '/' },
         })
       );
       return;
@@ -54,6 +54,15 @@ export default function RecipeCard({ recipe }) {
 
   const handleAuthorClick = (e) => {
     e.stopPropagation();
+    if (!isLoggedIn) {
+      dispatch(
+        openModal({
+          modalType: 'auth',
+          modalProps: { view: 'signIn', redirectTo: '/' },
+        })
+      );
+      return;
+    }
     if (author.id) navigate(`/user/${author.id}/recipes`);
   };
 

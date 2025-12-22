@@ -7,6 +7,7 @@ import IconArrowUpRight from '../../common/icons/IconArrowUpRight';
 import { useSelector } from 'react-redux';
 import { selectUserInfo } from '../../../redux/auth/selectors';
 import { Link } from 'react-router-dom';
+import noimage from './../../../images/no-image.png';
 
 const UserBar = ({ onLogOutClick }) => {
   const [open, setOpen] = useState(false);
@@ -14,11 +15,14 @@ const UserBar = ({ onLogOutClick }) => {
   const API_URL = import.meta.env.VITE_API_URL;
   const SERVER_URL = API_URL.replace('/api', '');
 
-  let avatarUrl = user.avatar || 'https://www.gravatar.com/avatar/?d=mp';
-
-  if (user.avatar && !user.avatar.startsWith('http')) {
-    avatarUrl = `${SERVER_URL}${user.avatar}`;
+  let avatarUrl = noimage;
+  if (user) {
+    avatarUrl = user.avatar;
   }
+
+  // if (user.avatar && !user.avatar.startsWith('http')) {
+  //   avatarUrl = `${SERVER_URL}${user.avatar}`;
+  // }
 
   return (
     <div className={style.userBar}>
