@@ -48,7 +48,7 @@ const UserInfo = ({ user }) => {
 
   let avatarUrl = user.avatar || defaultAvatar;
   if (user.avatar && !user.avatar.startsWith('http') && !user.avatar.startsWith('//')) {
-    avatarUrl = defaultAvatar;
+    avatarUrl = `${SERVER_URL}/${user.avatar}`;
   }
 
   return (
