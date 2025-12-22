@@ -10,7 +10,7 @@ import { selectIsLoggedIn } from '../../../redux/auth/selectors';
 import { openModal } from '../../../redux/modal/modalSlice';
 import { useFavoriteRecipe } from '../../../services/useFavoriteRecipes';
 
-import noimage from './../../../../public/images/no-image.png';
+import noimage from './../../../images/no-image.png';
 
 export default function RecipeCard({ recipe }) {
   const navigate = useNavigate();
